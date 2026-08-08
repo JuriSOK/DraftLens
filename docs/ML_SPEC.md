@@ -416,6 +416,8 @@ Required baselines: **(1)** scoring average only; **(2)** a simple standardised 
 
 **Complexity principle.** DraftLens prioritises temporal generalisation, explainability, calibration, and robustness over leaderboard performance. Prefer the simpler model unless a more complex one delivers **consistent** improvement across folds — not an improvement carried by one fold.
 
+> **Stage A resolved in ML-4 (DEC-080).** Random forest, HistGradientBoosting and classic gradient boosting were evaluated against the incumbent on all seven folds and rejected. The complexity principle above was decisive rather than rhetorical: the top-ranked random forest owed its lead to a single fold with two negative examples and fell to rank 12 once that fold was removed. See [ML4_REPORT.md](ML4_REPORT.md) §9. Stage B remains undecided.
+
 **Deep learning is not justified** for this tabular problem at this sample size. Hundreds to low thousands of rows with dozens of correlated features is the regime where regularised linear models and small tree ensembles typically win, and where neural networks overfit.
 
 ---
@@ -664,7 +666,7 @@ Every experiment records: data window · feature set · target · preprocessing 
 | **ML-1** | EDA and leakage audit on the actual feature set | Leakage table re-derived; availability-correlation checked per feature |
 | **ML-2** | Derive transparent statistical features (§7) | Every feature traces to documented source columns *(done — 61 features, see [ML2_REPORT.md](ML2_REPORT.md) and `config/ml2_feature_dictionary.csv`)* |
 | **ML-3** | Establish baselines (§15) | All five baselines measured on the fold protocol *(done — see [ML3_REPORT.md](ML3_REPORT.md); every configuration lands in macro ROC-AUC 0.669–0.698, and the position-percentile composite matches regularised logistic regression)* |
-| **ML-4** | Train Stage A candidates | Beats baselines consistently across folds |
+| **ML-4** | Train Stage A candidates | Beats baselines consistently across folds *(done — see [ML4_REPORT.md](ML4_REPORT.md); logistic regression retained (DEC-080), season-relative normalisation adopted (DEC-081). The B4 benchmark is **not** beaten on ranking and DEC-079 stands)* |
 | **ML-5** | Train Stage B candidates; compare the four target designs | Rank metrics reported per fold |
 | **ML-6** | Construct and validate the Overall Board ranking | Board metrics (§14) computed; §17 requirements satisfied |
 | **ML-7** | **Freeze** the General Draft methodology | Written frozen spec; no further tuning permitted |
@@ -678,13 +680,13 @@ Phases ML-9 and ML-10 are independent of ML-4…ML-8 and may proceed in parallel
 
 ## 28. Open questions — none may be resolved by assumption
 
-**Stage A:** primary metric · model family · calibration method · threshold policy (if any) · fold weighting or aggregation rule.
+**Stage A:** ~~model family~~ **RESOLVED (DEC-080)** — regularised logistic regression; tree ensembles rejected · ~~calibration method~~ **RESOLVED (DEC-083)** — ships uncalibrated, isotonic rejected, sigmoid deferred · ~~fold weighting or aggregation rule~~ **RESOLVED (DEC-075, DEC-084)** — year-macro and pooled both reported, low-support folds re-ranked out · **still open:** primary metric · threshold policy (if any).
 
 **Stage B:** regression vs. transformed regression vs. ordinal vs. ranking · tier boundaries if tiers are used · primary metric.
 
 **Board:** exact Overall Score transformation · whether the score is class-relative or absolute · K values for Precision@K given small classes.
 
-**Features:** final feature set · position-normalisation method · season-normalisation method · missing-value method · whether shot coordinates are usable at all.
+**Features:** ~~season-normalisation method~~ **RESOLVED for Stage A (DEC-081)** — season × coarse-position z-scores against the full NCAA population · **still open:** final feature set · position-normalisation method beyond `position_3` · missing-value method · whether shot coordinates are usable at all.
 
 **Population and window:** how to report a holdout with a single undrafted prospect · COVID-year treatment · whether 2011–2013 are included after sensitivity analysis · recency weighting.
 
