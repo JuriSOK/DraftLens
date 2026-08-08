@@ -220,7 +220,7 @@ Derived exclusively from data verified in [DATA.md](DATA.md) §22 and §24. **Av
 | **Playmaking** | assists, turnovers, AST/TO, AST%, TOV% | `player_box` + team aggregates | Strong |
 | **Rebounding** | OREB, DREB, REB, ORB%, DRB%, TRB% | `player_box` + team + opponent | Strong |
 | **Defense (box proxies)** | steals, blocks, STL%, BLK%, fouls | `player_box` | **Limited — see §18.3** |
-| **Role / possession** | usage%, per-40, per-100-possession | Derived (team totals from `player_box`) | Strong |
+| **Role / possession** | usage%, per-40, per-100-possession | Derived (team totals from `player_box`) | Strong — **implemented in ML-2**; team context summed over played games only (DEC-072), reconstructing to 201.4 team-minutes/game |
 | **Shot style** | dunk / layup / tip / jumper frequency, rim-attempt share, rim FG%, 3PA share, assisted-shot rate, unassisted rim finishing | `shots` (`type_text`, `athlete_id_2`) | Strong |
 | **Physical** | height (76.7–99.2% fill), weight (57.1–94.7% fill) | `player_core` | Moderate — coverage varies by season |
 
@@ -658,7 +658,7 @@ Every experiment records: data window · feature set · target · preprocessing 
 | --- | --- | --- |
 | **ML-0** | Build the model-ready dataset from **early entrants only** | Population counts match §3.5 exactly *(done; counts corrected in ML-0.1 — see [ML0_REPORT.md](ML0_REPORT.md))* |
 | **ML-1** | EDA and leakage audit on the actual feature set | Leakage table re-derived; availability-correlation checked per feature |
-| **ML-2** | Derive transparent statistical features (§7) | Every feature traces to documented source columns |
+| **ML-2** | Derive transparent statistical features (§7) | Every feature traces to documented source columns *(done — 61 features, see [ML2_REPORT.md](ML2_REPORT.md) and `config/ml2_feature_dictionary.csv`)* |
 | **ML-3** | Establish baselines (§15) | All five baselines measured on the fold protocol |
 | **ML-4** | Train Stage A candidates | Beats baselines consistently across folds |
 | **ML-5** | Train Stage B candidates; compare the four target designs | Rank metrics reported per fold |

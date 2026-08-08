@@ -373,3 +373,31 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 **Decision:** `jump_shot_attempts` and `jump_shot_makes` must not be used across the 2020/2021 boundary without correction. ML-2 must either subtract `three_point_shot_*` to reconstruct a comparable two-point-jumper quantity, or build shot profile from the stable categories only.
 **Rationale:** the hoopR `type_text` vocabulary is not stable. `Three Point Jump Shot` is a distinct category through 2020 and is folded into `JumpShot` from 2021, so `JumpShot` share roughly doubles (≈21% → ≈50%) and median jump-shot attempts jump 81 → 235. ML-0's category map counts only `JumpShot`/`LayUpShot`/`DunkShot`/`TipShot`, so the field silently changes meaning mid-window.
 **Note:** `LayUpShot`, `DunkShot`, `TipShot` and `three_point_shot_*` (derived from `score_value`, not `type_text`) are unaffected. Assist linkage is stable at 50.8–52.9% across all 12 years.
+
+## DEC-069 — Undefined ratios are NULL, never zero and never infinity
+**Status:** Accepted
+**Decision:** All derived ratios use one shared `safe_div` utility. A ratio is **NULL** whenever its denominator is missing, zero or negative, or its numerator is missing. No epsilon is ever added, infinity is never produced, and an undefined statistic is never silently rendered as 0.
+**Rationale:** 0 made from 0 attempts is UNKNOWN, not 0%. Substituting zero would fabricate a factual claim about a player (DEC-017) and would systematically penalise low-volume prospects. Unit-tested in `tests/test_ml2_features.py`.
+
+## DEC-070 — Generic jump-shot metrics are permanently rejected for cross-year modelling
+**Status:** Accepted
+**Decision:** No feature may be derived from the generic `jump_shot_*` primitives — specifically `jump_shot_share`, `jump_shot_pct` and `jump_shots_per_40` are prohibited. The rejection is recorded in [`config/ml2_feature_dictionary.csv`](../config/ml2_feature_dictionary.csv) with status `REJECTED`, and a test fails if any column containing `jump_shot` reaches the feature layer.
+**Rationale:** DEC-068 — hoopR's `type_text` folds `Three Point Jump Shot` into `JumpShot` from 2021, so the category silently changes meaning mid-window. Shot profile is built instead from `layup`, `dunk`, `tip` and three-point attempts identified via `score_value`, all of which are stable across 2014–2026.
+**Note:** The raw ML-0 columns remain for source and audit purposes.
+
+## DEC-071 — Unresolved prospects are retained, never outcome-selectively dropped
+**Status:** Accepted
+**Decision:** Prospects without matched hoopR statistics remain in every analytical partition with NULL feature values. They must not be dropped, zero-filled, or flagged with a `has_stats`-style predictive feature, and no missingness indicator may be derived from their absence.
+**Rationale:** All 8 unresolved development prospects are undrafted (ML1_REPORT §11). Dropping rows without statistics would remove only negatives and inflate downstream performance. Validation hard-fails if the retained count falls below 8 or if the ML-2 prospect set differs from ML-0.
+
+## DEC-072 — Team context is reconstructed from the prospect's played games only
+**Status:** Accepted
+**Decision:** Team and opponent totals used by usage%, AST%, ORB%/DRB%/TRB%, STL%, BLK% and the per-100 rates are summed over **only the games the prospect actually played**, reconstructed from `player_box` by game with opponents obtained via a same-game self-join. Whole-season team totals are never used.
+**Rationale:** A prospect who played 12 of 33 games, or who transferred mid-season, must not inherit context from games they did not play. Validated: reconstructed team minutes come to **201.4 per game** against a theoretical 200, and possessions to ≈68 per game. This confirms `team_box` is unnecessary (DATA.md §22.2).
+**Note:** The conventional free-throw possession coefficient **0.44** is exposed as the named constant `FT_POSSESSION_COEF` and documented in the feature dictionary rather than embedded as a literal.
+
+## DEC-073 — Rare-event ratio undefinedness is target-correlated and must not be imputed naively
+**Status:** Accepted
+**Decision:** `tip_make_pct`, `dunk_make_pct`, `assisted_dunk_make_share` and `unassisted_dunk_make_share` are marked **CAUTION**. Neither constant imputation nor a missingness indicator may be applied to them without an explicit leakage review.
+**Rationale:** Measured on 2014–2025, `tip_make_pct` is defined for **77.5% of drafted versus 50.4% of undrafted** prospects — a **27.1 pp** gap; the dunk ratios show 11.9–13.3 pp. The cause is structural rather than contamination: attempting zero tip-ins or dunks is itself informative. But it means a constant fill or an indicator column would encode a partial target proxy — the same failure mode that excluded age (DEC-044).
+**Note:** All other engineered features sit at a ≈2.8 pp gap, consistent with the general match gap and benign.

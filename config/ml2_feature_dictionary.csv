@@ -1,0 +1,71 @@
+feature_name,family,formula,source_columns,denominator,unit,missing_behavior,position_sensitive,season_sensitive,status,notes
+minutes_per_game,PLAYING_TIME,minutes / games_played,minutes;games_played,games_played,minutes,NULL if games_played<=0,no,yes,APPROVED,opportunity indicator
+start_share,PLAYING_TIME,games_started / games_played,games_started;games_played,games_played,share 0-1,NULL if games_played<=0,no,yes,APPROVED,role indicator
+fg_pct,SHOOTING_EFFICIENCY,FGM / FGA,field_goals_made;field_goals_attempted,FGA,share 0-1,NULL if FGA<=0,yes,yes,APPROVED,
+two_point_pct,SHOOTING_EFFICIENCY,2PM / 2PA,two_points_made;two_points_attempted,2PA,share 0-1,NULL if 2PA<=0,yes,yes,APPROVED,2P primitives are FG minus 3P
+three_point_pct,SHOOTING_EFFICIENCY,3PM / 3PA,three_points_made;three_points_attempted,3PA,share 0-1,NULL if 3PA<=0,yes,yes,APPROVED,low-attempt cases unreliable; keep 3PA alongside
+ft_pct,SHOOTING_EFFICIENCY,FTM / FTA,free_throws_made;free_throws_attempted,FTA,share 0-1,NULL if FTA<=0,no,yes,APPROVED,FT from player_box only; shots file holds made FT only
+efg_pct,SHOOTING_EFFICIENCY,(FGM + 0.5*3PM) / FGA,field_goals_made;three_points_made;field_goals_attempted,FGA,share 0-1,NULL if FGA<=0,yes,yes,APPROVED,
+ts_pct,SHOOTING_EFFICIENCY,PTS / (2*(FGA + 0.44*FTA)),points;field_goals_attempted;free_throws_attempted,2*(FGA+0.44*FTA),share 0-1,NULL if denominator<=0,yes,yes,APPROVED,0.44 is the conventional FT-possession coefficient
+three_point_attempt_rate,SHOOTING_VOLUME,3PA / FGA,three_points_attempted;field_goals_attempted,FGA,share 0-1,NULL if FGA<=0,yes,yes,APPROVED,
+two_point_attempt_rate,SHOOTING_VOLUME,2PA / FGA,two_points_attempted;field_goals_attempted,FGA,share 0-1,NULL if FGA<=0,yes,yes,APPROVED,complement of 3PA rate
+free_throw_rate,SHOOTING_VOLUME,FTA / FGA,free_throws_attempted;field_goals_attempted,FGA,ratio,NULL if FGA<=0,yes,yes,APPROVED,rim-pressure proxy
+fga_per_40,SHOOTING_VOLUME,40 * FGA / minutes,field_goals_attempted;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+three_pa_per_40,SHOOTING_VOLUME,40 * 3PA / minutes,three_points_attempted;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+fta_per_40,SHOOTING_VOLUME,40 * FTA / minutes,free_throws_attempted;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+points_per_game,SCORING,PTS / games_played,points;games_played,games_played,per game,NULL if games_played<=0,yes,yes,APPROVED,
+points_per_40,SCORING,40 * PTS / minutes,points;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+points_per_100,SCORING,100 * PTS / team_possessions,points;team_possessions,team_possessions,per 100 poss,NULL if possessions<=0,yes,yes,APPROVED,redundant with points_per_40; ML-3 to choose
+assists_per_game,PLAYMAKING,AST / games_played,assists;games_played,games_played,per game,NULL if games_played<=0,yes,yes,APPROVED,
+turnovers_per_game,PLAYMAKING,TOV / games_played,turnovers;games_played,games_played,per game,NULL if games_played<=0,yes,yes,APPROVED,
+assists_per_40,PLAYMAKING,40 * AST / minutes,assists;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+turnovers_per_40,PLAYMAKING,40 * TOV / minutes,turnovers;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+assist_to_turnover_ratio,PLAYMAKING,AST / TOV,assists;turnovers,TOV,ratio,NULL if TOV<=0,yes,yes,APPROVED,undefined for zero-turnover players
+ast_pct,PLAYMAKING,100 * AST / (((MP/(TmMP/5)) * TmFG) - FG),assists;minutes;tm_minutes;tm_field_goals_made;field_goals_made,teammate FG while on floor,percent,NULL if denominator<=0,yes,yes,APPROVED,team totals summed over played games only
+tov_pct,PLAYMAKING,100 * TOV / (FGA + 0.44*FTA + TOV),turnovers;field_goals_attempted;free_throws_attempted,player possessions used,percent,NULL if denominator<=0,yes,yes,APPROVED,
+assists_per_100,PLAYMAKING,100 * AST / team_possessions,assists;team_possessions,team_possessions,per 100 poss,NULL if possessions<=0,yes,yes,APPROVED,redundancy candidate
+turnovers_per_100,PLAYMAKING,100 * TOV / team_possessions,turnovers;team_possessions,team_possessions,per 100 poss,NULL if possessions<=0,yes,yes,APPROVED,redundancy candidate
+rebounds_per_game,REBOUNDING,REB / games_played,total_rebounds;games_played,games_played,per game,NULL if games_played<=0,yes,yes,APPROVED,
+oreb_per_40,REBOUNDING,40 * OREB / minutes,offensive_rebounds;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+dreb_per_40,REBOUNDING,40 * DREB / minutes,defensive_rebounds;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+reb_per_40,REBOUNDING,40 * REB / minutes,total_rebounds;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+rebounds_per_100,REBOUNDING,100 * REB / team_possessions,total_rebounds;team_possessions,team_possessions,per 100 poss,NULL if possessions<=0,yes,yes,APPROVED,redundancy candidate
+orb_pct,REBOUNDING,100 * (ORB * (TmMP/5)) / (MP * (TmORB + OppDRB)),offensive_rebounds;minutes;tm_minutes;tm_offensive_rebounds;opp_defensive_rebounds,available offensive rebounds,percent,NULL if denominator<=0,yes,yes,APPROVED,opponent totals via game self-join
+drb_pct,REBOUNDING,100 * (DRB * (TmMP/5)) / (MP * (TmDRB + OppORB)),defensive_rebounds;minutes;tm_minutes;tm_defensive_rebounds;opp_offensive_rebounds,available defensive rebounds,percent,NULL if denominator<=0,yes,yes,APPROVED,
+trb_pct,REBOUNDING,100 * (TRB * (TmMP/5)) / (MP * (TmTRB + OppTRB)),total_rebounds;minutes;tm_minutes;tm_rebounds;opp_rebounds,available rebounds,percent,NULL if denominator<=0,yes,yes,APPROVED,
+steals_per_game,DEFENSIVE_PRODUCTION,STL / games_played,steals;games_played,games_played,per game,NULL if games_played<=0,yes,yes,APPROVED,box-score production only
+blocks_per_game,DEFENSIVE_PRODUCTION,BLK / games_played,blocks;games_played,games_played,per game,NULL if games_played<=0,yes,yes,APPROVED,box-score production only
+steals_per_40,DEFENSIVE_PRODUCTION,40 * STL / minutes,steals;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,box-score production only
+blocks_per_40,DEFENSIVE_PRODUCTION,40 * BLK / minutes,blocks;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,strongly position-driven (ML-1: corr 0.07 with minutes)
+personal_fouls_per_40,DEFENSIVE_PRODUCTION,40 * PF / minutes,personal_fouls;minutes,minutes,per 40 min,NULL if minutes<=0,yes,yes,APPROVED,
+steals_per_100,DEFENSIVE_PRODUCTION,100 * STL / team_possessions,steals;team_possessions,team_possessions,per 100 poss,NULL if possessions<=0,yes,yes,APPROVED,redundancy candidate
+blocks_per_100,DEFENSIVE_PRODUCTION,100 * BLK / team_possessions,blocks;team_possessions,team_possessions,per 100 poss,NULL if possessions<=0,yes,yes,APPROVED,redundancy candidate
+stl_pct,DEFENSIVE_PRODUCTION,100 * (STL * (TmMP/5)) / (MP * OppPoss),steals;minutes;tm_minutes;opp_possessions,opponent possessions,percent,NULL if denominator<=0,yes,yes,APPROVED,box-score production only
+blk_pct,DEFENSIVE_PRODUCTION,100 * (BLK * (TmMP/5)) / (MP * (OppFGA - Opp3PA)),blocks;minutes;tm_minutes;opp_field_goals_attempted;opp_three_point_field_goals_attempted,opponent two-point attempts,percent,NULL if denominator<=0,yes,yes,APPROVED,box-score production only; not deterrence
+layup_attempt_share,SHOT_PROFILE,layup_attempts / fg_attempts_shotfile,layup_attempts;fg_attempts_shotfile,shot-file FGA,share 0-1,NULL if denominator<=0,yes,yes,APPROVED,type_text category stable across window
+dunk_attempt_share,SHOT_PROFILE,dunk_attempts / fg_attempts_shotfile,dunk_attempts;fg_attempts_shotfile,shot-file FGA,share 0-1,NULL if denominator<=0,yes,yes,APPROVED,stable category
+tip_attempt_share,SHOT_PROFILE,tip_attempts / fg_attempts_shotfile,tip_attempts;fg_attempts_shotfile,shot-file FGA,share 0-1,NULL if denominator<=0,yes,yes,CAUTION,35-41% structural zeros; declining trend
+three_point_shot_attempt_share,SHOT_PROFILE,three_point_shot_attempts / fg_attempts_shotfile,three_point_shot_attempts;fg_attempts_shotfile,shot-file FGA,share 0-1,NULL if denominator<=0,yes,yes,APPROVED,identified via score_value not type_text; unaffected by DEC-068
+rim_attempt_share,SHOT_PROFILE,(layup+dunk+tip attempts) / fg_attempts_shotfile,layup_attempts;dunk_attempts;tip_attempts;fg_attempts_shotfile,shot-file FGA,share 0-1,NULL if denominator<=0,yes,yes,APPROVED,composite of stable categories
+layup_make_pct,SHOT_PROFILE,layup_makes / layup_attempts,layup_makes;layup_attempts,layup attempts,share 0-1,NULL if attempts<=0,yes,yes,APPROVED,
+dunk_make_pct,SHOT_PROFILE,dunk_makes / dunk_attempts,dunk_makes;dunk_attempts,dunk attempts,share 0-1,NULL if attempts<=0,yes,yes,CAUTION,undefined for 9.8% of prospects
+tip_make_pct,SHOT_PROFILE,tip_makes / tip_attempts,tip_makes;tip_attempts,tip attempts,share 0-1,NULL if attempts<=0,yes,yes,CAUTION,lowest coverage (63.6%)
+rim_make_pct,SHOT_PROFILE,(layup+dunk+tip makes) / (layup+dunk+tip attempts),layup_makes;dunk_makes;tip_makes;layup_attempts;dunk_attempts;tip_attempts,rim attempts,share 0-1,NULL if attempts<=0,yes,yes,APPROVED,
+assisted_made_fg_share,CREATION,assisted_made_field_goals / fg_makes_shotfile,assisted_made_field_goals;fg_makes_shotfile,made FG in shot file,share 0-1,NULL if denominator<=0,yes,yes,APPROVED,shot-event assist linkage; stable 50.8-52.9% league-wide
+unassisted_made_fg_share,CREATION,unassisted_made_field_goals / fg_makes_shotfile,unassisted_made_field_goals;fg_makes_shotfile,made FG in shot file,share 0-1,NULL if denominator<=0,yes,yes,APPROVED,self-creation proxy
+assisted_layup_make_share,CREATION,assisted_layup_makes / layup_makes,assisted_layup_makes;layup_makes,made layups,share 0-1,NULL if denominator<=0,yes,yes,APPROVED,
+unassisted_layup_make_share,CREATION,unassisted_layup_makes / layup_makes,unassisted_layup_makes;layup_makes,made layups,share 0-1,NULL if denominator<=0,yes,yes,APPROVED,separates slasher from play-finisher
+assisted_dunk_make_share,CREATION,assisted_dunk_makes / dunk_makes,assisted_dunk_makes;dunk_makes,made dunks,share 0-1,NULL if denominator<=0,yes,yes,CAUTION,undefined for 11% of prospects
+unassisted_dunk_make_share,CREATION,unassisted_dunk_makes / dunk_makes,unassisted_dunk_makes;dunk_makes,made dunks,share 0-1,NULL if denominator<=0,yes,yes,CAUTION,ML-1 strongest single separator (rank-AUC 0.687)
+usage_pct,ROLE,100 * ((FGA + 0.44*FTA + TOV) * (TmMP/5)) / (MP * (TmFGA + 0.44*TmFTA + TmTOV)),field_goals_attempted;free_throws_attempted;turnovers;minutes;tm_field_goals_attempted;tm_free_throws_attempted;tm_turnovers;tm_minutes,team possessions used,percent,NULL if denominator<=0,yes,yes,APPROVED,0.44 FT coefficient documented
+height,PHYSICAL,raw hoopR value,height,n/a,inches,NULL if absent,yes,no,APPROVED,ML-1: temporally stable (drift 0.038); do NOT season-normalize
+weight,PHYSICAL,raw hoopR value,weight,n/a,pounds,NULL if absent,yes,no,APPROVED,ML-1: temporally stable (drift 0.071)
+position_3,POSITION,map(hoopr_position) -> G/F/C/UNKNOWN,hoopr_position,n/a,category,UNKNOWN preserved,n/a,no,APPROVED,DEC-067; only leakage-safe position source
+team_minutes,DENOMINATOR,sum of team minutes over played games,player_box,n/a,minutes,NULL if unmatched,no,yes,METADATA,reliability denominator; reconstructs to ~201/game
+team_possessions,DENOMINATOR,TmFGA + 0.44*TmFTA - TmORB + TmTOV,player_box team totals,n/a,possessions,NULL if unmatched,no,yes,METADATA,conventional estimate
+opp_possessions,DENOMINATOR,OppFGA + 0.44*OppFTA - OppORB + OppTOV,player_box opponent totals,n/a,possessions,NULL if unmatched,no,yes,METADATA,via game self-join
+shot_fga_coverage_ratio,AUDIT,fg_attempts_shotfile / field_goals_attempted,fg_attempts_shotfile;field_goals_attempted,box FGA,ratio,NULL if FGA<=0,no,yes,AUDIT_ONLY,data completeness must not become a predictive signal
+n_teams,AUDIT,count of distinct teams in season,player_box,n/a,count,NULL if unmatched,no,no,AUDIT_ONLY,transfer metadata
+experience_years,AUDIT,raw hoopR value,experience_years,n/a,years,NULL if absent,no,yes,DESCRIPTIVE_ONLY,semantics unverified across years; not a predictive candidate
+jump_shot_share,REJECTED,NOT DERIVED,jump_shot_attempts,n/a,n/a,n/a,n/a,n/a,REJECTED,DEC-068: type_text schema breaks at 2020/21; Three Point Jump Shot folded into JumpShot
+jump_shot_pct,REJECTED,NOT DERIVED,jump_shot_makes;jump_shot_attempts,n/a,n/a,n/a,n/a,n/a,REJECTED,DEC-068
