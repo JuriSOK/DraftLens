@@ -128,7 +128,9 @@ Seven folds; training sets from 270 to 859 prospects. **Folds are not interchang
 
 **(b) The holdout base rate differs sharply from the training window.** Training is 48.6% drafted; the 2026 holdout is **96.2% drafted** (25 of 26). This is not noise — declared early entrants collapsed from 188 (2021) to 26 (2026), so only serious prospects now declare. It is a genuine population regime shift, plausibly driven by NIL and transfer-portal economics reducing speculative declarations.
 
-**Consequence:** a Stage A model calibrated on a 48.6% base rate will be **badly miscalibrated** on 2026. The 2026 holdout therefore tests **ranking quality, not probability calibration**, and the evaluation must say so rather than reporting a Brier score as if it were comparable. Recency weighting or a recent-years-only sensitivity variant should be tested (§11.4), but selection must still happen without touching 2026.
+**Consequence:** a Stage A model calibrated on a 48.6% base rate will be **badly miscalibrated** on 2026. The 2026 holdout therefore tests **ranking quality, not probability calibration**, and the evaluation must say so rather than reporting a Brier score as if it were comparable.
+
+**Formalised as DEC-066.** With 25 of 26 holdout prospects drafted, ROC-AUC, PR-AUC and calibration on 2026 are statistically uninformative or unstable. **Historical expanding-window folds are the primary evidence for Stage A.** 2026 is the final board/replay showcase; any Stage A metric computed on it after the freeze must carry an explicit instability warning. The population must never be expanded to improve its class balance. Recency weighting or a recent-years-only sensitivity variant should be tested (§11.4), but selection must still happen without touching 2026.
 
 ### 4.4 COVID cohort
 

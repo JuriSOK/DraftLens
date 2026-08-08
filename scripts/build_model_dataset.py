@@ -53,6 +53,18 @@ DENY_EXACT = {
     "dob_missing", "draft_year_pick", "nba_player_id", "nba_athlete_id",
     "mock_rank", "consensus_rank", "analyst_rank", "green_room",
     "draft_selection", "draft_round",
+    # --- added by the ML-1 audit (DEC-065): dual-source metadata whose
+    # granularity/availability is decided by the outcome itself. Drafted
+    # players inherit these from the DRAFT RESULTS table, undrafted ones from
+    # the early-entrant list, so the label format encodes the target.
+    # Measured on 2014-2025: position_from_population resolves to a
+    # five-position label for 100% of drafted vs 7.7% of undrafted;
+    # class_from_population has a 26.5pp availability gap plus an
+    # outcome-specific vocabulary. Raw values remain in
+    # data/raw/draft_population/ and in identity_crosswalk.parquet.
+    "position_from_population", "class_from_population",
+    # pipeline metadata: every UNMATCHED prospect is undrafted
+    "match_method", "match_confidence",
 }
 DENY_SUBSTRING = ("nba_", "_nba", "mock", "consensus", "analyst", "greenroom",
                   "postdraft", "post_draft", "outcome")
@@ -346,12 +358,12 @@ def build_year(year, overrides, stats):
     shots_agg = aggregate_shots(year, matched_ids)
     phys = physical(year, matched_ids)
 
+    # Identity/context only. position/class from the population are NOT carried
+    # into the feature file (DEC-065) — they are outcome-contaminated. They stay
+    # available in data/raw/draft_population/ and identity_crosswalk.parquet.
     feats = (pop[["canonical_prospect_id", "draft_year", "player_name",
-                  "normalized_name", "college", "position", "class",
-                  "wikipedia_title", "hoopr_athlete_id", "match_method",
-                  "match_confidence"]]
-             .rename(columns={"position": "position_from_population",
-                              "class": "class_from_population"}))
+                  "normalized_name", "college", "wikipedia_title",
+                  "hoopr_athlete_id"]])
     feats = (feats.merge(box_agg, left_on="hoopr_athlete_id",
                          right_on="athlete_id", how="left")
                   .merge(shots_agg, left_on="hoopr_athlete_id",
@@ -367,6 +379,13 @@ def build_year(year, overrides, stats):
                                      - feats.three_points_attempted)
     feats["covid_era_flag"] = int(year in COVID_YEARS)      # metadata, not a feature
 
+    cw = pop[["canonical_prospect_id", "draft_year", "player_name",
+              "normalized_name", "college", "position", "class",
+              "wikipedia_title", "hoopr_athlete_id", "match_method",
+              "match_confidence"]].rename(
+        columns={"position": "position_from_population",
+                 "class": "class_from_population"})
+
     tgt = load_targets(year, pop)
     stats[year] = dict(
         prospects=len(pop), matched=int(pop.hoopr_athlete_id.notna().sum()),
@@ -379,7 +398,7 @@ def build_year(year, overrides, stats):
         multi_team=int((feats.n_teams > 1).sum()),
         drafted=int(tgt.drafted.sum()), undrafted=int((tgt.drafted == 0).sum()),
         covid_era=int(year in COVID_YEARS))
-    return feats, tgt
+    return feats, tgt, cw
 
 
 # ----------------------------------------------------------------- audits
@@ -454,11 +473,12 @@ def main():
 
     for label, years in parts.items():
         rule(f"PARTITION {label}  years={years[0]}-{years[-1]}")
-        fs, ts = [], []
+        fs, ts, cws = [], [], []
         for y in years:
-            f, t = build_year(y, overrides, stats)
+            f, t, cw = build_year(y, overrides, stats)
             fs.append(f)
             ts.append(t)
+            cws.append(cw)
             s = stats[y]
             log(f"  {y}: prospects={s['prospects']:<4} matched={s['matched']:<4} "
                 f"unmatched={s['unmatched']:<3} ambig={s['ambiguous']:<3} "
@@ -505,10 +525,7 @@ def main():
 
         feats.to_parquet(OUT / f"features_{label}.parquet", index=False)
         tgt.to_parquet(OUT / f"targets_{label}.parquet", index=False)
-        crosswalks.append(feats[["canonical_prospect_id", "draft_year",
-                                 "player_name", "normalized_name", "college",
-                                 "wikipedia_title", "hoopr_athlete_id",
-                                 "match_method", "match_confidence"]])
+        crosswalks.append(pd.concat(cws, ignore_index=True))
         log(f"  wrote features_{label}.parquet ({n} rows, {len(feats.columns)} cols)"
             f" and targets_{label}.parquet")
 

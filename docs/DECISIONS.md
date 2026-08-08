@@ -339,3 +339,37 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 **Status:** Accepted
 **Decision:** In an early-entrant bullet, the first wikilink is treated as the prospect **only if it is not the school link**. Where a prospect has no article, the name is taken from the plain text preceding the position dash and `wikipedia_title` is left empty.
 **Rationale:** The parser previously took `links[0]` unconditionally, so a prospect with no article was named after their school — `Casdon Jardine` (2021, Hawaiʻi) became a phantom prospect literally named `Hawai{{okina}}i`. One occurrence across 2011–2026, but the failure mode is structural. Link labels are also markup-stripped, so template artefacts no longer reach the `college` field.
+
+## DEC-065 — Population-derived position and class metadata are prohibited as features
+**Status:** Accepted
+**Decision:** `position_from_population`, `class_from_population`, `match_method` and `match_confidence` are prohibited as model features, are on the ML-0 deny list, and are **removed from the feature files**. They remain available in `data/raw/draft_population/` and in `identity_crosswalk.parquet` for identity and audit work.
+**Rationale (measured, 2014–2025):** the fields are dual-sourced by outcome. ML-0 builds the population from draft picks first, taking position and class from the **draft results table** (fine `PG`/`SG`/`SF`/`PF`/`C` labels), then adds remaining early entrants from the **early-entrant list** (broad `G`/`F`). The label's granularity therefore encodes the target:
+- `position_from_population` resolves to a five-position label for **100% of drafted (431/431)** versus **7.7% of undrafted (35/456)**;
+- `class_from_population` shows a **26.5 pp** availability gap plus an outcome-specific vocabulary (`graduate`, `redshirt`, `redshirt sophomore` occur only for undrafted; `sophomore year` only for drafted);
+- every `UNMATCHED` prospect is undrafted, so `match_method` correlates with the target.
+
+**Note:** This is the leakage channel ML-1 was chartered to find. A model trained before the fix would have scored well for entirely spurious reasons. `hoopr_position` is unaffected — its vocabulary and availability are near-identical across classes (2.4 pp gap) — and remains the approved position source.
+
+## DEC-066 — 2026 holdout is a ranking showcase, not Stage A classification evidence
+**Status:** Accepted
+**Decision:** Because **25 of the 26** final 2026 NCAA early entrants were drafted:
+- **historical expanding-window folds are the primary evidence for Stage A**;
+- ROC-AUC, PR-AUC and calibration metrics computed on 2026 are statistically uninformative or unstable and must not be treated as primary evidence;
+- 2026 remains the final board / ranking replay showcase and the single post-freeze evaluation;
+- if Stage A metrics are computed on 2026 after the freeze, they must be reported **with an explicit instability warning** and must not be overinterpreted.
+
+**The population must not be artificially expanded to improve class balance** — in particular, seniors known after the fact to have been drafted must never be added (DEC-050, DEC-051).
+**Note:** This does not permit any use of 2026 for methodology selection (DEC-051 stands).
+
+## DEC-067 — Canonical position is coarse (G/F/C); five-position mapping deferred
+**Status:** Accepted
+**Decision:** The canonical analytical position is the **coarse G / F / C scheme**, derived deterministically from `hoopr_position` by [`scripts/positions.py`](../scripts/positions.py) using [`config/position_map.csv`](../config/position_map.csv). Measured coverage: **98.0%** development, **100%** for the 2026 holdout. Unresolvable labels (`ATH`, `NA`, missing) stay `UNKNOWN` and are never guessed.
+
+**The PG/SG/SF/PF/C scheme required by DEC-009 is deferred**: the only fine-grained pre-draft label available is outcome-contaminated (DEC-065), so no leakage-safe source exists. The deterministic five-position parser is implemented and unit-tested but **applied to nothing**, ready for a clean source.
+**Owner decision required:** accept G/F/C for position-relative work, obtain a genuinely pre-draft five-position feed, or relax DEC-009. **Position must never be inferred from statistics or from draft outcome.**
+
+## DEC-068 — Shot-type vocabulary breaks at 2020/2021; jump-shot fields are not comparable
+**Status:** Accepted
+**Decision:** `jump_shot_attempts` and `jump_shot_makes` must not be used across the 2020/2021 boundary without correction. ML-2 must either subtract `three_point_shot_*` to reconstruct a comparable two-point-jumper quantity, or build shot profile from the stable categories only.
+**Rationale:** the hoopR `type_text` vocabulary is not stable. `Three Point Jump Shot` is a distinct category through 2020 and is folded into `JumpShot` from 2021, so `JumpShot` share roughly doubles (≈21% → ≈50%) and median jump-shot attempts jump 81 → 235. ML-0's category map counts only `JumpShot`/`LayUpShot`/`DunkShot`/`TipShot`, so the field silently changes meaning mid-window.
+**Note:** `LayUpShot`, `DunkShot`, `TipShot` and `three_point_shot_*` (derived from `score_value`, not `type_text`) are unaffected. Assist linkage is stable at 50.8–52.9% across all 12 years.
