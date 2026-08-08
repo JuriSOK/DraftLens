@@ -344,7 +344,9 @@ Per-fold metrics are reported **with fold sizes attached**. A bare mean across f
 | Supporting (threshold-dependent) | precision, recall, F1 — always with the threshold stated |
 | Calibration | reliability curves, calibration error |
 
-**The final primary metric is TBD** and must be chosen after examining per-fold class balance. PR-AUC is likely preferable where the undrafted class is small, but this must be decided on evidence.
+**The final primary metric is TBD** and must be chosen after examining per-fold class balance.
+
+**ML-3 finding (DEC-075):** year-macro and pooled aggregates genuinely disagree — the selected configuration ranks 6th on macro but 3rd on pooled — so both must always be reported alongside the fold standard deviation and worst-year value. PR-AUC is likely preferable where the undrafted class is small, but this must be decided on evidence.
 
 ### 12.2 Calibration matters — and will not transfer to 2026
 
@@ -396,6 +398,8 @@ Candidate metrics: **Precision@K, Recall@K, NDCG@K** (K ∈ {5, 14, 30}), and **
 Complex models must beat simple ones on temporal validation before being considered.
 
 Required baselines: **(1)** scoring average only; **(2)** a simple standardised box-score composite; **(3)** logistic regression on a small interpretable feature set; **(4)** a position-aware percentile composite; **(5)** naive average historical pick by position / statistical profile.
+
+**ML-3 results (macro ROC-AUC over 7 folds):** (1) 0.5876 · (2) 0.6890 · (3) 0.669–0.698 · (4) **0.6943**, the strongest and by far the steadiest (SD 0.0219). Baseline (5) is descriptive only and shows position alone carries **no** pick signal (Spearman −0.25 to +0.10, MAE 12–16 picks). Baseline (4) is the standing benchmark for ML-4 (DEC-079).
 
 **Prohibited as baselines in the predictive pipeline:** public mock drafts, analyst consensus boards (DEC-013). They may later be shown as **external comparison benchmarks** if legally and practically available, but they must never inform model selection.
 
@@ -659,7 +663,7 @@ Every experiment records: data window · feature set · target · preprocessing 
 | **ML-0** | Build the model-ready dataset from **early entrants only** | Population counts match §3.5 exactly *(done; counts corrected in ML-0.1 — see [ML0_REPORT.md](ML0_REPORT.md))* |
 | **ML-1** | EDA and leakage audit on the actual feature set | Leakage table re-derived; availability-correlation checked per feature |
 | **ML-2** | Derive transparent statistical features (§7) | Every feature traces to documented source columns *(done — 61 features, see [ML2_REPORT.md](ML2_REPORT.md) and `config/ml2_feature_dictionary.csv`)* |
-| **ML-3** | Establish baselines (§15) | All five baselines measured on the fold protocol |
+| **ML-3** | Establish baselines (§15) | All five baselines measured on the fold protocol *(done — see [ML3_REPORT.md](ML3_REPORT.md); every configuration lands in macro ROC-AUC 0.669–0.698, and the position-percentile composite matches regularised logistic regression)* |
 | **ML-4** | Train Stage A candidates | Beats baselines consistently across folds |
 | **ML-5** | Train Stage B candidates; compare the four target designs | Rank metrics reported per fold |
 | **ML-6** | Construct and validate the Overall Board ranking | Board metrics (§14) computed; §17 requirements satisfied |

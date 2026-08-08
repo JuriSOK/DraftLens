@@ -401,3 +401,37 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 **Decision:** `tip_make_pct`, `dunk_make_pct`, `assisted_dunk_make_share` and `unassisted_dunk_make_share` are marked **CAUTION**. Neither constant imputation nor a missingness indicator may be applied to them without an explicit leakage review.
 **Rationale:** Measured on 2014–2025, `tip_make_pct` is defined for **77.5% of drafted versus 50.4% of undrafted** prospects — a **27.1 pp** gap; the dunk ratios show 11.9–13.3 pp. The cause is structural rather than contamination: attempting zero tip-ins or dunks is itself informative. But it means a constant fill or an indicator column would encode a partial target proxy — the same failure mode that excluded age (DEC-044).
 **Note:** All other engineered features sit at a ≈2.8 pp gap, consistent with the general match gap and benign.
+
+## DEC-074 — scikit-learn approved for the analytical ML pipeline
+**Status:** Accepted
+**Decision:** `scikit-learn` (1.9.0, with transitive `scipy`, `joblib`, `threadpoolctl`) is approved for the analytical ML pipeline. Still prohibited without a separate decision: xgboost, lightgbm, catboost, optuna, shap, mlflow, torch, tensorflow.
+**Note:** Extends DEC-037. This is not an application-architecture decision — DEC-022 stands.
+
+## DEC-075 — Temporal aggregation is reported year-macro AND pooled, never one alone
+**Status:** Accepted
+**Decision:** Every Stage A result must report **both** the year-macro aggregate (each validation year weighted equally) and the pooled aggregate (all out-of-fold predictions together), plus the standard deviation across folds and the worst-year value. A bare pooled metric is prohibited.
+**Rationale:** Validation fold sizes range 28–188 and base rates 0.266–0.929, so pooled metrics are dominated by 2021 (21% of the window). ML-3 observed the two orderings genuinely disagree: the selected configuration ranks 6th on macro but 3rd on pooled. Model selection on either alone would be arbitrary.
+**Note:** Folds where the minority class has fewer than 5 members are flagged **LOW NEGATIVE SUPPORT** and must not drive selection. 2025 (2 undrafted) is such a fold.
+
+## DEC-076 — Sparse rare-event ratios are excluded from Stage A feature sets
+**Status:** Accepted
+**Decision:** `tip_make_pct`, `dunk_make_pct` and `unassisted_dunk_make_share` are excluded from Stage A modelling feature sets rather than imputed. They remain in the ML-2 feature layer for display and later analysis.
+**Rationale:** DEC-073 measured their definedness as target-correlated (up to 27.1 pp). ML-3 tested exclusion against train-fold median imputation on the broadest feature set: exclusion scored **macro ROC-AUC 0.6979 vs 0.6915** with an equal Brier, so removing the leakage risk costs nothing. `SET_2_BOX_SHOT_PROFILE` excludes them by construction.
+**Note:** No missingness indicator, sentinel value, or zero-fill may substitute for them (DEC-069, DEC-073).
+
+## DEC-077 — Redundancy representatives chosen by basketball logic, not validation AUC
+**Status:** Accepted
+**Decision:** Where ML-2 features are near-duplicates (|r| ≥ 0.95), one representative per group is retained using a fixed rule recorded in [`config/ml3_baselines.json`](../config/ml3_baselines.json): prefer the **per-40 rate** for counting statistics; keep the **unassisted** direction of algebraic complements; keep **`three_point_attempt_rate`** for attempt mix; keep a possession percentage only where it has no per-40 twin (`usage_pct`, `tov_pct`).
+**Rationale:** Choosing between mathematically equivalent representations by validation score would be fitting noise. 23 correlated pairs resolved into 14 groups; 12 carry an explicit representative, enforced by test.
+
+## DEC-078 — Stage A baseline configuration carried into ML-4
+**Status:** Accepted
+**Decision:** ML-4 begins from **`LR | SET_2_BOX_SHOT_PROFILE | B_TRAIN_MEDIAN | STANDARD | ONEHOT | class_weight=balanced | C=1.0`**, with all preprocessing fitted inside each fold. `class_weight="balanced"` is retained.
+**Rationale:** Selected on the multi-criterion rule, not peak AUC — it ranks 6th on year-macro ROC-AUC (0.6809 vs 0.6979) but is best or joint-best on **Brier (0.2262)**, **calibration (max gap 0.140)**, **temporal stability (SD 0.0339)** and **worst-year ROC-AUC (0.6458)** among logistic models, uses 25 features rather than 38, and excludes the DEC-076 sparse ratios by construction. The macro spread across all 15 logistic configurations is 0.029 — inside noise at 28–188 validation rows per fold — so the tie-break favours the simpler, better-calibrated, more stable option.
+**Note:** `class_weight="balanced"` is kept for calibration and stability, not accuracy: it costs ~0.003 macro AUC and improves Brier from 0.2340 to 0.2262, which matters because the 2026 holdout base rate (0.96) sits far outside the training range (ML_SPEC §4.3).
+
+## DEC-079 — The position-percentile composite is the benchmark ML-4 must beat
+**Status:** Accepted
+**Decision:** `B4_POSITION_PERCENTILE_COMPOSITE` — an equal-weight composite of within-position percentile ranks, fitted on training folds only — is retained as the **standing benchmark** for Stage A. A more complex model must beat **macro ROC-AUC 0.6943** and **macro NDCG@drafted 0.7171** on the same folds to justify its complexity.
+**Rationale:** It matched or beat every logistic configuration on ranking (0.6943 macro) with the best stability of anything tested (SD 0.0219) and the best worst-year (0.6727). It is **not** the carry-forward because it produces rank quantiles rather than probabilities — its calibration gap reaches 0.22 and Brier 0.2530 — and DEC-053 requires Stage A to output a calibrated `P(drafted)`.
+**Note:** This makes the complexity bar explicit before nonlinear models are attempted, per PRODUCT.md §20 ("Honest evaluation") and ML_SPEC §16.
