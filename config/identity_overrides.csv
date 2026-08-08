@@ -1,0 +1,4 @@
+draft_year,normalized_name,athlete_id,player_name,expected_school,hoopr_name,reason
+2022,adrian griffin,4432585,Adrian Griffin Jr.,Duke,AJ Griffin,"Wikipedia uses the legal name; ESPN/hoopR uses the nickname 'AJ'. Surname+school unique at Duke in season 2022; first names share no prefix so the automatic tiers cannot resolve it."
+2022,nate williams,4397821,Nate Williams,Buffalo,Jeenathan Williams,"Wikipedia uses the nickname 'Nate'; ESPN/hoopR uses the legal name 'Jeenathan'. Surname+school unique at Buffalo in season 2022."
+2024,bub carrington,4845374,Bub Carrington,Pittsburgh,Carlton Carrington,"Wikipedia uses the nickname 'Bub'; ESPN/hoopR uses the legal name 'Carlton'. Surname+school unique at Pittsburgh in season 2024."

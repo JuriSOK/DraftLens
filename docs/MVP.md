@@ -46,7 +46,9 @@ The landing page must remain **minimal**. It is not a marketing-heavy website. T
 
 ## 5. General Draft Board — REQUIRED
 
-A core MVP feature. It must display all prospects available in the selected draft dataset.
+A core MVP feature. It must display **all prospects in the approved in-scope prospect population for the selected board** — never a filtered or truncated subset of it.
+
+For the historical ML methodology and the 2026 replay, that in-scope population is **final NCAA early entrants** ([ML_SPEC.md](ML_SPEC.md) §3), so the 2026 board ranks **26 prospects**. The board must **not** be expanded with seniors known to have been drafted only after the fact — that would let post-draft information decide who appears on a pre-draft board. Broader players could later be shown as clearly-labelled *unranked contextual* records; that is not implemented and is not in MVP scope.
 
 Required capabilities:
 

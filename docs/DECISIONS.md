@@ -287,3 +287,38 @@ A record of meaningful product and technical decisions. Each entry states what w
 **Status:** Accepted
 **Decision:** No Athleticism sub-score may be manufactured from box-score statistics. Without Combine data the dimension is **unavailable or incomplete** and must be omitted or displayed as explicitly missing. The Defense sub-score must be named and described as **box-score defensive production**, not defensive quality.
 **Rationale:** The acquired data contains no athleticism measurement; dunk frequency is a style signal confounded by position, role, and system. Defensive data is limited to steals, blocks, rebounds and fouls — no matchup, opponent-shooting, on/off, or deterrence measure exists. DEC-008 requires profiles be measurable rather than asserted, and DEC-016 requires missing data be disclosed rather than hidden.
+
+## DEC-056 — ML analytical dataset is physically built from early entrants only
+**Status:** Accepted
+**Decision:** The ML-0 pipeline materialises the analytical dataset from **final NCAA early entrants only**. Seniors and other automatically-eligible players remain in the raw layer for descriptive use but are never written into the ML feature or target files.
+**Note:** Implements DEC-049/DEC-050. Population counts are enforced as hard build gates (2014–2025: 829/403/426; 2011–2013: 119/79/40; 2026: 26) and re-asserted by `scripts/validate_model_dataset.py` and the test suite. See [ML0_REPORT.md](ML0_REPORT.md).
+
+## DEC-057 — Development, robustness and holdout partitions are stored separately
+**Status:** Accepted
+**Decision:** ML-0 writes three physically separate partitions — `2014_2025` (development), `2011_2013` (robustness only), `2026` (final holdout) — as distinct files rather than one dataset with a `split` column.
+**Rationale:** Loading the 2026 holdout must be an intentional act. A shared file with a filter column makes accidental holdout access a one-line mistake; separate files make it a deliberate one.
+
+## DEC-058 — Draft-year NCAA representation is the season ending in the draft year
+**Status:** Accepted
+**Decision:** A prospect entering draft year *Y* is represented by hoopR NCAA season *Y* — the season ending in that draft year — and never by a later season.
+**Note:** Implements DEC-010 concretely. Asserted on every row by the build and the validator; 0 violations observed across all 974 rows.
+
+## DEC-059 — Same-season transfers aggregate into one prospect-season record
+**Status:** Accepted
+**Decision:** A prospect's draft-year NCAA record is their **total production across all NCAA teams played for during that season**. A mid-season team change never duplicates the prospect. `n_teams` is retained as metadata and `primary_school` (last team by game date) is retained for identity.
+**Note:** Affects 3 prospects across 2011–2026. Exact duplicate `(athlete_id, game_id)` rows are dropped before aggregation so statistics are never double-counted (3 rows removed, all 2017). Both behaviours are unit-tested.
+
+## DEC-060 — Feature and target datasets remain physically separated
+**Status:** Accepted
+**Decision:** ML-0 never writes a combined dataset containing both features and outcomes. Targets contain only `canonical_prospect_id`, `draft_year`, `drafted`, `pick`, `round`; `drafting_team`, `population_source` and `early_entrant` are excluded from the analytical target table. Validation fails hard if any prohibited column appears in a feature file.
+**Rationale:** Leakage prevention should be structural rather than a convention someone must remember.
+
+## DEC-061 — Matching-only name key is separate from the canonical identity
+**Status:** Accepted
+**Decision:** Cross-source matching uses a dedicated `match_key` (leading-initial collapse, end-only suffix stripping, transliteration of non-decomposable Latin letters). The canonical `normalized_name` produced by the acquisition scripts is **not** changed, so `canonical_prospect_id` remains stable and previously acquired raw files stay valid.
+**Note:** Raised the 2014–2025 match rate from 95.66% to 99.03%. `dlcommon.normalize_name` retains a known defect — it strips `v` as a Roman-numeral suffix anywhere in a name — which `match_key` compensates for; it is not corrected in place because that would invalidate existing canonical identifiers.
+
+## DEC-062 — Identity exceptions live in a version-controlled override file
+**Status:** Accepted
+**Decision:** Where deterministic matching cannot resolve a genuine name variant, the mapping is recorded in [`config/identity_overrides.csv`](../config/identity_overrides.csv) with prospect, year, expected school, selected `athlete_id`, and a written reason. Overrides must never be hidden in Python conditionals, and a match must never be invented.
+**Note:** Three entries at ML-0, all legal-name/nickname mismatches verified by unique surname+school in the relevant season.

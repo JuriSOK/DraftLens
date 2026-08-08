@@ -325,11 +325,13 @@ For the General Draft Board, the primary historical target is the **actual NBA D
 
 This does not imply that actual draft order is a perfect measure of future NBA player quality. It is used because it is an objective, observable historical outcome.
 
-The analytical question is roughly:
+The analytical question is:
 
-> Using only information available before each historical draft, how well can pre-draft data explain or reproduce where prospects were selected?
+> Among **final NCAA early entrants**, using only information available before each historical draft, which prospects are most likely to be selected in the NBA Draft, and how highly do their pre-draft profiles suggest they may be selected?
 
-Undrafted players must also be considered where the methodology requires them.
+Undrafted players must also be considered where the methodology requires them — within this population they are early entrants who declared and went unselected.
+
+**Why the population is early entrants, not all draft-eligible NCAA players.** Automatically-eligible players (principally seniors) appear in no pre-draft list; they become identifiable only once they are drafted, so including them would let post-draft information determine population membership. Declared early entrants are published before the draft, so membership is genuinely pre-draft information. The board therefore ranks declared early entrants, and the product must describe its coverage that way. See [ML_SPEC.md](ML_SPEC.md) §3 and [DATA.md](DATA.md) §24.5.
 
 ---
 

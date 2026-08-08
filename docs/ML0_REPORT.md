@@ -1,0 +1,202 @@
+# DraftLens — ML-0 Report: model-ready dataset construction and leakage audit
+
+**Status:** Complete — all gates passed. **No model was trained.**
+**Date:** 2026-08-08 · **Phase:** ML-0 ([ML_SPEC.md](ML_SPEC.md) §27)
+
+Companion documents: [ML_SPEC.md](ML_SPEC.md) (methodology), [DATA.md](DATA.md) (sources and raw-data audits), [DECISIONS.md](DECISIONS.md). This report does not repeat them.
+
+---
+
+## 1. Purpose
+
+Build a clean, reproducible, temporally correct analytical dataset from the approved raw sources: one row per NCAA early-entry prospect per draft year, with features and targets kept in physically separate files, plus a leakage audit.
+
+**ML-0 computes primitives only.** No percentages, rates, per-40, per-100, scaling, normalisation, imputation, or scores — those belong to ML-2 and later (ML_SPEC §26, §27).
+
+## 2. Population definition
+
+**Final NCAA early entrants only** (DEC-049). Automatically-eligible players — principally seniors — are excluded because they are identifiable only once drafted, so their population membership would carry post-draft information ([DATA.md](DATA.md) §24.5 measured 212 of 212 such players as drafted).
+
+The raw union population remains intact in `data/raw/draft_population/`; ML-0 reads a subset of it.
+
+## 3. Development window and partitions
+
+| Partition | Draft years | Rows | Drafted | Undrafted | Role |
+| --- | --- | --: | --: | --: | --- |
+| **`2014_2025`** | 2014–2025 | **829** | **403** | **426** | Main development |
+| `2011_2013` | 2011–2013 | **119** | 79 | 40 | Robustness only — not default training |
+| **`2026`** | 2026 | **26** | 23 | 3 | **Final holdout** |
+
+All three partition counts are **hard gates** in the build and are re-asserted by the validator and the test suite. All passed.
+
+## 4. Holdout policy
+
+2026 is written to separate files (`features_2026.parquet`, `targets_2026.parquet`) so loading it is an intentional act, never an accident of a `split` column filter.
+
+ML-0 verified only row count, schema, feature availability, and identity matching for 2026. **No relationship between 2026 features and 2026 outcomes was inspected**, and no methodological choice in this phase used 2026 in any way.
+
+## 5. Identity matching
+
+Prospects come from the Wikipedia early-entrant population; statistics come from hoopR. The join is deterministic name + school, never name alone where ambiguity exists.
+
+| Tier | Rule |
+| --- | --- |
+| `OVERRIDE` | Version-controlled exception in [`config/identity_overrides.csv`](../config/identity_overrides.csv) |
+| `NORMALIZED_EXACT` | `match_key` unique within the season |
+| `DISAMBIGUATED` | Multiple name candidates, resolved uniquely by school |
+| `SURNAME_SCHOOL_PREFIX` | Same surname + same school + one first name a prefix of the other, unique |
+| `AMBIGUOUS` / `UNMATCHED` | **Never forced** — left null and reported |
+
+### Match results
+
+| Partition | Matched | Rate | Unmatched | Ambiguous |
+| --- | --: | --: | --: | --: |
+| 2014–2025 | 821 / 829 | **99.03%** | 8 | 0 |
+| 2011–2013 | 112 / 119 | 94.12% | 7 | 0 |
+| **2026** | **26 / 26** | **100.00%** | 0 | 0 |
+
+Per year (2014–2025): 2014 35/35 · 2015 41/41 · 2016 44/45 · 2017 60/60 · 2018 65/66 · 2019 71/71 · 2020 63/63 · 2021 166/169 · 2022 124/125 · 2023 78/78 · 2024 47/49 · 2025 27/27.
+
+### Two general normalisation fixes (not player-specific hacks)
+
+Both were found by inspecting unmatched cases and both raised the match rate materially:
+
+1. **Spaced initials.** Wikipedia writes `T. J. Warren`; ESPN writes `TJ Warren`. `match_key` merges leading single-letter tokens. This alone took 2014–2025 from 95.66% to 98.43%.
+2. **Suffix stripping was too greedy.** `dlcommon.normalize_name` strips `jr|sr|ii|iii|iv|v` *anywhere*, so the leading initial in `V. J. Edgecombe` was consumed as the Roman numeral V. `match_key` strips suffixes only at the end.
+
+Also added: transliteration of letters NFKD does not decompose (`ø æ å ß ł đ ð þ ı`), which recovered `Asbjørn Midtgaard`.
+
+`match_key` is **matching-only**. The canonical `normalized_name` written by the acquisition script is untouched, so `canonical_prospect_id` stays stable and raw files remain valid.
+
+### Manual overrides — 3 entries
+
+Stored transparently in [`config/identity_overrides.csv`](../config/identity_overrides.csv) with school evidence and a reason, never hidden in code:
+
+| Year | Wikipedia | hoopR | Reason |
+| --- | --- | --- | --- |
+| 2022 | Adrian Griffin Jr. | AJ Griffin | Legal name vs nickname; surname+school unique at Duke |
+| 2022 | Nate Williams | Jeenathan Williams | Nickname vs legal name; surname+school unique at Buffalo |
+| 2024 | Bub Carrington | Carlton Carrington | Nickname vs legal name; surname+school unique at Pittsburgh |
+
+### The 8 unresolved in 2014–2025 — diagnosed, not guessed
+
+| Diagnosis | Players |
+| --- | --- |
+| School absent from hoopR D-I coverage | Trevor Hudgins (Northwest Missouri State, D-II); **Alperen Şengün** (Beşiktaş); **Cezar Unitu** (CSM Constanța) |
+| No surname match at that school — most plausibly did not play that season | Jordan Hare (2016), Marquez Letcher-Ellis (2018), Sam Cunliffe (2021), Brandon Williams (2021), Deshawndre Washington (2024) |
+
+No match was invented. These 8 rows exist in the dataset with null statistics and are visible via `match_method`.
+
+## 6. Aggregation rules
+
+**Season alignment.** A prospect entering draft year *Y* uses hoopR NCAA season *Y* (the season ending in *Y*). Enforced by assertion; **0 mismatches** across all 974 rows. Never *Y+1*.
+
+**Transfers.** A prospect's draft-year record is their **total production across every NCAA team played for that season** — one row per prospect, never duplicated by a mid-season team change. `n_teams` is retained as metadata and `primary_school` (last team by game date) is kept for identity. **3 multi-team prospects** across 2011–2026 (2 in 2017, 1 in 2021); the policy is unit-tested.
+
+**Duplicate game rows.** Exact duplicate `(athlete_id, game_id)` rows are dropped before summing so statistics are never double-counted. **3 rows removed**, all in 2017. Reported per year in `quality_report.json`.
+
+**Did-not-play rows** are excluded from `games_played` and from all stat sums. `games_started` comes from the `starter` flag and is asserted ≤ `games_played`.
+
+## 7. Primitive feature schema — 58 columns
+
+**Identity / context (11):** `canonical_prospect_id`, `draft_year`, `player_name`, `normalized_name`, `college`, `position_from_population`, `class_from_population`, `wikipedia_title`, `hoopr_athlete_id`, `match_method`, `match_confidence`
+
+**Box-score primitives (18):** `games_played`, `games_started`, `minutes`, `points`, `field_goals_made/attempted`, `three_points_made/attempted`, `free_throws_made/attempted`, `offensive_rebounds`, `defensive_rebounds`, `total_rebounds`, `assists`, `turnovers`, `steals`, `blocks`, `personal_fouls`
+
+**Derived arithmetic primitives (2):** `two_points_made` = FGM − 3PM, `two_points_attempted` = FGA − 3PA. Identity-preserving only; validated for `made ≤ attempted` and non-negativity.
+
+**Shot-style primitives (20):** `shot_records`, `fg_attempts_shotfile`, `fg_makes_shotfile`, `three_point_shot_attempts/makes`, `assisted_made_field_goals`, `unassisted_made_field_goals`, and attempts/makes for `jump_shot`, `layup`, `dunk`, `tip`, plus `assisted_/unassisted_` splits for layups and dunks.
+
+**Physical / context (4):** `hoopr_position`, `height`, `weight`, `experience_years`
+**Aggregation metadata (3):** `n_teams`, `primary_school`, `ncaa_season`
+**Temporal metadata (1):** `covid_era_flag` — metadata for 2021/2022, **not** intended as a model feature (ML_SPEC §4.4)
+
+### Two shot-file hazards respected
+
+- **Free throws are never taken from `shots`.** The file contains only *made* free throws ([DATA.md](DATA.md) §22.3), so FT comes exclusively from `player_box`. Unit-tested.
+- **Coordinates are never used.** They carry ±2.1×10⁸ int32 sentinels. Three-pointers are identified by `score_value == 3`, which is populated for makes *and* misses, so shot style is derived without touching coordinates. Unit-tested.
+
+### Position labels — a discrepancy worth noting
+
+hoopR `position_abbreviation` is coarse: **G / F / C / ATH / NA** — not the five DraftLens positions (DEC-009). The Wikipedia population field `position_from_population` does carry finer labels (`SG`, `SF/PF`, …). Both are retained raw; **no mapping was chosen** (ML_SPEC §9.1 leaves it open). ML-1 must decide, and should note that a PG/SG/SF/PF/C split cannot come from hoopR alone.
+
+## 8. Leakage audit
+
+### Column deny-list — **PASS, zero violations in all three partitions**
+
+Asserted absent from every feature file: `drafted`, `pick`, `round`, `drafting_team`, `early_entrant`, `population_source`, `date_of_birth`, `age`, `current_age`, DOB-missingness indicators, NBA identifiers or statistics, mock/consensus/analyst ranks, green-room invitations, and any post-draft derived value. Substring rules cover `nba_`, `mock`, `consensus`, `analyst`, `outcome`, `post_draft`.
+
+Suspicious-name scan (`draft`, `nba`, `pick`, `round`, `rank`, `future`, `outcome`, `target`) flagged **0 columns** for review beyond the reviewed-and-allowed `draft_year`.
+
+### Sampling-frame leakage — **removed**
+
+Every row is a final NCAA early entrant, so the union-population leak is gone by construction. `early_entrant` is constant within the population and is deliberately **not** written to the feature file.
+
+### Temporal audit — **PASS**
+
+`ncaa_season == draft_year` on every row with statistics; **0 mismatches**; no partition contains draft years outside its range; no future season is reachable.
+
+### Feature / target separation — **PASS**
+
+Physically separate files. Targets contain exactly `canonical_prospect_id`, `draft_year`, `drafted`, `pick`, `round` — `drafting_team`, `population_source` and `early_entrant` are excluded. Keys align exactly in both directions for all partitions. Development and holdout key sets are disjoint.
+
+## 9. Missingness
+
+No imputation was performed and **no missingness indicators were created**.
+
+| Field group | Missing (2014–2025) | % |
+| --- | --: | --: |
+| All box-score primitives, shot primitives, `two_points_*` | 18 / 829 | **2.17** |
+| `experience_years` | 32 / 829 | 3.86 |
+| `height`, `weight` | 13 / 829 | 1.57 |
+| `hoopr_position` | 12 / 829 | 1.45 |
+
+Missingness is dominated by the 8 unmatched prospects plus a small number matched to hoopR but with no box rows that season.
+
+### Drafted-vs-undrafted coverage — the second leakage channel checked
+
+| Field group | Drafted | Undrafted | Gap |
+| --- | --: | --: | --: |
+| All box-score and shot primitives | 99.01% | 96.71% | **+2.3 pp** |
+| `height`, `weight` | 99.50% | 97.42% | +2.1 pp |
+| `experience_years` | 97.27% | 95.07% | +2.2 pp |
+
+**The maximum gap is 2.3 pp.** For contrast, the DOB gap that caused age to be excluded was **31 pp** ([DATA.md](DATA.md) §23.4). The direction is expected and benign — undrafted early entrants are somewhat likelier to be non-D-I or not to have played — and the magnitude is an order of magnitude smaller. **No field is excluded on this basis**, but ML-1 should re-check after any feature filtering.
+
+2026 missingness was profiled by field only; **it was not analysed by outcome**.
+
+## 10. Year-level quality (2014–2025)
+
+Per-year prospects / matched / duplicate rows removed / multi-team, plus drafted-undrafted counts, box and shot coverage, position/height/weight coverage, and median games and minutes, are written to `data/interim/ml0/quality_report.json`.
+
+Notable: **2021 (169 prospects) and 2022 (125)** are the COVID cohorts and together are 35% of the development window; **2025 has 27 prospects with only 2 undrafted**. Both are flagged in ML_SPEC §4.3–§4.4 and are retained, not removed.
+
+## 11. Known limitations
+
+1. **8 unmatched prospects (0.97%) in the development window**, diagnosed in §5. They carry null statistics.
+2. **Two non-NCAA players are in the population** — Alperen Şengün (Beşiktaş, 2021) and Cezar Unitu (CSM Constanța, 2024). Root cause: the acquisition NCAA filter tests for `men's basketball` in the link target, and these foreign clubs' Wikipedia articles are titled `… (men's basketball)`. Impact is **2 of 829 rows (0.24%)**, both already unmatched and therefore carrying no statistics. **Not silently corrected** — fixing it would change the approved 829 gate. Owner decision, §12.
+3. **hoopR positions are G/F/C only**, not the five DraftLens positions (§7).
+4. Shot coordinates remain unusable; only `type_text` and `score_value` are used.
+5. `experience_years` is retained as a context candidate and has **not** been leakage-cleared for modelling use.
+6. 2011–2013 match rate (94.12%) is lower than 2014–2025, consistent with the thinner ESPN coverage before the 2014 break.
+
+## 12. ML-1 readiness
+
+**Ready.** All population gates, leakage assertions, temporal assertions, validation checks (0 failures, 0 warnings) and 30 unit tests pass.
+
+Open items ML-1 must address:
+
+- Decide the position mapping given hoopR's G/F/C limitation (§7).
+- Re-run the leakage audit on the engineered feature set, not just primitives.
+- Decide whether `covid_era_flag`, `n_teams`, and `experience_years` are metadata or candidate features.
+- Owner decision on the 2 non-NCAA population rows (§11.2).
+
+**Reproduce with:**
+
+```bash
+./.venv/bin/python scripts/build_model_dataset.py       # writes data/interim/ml0/
+./.venv/bin/python scripts/validate_model_dataset.py
+./.venv/bin/python -m unittest discover -s tests
+```
+
+Generated outputs total ~416 KB and are git-ignored; the scripts and the override file are committed.
