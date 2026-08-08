@@ -110,11 +110,58 @@ def player_from_cell(cell):
     return (txt, txt) if txt else (None, None)
 
 
-def find_school(text):
-    """(college, is_ncaa) from any wikilink naming a men's basketball program."""
-    for tgt, lbl in re.findall(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]", text):
-        if "men's basketball" in tgt:
-            return (lbl or tgt), True
+LINK_RE = r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]"
+
+
+def collect_school_candidates(text):
+    """Every wikilink target that could plausibly name a basketball team."""
+    return {tgt for tgt, _ in re.findall(LINK_RE, text)
+            if "basketball" in tgt.lower()}
+
+
+def resolve_canonical(targets):
+    """Map each link target to its canonical article title via the MediaWiki
+    redirect system (batched, 50 titles per request)."""
+    tl, canon = sorted(targets), {}
+    for i in range(0, len(tl), 50):
+        chunk = tl[i:i + 50]
+        q = (f"{WP_API}?action=query&redirects=1&format=json&titles="
+             + urllib.parse.quote("|".join(chunk)))
+        d = http_json(q, throttle=THROTTLE).get("query", {})
+        alias = {r["from"]: r["to"]
+                 for r in d.get("normalized", []) + d.get("redirects", [])}
+        for t in chunk:
+            c = t
+            for _ in range(3):
+                c = alias.get(c, c)
+            canon[t] = c
+    return canon
+
+
+def is_ncaa_program(canonical_title):
+    """True iff the canonical article is a US college basketball PROGRAM page.
+
+    Rule (DEC-063): the canonical title ends with "basketball" AND carries no
+    parenthetical disambiguator.
+
+    Wikipedia is inconsistent about the "men's" infix — "Duke Blue Devils men's
+    basketball" but "Georgia Bulldogs basketball" — and several programs are
+    reached through redirects, so the title must be canonicalised first. The
+    discriminator is the parenthesis: college programs are titled
+    "<Team> [men's] basketball", whereas foreign clubs, leagues and player
+    articles use "(men's basketball)" / "(basketball)" as a disambiguator
+    (e.g. "Beşiktaş J.K. (men's basketball)", "Anthony Edwards (basketball)").
+    """
+    c = str(canonical_title)
+    return c.endswith("basketball") and "(" not in c
+
+
+def find_school(text, ncaa_targets):
+    """(college_label, is_ncaa) using the pre-resolved NCAA target set."""
+    for tgt, lbl in re.findall(LINK_RE, text):
+        if tgt in ncaa_targets:
+            # labels can carry templates, e.g. [[...|Hawai{{okina}}i]]
+            return strip_markup(lbl or tgt), True
     return None, False
 
 
@@ -133,7 +180,7 @@ def find_class(text):
 
 
 # ----------------------------------------------------------------- parsers
-def parse_picks(text):
+def parse_picks(text, ncaa_targets):
     """All draft selections -> list of dicts (both NCAA and non-NCAA)."""
     sec = section(text, "Draft selections")
     if sec is None:
@@ -157,22 +204,22 @@ def parse_picks(text):
         tm = re.search(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]", team_txt)
         team = (tm.group(2) or tm.group(1)) if tm else strip_markup(team_txt)
         school_blob = " ".join(cs[6:]) if len(cs) > 6 else ""
-        college, is_ncaa = find_school(school_blob)
+        college, is_ncaa = find_school(school_blob, ncaa_targets)
         out.append(dict(round=rnd, pick=pick, wikipedia_title=title, player_name=disp,
                         position=pos, drafting_team=team, college=college,
                         is_ncaa=is_ncaa, klass=find_class(school_blob)))
     return out
 
 
-def _entrant_from_text(blob, title, disp):
-    college, is_ncaa = find_school(blob)
+def _entrant_from_text(blob, title, disp, ncaa_targets):
+    college, is_ncaa = find_school(blob, ncaa_targets)
     pm = re.search(r"[–—-]\s*([A-Z]{1,2}(?:/[A-Z]{1,2})?)\s*,", blob)
     return dict(wikipedia_title=title, player_name=disp,
                 position=pm.group(1) if pm else None,
                 college=college, is_ncaa=is_ncaa, klass=find_class(blob))
 
 
-def parse_early_entrants(text):
+def parse_early_entrants(text, ncaa_targets):
     """Final early entrants -> list of dicts (NCAA flag included).
 
     Two markup styles occur across 2011-2026: bulleted lists (most years) and
@@ -186,10 +233,24 @@ def parse_early_entrants(text):
     for line in sec.split("\n"):
         if not line.strip().startswith("*"):
             continue
-        links = re.findall(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]", line)
-        if not links or "men's basketball" in links[0][0]:
-            continue
-        out.append(_entrant_from_text(line, links[0][0], links[0][1] or links[0][0]))
+        links = re.findall(LINK_RE, line)
+        # The first link is the player ONLY when it is not the school link.
+        # Prospects without a Wikipedia article have their name as plain text
+        # before the position dash (e.g. "* {{flagicon|USA}} Casdon Jardine -
+        # G/F, [[Hawaii Rainbow Warriors basketball|Hawai{{okina}}i]]"), and
+        # taking links[0] there would name the prospect after their school.
+        if links and links[0][0] not in ncaa_targets:
+            title = links[0][0]
+            disp = links[0][1] or links[0][0]
+        else:
+            plain = re.sub(r"^\s*\*+\s*", "", line)
+            plain = re.sub(r"\{\{flagicon\|[^}]*\}\}", "", plain)
+            plain = re.split(r"[–—]|\s-\s", plain)[0]
+            disp = strip_markup(plain)
+            if not disp:
+                continue
+            title = ""          # no Wikipedia article for this prospect
+        out.append(_entrant_from_text(line, title, disp, ncaa_targets))
     if out:
         return out
 
@@ -204,15 +265,17 @@ def parse_early_entrants(text):
         blob = " ".join(cs)
         if not re.search(r"\[\[|\{\{sortname", cs[0]):
             continue
-        out.append(_entrant_from_text(blob, title, disp))
+        out.append(_entrant_from_text(blob, title, disp, ncaa_targets))
     return out
 
 
 # --------------------------------------------------------------- per year
 def build_year(year, report):
     text = wikitext(f"{year} NBA draft")
-    picks = parse_picks(text)
-    early = parse_early_entrants(text)
+    canon = resolve_canonical(collect_school_candidates(text))
+    ncaa_targets = {t for t, c in canon.items() if is_ncaa_program(c)}
+    picks = parse_picks(text, ncaa_targets)
+    early = parse_early_entrants(text, ncaa_targets)
 
     ncaa_picks = [p for p in picks if p["is_ncaa"]]
     ncaa_early = [e for e in early if e["is_ncaa"]]

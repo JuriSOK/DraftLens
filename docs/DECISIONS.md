@@ -291,7 +291,7 @@ A record of meaningful product and technical decisions. Each entry states what w
 ## DEC-056 — ML analytical dataset is physically built from early entrants only
 **Status:** Accepted
 **Decision:** The ML-0 pipeline materialises the analytical dataset from **final NCAA early entrants only**. Seniors and other automatically-eligible players remain in the raw layer for descriptive use but are never written into the ML feature or target files.
-**Note:** Implements DEC-049/DEC-050. Population counts are enforced as hard build gates (2014–2025: 829/403/426; 2011–2013: 119/79/40; 2026: 26) and re-asserted by `scripts/validate_model_dataset.py` and the test suite. See [ML0_REPORT.md](ML0_REPORT.md).
+**Note:** Implements DEC-049/DEC-050. Population counts are enforced as hard build gates — **corrected in ML-0.1 (DEC-063) to 2014–2025: 887/431/456; 2011–2013: 125/85/40; 2026: 26**. The original 829/403/426 and 119/79/40 came from a defective NCAA classifier and are not authoritative and re-asserted by `scripts/validate_model_dataset.py` and the test suite. See [ML0_REPORT.md](ML0_REPORT.md).
 
 ## DEC-057 — Development, robustness and holdout partitions are stored separately
 **Status:** Accepted
@@ -322,3 +322,20 @@ A record of meaningful product and technical decisions. Each entry states what w
 **Status:** Accepted
 **Decision:** Where deterministic matching cannot resolve a genuine name variant, the mapping is recorded in [`config/identity_overrides.csv`](../config/identity_overrides.csv) with prospect, year, expected school, selected `athlete_id`, and a written reason. Overrides must never be hidden in Python conditionals, and a match must never be invented.
 **Note:** Three entries at ML-0, all legal-name/nickname mismatches verified by unique surname+school in the relevant season.
+
+## DEC-063 — NCAA membership is decided by canonical article title, not phrase matching
+**Status:** Accepted
+**Decision:** A prospect's school counts as NCAA if and only if the linked Wikipedia article, **after redirect resolution to its canonical title**, ends with `basketball` and carries **no parenthetical disambiguator**. Classification is structural — no player-name or school-name exceptions are permitted.
+**Rationale:** ML-0 tested for the phrase `men's basketball` anywhere in the raw link target. That failed three ways:
+- **False positives** — foreign clubs and a league use the phrase as a disambiguator: `Beşiktaş J.K. (men's basketball)`, `CSM Constanța (men's basketball)`, `Galatasaray S.K. (men's basketball)`, `Liga Națională (men's basketball)`.
+- **False negatives** — Wikipedia canonicalises many NCAA programs without the "men's" infix (`Georgia Bulldogs basketball`) or behind a redirect (`LSU Tigers basketball` → `LSU Tigers men's basketball`). **67 NCAA early entrants were silently absent**, including Ben Simmons, Anthony Edwards, Cade Cunningham and Marcus Smart.
+- **Target mislabelling** — the same rule classified the school on a *draft* row, so drafted early entrants whose school went unrecognised were recorded as undrafted. **11 targets were wrong, including Anthony Bennett, the 2013 No. 1 overall pick.**
+
+The parenthesis is the reliable discriminator: college programs are titled `<Team> [men's] basketball`, while clubs, leagues and player articles disambiguate with `(...)`. It also prevents a player link such as `Anthony Edwards (basketball)` being mistaken for a school.
+**Consequence:** three non-NCAA records were removed (Alperen Şengün 2021, Cezar Unitu 2024, Jacob Ledoux 2019 — a D-II athletics page). Corrected populations: **2014–2025 887/431/456**, **2011–2013 125/85/40**, **2026 26 (25 drafted / 1 undrafted)**. These supersede the counts in DEC-056.
+**Note:** Correctness took priority over the previously published 829 gate, per the ML-0.1 instruction. Regression-tested in `tests/test_population_parser.py`.
+
+## DEC-064 — Prospects without a Wikipedia article are named from list text, not the school link
+**Status:** Accepted
+**Decision:** In an early-entrant bullet, the first wikilink is treated as the prospect **only if it is not the school link**. Where a prospect has no article, the name is taken from the plain text preceding the position dash and `wikipedia_title` is left empty.
+**Rationale:** The parser previously took `links[0]` unconditionally, so a prospect with no article was named after their school — `Casdon Jardine` (2021, Hawaiʻi) became a phantom prospect literally named `Hawai{{okina}}i`. One occurrence across 2011–2026, but the failure mode is structural. Link labels are also markup-stripped, so template artefacts no longer reach the `college` field.

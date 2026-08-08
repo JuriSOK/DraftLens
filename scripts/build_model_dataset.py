@@ -39,8 +39,11 @@ PARTITIONS = {
     "2014_2025": list(range(2014, 2026)),
     "2026": [2026],
 }
-EXPECTED = {"2014_2025": (829, 403, 426), "2026": (26, None, None),
-            "2011_2013": (119, 79, 40)}
+# Authoritative population gates. Corrected in ML-0.1 after the NCAA
+# classification fix (DEC-063); the pre-correction values (829/403/426 and
+# 119/79/40) were produced by a defective parser and are NOT authoritative.
+EXPECTED = {"2014_2025": (887, 431, 456), "2026": (26, None, None),
+            "2011_2013": (125, 85, 40)}
 COVID_YEARS = {2021, 2022}
 
 # Columns that must NEVER appear in a feature file (ML_SPEC §8.1).

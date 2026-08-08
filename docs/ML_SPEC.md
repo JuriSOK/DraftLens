@@ -69,28 +69,28 @@ Descriptive counts from the acquired data (no features computed):
 
 | Draft year | Early entrants | Drafted | Undrafted | Drafted % |
 | --- | --: | --: | --: | --: |
-| 2011 | 37 | 26 | 11 | 70.3 |
-| 2012 | 39 | 26 | 13 | 66.7 |
-| 2013 | 43 | 27 | 16 | 62.8 |
-| **2014** | 35 | 25 | 10 | 71.4 |
-| 2015 | 41 | 24 | 17 | 58.5 |
-| 2016 | 45 | 25 | 20 | 55.6 |
-| 2017 | 60 | 36 | 24 | 60.0 |
-| 2018 | 66 | 37 | 29 | 56.1 |
-| 2019 | 71 | 34 | 37 | 47.9 |
-| 2020 | 63 | 38 | 25 | 60.3 |
-| **2021** | **169** | 44 | **125** | **26.0** |
-| 2022 | 125 | 42 | 83 | 33.6 |
-| 2023 | 78 | 40 | 38 | 51.3 |
+| 2011 | 39 | 27 | 12 | 69.2 |
+| 2012 | 43 | 30 | 13 | 69.8 |
+| 2013 | 43 | 28 | 15 | 65.1 |
+| **2014** | 41 | 28 | 13 | 68.3 |
+| 2015 | 44 | 27 | 17 | 61.4 |
+| 2016 | 52 | 27 | 25 | 51.9 |
+| 2017 | 61 | 37 | 24 | 60.7 |
+| 2018 | 72 | 39 | 33 | 54.2 |
+| 2019 | 76 | 40 | 36 | 52.6 |
+| 2020 | 65 | 40 | 25 | 61.5 |
+| **2021** | **188** | 50 | **138** | **26.6** |
+| 2022 | 132 | 43 | 89 | 32.6 |
+| 2023 | 79 | 41 | 38 | 51.9 |
 | 2024 | 49 | 33 | 16 | 67.3 |
-| **2025** | 27 | 25 | **2** | **92.6** |
-| **2026** *(holdout)* | **26** | 23 | **3** | **88.5** |
+| **2025** | 28 | 26 | **2** | **92.9** |
+| **2026** *(holdout)* | **26** | 25 | **1** | **96.2** |
 
 | Window | n | Drafted | Undrafted | Drafted % |
 | --- | --: | --: | --: | --: |
-| **Main development 2014–2025** | **829** | 403 | 426 | **48.6** |
-| Secondary robustness 2011–2013 | 119 | 79 | 40 | 66.4 |
-| **Final holdout 2026** | **26** | 23 | 3 | **88.5** |
+| **Main development 2014–2025** | **887** | 431 | 456 | **48.6** |
+| Secondary robustness 2011–2013 | 125 | 85 | 40 | 68.0 |
+| **Final holdout 2026** | **26** | 25 | 1 | **96.2** |
 
 The main window is **nearly class-balanced overall (48.6%)** — a substantial improvement over the union population — but see §4.3 and §12.1 for the two problems these numbers reveal.
 
@@ -112,27 +112,27 @@ The main window is **nearly class-balanced overall (48.6%)** — a substantial i
 
 | Fold | Train years | Train n | Validate | Validate n | Val. undrafted |
 | --- | --- | --: | --- | --: | --: |
-| 1 | 2014–2018 | 247 | 2019 | 71 | 37 |
-| 2 | 2014–2019 | 318 | 2020 | 63 | 25 |
-| 3 | 2014–2020 | 381 | 2021 | 169 | 125 |
-| 4 | 2014–2021 | 550 | 2022 | 125 | 83 |
-| 5 | 2014–2022 | 675 | 2023 | 78 | 38 |
-| 6 | 2014–2023 | 753 | 2024 | 49 | 16 |
-| 7 | 2014–2024 | 802 | 2025 | 27 | **2** |
+| 1 | 2014–2018 | 270 | 2019 | 76 | 36 |
+| 2 | 2014–2019 | 346 | 2020 | 65 | 25 |
+| 3 | 2014–2020 | 411 | 2021 | 188 | 138 |
+| 4 | 2014–2021 | 599 | 2022 | 132 | 89 |
+| 5 | 2014–2022 | 731 | 2023 | 79 | 38 |
+| 6 | 2014–2023 | 810 | 2024 | 49 | 16 |
+| 7 | 2014–2024 | 859 | 2025 | 28 | **2** |
 
-Seven folds; training sets from 247 to 802 prospects. **Folds are not interchangeable** — fold 3 validates on 169 prospects and fold 7 on 27.
+Seven folds; training sets from 270 to 859 prospects. **Folds are not interchangeable** — fold 3 validates on 188 prospects and fold 7 on 28.
 
 ### 4.3 🔴 Two structural problems these numbers create
 
 **(a) The 2025 fold is near-degenerate.** Two undrafted prospects. ROC-AUC, PR-AUC, and every calibration metric are effectively undefined at that sample size — a single misordering swings AUC by a large fraction. **Fold 7 must not be treated as equal evidence to folds 1–5**, and no model may be selected on its result. The specification requires reporting per-fold metrics with fold sizes attached, never a bare mean across folds (§12.3).
 
-**(b) The holdout base rate differs sharply from the training window.** Training is 48.6% drafted; the 2026 holdout is **88.5% drafted**. This is not noise — declared early entrants collapsed from 169 (2021) to 26 (2026), so only serious prospects now declare. It is a genuine population regime shift, plausibly driven by NIL and transfer-portal economics reducing speculative declarations.
+**(b) The holdout base rate differs sharply from the training window.** Training is 48.6% drafted; the 2026 holdout is **96.2% drafted** (25 of 26). This is not noise — declared early entrants collapsed from 188 (2021) to 26 (2026), so only serious prospects now declare. It is a genuine population regime shift, plausibly driven by NIL and transfer-portal economics reducing speculative declarations.
 
 **Consequence:** a Stage A model calibrated on a 48.6% base rate will be **badly miscalibrated** on 2026. The 2026 holdout therefore tests **ranking quality, not probability calibration**, and the evaluation must say so rather than reporting a Brier score as if it were comparable. Recency weighting or a recent-years-only sensitivity variant should be tested (§11.4), but selection must still happen without touching 2026.
 
 ### 4.4 COVID cohort
 
-2021 (169 early entrants, 26.0% drafted) and 2022 (125, 33.6%) are the COVID eligibility cohorts. Together they are **294 of 829 rows — 35% of the main window** — so pooled training is disproportionately shaped by them.
+2021 (188 early entrants, 26.6% drafted) and 2022 (132, 32.6%) are the COVID eligibility cohorts. Together they are **320 of 887 rows — 36% of the main window** — so pooled training is disproportionately shaped by them.
 
 **They must not be automatically removed.** Required sensitivity analyses (§11.4): (A) all years; (B) 2021–2022 excluded; (C) 2021–2022 down-weighted. Any exclusion must be justified by measured stability differences, not by intuition.
 
@@ -148,7 +148,7 @@ Seven folds; training sets from 247 to 802 prospects. **Folds are not interchang
 
 ### 5.2 Stage B — draft position among drafted players
 
-- **Population:** early entrants who were **actually drafted** (403 in the main window; 24–44 per year).
+- **Population:** early entrants who were **actually drafted** (431 in the main window; 26–50 per year).
 - **Target:** to be selected from the four candidates in §6.3.
 
 ### 5.3 Target hygiene
@@ -356,7 +356,7 @@ The 2025 fold has **2 undrafted prospects**. Report its metrics, flag them as un
 
 ## 13. Stage B evaluation
 
-Population: drafted early entrants (24–44 per year).
+Population: drafted early entrants (26–50 per year).
 
 | Role | Candidates |
 | --- | --- |
@@ -383,7 +383,7 @@ Questions the evaluation must answer:
 
 Candidate metrics: **Precision@K, Recall@K, NDCG@K** (K ∈ {5, 14, 30}), and **Spearman correlation among drafted prospects**.
 
-**Caveat on K:** with only 26–27 prospects in recent classes, K = 30 exceeds the population. K values must be chosen relative to each year's population size, and this must be stated rather than silently truncated.
+**Caveat on K:** with only 26–28 prospects in recent classes, K = 30 exceeds the population. K values must be chosen relative to each year's population size, and this must be stated rather than silently truncated.
 
 **Never optimise against the 2026 holdout** (§25).
 
@@ -401,7 +401,7 @@ Required baselines: **(1)** scoring average only; **(2)** a simple standardised 
 
 ## 16. Candidate model families
 
-**No algorithm is approved.** Dataset size is modest — 829 prospects in the main window, 403 for Stage B.
+**No algorithm is approved.** Dataset size is modest — 887 prospects in the main window, 431 for Stage B.
 
 | Stage | Interpretable baseline | Nonlinear candidates |
 | --- | --- | --- |
@@ -654,7 +654,7 @@ Every experiment records: data window · feature set · target · preprocessing 
 
 | Phase | Work | Gate |
 | --- | --- | --- |
-| **ML-0** | Build the model-ready dataset from **early entrants only** | Population counts match §3.5 exactly |
+| **ML-0** | Build the model-ready dataset from **early entrants only** | Population counts match §3.5 exactly *(done; counts corrected in ML-0.1 — see [ML0_REPORT.md](ML0_REPORT.md))* |
 | **ML-1** | EDA and leakage audit on the actual feature set | Leakage table re-derived; availability-correlation checked per feature |
 | **ML-2** | Derive transparent statistical features (§7) | Every feature traces to documented source columns |
 | **ML-3** | Establish baselines (§15) | All five baselines measured on the fold protocol |
@@ -680,7 +680,7 @@ Phases ML-9 and ML-10 are independent of ML-4…ML-8 and may proceed in parallel
 
 **Features:** final feature set · position-normalisation method · season-normalisation method · missing-value method · whether shot coordinates are usable at all.
 
-**Population and window:** COVID-year treatment · whether 2011–2013 are included after sensitivity analysis · recency weighting.
+**Population and window:** how to report a holdout with a single undrafted prospect · COVID-year treatment · whether 2011–2013 are included after sensitivity analysis · recency weighting.
 
 **Team Need:** sub-score formulas · profile weights · Fit Score transformation · missing-dimension handling.
 
