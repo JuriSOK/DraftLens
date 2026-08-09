@@ -471,6 +471,8 @@ There is **no athleticism measurement** in the acquired data. Dunk frequency is 
 
 > **An Athleticism sub-score must not be manufactured from unrelated box-score statistics.** In the MVP without Combine data, Athleticism is **unavailable or incomplete** and must be shown as such — omitted, or displayed as explicitly missing (DEC-016 requires missing data to be disclosed, not hidden).
 
+> **FROZEN in ML-7 (DEC-103).** Athleticism is **UNAVAILABLE and not scored**. The Team Need engine REJECTS a custom request carrying a positive athleticism weight rather than silently dropping or redistributing it. This unblocks only when an approved Combine or physical-testing source is added to DATA.md.
+
 ### 18.3 Defense must be labelled honestly
 
 The Defense sub-score measures **box-score defensive production**, not defensive quality. There is no matchup data, no opponent shooting-when-defended, no on/off context, and no deterrence measure. Steals and blocks are noisy and position-confounded.
@@ -498,7 +500,7 @@ These are not blended by default (DEC-006, PRODUCT.md §7). Team Need does not i
 
 Simple-mode dimensions: Shooting, Playmaking, Defense, Rebounding, Size, and Athleticism **only if available** (§18.2).
 
-Candidate design: `normalized_dimension_score × user_weight`, aggregated and rescaled to a Fit Score. **The exact transformation is TBD**, including how weights are normalised, whether dimensions are percentile or z-scored, and how missing dimensions are handled without penalising or rewarding absence.
+> **RESOLVED in ML-7 (DEC-102, DEC-105).** `fit_raw = sum(w_i * d_i) / sum(w_i)` over requested and available dimensions, where each `d_i` is an NCAA peer percentile (0-100). Weights are user preferences, need not sum to 1, and are never fitted. Missing dimensions renormalise rather than scoring zero, and a request whose supported weight falls below 50% returns UNAVAILABLE rather than a manufactured number. Supported dimensions: Shooting, Playmaking, Box-score defensive production, Rebounding, Size. See [experiments/ML7_TEAM_NEED.md](experiments/ML7_TEAM_NEED.md).
 
 ### 19.3 Requirements
 
@@ -677,7 +679,7 @@ Every experiment records: data window · feature set · target · preprocessing 
 | **ML-6** | Construct and validate the Overall Board ranking | Board metrics (§14) computed; §17 requirements satisfied *(done — see [ML6_BOARD.md](experiments/ML6_BOARD.md); Stage B earns inclusion (DEC-096), multiplicative expected draft value selected (DEC-097), class-relative integer score (DEC-098))* |
 | **ML-7** | **Freeze** the General Draft methodology | Written frozen spec; no further tuning permitted |
 | **ML-8** | Run the 2026 holdout **once** | Single evaluation; result reported as-is |
-| **ML-9** | Build Team Need scoring | Deterministic; no fitting to draft outcomes |
+| **ML-9** | Build Team Need scoring | Deterministic; no fitting to draft outcomes *(done in ML-7 — see [ML7_TEAM_NEED.md](experiments/ML7_TEAM_NEED.md); DEC-101..105)* |
 | **ML-10** | Build the NBA similarity system | Comparables stable under perturbation |
 
 Phases ML-9 and ML-10 are independent of ML-4…ML-8 and may proceed in parallel — they are separate analytical systems (§2).
@@ -696,7 +698,7 @@ Phases ML-9 and ML-10 are independent of ML-4…ML-8 and may proceed in parallel
 
 **Population and window:** how to report a holdout with a single undrafted prospect · COVID-year treatment · whether 2011–2013 are included after sensitivity analysis · recency weighting.
 
-**Team Need:** sub-score formulas · profile weights · Fit Score transformation · missing-dimension handling.
+**Team Need:** ~~sub-score formulas~~ **RESOLVED (DEC-102)** — six factual dimensions, equal-weight means of non-redundant metrics on an NCAA peer-percentile scale · ~~profile weights~~ **RESOLVED (DEC-104)** — equal pillars, geometric mean for conjunctive archetypes; nothing fitted · ~~Fit Score transformation~~ **RESOLVED (DEC-105)** — direct peer percentile, integer 0-100, NOT class-relative · ~~missing-dimension handling~~ **RESOLVED (DEC-105)** — renormalise over available components, never zero; UNAVAILABLE below minimum coverage.
 
 **Comparables:** NBA reference-season representation · similarity metric · shared representation space.
 

@@ -1,8 +1,8 @@
 # DraftLens — Technical Architecture
 
-**Status:** Analytical pipeline implemented and frozen through the General Draft Board. No application layer yet.
+**Status:** Both analytical product modes implemented and frozen — General Draft Board and Team Need. No application layer yet.
 
-This describes what exists. Sections 13–15 describe what does not exist yet and where it will go — they are placeholders by design, not omissions.
+This describes what exists. Sections 14–15 describe what does not exist yet and where it will go — they are placeholders by design, not omissions.
 
 ---
 
@@ -49,7 +49,7 @@ DraftLens/
 │   │   ├── stage_b.py        FROZEN — draft-position ranking
 │   │   ├── board.py          FROZEN — General Draft Board + Overall Score
 │   │   └── guards.py         assertions shared by every validator
-│   ├── team_need/            placeholder
+│   ├── team_need/            FROZEN — dimensions, profiles, Fit Score
 │   └── comparables/          placeholder
 │
 ├── scripts/                  thin CLI entry points
@@ -236,6 +236,7 @@ Trained model binaries and predictions are never committed. Reports in `docs/exp
 | `ml4_stage_a_selection.py` | [ML4_STAGE_A.md](experiments/ML4_STAGE_A.md) | Stage A selection |
 | `ml5_stage_b_selection.py` | [ML5_STAGE_B.md](experiments/ML5_STAGE_B.md) | Stage B target + model |
 | `ml6_board_selection.py` | [ML6_BOARD.md](experiments/ML6_BOARD.md) | board combination + score |
+| `ml7_team_need.py` | [ML7_TEAM_NEED.md](experiments/ML7_TEAM_NEED.md) | Team Need methodology audit |
 
 These reproduce history. They must not be used to change a frozen selection — that requires a new phase and a decision record.
 
@@ -261,9 +262,31 @@ Stage B is applied to **every** prospect, including those who went undrafted. Th
 
 **Three separate product signals, never merged:** Overall Draft Score (0-100 ranking score) · Draft Probability (Stage A, the only real probability) · Draft Position Signal (Stage B, never a literal pick).
 
-## 13. Team Need (not built)
+## 13. Team Need — the second product mode
 
-Destination: `draftlens/team_need/`. A deterministic multi-criteria ranking, **not** a predictive model, and it must never reuse the board's output. User weights are preferences and must never be fitted to data.
+**Frozen** (`draftlens.team_need`, DEC-101..105). A deterministic multi-criteria ranking, **not** a predictive model:
+
+```
+six dimensions    Shooting · Playmaking · Box-score defensive production
+                  Rebounding · Size · Rim pressure
+                  each an equal-weight mean of non-redundant metrics,
+                  expressed as an NCAA peer percentile (0-100)
+
+six archetypes    Shooter · Slasher · Playmaker · 3&D Wing
+                  Rim Protector · Stretch Big
+                  conjunctive archetypes use a geometric mean
+
+custom mode       fit_raw = sum(w_i * d_i) / sum(w_i)
+                  weights are PREFERENCES, never fitted
+```
+
+Percentiles are computed against the **full NCAA player population** of the same season (≥ 200 minutes, ≥ 10 games; 2,941–3,417 players/season), never the prospect frame and never reading a draft outcome.
+
+**It must be able to outrank the board, and it does** — Team Need correlates with the Overall Score at only ρ = 0.18–0.62 across development classes. No board signal enters a Fit Score, and `team_need` never imports the board pipeline.
+
+**Athleticism is UNAVAILABLE and not scored.** There is no athleticism measurement in the data; dunk rate is a style signal, not a vertical leap. A custom request with a positive athleticism weight is rejected, never silently redistributed.
+
+Fit Score is a **peer-relative** integer 0-100 — deliberately unlike the class-relative Overall Score, because re-ranking within a class would destroy the absolute trait meaning percentiles carry.
 
 ## 14. NBA comparables (not built)
 
@@ -288,6 +311,8 @@ python scripts/run_stage_a.py
 python scripts/run_stage_b.py
 python scripts/run_board.py                 # General Draft Board
 python scripts/run_board.py --year 2024     # one class's board
+python scripts/build_team_need_reference.py # NCAA peer percentiles
+python scripts/run_team_need.py --profile STRETCH_BIG --year 2024
 python scripts/validate.py
 python -m unittest discover -s tests -t .
 ```

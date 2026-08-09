@@ -122,6 +122,8 @@ The user adjusts the relative importance of broad dimensions:
 - Athleticism
 - Size
 
+> **IMPLEMENTATION STATUS (ML-7, DEC-103).** Five of these six dimensions are implemented and frozen: **Shooting · Playmaking · Defense (as box-score defensive production) · Rebounding · Size**. **Athleticism is UNAVAILABLE and is not scored** — there is no athleticism measurement in the acquired data, and dunk rate, steals, blocks and height are style or size signals, not athletic testing. The engine **rejects** a request carrying a positive athleticism weight rather than silently dropping or redistributing it. This is a data limitation, not a product change: the dimension stays in the approved product definition and unblocks when an approved Combine or physical-testing source is added. See [experiments/ML7_TEAM_NEED.md](experiments/ML7_TEAM_NEED.md) §13.
+
 The user must be able to change how much each dimension matters. **This simple weighted experience is the priority of §8.**
 
 ### Advanced view — optional for the MVP

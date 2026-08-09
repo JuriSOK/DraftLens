@@ -134,6 +134,8 @@ Custom ranking should eventually support two levels.
 - Athleticism
 - Size
 
+> **IMPLEMENTATION STATUS (ML-7, DEC-103).** Five of these six dimensions are implemented and frozen: **Shooting · Playmaking · Defense (as box-score defensive production) · Rebounding · Size**. **Athleticism is UNAVAILABLE and is not scored** — there is no athleticism measurement in the acquired data, and dunk rate, steals, blocks and height are style or size signals, not athletic testing. The engine **rejects** a request carrying a positive athleticism weight rather than silently dropping or redistributing it. This is a data limitation, not a product change: the dimension stays in the approved product definition and unblocks when an approved Combine or physical-testing source is added. See [experiments/ML7_TEAM_NEED.md](experiments/ML7_TEAM_NEED.md) §13.
+
 **Advanced mode** — the user may inspect or adjust more specific measurable statistics. Potential examples (**not a final list**): 3P%, 3-point volume, FT%, TS%, AST%, TOV%, STL%, BLK%, height, wingspan, vertical jump, agility.
 
 The exact feature set is **TBD** and depends on which reliable data is available. The experience must remain understandable and must not become unnecessarily complex.

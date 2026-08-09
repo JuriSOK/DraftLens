@@ -1,0 +1,249 @@
+{
+  "version": "1.0",
+  "phase": "ML-7",
+  "purpose": "Deterministic, preference-based basketball fit scoring. NOT a predictive model.",
+
+  "semantics": {
+    "what_it_answers": "How well does this prospect's pre-draft statistical profile match the traits a team is asking for?",
+    "what_it_does_not_answer": "Whether the prospect will be drafted, or how high. That is the General Draft Board.",
+    "no_target": "Team Need has NO historical ground truth. There is no 'correct fit' label, so no formula here may be optimised against drafted/undrafted, pick, Stage A probability, Overall Score, NBA outcome or mock drafts.",
+    "weights_are_preferences": "Every weight is a user or basketball preference. None is a learned coefficient."
+  },
+
+  "reference": {
+    "population": "FULL NCAA player population of the same season",
+    "filter": "minutes >= 200 AND games_played >= 10",
+    "filter_rationale": "A percentile against a population containing eight-minute walk-ons is not a meaningful basketball statement. The prospect being scored is never filtered — only the peer group is.",
+    "groups": ["GLOBAL", "G", "F", "C"],
+    "scale": "0-100 percentile within season x reference group",
+    "position_source": "position_3 (G/F/C/UNKNOWN) — the only leakage-safe position (DEC-067). position_from_population is PROHIBITED.",
+    "unknown_position_fallback": "GLOBAL",
+    "reads_draft_outcome": false
+  },
+
+  "reliability_minimums": {
+    "note": "A rate computed from a handful of attempts is noise. Below these denominators the component is MISSING, not zero, and its dimension renormalises over what remains.",
+    "three_point_pct": {"denominator": "three_points_attempted", "min": 20},
+    "ft_pct": {"denominator": "free_throws_attempted", "min": 20},
+    "rim_make_pct": {"denominator": "shot_records", "min": 20}
+  },
+
+  "dimensions": {
+    "SHOOTING": {
+      "label": "Shooting",
+      "reference_group": "GLOBAL",
+      "rationale": "Shooting means the same thing at every position — a big who shoots like a guard is valuable BECAUSE of that. Position-relative normalisation would erase exactly the signal the Stretch Big profile needs.",
+      "combination": "ARITHMETIC_MEAN",
+      "components": [
+        {"metric": "three_point_pct", "orientation": "HIGHER_IS_BETTER", "role": "efficiency"},
+        {"metric": "three_point_attempt_rate", "orientation": "HIGHER_IS_BETTER", "role": "volume"},
+        {"metric": "ft_pct", "orientation": "HIGHER_IS_BETTER", "role": "touch"},
+        {"metric": "efg_pct", "orientation": "HIGHER_IS_BETTER", "role": "overall shot-making"}
+      ],
+      "excluded": {
+        "ts_pct": "|r| = 0.939 with efg_pct (ML-4 §6) and includes free throws, which would double-count ft_pct",
+        "jump_shot_*": "hoopR jump-shot subcategories break schema at 2020/21 and are not comparable across the window (DEC-068)"
+      }
+    },
+
+    "PLAYMAKING": {
+      "label": "Playmaking",
+      "reference_group": "GLOBAL",
+      "rationale": "A team asking for a playmaker wants absolute creation, not 'good for a centre'.",
+      "combination": "ARITHMETIC_MEAN",
+      "components": [
+        {"metric": "ast_pct", "orientation": "HIGHER_IS_BETTER", "role": "creation volume"},
+        {"metric": "tov_pct", "orientation": "LOWER_IS_BETTER", "role": "ball security"}
+      ],
+      "excluded": {
+        "assist_to_turnover_ratio": "literally the ratio of the two components already present — pure double counting",
+        "assists_per_40": "same signal as ast_pct on a different denominator",
+        "usage_pct": "measures role and shot volume, not playmaking"
+      }
+    },
+
+    "BOX_SCORE_DEFENSIVE_PRODUCTION": {
+      "label": "Box-score defensive production",
+      "reference_group": "POSITION",
+      "rationale": "Blocks and steals are strongly position-dependent (PRODUCT.md §8). Position-relative asks the answerable question: does this prospect generate defensive events at a high rate FOR THEIR POSITION?",
+      "combination": "ARITHMETIC_MEAN",
+      "components": [
+        {"metric": "stl_pct", "orientation": "HIGHER_IS_BETTER", "role": "perimeter disruption"},
+        {"metric": "blk_pct", "orientation": "HIGHER_IS_BETTER", "role": "shot blocking"}
+      ],
+      "excluded": {
+        "drb_pct": "belongs to REBOUNDING; including it in both dimensions would double-count it whenever a user weights Defence and Rebounding together",
+        "personal_fouls_per_40": "not defensibly directional — a high foul rate can mean aggression or poor discipline, and nothing in the data separates them"
+      },
+      "MANDATORY_LABEL": "This measures BOX-SCORE DEFENSIVE PRODUCTION, never defensive quality. There is no matchup data, no opponent shooting when defended, no on/off context and no deterrence measure (ML_SPEC §18.3)."
+    },
+
+    "REBOUNDING": {
+      "label": "Rebounding",
+      "reference_group": "POSITION",
+      "rationale": "Six rebounds means something different for a guard and a centre — the canonical example in PRODUCT.md §8.",
+      "combination": "ARITHMETIC_MEAN",
+      "components": [
+        {"metric": "orb_pct", "orientation": "HIGHER_IS_BETTER", "role": "offensive glass"},
+        {"metric": "drb_pct", "orientation": "HIGHER_IS_BETTER", "role": "defensive glass"}
+      ],
+      "excluded": {
+        "trb_pct": "a deterministic composite of the two components already present — including it triple-counts the same rebounds"
+      }
+    },
+
+    "SIZE": {
+      "label": "Size",
+      "reference_group": "GLOBAL",
+      "rationale": "Absolute size is what 'size' means. Position-relative normalisation would place every centre near the 50th percentile and destroy the signal the Rim Protector and Stretch Big profiles depend on. Position-relative size is computed for the sensitivity analysis only.",
+      "combination": "ARITHMETIC_MEAN",
+      "components": [
+        {"metric": "height", "orientation": "HIGHER_IS_BETTER", "role": "height"},
+        {"metric": "weight", "orientation": "HIGHER_IS_BETTER", "role": "mass"}
+      ],
+      "excluded": {
+        "wingspan": "NOT IN THE DATA. Never fabricated.",
+        "standing_reach": "NOT IN THE DATA. Never fabricated.",
+        "age": "prohibited — availability is outcome-correlated (ML_SPEC §8.2)"
+      }
+    },
+
+    "RIM_PRESSURE": {
+      "label": "Rim pressure",
+      "reference_group": "GLOBAL",
+      "rationale": "A rim-oriented scoring style is absolute, not position-relative. This dimension describes SHOT DIET AND FINISHING — it is explicitly NOT athleticism.",
+      "combination": "ARITHMETIC_MEAN",
+      "components": [
+        {"metric": "rim_attempt_share", "orientation": "HIGHER_IS_BETTER", "role": "shot diet at the rim"},
+        {"metric": "free_throw_rate", "orientation": "HIGHER_IS_BETTER", "role": "drawing contact"},
+        {"metric": "rim_make_pct", "orientation": "HIGHER_IS_BETTER", "role": "finishing"},
+        {"metric": "unassisted_made_fg_share", "orientation": "HIGHER_IS_BETTER", "role": "self-creation"}
+      ],
+      "excluded": {
+        "layup_attempt_share / dunk_attempt_share / tip_attempt_share": "these SUM to rim_attempt_share exactly (ML-4 verified max deviation 0.0000000000); including them alongside it double-counts the same attempts",
+        "dunk_make_pct / tip_make_pct": "sparse rare-event ratios whose definedness is target-correlated (DEC-073, DEC-076)"
+      },
+      "MANDATORY_LABEL": "Rim pressure is a shot-diet and finishing profile. It is NOT an athleticism measure and must never be presented as one."
+    }
+  },
+
+  "athleticism": {
+    "status": "UNAVAILABLE",
+    "scored": false,
+    "reason": "There is no athleticism measurement in the acquired data. No Combine testing, no vertical leap, no lane agility, no wingspan.",
+    "explicitly_prohibited_proxies": ["dunk_attempt_share", "steals_per_40", "blocks_per_40", "height", "weight", "rim_attempt_share"],
+    "prohibition_rationale": "Dunk frequency is a STYLE signal confounded by position, role and team system — it is not a vertical leap (ML_SPEC §18.2). Manufacturing an Athleticism score from unrelated box-score statistics is prohibited.",
+    "engine_behaviour": "A custom request with athleticism weight > 0 is REJECTED with an explicit unsupported status. The weight is never silently dropped or redistributed.",
+    "unblocks_when": "an approved Combine or physical-testing source is added to DATA.md"
+  },
+
+  "coverage": {
+    "component_available_if": "the metric is non-null AND any declared reliability minimum is met",
+    "dimension_min_component_fraction": 0.5,
+    "dimension_rule": "A dimension is scored when at least half its components (rounded up) are available; it renormalises over the available ones. Otherwise the dimension is UNAVAILABLE — never zero, never 50.",
+    "custom_min_supported_weight": 0.5,
+    "custom_rule": "A custom Fit Score is returned only when at least half of the requested weight lands on dimensions that could be scored. Otherwise the score is UNAVAILABLE rather than manufactured.",
+    "data_coverage_is_separate": "data_coverage is reported alongside the Fit Score and NEVER multiplies, penalises or rewards it. A prospect must not score higher merely because more data exists for them.",
+    "missing_is_never_zero": "Filling a missing component with 0 would make missingness a signal. Missing-data rows were disproportionately undrafted historically, so this would smuggle the outcome back in."
+  },
+
+  "profiles": {
+    "SHOOTER": {
+      "label": "Shooter",
+      "combination": "GEOMETRIC_MEAN",
+      "pillars": [
+        {"id": "efficiency", "source": "MEAN", "metrics": ["three_point_pct", "ft_pct", "efg_pct"]},
+        {"id": "volume", "source": "MEAN", "metrics": ["three_point_attempt_rate"]}
+      ],
+      "eligibility": null,
+      "rationale": "Conjunctive on purpose. 3P% alone crowns a low-volume specialist; volume alone crowns an inefficient chucker. A geometric mean requires BOTH."
+    },
+    "SLASHER": {
+      "label": "Slasher / Rim attacker",
+      "combination": "DIMENSION",
+      "dimension": "RIM_PRESSURE",
+      "eligibility": null,
+      "rationale": "The rim-pressure dimension already combines shot diet, contact drawing, finishing and self-creation with equal weight. No profile-specific complement improves it."
+    },
+    "PLAYMAKER": {
+      "label": "Playmaker",
+      "combination": "DIMENSION",
+      "dimension": "PLAYMAKING",
+      "eligibility": null,
+      "rationale": "Creation volume and ball security, equally weighted. Volume is inherent in ast_pct, so no extreme low-usage assist ratio can manufacture an elite score."
+    },
+    "THREE_AND_D": {
+      "label": "3&D Wing",
+      "combination": "GEOMETRIC_MEAN",
+      "pillars": [
+        {"id": "shooting", "source": "DIMENSION", "dimension": "SHOOTING"},
+        {"id": "defense", "source": "DIMENSION", "dimension": "BOX_SCORE_DEFENSIVE_PRODUCTION"}
+      ],
+      "eligibility": {"position_3_in": ["G", "F"]},
+      "rationale": "Inherently conjunctive: a prospect elite at only one side is not a 3&D wing. Arithmetic mean would allow full compensation.",
+      "naming_caveat": "'3&D Wing' is an archetype name, not evidence of a true NBA wing position. Only the coarse G/F distinction is leakage-safe; SG vs SF cannot be inferred."
+    },
+    "RIM_PROTECTOR": {
+      "label": "Rim protector",
+      "combination": "GEOMETRIC_MEAN",
+      "pillars": [
+        {"id": "shot_blocking", "source": "MEAN", "metrics": ["blk_pct"], "reference_group": "GLOBAL"},
+        {"id": "rebounding", "source": "DIMENSION", "dimension": "REBOUNDING"},
+        {"id": "size", "source": "DIMENSION", "dimension": "SIZE"}
+      ],
+      "eligibility": {"position_3_in": ["F", "C"]},
+      "rationale": "Conjunctive across blocking, defensive glass and size. Shot blocking uses the GLOBAL reference here, not position-relative — otherwise a 6-foot guard with a good-for-guards block rate would read as elite rim protection."
+    },
+    "STRETCH_BIG": {
+      "label": "Stretch big",
+      "combination": "GEOMETRIC_MEAN",
+      "pillars": [
+        {"id": "shooting", "source": "DIMENSION", "dimension": "SHOOTING"},
+        {"id": "size", "source": "DIMENSION", "dimension": "SIZE"}
+      ],
+      "eligibility": {"position_3_in": ["F", "C"]},
+      "rationale": "Must genuinely combine big-man size AND perimeter shooting. A geometric mean prevents a small guard winning on shooting alone; SIZE uses the GLOBAL reference so absolute size still carries meaning."
+    }
+  },
+
+  "eligibility_policy": {
+    "statuses": ["ELIGIBLE", "OUT_OF_POSITION", "UNKNOWN_POSITION"],
+    "unknown_is_eligible": true,
+    "unknown_rationale": "position_3 is UNKNOWN for a minority of prospects. Excluding them would penalise missing data, which historically correlates with going undrafted.",
+    "ranking": "Eligible prospects rank ahead of out-of-position ones; scores are still computed for everyone so the exclusion is visible rather than silent.",
+    "never_uses": ["draft outcome", "actual pick", "NBA information", "position_from_population"]
+  },
+
+  "custom_mode": {
+    "supported_dimensions": ["SHOOTING", "PLAYMAKING", "BOX_SCORE_DEFENSIVE_PRODUCTION", "REBOUNDING", "SIZE"],
+    "optional_dimension": "RIM_PRESSURE",
+    "optional_note": "RIM_PRESSURE is scored and available to the engine but is not one of PRODUCT.md §7.2's approved custom sliders. Adding it to the custom UI requires a product decision.",
+    "unavailable_dimensions": ["ATHLETICISM"],
+    "formula": "fit_raw = sum(w_i * d_i) / sum(w_i) over REQUESTED dimensions that are AVAILABLE for that prospect",
+    "constraints": ["all weights >= 0", "at least one weight > 0", "deterministic", "no hidden General Board contribution"]
+  },
+
+  "score": {
+    "range": [0, 100],
+    "dtype": "integer",
+    "transform": "DIRECT_PEER_PERCENTILE",
+    "transform_rationale": "Dimension scores are already NCAA peer percentiles, so their combination carries absolute trait meaning on 0-100. Re-ranking within the draft class would destroy exactly that meaning — '92nd percentile three-point volume' would become 'ranked 4th of 49 in this class'. This is DELIBERATELY different from the Overall Score, which IS class-relative because a board rank is what that mode means.",
+    "semantics": "Peer-relative basketball fit for the selected need, on 0-100.",
+    "must_not_be_labelled": ["probability of fit", "probability of success", "NBA readiness probability", "chance of succeeding"],
+    "ties": "Equal fit scores are genuine ties. Ranking orders by the underlying continuous fit signal before integer rounding; ties are NEVER broken by player name, draft outcome, actual pick or any NBA information."
+  },
+
+  "prohibited_inputs": [
+    "drafted", "pick", "round", "drafting_team",
+    "stage_a_probability", "stage_b_signal", "overall_score", "final_board_signal",
+    "nba_*", "mock drafts", "consensus boards", "analyst rankings",
+    "age", "date_of_birth", "position_from_population", "class_from_population",
+    "jump_shot_* (DEC-068)", "any fabricated athleticism metric"
+  ],
+
+  "notes": [
+    "2026 is never scored during methodology development.",
+    "No new dependencies.",
+    "Generated analytical outputs stay in data/interim/team_need/ and are git-ignored."
+  ]
+}

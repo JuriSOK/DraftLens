@@ -20,7 +20,7 @@ DraftLens answers a narrower, checkable question:
 - **Stage A** — the probability a prospect is drafted at all.
 - **Stage B** — among drafted prospects, how highly their profile suggests they go.
 
-**Team Need** — a separate, deterministic ranking against the traits a team is actually looking for. It is *not* a re-weighting of the board; the two ask different questions and are never blended by a slider.
+**Team Need** — a separate, deterministic ranking against the traits a team is actually looking for. Six basketball archetypes plus a custom weighted mode, scored as percentiles against the full NCAA population. It is *not* a re-weighting of the board: across historical classes the two rankings correlate at only ρ = 0.18–0.62, and each archetype surfaces different players.
 
 ## What makes it different
 
@@ -29,6 +29,7 @@ DraftLens answers a narrower, checkable question:
 - **Leakage was hunted, not assumed.** Three separate channels were found and closed, including two where a feature leaked through its *availability* rather than its values. Date of birth is 100% present for drafted prospects and 69% for undrafted ones — so it is excluded, and so is any indicator that could reconstruct it.
 - **The 2026 draft has never been opened.** It is a sealed holdout. No 2026 target has been loaded and no 2026 prediction generated, and tests enforce this.
 - **Negative results are published.** Tree ensembles beat the linear model on the headline metric — until a fold with two negative examples was removed, at which point the winner fell from 1st to 12th. It is in the report.
+- **Nothing is faked when the data is absent.** There is no athleticism measurement in the data, so DraftLens does not score athleticism — and rejects a request for it rather than quietly substituting dunk rate.
 
 ---
 
@@ -42,11 +43,11 @@ DraftLens answers a narrower, checkable question:
 | **Stage A** — P(drafted) | ✅ frozen |
 | **Stage B** — draft ranking | ✅ frozen |
 | **General Draft Board + Overall Score /100** | ✅ frozen |
-| Team Need | 🚧 not started |
+| **Team Need analytics** | ✅ frozen |
 | NBA statistical comparables | 🚧 not started |
 | Web application | 🚧 not started |
 
-**There is no application yet** — this repository is the analytical core. The Overall Score methodology is frozen and reproducible on historical classes, but no Team Need score, NBA comparable or user interface exists today.
+**There is no application yet** — this repository is the analytical core. Both ranking modes are frozen and reproducible on historical classes, but no NBA comparable and no user interface exists today.
 
 ### Where it currently stands, honestly
 
@@ -56,6 +57,7 @@ DraftLens answers a narrower, checkable question:
 | Stage B | macro Spearman **0.2968** | Orders drafted prospects better than any baseline, but modestly |
 | General Board | binary AUC **0.7123**, graded NDCG **0.8283** | Beats both stages alone; Stage B's incremental value is real but modest |
 | Stage B exact pick | MAE **13.3 picks** | **Not display-safe** — the ordering is useful, the number is not |
+| Team Need | no ground truth exists | Not a prediction — validated for consistency, stability and transparency instead |
 
 Pre-draft NCAA box-score data explains a real but limited share of draft outcomes. Workouts, medicals, interviews and team need are not in this data and never will be. The reports say so.
 
