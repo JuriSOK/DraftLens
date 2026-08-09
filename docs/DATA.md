@@ -1864,7 +1864,7 @@ Rule: **final NCAA early entrants ∪ NCAA players actually drafted** (DEC-038),
 | 2011 | 60 | 43 | 37 | 54 | 43 | 11 | 79.6 |
 | 2012 | 60 | 47 | 39 | 60 | 47 | 13 | 78.3 |
 | 2013 | 60 | 45 | 43 | 61 | 45 | 16 | 73.8 |
-| 2014 | 59 | 39 | 35 | 49 | 39 | 10 | 79.6 |
+| 2014 | 60 ᶜ | 39 | 35 | 49 | 39 | 10 | 79.6 |
 | 2015 | 60 | 40 | 41 | 57 | 40 | 17 | 70.2 |
 | 2016 | 60 | 39 | 45 | 59 | 39 | 20 | 66.1 |
 | 2017 | 60 | 50 | 60 | 74 | 50 | 24 | 67.6 |
@@ -1881,6 +1881,8 @@ Rule: **final NCAA early entrants ∪ NCAA players actually drafted** (DEC-038),
 **Total 1,186 prospects — 717 drafted, 469 undrafted (39.5%).**
 
 Pick counts of 58–60 are correct: teams forfeited second-round picks in several years.
+
+> ᶜ **CORRECTION (ML-5).** The 2014 total-picks figure originally read **59**. That is wrong: pick **60** is present in `data/raw/draft_targets/draft_targets_2014.csv` (Cory Jefferson, San Antonio Spurs). The value is corrected to **60**. The error was caught by a Stage B validator check asserting that no observed pick may exceed its year's declared draft size — a check that exists because the `PICK_PERCENTILE` target divides by that number. All other years were re-verified against observed picks and are consistent. The draft sizes are version-controlled in [`config/ml5_stage_b.json`](../config/ml5_stage_b.json); see [ML5_REPORT.md](ML5_REPORT.md) §4.
 
 #### 🔴 Class balance varies by a factor of six
 

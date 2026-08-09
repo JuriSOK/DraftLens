@@ -196,7 +196,9 @@ A single regression over all early entrants must assign undrafted players some s
 | **C** | Ordinal draft tier | Robust to pick-level noise; interpretable; matches how scouts speak | Loses within-tier ordering; boundaries risk being arbitrary; **sparse cells** — see below |
 | **D** | Learning-to-rank | Directly optimises what the product outputs | More complex; harder to explain; smaller literature at this sample size |
 
-**All four must be tested. None is approved.**
+**All four were tested in ML-5. Resolved — see [ML5_REPORT.md](ML5_REPORT.md).**
+
+> **ML-5 outcome (DEC-086).** Candidate **A (raw pick)** is selected. The decisive finding is structural rather than empirical: **A, and the normalised variants of B, are affine images of one another within a draft year**, so for a linear model they cannot induce different rankings — measured rank correlation between their out-of-fold rankings is **0.998**, with the residual attributable entirely to draft size varying 58–60. Averaged over 12 models the four targets span macro Spearman 0.2596–0.2624 against a fold SD of 0.13. `log(pick)` is the only genuinely non-affine transform and is worse on NDCG, MAE, RMSE and worst-year. Candidate **C** is retained as a display representation only (DEC-090); candidate **D** is treated as the evaluation objective (DEC-091).
 
 **Verified tier-sparsity constraint.** If tiers are tested, the intuitive boundaries (Lottery 1–14, Rest of R1 15–30, Early second 31–45, Late second 46–60) produce **thin cells**: late-second counts per year range from **0 (2012) to 12 (2021)**, and 2025–2026 have 1–2. These boundaries are a **candidate interpretable representation only** and must not be hard-coded because they feel natural. Any tiering must report per-tier counts per year and justify boundaries against observed density.
 
@@ -367,6 +369,8 @@ Population: drafted early entrants (26–50 per year).
 | **Rank quality (weighted heavily)** | Spearman ρ, Kendall τ, NDCG |
 | Magnitude error | MAE on pick, RMSE on pick |
 | Ordinal (if tiers tested) | tier accuracy, adjacent-tier accuracy, quadratic-weighted κ |
+
+> **ML-5 resolved the metric priority (DEC-088):** macro Spearman first, then NDCG, then temporal stability, then worst-year; MAE is supporting evidence only and **RMSE-only selection is prohibited**. The reason is measured: across all 60 configurations MAE spans only **13.1–14.4 picks**, and predicting the training-fold mean pick for everyone scores **14.02** — the best model beats a constant by 0.8 picks. Two further findings: full-list NDCG discriminates poorly at 26–50 prospects per year (everything scores 0.85–0.92), so **NDCG@14** is the informative variant; and a constant predictor must report **null** rank metrics, never 1.0.
 
 **Rank-quality metrics receive substantial weight** because the product outputs a ranking, not a pick prediction. MAE in picks is reported for interpretability but must not be the sole selection criterion — a model can achieve good MAE while ordering the top of the board badly, which is precisely the region that matters.
 
@@ -667,7 +671,7 @@ Every experiment records: data window · feature set · target · preprocessing 
 | **ML-2** | Derive transparent statistical features (§7) | Every feature traces to documented source columns *(done — 61 features, see [ML2_REPORT.md](ML2_REPORT.md) and `config/ml2_feature_dictionary.csv`)* |
 | **ML-3** | Establish baselines (§15) | All five baselines measured on the fold protocol *(done — see [ML3_REPORT.md](ML3_REPORT.md); every configuration lands in macro ROC-AUC 0.669–0.698, and the position-percentile composite matches regularised logistic regression)* |
 | **ML-4** | Train Stage A candidates | Beats baselines consistently across folds *(done — see [ML4_REPORT.md](ML4_REPORT.md); logistic regression retained (DEC-080), season-relative normalisation adopted (DEC-081). The B4 benchmark is **not** beaten on ranking and DEC-079 stands)* |
-| **ML-5** | Train Stage B candidates; compare the four target designs | Rank metrics reported per fold |
+| **ML-5** | Train Stage B candidates; compare the four target designs | Rank metrics reported per fold *(done — see [ML5_REPORT.md](ML5_REPORT.md); raw-pick ridge selected (DEC-086, DEC-087), macro Spearman 0.2968. Exact pick prediction found NOT display-safe (DEC-089))* |
 | **ML-6** | Construct and validate the Overall Board ranking | Board metrics (§14) computed; §17 requirements satisfied |
 | **ML-7** | **Freeze** the General Draft methodology | Written frozen spec; no further tuning permitted |
 | **ML-8** | Run the 2026 holdout **once** | Single evaluation; result reported as-is |
@@ -682,7 +686,7 @@ Phases ML-9 and ML-10 are independent of ML-4…ML-8 and may proceed in parallel
 
 **Stage A:** ~~model family~~ **RESOLVED (DEC-080)** — regularised logistic regression; tree ensembles rejected · ~~calibration method~~ **RESOLVED (DEC-083)** — ships uncalibrated, isotonic rejected, sigmoid deferred · ~~fold weighting or aggregation rule~~ **RESOLVED (DEC-075, DEC-084)** — year-macro and pooled both reported, low-support folds re-ranked out · **still open:** primary metric · threshold policy (if any).
 
-**Stage B:** regression vs. transformed regression vs. ordinal vs. ranking · tier boundaries if tiers are used · primary metric.
+**Stage B:** ~~regression vs. transformed regression vs. ordinal vs. ranking~~ **RESOLVED (DEC-086, DEC-087, DEC-091)** — raw-pick ridge regression; transformed targets are rank-equivalent for a linear model, tiers are display-only, learning-to-rank is the evaluation objective · ~~tier boundaries if tiers are used~~ **RESOLVED (DEC-090)** — 1–14 / 15–30 / 31–60, chosen on density · ~~primary metric~~ **RESOLVED (DEC-088)** — macro Spearman first, then NDCG; RMSE-only selection prohibited.
 
 **Board:** exact Overall Score transformation · whether the score is class-relative or absolute · K values for Precision@K given small classes.
 

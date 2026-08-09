@@ -1,0 +1,172 @@
+{
+  "seed": 20260808,
+  "stage": "B",
+  "population": "final NCAA early entrants with drafted == 1, development years 2014-2025",
+  "expected_rows": 431,
+  "reuses": "config/ml3_baselines.json (folds, SET_2 membership, denied columns); config/ml4_stage_a.json (SET_2R membership, season-relative reference)",
+
+  "frozen_stage_a_representation": {
+    "note": "Stage A is frozen (DEC-080..085). ML-5 inherits its feature representation unchanged and does NOT reopen it.",
+    "feature_set": "SET_2_BOX_SHOT_PROFILE",
+    "normalization": "SEASON_RELATIVE",
+    "missing_strategy": "B_TRAIN_MEDIAN",
+    "position_handling": "ONEHOT",
+    "scaling": "STANDARD"
+  },
+
+  "outer_folds_source": "config/ml3_baselines.json",
+  "robustness_years": [2011, 2012, 2013],
+  "robustness_policy": "APPLIED ONLY AFTER SELECTION. Must not influence target choice, model choice, preprocessing or hyperparameters.",
+
+  "draft_size_by_year": {
+    "2011": 60, "2012": 60, "2013": 60, "2014": 60, "2015": 60,
+    "2016": 60, "2017": 60, "2018": 60, "2019": 60, "2020": 60,
+    "2021": 60, "2022": 58, "2023": 58, "2024": 58, "2025": 59
+  },
+  "draft_size_provenance": [
+    "Source: DATA.md 24.5 'Total picks' column, which is a structural property of each draft and independent of the ML-0.1 population correction.",
+    "CORRECTION: DATA.md records 59 for 2014, but pick 60 is present in data/raw/draft_targets/draft_targets_2014.csv (Cory Jefferson, San Antonio). The documented value is wrong and 60 is used.",
+    "Validated: for every year the maximum pick observed among NCAA drafted early entrants is <= the declared draft size. Enforced by test and by validate_ml5_results.py.",
+    "This is structural draft size, never a future player outcome."
+  ],
+
+  "targets": [
+    {
+      "id": "RAW_PICK",
+      "formula": "y = pick",
+      "direction": "LOWER_IS_BETTER",
+      "inverse": "pick = y",
+      "rank_preserving": true,
+      "interpretation": "The pick number itself. Directly interpretable.",
+      "why_tested": "ML_SPEC 6.3 candidate A. The simplest defensible target and the reference every transformation must beat."
+    },
+    {
+      "id": "LOG_PICK",
+      "formula": "y = ln(pick)",
+      "direction": "LOWER_IS_BETTER",
+      "inverse": "pick = exp(y)",
+      "rank_preserving": true,
+      "interpretation": "Compresses the second round so that errors near the top of the draft dominate the loss.",
+      "why_tested": "ML_SPEC 6.3 candidate B. The stated weakness of raw pick is that it treats 1->2 as equal to 59->60; a log scale is the standard transparent fix and is the only genuinely NON-AFFINE transformation tested."
+    },
+    {
+      "id": "PICK_PERCENTILE",
+      "formula": "y = (pick - 1) / (draft_size_of_that_year - 1)",
+      "direction": "LOWER_IS_BETTER",
+      "inverse": "pick = y * (draft_size - 1) + 1",
+      "rank_preserving": true,
+      "interpretation": "Position within that year's draft, on [0, 1].",
+      "why_tested": "Draft size varies 58-60 across the window, so raw pick 57 does not mean the same thing in 2022 (58 picks) as in 2019 (60 picks). Uses the known structural size of the historical draft, never a future outcome. NOT automatically preferred."
+    },
+    {
+      "id": "DRAFT_VALUE",
+      "formula": "y = (draft_size + 1 - pick) / draft_size",
+      "direction": "HIGHER_IS_BETTER",
+      "inverse": "pick = draft_size + 1 - y * draft_size",
+      "rank_preserving": true,
+      "interpretation": "Normalised inverse pick position: 1.0 at pick 1, near 0 at the last pick.",
+      "why_tested": "ML_SPEC 6.3 candidate B, the inverse-pick variant. Also the orientation check: this is the one target where a HIGHER prediction means a BETTER prospect, so it exercises the sign convention."
+    }
+  ],
+
+  "tier_target": {
+    "id": "TIER_3",
+    "boundaries": {"1_lottery": [1, 14], "2_rest_of_r1": [15, 30], "3_round_2": [31, 60]},
+    "direction": "LOWER_TIER_INDEX_IS_BETTER",
+    "why_these_boundaries": [
+      "The traditional four-tier scheme (1-14 / 15-30 / 31-45 / 46-60) was inspected first, as ML_SPEC 6.3 requires, and REJECTED on measured density: it produces 8 of 48 year x tier cells with fewer than 5 members, including 1 (2025), 2 (2014), 2 (2015) and 3 (2016, 2017, 2024) in the late-second tier.",
+      "Merging the two second-round tiers gives 3 tiers with only 1 of 36 cells below 5 (2025 round 2 = 4).",
+      "Tier counts overall: 130 lottery / 133 rest-of-R1 / 168 round-2.",
+      "The 1-14 and 15-30 boundaries are retained because they are structural (lottery size, first-round size), not merely traditional.",
+      "Boundaries are fixed from development history only and are never refitted per fold."
+    ],
+    "limitation": "scikit-learn provides no native ordinal-regression estimator. Multinomial logistic regression is used as an INTERPRETABLE TIER COMPARISON, not as true ordinal regression. Evaluation respects tier order (ordered distance error, adjacent-tier accuracy); the estimator itself does not."
+  },
+
+  "direct_ranking": {
+    "evaluated": "AS EVALUATION OBJECTIVE ONLY",
+    "rationale": [
+      "scikit-learn provides no scientifically clean learning-to-rank estimator for this setup - no LambdaMART, no RankNet, no pairwise ranking objective.",
+      "Installing a ranking library solely to satisfy this candidate is prohibited by the ML-5 brief and would breach DEC-074.",
+      "Therefore ranking is treated as the EVALUATION objective: every continuous target induces a ranking, and rank quality is the primary selection criterion."
+    ]
+  },
+
+  "target_fitting": {
+    "z_score_target_within_train_fold": true,
+    "why": [
+      "The four targets span very different scales (pick 1-60, log 0-4.1, percentile 0-1, value 0-1). A single ridge alpha would mean a different amount of regularisation on each, making the target comparison invalid.",
+      "The target is z-scored using TRAIN-FOLD mean and sd only, the model is fitted, and the prediction is un-z-scored and then inverse-transformed back to the pick scale before any metric is computed.",
+      "This is exactly invertible and strictly rank-preserving, so it changes no reported quantity - it only makes one alpha grid comparable across targets.",
+      "It is a numerical conditioning step, NOT a redefinition of the target, and so does not conflict with ML_SPEC 9.3."
+    ]
+  },
+
+  "canonical_orientation": {
+    "rule": "strength = -(predicted pick on the pick scale). HIGHER strength ALWAYS means a BETTER (earlier) predicted draft position.",
+    "actual": "actual strength = -(actual pick).",
+    "why": "Two of the five targets increase with pick and one decreases. Every prediction is inverse-transformed back to the pick scale first, so exactly one orientation convention exists in the codebase and Spearman can never come out sign-flipped by accident.",
+    "tested": true
+  },
+
+  "feature_sets": {
+    "SET_2_BOX_SHOT_PROFILE": "inherited unchanged from config/ml3_baselines.json - the PRIMARY representation",
+    "SET_2R_REDUCED": "inherited unchanged from config/ml4_stage_a.json - the single permitted reduced variant, tested only for collinearity sensitivity"
+  },
+
+  "baselines": [
+    {"id": "B5A_GLOBAL_MEAN_PICK", "description": "Predict the training-fold mean pick for every prospect. Numeric-error reference only - produces a constant, so its ranking is undefined and its rank metrics are reported as null."},
+    {"id": "B5B_POSITION_MEAN_PICK", "description": "Predict the training-fold mean pick within leakage-safe position_3, global train mean as fallback. Tests whether position alone carries pick signal."},
+    {"id": "B5C_PERCENTILE_COMPOSITE", "description": "B4-style equal-weight composite of within-position percentile ranks of the six ML-3 composite metrics, fitted on training folds only. The ranking baseline a model must beat."}
+  ],
+
+  "models": [
+    {"id": "RIDGE_a1",     "family": "Ridge",                     "params": {"alpha": 1.0}},
+    {"id": "RIDGE_a10",    "family": "Ridge",                     "params": {"alpha": 10.0}},
+    {"id": "RIDGE_a50",    "family": "Ridge",                     "params": {"alpha": 50.0}},
+    {"id": "RIDGE_a200",   "family": "Ridge",                     "params": {"alpha": 200.0}},
+    {"id": "ENET_a01_l5",  "family": "ElasticNet",                "params": {"alpha": 0.1, "l1_ratio": 0.5}},
+    {"id": "ENET_a03_l5",  "family": "ElasticNet",                "params": {"alpha": 0.3, "l1_ratio": 0.5}},
+    {"id": "RF_d4_leaf20", "family": "RandomForestRegressor",     "params": {"n_estimators": 500, "max_depth": 4, "min_samples_leaf": 20, "max_features": "sqrt"}},
+    {"id": "RF_d6_leaf10", "family": "RandomForestRegressor",     "params": {"n_estimators": 500, "max_depth": 6, "min_samples_leaf": 10, "max_features": "sqrt"}},
+    {"id": "RF_dNone_leaf30", "family": "RandomForestRegressor",  "params": {"n_estimators": 500, "max_depth": null, "min_samples_leaf": 30, "max_features": "sqrt"}},
+    {"id": "HGB_lr005_leaf8", "family": "HistGradientBoostingRegressor", "params": {"learning_rate": 0.05, "max_iter": 200, "max_leaf_nodes": 8, "min_samples_leaf": 20, "l2_regularization": 1.0}},
+    {"id": "HGB_lr005_leaf4", "family": "HistGradientBoostingRegressor", "params": {"learning_rate": 0.05, "max_iter": 200, "max_leaf_nodes": 4, "min_samples_leaf": 30, "l2_regularization": 5.0}},
+    {"id": "GB_d2_lr005",  "family": "GradientBoostingRegressor", "params": {"n_estimators": 200, "learning_rate": 0.05, "max_depth": 2, "min_samples_leaf": 20, "subsample": 0.8}}
+  ],
+
+  "design": {
+    "chosen": "FULL_FACTORIAL_MODELS_X_TARGETS",
+    "rationale": [
+      "12 models x 4 continuous targets = 48 configurations, all predeclared and all evaluated on all 7 folds.",
+      "A full factorial avoids the ordering bias of picking a target first and then a model (or the reverse), which would make the second choice conditional on the first.",
+      "The reduced feature set is tested only on the ridge family, declared in advance, purely as a collinearity sensitivity check.",
+      "No random CV anywhere - it would mix draft years and destroy the temporal guarantee."
+    ],
+    "no_random_cv": true,
+    "reduced_set_models": ["RIDGE_a10", "RIDGE_a50"]
+  },
+
+  "metrics": {
+    "ranking_primary": ["spearman", "kendall_tau", "ndcg", "ndcg_at_5", "ndcg_at_10", "ndcg_at_14"],
+    "numeric_supporting": ["mae_pick", "rmse_pick", "median_ae_pick"],
+    "tier_specific": ["ordered_distance_error", "adjacent_tier_accuracy", "macro_f1", "exact_tier_accuracy"],
+    "board_level": ["lottery_recall_at_14", "first_round_recall_at_30", "top_half_concentration"],
+    "ndcg_relevance": "relevance = draft_size + 1 - pick, so pick 1 carries the highest gain; linear gains, log2 positional discount",
+    "aggregation": ["year_macro", "pooled", "year_sd", "worst_year"],
+    "selection_priority": [
+      "1. macro Spearman", "2. NDCG", "3. temporal stability (fold SD)",
+      "4. worst-year ranking", "5. MAE as supporting evidence only",
+      "6. simplicity", "7. interpretability", "8. consistency with product claims"
+    ],
+    "prohibited_selection_rule": "Selection by lowest RMSE alone is prohibited."
+  },
+
+  "notes": [
+    "2026 is never loaded, predicted or evaluated.",
+    "Undrafted prospects never enter Stage B. No synthetic pick value (61, 100, 999, NaN-fill) is ever created.",
+    "pick and round are TARGET information only and may never enter X.",
+    "All 8 unresolved prospects are undrafted, so Stage B contains none. This is a consequence of the Stage A population, not a change to it.",
+    "Results are not stored in this file."
+  ]
+}
