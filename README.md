@@ -41,12 +41,12 @@ DraftLens answers a narrower, checkable question:
 | Basketball feature engineering | ✅ implemented |
 | **Stage A** — P(drafted) | ✅ frozen |
 | **Stage B** — draft ranking | ✅ frozen |
-| General Board combination / Overall Score | 🚧 next (ML-6) |
+| **General Draft Board + Overall Score /100** | ✅ frozen |
 | Team Need | 🚧 not started |
 | NBA statistical comparables | 🚧 not started |
 | Web application | 🚧 not started |
 
-**There is no application yet** — this repository is the analytical core. No Overall Score, Team Need score or NBA comparable exists today.
+**There is no application yet** — this repository is the analytical core. The Overall Score methodology is frozen and reproducible on historical classes, but no Team Need score, NBA comparable or user interface exists today.
 
 ### Where it currently stands, honestly
 
@@ -54,6 +54,7 @@ DraftLens answers a narrower, checkable question:
 | --- | --- | --- |
 | Stage A | macro ROC-AUC **0.6986** | Real signal; still close to a transparent percentile baseline (0.6943) |
 | Stage B | macro Spearman **0.2968** | Orders drafted prospects better than any baseline, but modestly |
+| General Board | binary AUC **0.7123**, graded NDCG **0.8283** | Beats both stages alone; Stage B's incremental value is real but modest |
 | Stage B exact pick | MAE **13.3 picks** | **Not display-safe** — the ordering is useful, the number is not |
 
 Pre-draft NCAA box-score data explains a real but limited share of draft outcomes. Workouts, medicals, interviews and team need are not in this data and never will be. The reports say so.

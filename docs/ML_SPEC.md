@@ -446,7 +446,9 @@ The board must produce an **Overall Score out of 100** (PRODUCT.md §9). It must
 - **No visual-only rating:** every point of the scale traces to a validated output.
 - **Class-relative or absolute must be stated.** A percentile within class is not comparable across years; an absolute scale is. Whichever is chosen must be labelled in the UI.
 
-Coefficients and the final transformation are TBD.
+> **RESOLVED in ML-6 (DEC-097, DEC-098).** Construction 2 was selected: the calibrated-ish `P(drafted)` combined with the conditional draft-position signal, as a **product** rather than a weighted sum —
+> `final_board_signal = P(drafted) x draft_slot_utility(Stage B predicted pick)`.
+> The product is a genuine expected draft value and carries no fitted weight; no blend-weight search was performed. The score is `round(100 x within-class percentile)`, integer, class-relative. See [experiments/ML6_BOARD.md](experiments/ML6_BOARD.md).
 
 ---
 
@@ -672,7 +674,7 @@ Every experiment records: data window · feature set · target · preprocessing 
 | **ML-3** | Establish baselines (§15) | All five baselines measured on the fold protocol *(done — see [ML3_BASELINES.md](experiments/ML3_BASELINES.md); every configuration lands in macro ROC-AUC 0.669–0.698, and the position-percentile composite matches regularised logistic regression)* |
 | **ML-4** | Train Stage A candidates | Beats baselines consistently across folds *(done — see [ML4_STAGE_A.md](experiments/ML4_STAGE_A.md); logistic regression retained (DEC-080), season-relative normalisation adopted (DEC-081). The B4 benchmark is **not** beaten on ranking and DEC-079 stands)* |
 | **ML-5** | Train Stage B candidates; compare the four target designs | Rank metrics reported per fold *(done — see [ML5_STAGE_B.md](experiments/ML5_STAGE_B.md); raw-pick ridge selected (DEC-086, DEC-087), macro Spearman 0.2968. Exact pick prediction found NOT display-safe (DEC-089))* |
-| **ML-6** | Construct and validate the Overall Board ranking | Board metrics (§14) computed; §17 requirements satisfied |
+| **ML-6** | Construct and validate the Overall Board ranking | Board metrics (§14) computed; §17 requirements satisfied *(done — see [ML6_BOARD.md](experiments/ML6_BOARD.md); Stage B earns inclusion (DEC-096), multiplicative expected draft value selected (DEC-097), class-relative integer score (DEC-098))* |
 | **ML-7** | **Freeze** the General Draft methodology | Written frozen spec; no further tuning permitted |
 | **ML-8** | Run the 2026 holdout **once** | Single evaluation; result reported as-is |
 | **ML-9** | Build Team Need scoring | Deterministic; no fitting to draft outcomes |
@@ -688,7 +690,7 @@ Phases ML-9 and ML-10 are independent of ML-4…ML-8 and may proceed in parallel
 
 **Stage B:** ~~regression vs. transformed regression vs. ordinal vs. ranking~~ **RESOLVED (DEC-086, DEC-087, DEC-091)** — raw-pick ridge regression; transformed targets are rank-equivalent for a linear model, tiers are display-only, learning-to-rank is the evaluation objective · ~~tier boundaries if tiers are used~~ **RESOLVED (DEC-090)** — 1–14 / 15–30 / 31–60, chosen on density · ~~primary metric~~ **RESOLVED (DEC-088)** — macro Spearman first, then NDCG; RMSE-only selection prohibited.
 
-**Board:** exact Overall Score transformation · whether the score is class-relative or absolute · K values for Precision@K given small classes.
+**Board:** ~~exact Overall Score transformation~~ **RESOLVED (DEC-098)** — round(100 x within-class percentile of the board signal), integer · ~~whether the score is class-relative or absolute~~ **RESOLVED (DEC-098)** — class-relative; the absolute variant was implemented and rejected because it would inherit Stage A's known cross-class miscalibration · ~~K values for Precision@K~~ **RESOLVED (DEC-096)** — K = that year's drafted count, plus a relative top-25% K.
 
 **Features:** ~~season-normalisation method~~ **RESOLVED for Stage A (DEC-081)** — season × coarse-position z-scores against the full NCAA population · **still open:** final feature set · position-normalisation method beyond `position_3` · missing-value method · whether shot coordinates are usable at all.
 

@@ -163,3 +163,69 @@ def tier_metrics(actual_tier, pred_tier):
                 macro_f1=round(float(f1_score(a, p, average="macro",
                                               labels=[0, 1, 2],
                                               zero_division=0)), 4))
+
+
+# ------------------------------------------------- General Draft Board (ML-6)
+def board_binary_metrics(drafted, signal, ks):
+    """Does the board rank drafted prospects above undrafted ones?
+
+    The board signal is a RANKING score, not a probability, so no Brier or log
+    loss is computed here — scoring an arbitrary rank score as if it were a
+    probability would be exactly the false precision DEC-089 forbids.
+    """
+    y = np.asarray(drafted).astype(int)
+    s = np.asarray(signal, dtype="float64")
+    n_pos, n_neg = int(y.sum()), int((y == 0).sum())
+    out = dict(n=len(y), drafted=n_pos, undrafted=n_neg,
+               low_negative_support=bool(min(n_pos, n_neg) < 5))
+    both = n_pos > 0 and n_neg > 0
+    out["roc_auc"] = round(float(roc_auc_score(y, s)), 4) if both else None
+    out["average_precision"] = round(float(average_precision_score(y, s)), 4) \
+        if both else None
+
+    order = np.argsort(-s, kind="stable")
+    ys = y[order]
+    for name, k in ks.items():
+        k = max(1, min(int(k), len(y)))
+        hit = int(ys[:k].sum())
+        out[f"precision_at_{name}"] = round(hit / k, 4)
+        out[f"recall_at_{name}"] = round(hit / n_pos, 4) if n_pos else None
+        out[f"k_{name}"] = k
+    return out
+
+
+def board_graded_metrics(relevance, signal, ks=(14, 30)):
+    """Graded NDCG over the FULL board — the one metric that rewards both jobs
+    at once: drafted above undrafted, and early picks above late ones.
+
+    `relevance` comes from `draftlens.ml.board.graded_relevance` and is an
+    evaluation quantity only, never a training target.
+    """
+    rel = np.asarray(relevance, dtype="float64").reshape(1, -1)
+    s = np.asarray(signal, dtype="float64").reshape(1, -1)
+    n = rel.shape[1]
+    out = {"graded_ndcg": round(float(ndcg_score(rel, s)), 4)}
+    for k in ks:
+        out[f"graded_ndcg_at_{k}"] = round(float(ndcg_score(rel, s,
+                                                            k=min(k, n))), 4)
+    return out
+
+
+def board_order_metrics(actual_pick, signal):
+    """Among ACTUALLY DRAFTED prospects only: does the board preserve draft
+    order? This is what tells us whether a combination kept Stage B's value."""
+    p = np.asarray(actual_pick, dtype="float64")
+    s = np.asarray(signal, dtype="float64")
+    n = len(p)
+    if n < 3 or float(np.std(s)) == 0.0:
+        return dict(drafted_n=n, drafted_spearman=None, drafted_kendall=None,
+                    drafted_ndcg=None, drafted_ndcg_at_14=None)
+    true_strength = strength(p)
+    rel = (p.max() + 1.0 - p).reshape(1, -1)
+    sc = s.reshape(1, -1)
+    return dict(
+        drafted_n=n,
+        drafted_spearman=round(float(spearmanr(s, true_strength).statistic), 4),
+        drafted_kendall=round(float(kendalltau(s, true_strength).statistic), 4),
+        drafted_ndcg=round(float(ndcg_score(rel, sc)), 4),
+        drafted_ndcg_at_14=round(float(ndcg_score(rel, sc, k=min(14, n))), 4))

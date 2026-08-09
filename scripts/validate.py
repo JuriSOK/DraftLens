@@ -24,6 +24,7 @@ STAGES = {
     "ml3": EXPERIMENTS / "validate_ml3_baselines.py",
     "ml4": EXPERIMENTS / "validate_ml4_stage_a.py",
     "ml5": EXPERIMENTS / "validate_ml5_stage_b.py",
+    "ml6": EXPERIMENTS / "validate_ml6_board.py",
 }
 # Raw validation needs the 200 MB corpus present, so it is opt-in.
 RAW_STAGE = "raw"

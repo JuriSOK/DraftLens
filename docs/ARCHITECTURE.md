@@ -1,8 +1,8 @@
 # DraftLens — Technical Architecture
 
-**Status:** Analytical pipeline implemented and frozen through Stage B. No application layer yet.
+**Status:** Analytical pipeline implemented and frozen through the General Draft Board. No application layer yet.
 
-This describes what exists. Sections 12–15 describe what does not exist yet and where it will go — they are placeholders by design, not omissions.
+This describes what exists. Sections 13–15 describe what does not exist yet and where it will go — they are placeholders by design, not omissions.
 
 ---
 
@@ -47,7 +47,7 @@ DraftLens/
 │   │   ├── baselines.py      the simple models complexity must beat
 │   │   ├── stage_a.py        FROZEN — P(drafted)
 │   │   ├── stage_b.py        FROZEN — draft-position ranking
-│   │   ├── board.py          ML-6 placeholder (empty on purpose)
+│   │   ├── board.py          FROZEN — General Draft Board + Overall Score
 │   │   └── guards.py         assertions shared by every validator
 │   ├── team_need/            placeholder
 │   └── comparables/          placeholder
@@ -97,7 +97,11 @@ DraftLens/
    └──────────────────────┴──────────────────────┘
                       │
                       ▼
-              ML-6 Board  (NOT BUILT)
+            GENERAL DRAFT BOARD
+        P(drafted) x draft-slot utility
+                      │
+                      ▼
+          Overall Draft Score  0-100
                       │
                       ▼
               2026 holdout  (SEALED)
@@ -231,16 +235,31 @@ Trained model binaries and predictions are never committed. Reports in `docs/exp
 | `ml3_baselines.py` | [ML3_BASELINES.md](experiments/ML3_BASELINES.md) | baselines, the benchmark to beat |
 | `ml4_stage_a_selection.py` | [ML4_STAGE_A.md](experiments/ML4_STAGE_A.md) | Stage A selection |
 | `ml5_stage_b_selection.py` | [ML5_STAGE_B.md](experiments/ML5_STAGE_B.md) | Stage B target + model |
+| `ml6_board_selection.py` | [ML6_BOARD.md](experiments/ML6_BOARD.md) | board combination + score |
 
 These reproduce history. They must not be used to change a frozen selection — that requires a new phase and a decision record.
 
 ---
 
-## 12. ML-6 — General Draft Board (not built)
+## 12. General Draft Board — the combination
 
-Destination: `draftlens/ml/board.py`, deliberately empty.
+**Frozen** (`draftlens.ml.board.BOARD`, DEC-096..100):
 
-Open, and not to be assumed: the Overall Score transformation; whether it is class-relative or absolute; how an uncalibrated probability combines with an ordering. Binding constraints already fixed: order-preserving, reproducible, no false precision, and no assumption that the two stages carry equal information — Stage B is measurably the weaker signal.
+```
+stage_b_quality    = (draft_size + 1 - clip(pick, 1, draft_size)) / draft_size
+final_board_signal = P(drafted) x stage_b_quality
+overall_score      = round(100 x within-class percentile of the signal)
+```
+
+The signal is a genuine **expected draft value** — likelihood of entering the draft times the conditional quality of the slot the profile resembles. It carries **no fitted weight**; no blend-weight search was performed.
+
+Published performance: binary macro ROC-AUC **0.7123**, graded board NDCG **0.8283**, drafted-only Spearman **0.2781**, fold SD 0.0594, worst year 0.7281.
+
+Stage B earns inclusion but the margin is modest (+0.012 graded NDCG). The case rests on consistency — the joint objective improves in 5 of 6 non-degenerate folds — and on stability: Stage A alone is the least stable board tested (SD 0.0869, worst year 0.6590).
+
+Stage B is applied to **every** prospect, including those who went undrafted. That is a conditional signal — *"if this profile were draftable, which part of the draft does it resemble?"* — never a pick assignment. Targets are untouched. A missing Stage B signal receives a **neutral** value, never a penalty: missing-data rows were disproportionately undrafted, so penalising them would smuggle the outcome back in.
+
+**Three separate product signals, never merged:** Overall Draft Score (0-100 ranking score) · Draft Probability (Stage A, the only real probability) · Draft Position Signal (Stage B, never a literal pick).
 
 ## 13. Team Need (not built)
 
@@ -267,6 +286,8 @@ python scripts/build_dataset.py
 python scripts/build_features.py --reference
 python scripts/run_stage_a.py
 python scripts/run_stage_b.py
+python scripts/run_board.py                 # General Draft Board
+python scripts/run_board.py --year 2024     # one class's board
 python scripts/validate.py
 python -m unittest discover -s tests -t .
 ```

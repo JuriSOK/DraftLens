@@ -16,7 +16,9 @@ a fresh clone rather than failing.
 
 import math
 import unittest
+from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 from draftlens.ml.datasets import ML0, ML2, load_development, load_stage_b
@@ -24,10 +26,14 @@ from draftlens.ml.metrics import (board_metrics, expected_calibration_error,
                                   stage_a_metrics, stage_b_metrics)
 from draftlens.ml.stage_a import STAGE_A, feature_set
 from draftlens.ml.stage_a import fit_predict_fold as stage_a_fold
+from draftlens.ml.board import BOARD, build_board, graded_relevance
+from draftlens.ml.metrics import (board_binary_metrics, board_graded_metrics,
+                                  board_order_metrics)
 from draftlens.ml.stage_b import STAGE_B, draft_sizes
 from draftlens.ml.stage_b import fit_predict_fold as stage_b_fold
 from draftlens.ml.validation import folds, load_fold_config
 
+ROOT = Path(__file__).resolve().parents[2]
 TOL = 1e-4
 
 HAVE_DATA = (ML2 / "features_2014_2025.parquet").exists() and \
@@ -101,6 +107,14 @@ class TestFrozenConfiguration(unittest.TestCase):
                           (3, 2014, 2020, 2021), (4, 2014, 2021, 2022),
                           (5, 2014, 2022, 2023), (6, 2014, 2023, 2024),
                           (7, 2014, 2024, 2025)])
+
+    def test_board_frozen(self):
+        """ML-6 selection (DEC-096..100)."""
+        self.assertEqual(BOARD["method"], "C_MULTIPLICATIVE")
+        self.assertEqual(BOARD["stage_b_transform"], "DRAFT_SLOT_UTILITY")
+        self.assertEqual(BOARD["score_transform"], "CURRENT_BOARD_PERCENTILE")
+        self.assertEqual(BOARD["score_range"], (0, 100))
+        self.assertEqual(BOARD["score_dtype"], "int")
 
     def test_draft_sizes_unchanged(self):
         s = draft_sizes()
@@ -223,11 +237,86 @@ class TestHoldoutFirewall(unittest.TestCase):
             self.assertNotIn(2026, tr)
             self.assertNotEqual(vy, 2026)
 
-    def test_board_module_is_not_implemented(self):
-        """ML-6 has not run; board.py must expose no prediction API yet."""
+    def test_board_never_reaches_the_holdout(self):
+        """ML-6 implemented board.py. It must still be unable to score 2026."""
         from draftlens.ml import board
-        public = [n for n in dir(board) if not n.startswith("_")]
-        self.assertEqual(public, [], f"board.py already exposes {public}")
+        src = (ROOT / "src" / "draftlens" / "ml" / "board.py").read_text()
+        for banned in ("targets_2026", "features_2026", "predictions_2026"):
+            self.assertNotIn(banned, src)
+        self.assertTrue(hasattr(board, "build_board"))
+
+
+@needs_data
+class TestBoardAnchors(unittest.TestCase):
+    """ML6_BOARD.md — the selected board's published metrics."""
+
+    @classmethod
+    def setUpClass(cls):
+        cfg = load_fold_config()
+        dev = load_development()
+        dev["draft_size"] = dev.draft_year.map(draft_sizes())
+        feats = feature_set(STAGE_A["feature_set"], cfg)
+        rows = []
+        for _, tr_years, vy in folds(cfg):
+            tr_all = dev[dev.draft_year.isin(tr_years)].reset_index(drop=True)
+            va = dev[dev.draft_year == vy].reset_index(drop=True)
+            tr_dr = tr_all[tr_all.drafted == 1].reset_index(drop=True)
+            p_a, _ = stage_a_fold(tr_all, va, feats)
+            p_b, _ = stage_b_fold(tr_dr, va, feats, family=STAGE_B["family"],
+                                  params={"alpha": STAGE_B["alpha"]},
+                                  target=STAGE_B["target"])
+            b = build_board(p_a, p_b, va.draft_size)
+            sig = b.final_board_signal.to_numpy()
+            rel = graded_relevance(va.drafted, va.pick, va.draft_size)
+            m = dict(validate_year=vy)
+            m.update(board_binary_metrics(va.drafted, sig,
+                                          {"drafted": int(va.drafted.sum())}))
+            m.update(board_graded_metrics(rel, sig))
+            d = (va.drafted == 1).to_numpy()
+            m.update(board_order_metrics(va.pick[d], sig[d]))
+            m["overall_score"] = b.overall_score.to_numpy()
+            m["signal"] = sig
+            rows.append(m)
+        cls.fold_df = pd.DataFrame(rows)
+
+    def test_binary_macro_auc(self):
+        sc = self.fold_df[self.fold_df.roc_auc.notna()]
+        self.assertAlmostEqual(sc.roc_auc.mean(), 0.7123, delta=TOL)
+
+    def test_macro_average_precision(self):
+        sc = self.fold_df[self.fold_df.average_precision.notna()]
+        self.assertAlmostEqual(sc.average_precision.mean(), 0.7237, delta=TOL)
+
+    def test_graded_ndcg(self):
+        self.assertAlmostEqual(self.fold_df.graded_ndcg.mean(), 0.8283,
+                               delta=TOL)
+
+    def test_drafted_order_metrics(self):
+        self.assertAlmostEqual(self.fold_df.drafted_spearman.mean(), 0.2781,
+                               delta=TOL)
+        self.assertAlmostEqual(self.fold_df.drafted_kendall.mean(), 0.1973,
+                               delta=TOL)
+
+    def test_stability(self):
+        self.assertAlmostEqual(self.fold_df.graded_ndcg.std(), 0.0594, delta=TOL)
+        self.assertAlmostEqual(self.fold_df.graded_ndcg.min(), 0.7281, delta=TOL)
+
+    def test_beats_stage_a_only_on_every_headline_metric(self):
+        """The reason Stage B is in the board at all. Stage A-only reference:
+        AUC 0.6986, graded NDCG 0.8159, drafted Spearman 0.2461."""
+        sc = self.fold_df[self.fold_df.roc_auc.notna()]
+        self.assertGreater(sc.roc_auc.mean(), 0.6986)
+        self.assertGreater(self.fold_df.graded_ndcg.mean(), 0.8159)
+        self.assertGreater(self.fold_df.drafted_spearman.mean(), 0.2461)
+        self.assertGreater(self.fold_df.graded_ndcg.min(), 0.6590)
+
+    def test_scores_are_valid_and_monotone_every_class(self):
+        for _, r in self.fold_df.iterrows():
+            s, sig = r["overall_score"], r["signal"]
+            self.assertTrue(((s >= 0) & (s <= 100)).all())
+            order = np.argsort(-sig)
+            self.assertTrue(np.all(np.diff(s[order]) <= 0),
+                            f"{r['validate_year']}: score order broken")
 
 
 if __name__ == "__main__":
