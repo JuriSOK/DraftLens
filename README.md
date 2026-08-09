@@ -30,6 +30,7 @@ DraftLens answers a narrower, checkable question:
 - **The 2026 draft has never been opened.** It is a sealed holdout. No 2026 target has been loaded and no 2026 prediction generated, and tests enforce this.
 - **Negative results are published.** Tree ensembles beat the linear model on the headline metric — until a fold with two negative examples was removed, at which point the winner fell from 1st to 12th. It is in the report.
 - **Nothing is faked when the data is absent.** There is no athleticism measurement in the data, so DraftLens does not score athleticism — and rejects a request for it rather than quietly substituting dunk rate.
+- **NBA comparables describe, they don't predict.** Mikal Bridges's college profile returns Paul George and Kawhi Leonard — found without the system knowing who he became, because it never sees a career outcome.
 
 ---
 
@@ -44,10 +45,10 @@ DraftLens answers a narrower, checkable question:
 | **Stage B** — draft ranking | ✅ frozen |
 | **General Draft Board + Overall Score /100** | ✅ frozen |
 | **Team Need analytics** | ✅ frozen |
-| NBA statistical comparables | 🚧 not started |
+| **NBA statistical comparables** | ✅ frozen |
 | Web application | 🚧 not started |
 
-**There is no application yet** — this repository is the analytical core. Both ranking modes are frozen and reproducible on historical classes, but no NBA comparable and no user interface exists today.
+**There is no application yet** — this repository is the analytical core. All four analytical systems are frozen and reproducible on historical classes, but no user interface exists today.
 
 ### Where it currently stands, honestly
 
@@ -58,6 +59,7 @@ DraftLens answers a narrower, checkable question:
 | General Board | binary AUC **0.7123**, graded NDCG **0.8283** | Beats both stages alone; Stage B's incremental value is real but modest |
 | Stage B exact pick | MAE **13.3 picks** | **Not display-safe** — the ordering is useful, the number is not |
 | Team Need | no ground truth exists | Not a prediction — validated for consistency, stability and transparency instead |
+| NBA comparables | no ground truth exists | Descriptive resemblance only; the third name is often one of several equally close |
 
 Pre-draft NCAA box-score data explains a real but limited share of draft outcomes. Workouts, medicals, interviews and team need are not in this data and never will be. The reports say so.
 

@@ -1,0 +1,132 @@
+{
+  "version": "1.0",
+  "phase": "ML-8",
+  "purpose": "Descriptive NCAA-to-NBA statistical similarity. NOT a career projection.",
+
+  "semantics": {
+    "what_it_says": "Based on his relative statistical profile, this prospect most closely resembles these NBA player profiles.",
+    "what_it_never_says": "He will become this player.",
+    "prohibited_language": ["projected NBA comp", "expected career", "ceiling", "floor", "will become", "NBA projection"],
+    "approved_language": ["Statistical NBA Comparables", "Similar NBA statistical profiles"],
+    "no_target": "There is no ground-truth 'correct comparable' dataset. Nothing here is fitted, and no draft outcome, board signal, Team Need score or NBA career result may influence the methodology."
+  },
+
+  "nba_source": {
+    "dataset": "hoopR NBA player_season_stats (sportsdataverse, CC BY 4.0; upstream ESPN)",
+    "format": "LONG — one row per player x season x category x stat",
+    "categories": ["totals", "averages", "miscellaneous"],
+    "made_attempted_note": "FGM/FGA, 3PM/3PA and FTM/FTA arrive as combined 'M-A' strings with a null numeric value; they are parsed from display_value, which succeeds for 100% of rows.",
+    "not_available": [
+      "team totals and opponent totals (no game-level NBA data here)",
+      "shot-level events (no NBA shot file)",
+      "height and weight",
+      "any athleticism or physical testing measurement"
+    ]
+  },
+
+  "reference_window": {
+    "nba_seasons": [2021, 2022, 2023, 2024, 2025],
+    "rationale": "Five completed seasons ending before the holdout year. Chosen for modern role relevance and a pool large enough to be diverse — never because particular players appear in it.",
+    "excludes": 2026,
+    "excludes_rationale": "2026 is this project's sealed holdout label and is not required for methodology selection."
+  },
+
+  "nba_eligibility": {
+    "min_minutes": 750,
+    "min_games": 30,
+    "rationale": "A genuine NBA rotation role — roughly 25 minutes over 30 games, or 9 minutes across a full season. Set from the minutes distribution, never from how any NCAA prospect's comparables look.",
+    "measured_pool_size": {"500min_20gp": "359-375/season", "750min_30gp": "306-323/season", "1000min_40gp": "243-266/season", "1500min_40gp": "138-190/season"},
+    "unique_players_retained": 542
+  },
+
+  "player_representation": {
+    "selected": "RECENT_MULTI_SEASON",
+    "definition": "Minutes-weighted mean over the player's most recent 3 qualifying seasons.",
+    "rationale": "Minutes weighting is the honest aggregator: a 2,400-minute season describes a role better than a 780-minute one, and every metric in the space is already a rate, so weighting by the exposure that produced it is the same operation the rates perform.",
+    "alternatives": {
+      "LATEST_SEASON": "evaluated — easy to explain but carries one season of noise",
+      "CAREER": "DIAGNOSTIC ONLY — averaging a whole career mixes career stages and can manufacture a player who never existed in any single season"
+    },
+    "uniqueness": "EXACTLY ONE row per unique NBA player, collapsed on athlete_id. Never on name.",
+    "id_audit": "2021-2025: 0 athlete_ids carry more than one name, 0 names map to more than one athlete_id."
+  },
+
+  "common_space": {
+    "principle": "Raw production is NEVER compared across leagues. 19 NCAA PPG and 19 NBA PPG are not the same event. Both sides are percentile-ranked WITHIN THEIR OWN LEAGUE and the profile SHAPES are compared.",
+    "why_per_minute_rates_are_valid": "A per-40 rate is never compared to a per-40 rate directly — it is ranked among its own league's peers first, so the 40-vs-48-minute game length, pace and competition differences cancel. The question asked of both populations is identical.",
+    "weighting": "Equal weight per DIMENSION, not per metric — so shooting's three metrics do not outvote creation's one.",
+    "dimensions": [
+      {"id": "SHOOTING_EFFICIENCY", "kind": "QUALITY", "metrics": ["three_point_pct", "ft_pct", "efg_pct"], "invert": []},
+      {"id": "SCORING_ROLE", "kind": "ROLE", "metrics": ["points_per_40", "fga_per_40"], "invert": []},
+      {"id": "CREATION", "kind": "ROLE", "metrics": ["assists_per_40"], "invert": []},
+      {"id": "REBOUNDING", "kind": "ROLE", "metrics": ["oreb_per_40", "dreb_per_40"], "invert": []},
+      {"id": "DEFENSIVE_ACTIVITY", "kind": "ROLE", "metrics": ["steals_per_40", "blocks_per_40"], "invert": []},
+      {"id": "PERIMETER_ORIENTATION", "kind": "STYLE", "metrics": ["three_point_attempt_rate", "free_throw_rate"], "invert": ["free_throw_rate"]}
+    ],
+    "style_vs_quality": "Only SHOOTING_EFFICIENCY is a quality axis. The rest are role/volume or style axes where neither end is 'better'. If every dimension were higher-is-better, an elite prospect would simply match elite NBA players regardless of role — a goodness ranking wearing a similarity costume."
+  },
+
+  "rejected_cross_league_metrics": {
+    "ast_pct": "needs team FGM and team minutes; NBA team totals are reconstructable by summing players, but ESPN attributes a traded player's whole season to one team, which would corrupt the denominator",
+    "usage_pct": "same team-context problem",
+    "tov_pct": "player-only formula and technically computable, but it is a ball-security QUALITY axis that duplicates nothing in the role space; excluded to keep the space compact",
+    "orb_pct / drb_pct / trb_pct": "need OPPONENT rebound totals; there is no game-level NBA data to derive them",
+    "stl_pct / blk_pct": "need opponent possessions and opponent FGA; not derivable from season-level NBA data",
+    "rim_attempt_share / rim_make_pct / unassisted shares / dunk and layup shares": "require shot-level events; there is no NBA shot file",
+    "height / weight (Size)": "the NBA source carries no physical measurements, and they are never fabricated",
+    "athleticism": "no athleticism measurement exists in any acquired source; no proxy is permitted",
+    "jump_shot_*": "NCAA-side schema break at 2020/21 (DEC-068)",
+    "raw per-game production": "points/rebounds/assists per game are not cross-league comparable at all"
+  },
+
+  "position_handling": {
+    "nba_labels": ["PG", "SG", "G", "SF", "PF", "F", "C"],
+    "mapping": {"PG": "G", "SG": "G", "G": "G", "SF": "F", "PF": "F", "F": "F", "C": "C"},
+    "mapping_note": "Deterministic and purely lexical. No position is ever inferred from statistics.",
+    "normalization": "GLOBAL",
+    "normalization_rationale": "Position-relative normalisation would erase exactly the cross-position resemblance the product exists to surface — a stretch big resembling a wing is a finding, not an error. Tested as an alternative; see the ML-8 report."
+  },
+
+  "similarity": {
+    "metric": "EUCLIDEAN",
+    "alternatives_tested": ["COSINE", "MANHATTAN"],
+    "coverage_normalisation": "Distance is computed over dimensions available for BOTH players and divided by the count, so a prospect missing dimensions is not mechanically closer to everyone.",
+    "min_shared_coverage": 0.75,
+    "min_shared_rationale": "At least 5 of 6 dimensions. Three names produced from two dimensions are not a comparison.",
+    "missing_policy": "A missing dimension is dropped from the distance, never filled with 0, 50 or a league average. Below the coverage minimum the result is UNAVAILABLE rather than three manufactured names."
+  },
+
+  "similarity_score": {
+    "selected": "GLOBAL_DISTANCE_PERCENTILE",
+    "formula": "100 x share of the FROZEN reference distribution of prospect-to-NBA distances that is FARTHER than this pairing",
+    "semantics": "This pairing is closer than approximately X% of all prospect-to-NBA pairings in the development reference. NOT a probability and NOT a percentage of shared traits.",
+    "rejected": {
+      "WITHIN_POOL_PERCENTILE": "MEASURED AND REJECTED — structurally degenerate for the top three. With a pool of 542 the three closest are always the top 0.55%, so it returns 100.00 / 99.82 / 99.63 for EVERY prospect, identical whether the nearest match is excellent (distance 8.9) or poor (15.6).",
+      "LINEAR_RESCALE": "100 - 10 * distance is an arbitrary constant pretending to be a scale"
+    }
+  },
+
+  "output_rules": {
+    "n_comparables": 3,
+    "uniqueness": "EXACTLY 3 unique NBA players. Structural — the pool holds one row per player.",
+    "order": "closest first",
+    "ties": "Broken deterministically by exact distance then the stable athlete_id. NEVER by fame, awards, draft position, salary or manual preference.",
+    "self_match": "A historical prospect who later reached the NBA is excluded from his own comparable pool, matched deterministically on normalised name.",
+    "insufficient": "If fewer than 3 players satisfy every rule, return UNAVAILABLE. Guards are never relaxed to force three names."
+  },
+
+  "prohibited_inputs": [
+    "drafted", "pick", "round", "drafting_team",
+    "stage_a_probability", "stage_b_signal", "overall_score", "final_board_signal",
+    "fit_score", "fit_raw",
+    "NBA awards, All-Star selections, career win shares, BPM, RAPTOR, VORP",
+    "age", "date_of_birth", "position_from_population",
+    "mock drafts", "consensus boards", "analyst rankings"
+  ],
+
+  "notes": [
+    "2026 prospects are never scored during ML-8.",
+    "No new dependencies.",
+    "Generated artifacts stay in data/interim/comparables/ and are git-ignored."
+  ]
+}

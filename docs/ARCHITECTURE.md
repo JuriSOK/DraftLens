@@ -1,8 +1,8 @@
 # DraftLens — Technical Architecture
 
-**Status:** Both analytical product modes implemented and frozen — General Draft Board and Team Need. No application layer yet.
+**Status:** All four analytical systems implemented and frozen — General Draft Board, Team Need and NBA comparables. No application layer yet.
 
-This describes what exists. Sections 14–15 describe what does not exist yet and where it will go — they are placeholders by design, not omissions.
+This describes what exists. Section 15 describes what does not exist yet and where it will go.
 
 ---
 
@@ -237,6 +237,7 @@ Trained model binaries and predictions are never committed. Reports in `docs/exp
 | `ml5_stage_b_selection.py` | [ML5_STAGE_B.md](experiments/ML5_STAGE_B.md) | Stage B target + model |
 | `ml6_board_selection.py` | [ML6_BOARD.md](experiments/ML6_BOARD.md) | board combination + score |
 | `ml7_team_need.py` | [ML7_TEAM_NEED.md](experiments/ML7_TEAM_NEED.md) | Team Need methodology audit |
+| `ml8_comparables.py` | [ML8_COMPARABLES.md](experiments/ML8_COMPARABLES.md) | comparable stability audit |
 
 These reproduce history. They must not be used to change a frozen selection — that requires a new phase and a decision record.
 
@@ -288,9 +289,32 @@ Percentiles are computed against the **full NCAA player population** of the same
 
 Fit Score is a **peer-relative** integer 0-100 — deliberately unlike the class-relative Overall Score, because re-ranking within a class would destroy the absolute trait meaning percentiles carry.
 
-## 14. NBA comparables (not built)
+## 14. NBA statistical comparables
 
-Destination: `draftlens/comparables/`. NCAA and NBA statistics must not be treated as one environment. The engine must never read board features or targets. Similarity is descriptive, never a career-outcome claim.
+**Frozen** (`draftlens.comparables`, DEC-106..110). Exactly three NBA players whose statistical and role profiles most resemble a prospect's:
+
+```
+common space   6 dimensions / 12 metrics, equal weight per DIMENSION
+               SHOOTING_EFFICIENCY (quality) · SCORING_ROLE · CREATION
+               REBOUNDING · DEFENSIVE_ACTIVITY (role)
+               PERIMETER_ORIENTATION (style)
+               each side percentile-ranked WITHIN ITS OWN LEAGUE
+
+NBA pool       2021-2025, >= 750 min / >= 30 games per season
+               minutes-weighted mean of the last 3 qualifying seasons
+               542 unique players, one row each, collapsed on athlete_id
+
+distance       coverage-normalised Euclidean, >= 75% shared dimensions
+score          percentile against a frozen prospect-to-NBA distance distribution
+```
+
+**Raw production is never compared across leagues** — 19 NCAA PPG and 19 NBA PPG are not the same event. Percentile-ranking within each league first is also what makes per-40 rates valid: game length, pace and competition cancel.
+
+**Descriptive only.** "Projected", "ceiling", "floor" and "will become" are prohibited. There is no ground truth, so nothing is fitted and no draft outcome, board signal, Team Need score or NBA career result may enter.
+
+**Independent of every other system** — `comparables` never imports the board, the stages or Team Need scoring. Its one shared dependency is the NCAA season-population builder, which carries no score.
+
+**Honest caveat carried into the product:** the median 3rd-vs-4th margin is 4% of the third distance, and dropping any dimension changes about half the names. The output is a **neighbourhood**, not three uniquely correct names.
 
 ## 15. Application layer (not built)
 
@@ -313,6 +337,8 @@ python scripts/run_board.py                 # General Draft Board
 python scripts/run_board.py --year 2024     # one class's board
 python scripts/build_team_need_reference.py # NCAA peer percentiles
 python scripts/run_team_need.py --profile STRETCH_BIG --year 2024
+python scripts/build_comparable_references.py           # NCAA + NBA peers
+python scripts/run_comparables.py --player "Zach Edey"
 python scripts/validate.py
 python -m unittest discover -s tests -t .
 ```

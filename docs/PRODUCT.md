@@ -319,6 +319,9 @@ NBA Statistical Comparables
 
 The application must clearly communicate that **statistical / style similarity does not mean the prospect is predicted to have the same NBA career**. The comparison is descriptive, not a career-outcome guarantee.
 
+> **IMPLEMENTATION STATUS (ML-8, DEC-106..110).** Exactly three statistical NBA comparables are implemented and frozen. NCAA and NBA statistics are **never** compared raw: both sides are percentile-ranked within their own league across six role dimensions, and the profile shapes are compared. The output is **descriptive resemblance only** — "projected", "ceiling", "floor" and "will become" are prohibited, and no NBA career outcome is ever read. Honest caveat carried into the product: the third comparable is often one of several equally close profiles (median 3rd-vs-4th margin 4%), so the three should be presented as a neighbourhood rather than three uniquely correct names. See [experiments/ML8_COMPARABLES.md](experiments/ML8_COMPARABLES.md).
+
+
 ---
 
 ## 14. Historical Ground Truth

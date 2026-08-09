@@ -680,7 +680,7 @@ Every experiment records: data window · feature set · target · preprocessing 
 | **ML-7** | **Freeze** the General Draft methodology | Written frozen spec; no further tuning permitted |
 | **ML-8** | Run the 2026 holdout **once** | Single evaluation; result reported as-is |
 | **ML-9** | Build Team Need scoring | Deterministic; no fitting to draft outcomes *(done in ML-7 — see [ML7_TEAM_NEED.md](experiments/ML7_TEAM_NEED.md); DEC-101..105)* |
-| **ML-10** | Build the NBA similarity system | Comparables stable under perturbation |
+| **ML-10** | Build the NBA similarity system | Comparables stable under perturbation *(done in ML-8 — see [ML8_COMPARABLES.md](experiments/ML8_COMPARABLES.md); DEC-106..110. Stability measured and reported honestly: no dimension dominates, but individual names are sensitive)* |
 
 Phases ML-9 and ML-10 are independent of ML-4…ML-8 and may proceed in parallel — they are separate analytical systems (§2).
 
@@ -700,7 +700,7 @@ Phases ML-9 and ML-10 are independent of ML-4…ML-8 and may proceed in parallel
 
 **Team Need:** ~~sub-score formulas~~ **RESOLVED (DEC-102)** — six factual dimensions, equal-weight means of non-redundant metrics on an NCAA peer-percentile scale · ~~profile weights~~ **RESOLVED (DEC-104)** — equal pillars, geometric mean for conjunctive archetypes; nothing fitted · ~~Fit Score transformation~~ **RESOLVED (DEC-105)** — direct peer percentile, integer 0-100, NOT class-relative · ~~missing-dimension handling~~ **RESOLVED (DEC-105)** — renormalise over available components, never zero; UNAVAILABLE below minimum coverage.
 
-**Comparables:** NBA reference-season representation · similarity metric · shared representation space.
+**Comparables:** ~~NBA reference-season representation~~ **RESOLVED (DEC-109)** — one row per unique player, minutes-weighted mean of the last 3 qualifying seasons, 2021-2025, >= 750 min / >= 30 games · ~~similarity metric~~ **RESOLVED (DEC-110)** — coverage-normalised Euclidean, >= 75% shared dimensions, exactly 3 unique players, global-distance-percentile score · ~~shared representation space~~ **RESOLVED (DEC-107)** — six league-relative role dimensions, equal weight per dimension, GLOBAL reference.
 
 **Product:** data coverage formula · explainability method for the final model · whether Combine is eventually added · whether Athleticism ships at all.
 
