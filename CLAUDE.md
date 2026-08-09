@@ -35,12 +35,28 @@ DraftLens is a data-driven NBA Draft decision-support tool built for the AQX Spo
 17. **Once implementation begins, run the relevant tests after meaningful changes.**
 18. **Update documentation when an implementation changes an approved contract.**
 
+## Code architecture
+
+19. **Reusable analytical logic belongs in `src/draftlens/`.** `scripts/` holds thin CLI entry points: parse arguments, call the library, print, return an exit code.
+20. **Never duplicate a formula in a script.** If a script needs a calculation, the calculation belongs in the package and the script imports it. Two implementations of one formula is a defect, not redundancy.
+21. **Read the relevant module before changing analytical behaviour.** The docstrings record *why* a constraint exists — most of them encode a leakage finding that cost real effort to discover.
+22. **Name library modules for what they do, not when they were written.** `stage_a.py`, not `ml4_common.py`. Experiment scripts and phase reports keep their phase names, because there the chronology is the point.
+
+## Frozen state — do not change without an explicit decision
+
+23. **Stage A and Stage B are FROZEN.** The selections live in `draftlens.ml.stage_a.STAGE_A` and `draftlens.ml.stage_b.STAGE_B` (DEC-080…091). Changing a model, hyperparameter, feature set, representation or target is a *scientific* change requiring its own evaluation phase and a DECISIONS entry — never a refactor or a drive-by edit.
+24. **The published anchors are asserted by `tests/integration/test_frozen_anchors.py`.** If one fails, find out what changed. Do not loosen a tolerance to make it pass.
+25. **2026 is a sealed holdout.** Do not load its targets, generate predictions for it, or inspect its picks until the designated holdout phase.
+26. **Experiment scripts under `scripts/experiments/` are historical evidence.** Keep them runnable; do not use them to change a frozen selection.
+
 ## Repository layout
 
 ```
-docs/        product, data, ML, architecture, and decision documents
-data/        raw (immutable) / interim / processed — see data/README.md
-notebooks/   exploratory analysis
-scripts/     reproducible data and analysis scripts
-tests/       tests
+src/draftlens/   reusable analytical library (data / features / ml)
+scripts/         thin CLI entry points; experiments/ holds historical runs
+config/          data/ · features/ · ml/ — versioned configuration
+docs/            specs; experiments/ holds frozen phase reports
+data/            raw (immutable) / interim / processed — see data/README.md
+tests/           data/ · features/ · ml/ · integration/
+notebooks/       exploratory analysis
 ```

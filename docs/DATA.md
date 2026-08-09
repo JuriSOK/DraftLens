@@ -1293,7 +1293,7 @@ One new consideration: since advanced metrics would be **derived from box-score 
 
 **Authorised scope:** a small verification pass only — four 2026 Parquet files, **17.22 MB total**, downloaded to `data/raw/`. No historical archive was acquired. Bundle A remains **PROVISIONAL**.
 
-**Environment:** local `.venv/` with `pandas` 3.0.5 and `pyarrow` 25.0.0 only (DEC-037). Audit scripts: [`scripts/verify_hoopr_sample.py`](../scripts/verify_hoopr_sample.py), [`scripts/verify_hoopr_sample2.py`](../scripts/verify_hoopr_sample2.py) — read-only, they write nothing.
+**Environment:** local `.venv/` with `pandas` 3.0.5 and `pyarrow` 25.0.0 only (DEC-037). Audit scripts: [`scripts/experiments/audit/verify_hoopr_sample.py`](../scripts/experiments/audit/verify_hoopr_sample.py), [`scripts/experiments/audit/verify_hoopr_sample2.py`](../scripts/experiments/audit/verify_hoopr_sample2.py) — read-only, they write nothing.
 
 **Files inspected (all VERIFIED present and readable):**
 
@@ -1582,7 +1582,7 @@ hoopR wins decisively on licence, access, and shot detail — the things that we
 
 **Scope:** can Wikidata supply the pre-draft date of birth that hoopR cannot (§22.1)? **Biographical enrichment only** — no other Wikidata property is retrieved or stored.
 
-**Method:** [`scripts/audit_wikidata_dob.py`](../scripts/audit_wikidata_dob.py), stdlib + existing pandas, no new dependencies, no account, no authentication. **~15 API calls total**, batched 50 entities per request and throttled at 1.2 s.
+**Method:** [`scripts/experiments/audit/audit_wikidata_dob.py`](../scripts/experiments/audit/audit_wikidata_dob.py), stdlib + existing pandas, no new dependencies, no account, no authentication. **~15 API calls total**, batched 50 entities per request and throttled at 1.2 s.
 
 **Headline: DOB is effectively free for drafted players and complete for the 2026 demo — but historical coverage is missing almost exclusively from the undrafted class.** That is the same bias signature §9.2 identified as the most damaging failure mode available, so the finding is **YELLOW, not GREEN**, despite a perfect 2026 result.
 
@@ -1791,11 +1791,11 @@ Approved window **2011–2026** acquired for all four source families. Raw files
 
 | Script | Purpose |
 | --- | --- |
-| [`scripts/dlcommon.py`](../scripts/dlcommon.py) | Shared helpers: name normalisation, throttled HTTP with backoff, manifest I/O |
+| [`src/draftlens/data/acquisition/`](../src/draftlens/data/acquisition/) | Shared helpers: name normalisation, throttled HTTP with backoff, manifest I/O |
 | [`scripts/acquire_data.py`](../scripts/acquire_data.py) | hoopR MBB + NBA Parquet acquisition (`--source mbb\|nba\|all --years 2011-2026`) |
-| [`scripts/acquire_draft_population.py`](../scripts/acquire_draft_population.py) | Wikipedia population + targets + optional Wikidata DOB (`--years`, `--wikidata`) |
-| [`scripts/validate_raw_data.py`](../scripts/validate_raw_data.py) | Structure, coverage, manifest integrity, firewall, ID stability, quality profile |
-| [`scripts/audit/`](../scripts/audit/) | Archived one-off feasibility scripts behind §22 and §23 (see §24.10) |
+| [`src/draftlens/data/acquisition/wikipedia.py`](../src/draftlens/data/acquisition/wikipedia.py) | Wikipedia population + targets + optional Wikidata DOB (`--years`, `--wikidata`) |
+| [`src/draftlens/data/validation/raw.py`](../src/draftlens/data/validation/raw.py) | Structure, coverage, manifest integrity, firewall, ID stability, quality profile |
+| [`scripts/experiments/audit/`](../scripts/experiments/audit/) | Archived one-off feasibility scripts behind §22 and §23 (see §24.10) |
 
 ### 24.2 Files acquired — 97 files, 201.9 MB
 
@@ -1882,7 +1882,7 @@ Rule: **final NCAA early entrants ∪ NCAA players actually drafted** (DEC-038),
 
 Pick counts of 58–60 are correct: teams forfeited second-round picks in several years.
 
-> ᶜ **CORRECTION (ML-5).** The 2014 total-picks figure originally read **59**. That is wrong: pick **60** is present in `data/raw/draft_targets/draft_targets_2014.csv` (Cory Jefferson, San Antonio Spurs). The value is corrected to **60**. The error was caught by a Stage B validator check asserting that no observed pick may exceed its year's declared draft size — a check that exists because the `PICK_PERCENTILE` target divides by that number. All other years were re-verified against observed picks and are consistent. The draft sizes are version-controlled in [`config/ml5_stage_b.json`](../config/ml5_stage_b.json); see [ML5_REPORT.md](ML5_REPORT.md) §4.
+> ᶜ **CORRECTION (ML-5).** The 2014 total-picks figure originally read **59**. That is wrong: pick **60** is present in `data/raw/draft_targets/draft_targets_2014.csv` (Cory Jefferson, San Antonio Spurs). The value is corrected to **60**. The error was caught by a Stage B validator check asserting that no observed pick may exceed its year's declared draft size — a check that exists because the `PICK_PERCENTILE` target divides by that number. All other years were re-verified against observed picks and are consistent. The draft sizes are version-controlled in [`config/ml/stage_b.json`](../config/ml/stage_b.json); see [ML5_STAGE_B.md](experiments/ML5_STAGE_B.md) §4.
 
 #### 🔴 Class balance varies by a factor of six
 
@@ -1956,7 +1956,7 @@ The feature snapshot cutoff remains **2026-06-22 23:59:59 ET** (§14). All 2026 
 
 The three one-off feasibility scripts were **archived, not deleted**, to preserve the evidence behind §22 and §23:
 
-`scripts/verify_hoopr_sample.py`, `scripts/verify_hoopr_sample2.py`, `scripts/audit_wikidata_dob.py` → **`scripts/audit/`**, with a README recording what each produced and which maintained script supersedes it. They target the pre-consolidation raw layout and will not run unmodified against the current structure; `scripts/` now contains only maintained code.
+`scripts/experiments/audit/verify_hoopr_sample.py`, `scripts/experiments/audit/verify_hoopr_sample2.py`, `scripts/experiments/audit/audit_wikidata_dob.py` → **`scripts/experiments/audit/`**, with a README recording what each produced and which maintained script supersedes it. They target the pre-consolidation raw layout and will not run unmodified against the current structure; `scripts/` now contains only maintained code.
 
 ### 24.11 Remaining data blockers and risks
 

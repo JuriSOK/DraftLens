@@ -6,16 +6,16 @@ Source data is **acquired locally, never committed**. Reproducibility comes from
 
 ```bash
 # one-time environment (DEC-037: pandas + pyarrow only)
-python3 -m venv .venv && ./.venv/bin/python -m pip install pandas pyarrow
+python3 -m venv .venv && ./.venv/bin/python -m pip install -e .
 
 # NCAA (hoopR MBB) and NBA (hoopR NBA) Parquet, 2011-2026  — ~192 MB
 ./.venv/bin/python scripts/acquire_data.py --source all --years 2011-2026
 
 # Wikipedia prospect population + draft targets, and 2026 Wikidata DOB
-./.venv/bin/python scripts/acquire_draft_population.py --years 2011-2026 --wikidata
+./.venv/bin/python scripts/acquire_data.py --source population --years 2011-2026 --wikidata
 
 # verify everything (structure, coverage, checksums, firewall, ID stability)
-./.venv/bin/python scripts/validate_raw_data.py
+./.venv/bin/python scripts/validate.py --stage raw
 ```
 
 Acquisition is idempotent: an existing raw file is **never overwritten** unless `--force` is passed.

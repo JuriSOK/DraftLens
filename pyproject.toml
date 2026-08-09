@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "draftlens"
+version = "0.6.0"
+description = "Data-driven NBA Draft decision support built on transparent pre-draft NCAA analytics"
+readme = "README.md"
+requires-python = ">=3.11"
+
+# Direct analytical dependencies only. Lower bounds reflect APIs actually used
+# (pandas 3 copy-on-write, sklearn 1.8 l1_ratio); the project is developed on
+# pandas 3.0.5 / numpy 2.5.1 / scikit-learn 1.9.0 / scipy 1.18.0 / pyarrow 25.0.0.
+dependencies = [
+    "pandas>=3.0",
+    "pyarrow>=17.0",
+    "numpy>=2.0",
+    "scipy>=1.14",
+    "scikit-learn>=1.8",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+draftlens = ["py.typed"]

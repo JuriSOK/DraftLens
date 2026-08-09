@@ -291,7 +291,7 @@ A record of meaningful product and technical decisions. Each entry states what w
 ## DEC-056 — ML analytical dataset is physically built from early entrants only
 **Status:** Accepted
 **Decision:** The ML-0 pipeline materialises the analytical dataset from **final NCAA early entrants only**. Seniors and other automatically-eligible players remain in the raw layer for descriptive use but are never written into the ML feature or target files.
-**Note:** Implements DEC-049/DEC-050. Population counts are enforced as hard build gates — **corrected in ML-0.1 (DEC-063) to 2014–2025: 887/431/456; 2011–2013: 125/85/40; 2026: 26**. The original 829/403/426 and 119/79/40 came from a defective NCAA classifier and are not authoritative and re-asserted by `scripts/validate_model_dataset.py` and the test suite. See [ML0_REPORT.md](ML0_REPORT.md).
+**Note:** Implements DEC-049/DEC-050. Population counts are enforced as hard build gates — **corrected in ML-0.1 (DEC-063) to 2014–2025: 887/431/456; 2011–2013: 125/85/40; 2026: 26**. The original 829/403/426 and 119/79/40 came from a defective NCAA classifier and are not authoritative and re-asserted by `scripts/experiments/validate_ml0_dataset.py` and the test suite. See [ML0_DATASET.md](experiments/ML0_DATASET.md).
 
 ## DEC-057 — Development, robustness and holdout partitions are stored separately
 **Status:** Accepted
@@ -320,7 +320,7 @@ A record of meaningful product and technical decisions. Each entry states what w
 
 ## DEC-062 — Identity exceptions live in a version-controlled override file
 **Status:** Accepted
-**Decision:** Where deterministic matching cannot resolve a genuine name variant, the mapping is recorded in [`config/identity_overrides.csv`](../config/identity_overrides.csv) with prospect, year, expected school, selected `athlete_id`, and a written reason. Overrides must never be hidden in Python conditionals, and a match must never be invented.
+**Decision:** Where deterministic matching cannot resolve a genuine name variant, the mapping is recorded in [`config/data/identity_overrides.csv`](../config/data/identity_overrides.csv) with prospect, year, expected school, selected `athlete_id`, and a written reason. Overrides must never be hidden in Python conditionals, and a match must never be invented.
 **Note:** Three entries at ML-0, all legal-name/nickname mismatches verified by unique surname+school in the relevant season.
 
 ## DEC-063 — NCAA membership is decided by canonical article title, not phrase matching
@@ -363,7 +363,7 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 
 ## DEC-067 — Canonical position is coarse (G/F/C); five-position mapping deferred
 **Status:** Accepted
-**Decision:** The canonical analytical position is the **coarse G / F / C scheme**, derived deterministically from `hoopr_position` by [`scripts/positions.py`](../scripts/positions.py) using [`config/position_map.csv`](../config/position_map.csv). Measured coverage: **98.0%** development, **100%** for the 2026 holdout. Unresolvable labels (`ATH`, `NA`, missing) stay `UNKNOWN` and are never guessed.
+**Decision:** The canonical analytical position is the **coarse G / F / C scheme**, derived deterministically from `hoopr_position` by [`src/draftlens/features/positions.py`](../src/draftlens/features/positions.py) using [`config/features/position_map.csv`](../config/features/position_map.csv). Measured coverage: **98.0%** development, **100%** for the 2026 holdout. Unresolvable labels (`ATH`, `NA`, missing) stay `UNKNOWN` and are never guessed.
 
 **The PG/SG/SF/PF/C scheme required by DEC-009 is deferred**: the only fine-grained pre-draft label available is outcome-contaminated (DEC-065), so no leakage-safe source exists. The deterministic five-position parser is implemented and unit-tested but **applied to nothing**, ready for a clean source.
 **Owner decision required:** accept G/F/C for position-relative work, obtain a genuinely pre-draft five-position feed, or relax DEC-009. **Position must never be inferred from statistics or from draft outcome.**
@@ -381,14 +381,14 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 
 ## DEC-070 — Generic jump-shot metrics are permanently rejected for cross-year modelling
 **Status:** Accepted
-**Decision:** No feature may be derived from the generic `jump_shot_*` primitives — specifically `jump_shot_share`, `jump_shot_pct` and `jump_shots_per_40` are prohibited. The rejection is recorded in [`config/ml2_feature_dictionary.csv`](../config/ml2_feature_dictionary.csv) with status `REJECTED`, and a test fails if any column containing `jump_shot` reaches the feature layer.
+**Decision:** No feature may be derived from the generic `jump_shot_*` primitives — specifically `jump_shot_share`, `jump_shot_pct` and `jump_shots_per_40` are prohibited. The rejection is recorded in [`config/features/feature_dictionary.csv`](../config/features/feature_dictionary.csv) with status `REJECTED`, and a test fails if any column containing `jump_shot` reaches the feature layer.
 **Rationale:** DEC-068 — hoopR's `type_text` folds `Three Point Jump Shot` into `JumpShot` from 2021, so the category silently changes meaning mid-window. Shot profile is built instead from `layup`, `dunk`, `tip` and three-point attempts identified via `score_value`, all of which are stable across 2014–2026.
 **Note:** The raw ML-0 columns remain for source and audit purposes.
 
 ## DEC-071 — Unresolved prospects are retained, never outcome-selectively dropped
 **Status:** Accepted
 **Decision:** Prospects without matched hoopR statistics remain in every analytical partition with NULL feature values. They must not be dropped, zero-filled, or flagged with a `has_stats`-style predictive feature, and no missingness indicator may be derived from their absence.
-**Rationale:** All 8 unresolved development prospects are undrafted (ML1_REPORT §11). Dropping rows without statistics would remove only negatives and inflate downstream performance. Validation hard-fails if the retained count falls below 8 or if the ML-2 prospect set differs from ML-0.
+**Rationale:** All 8 unresolved development prospects are undrafted (ML1_EDA §11). Dropping rows without statistics would remove only negatives and inflate downstream performance. Validation hard-fails if the retained count falls below 8 or if the ML-2 prospect set differs from ML-0.
 
 ## DEC-072 — Team context is reconstructed from the prospect's played games only
 **Status:** Accepted
@@ -421,7 +421,7 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 
 ## DEC-077 — Redundancy representatives chosen by basketball logic, not validation AUC
 **Status:** Accepted
-**Decision:** Where ML-2 features are near-duplicates (|r| ≥ 0.95), one representative per group is retained using a fixed rule recorded in [`config/ml3_baselines.json`](../config/ml3_baselines.json): prefer the **per-40 rate** for counting statistics; keep the **unassisted** direction of algebraic complements; keep **`three_point_attempt_rate`** for attempt mix; keep a possession percentage only where it has no per-40 twin (`usage_pct`, `tov_pct`).
+**Decision:** Where ML-2 features are near-duplicates (|r| ≥ 0.95), one representative per group is retained using a fixed rule recorded in [`config/ml/ml3_baselines.json`](../config/ml/ml3_baselines.json): prefer the **per-40 rate** for counting statistics; keep the **unassisted** direction of algebraic complements; keep **`three_point_attempt_rate`** for attempt mix; keep a possession percentage only where it has no per-40 twin (`usage_pct`, `tov_pct`).
 **Rationale:** Choosing between mathematically equivalent representations by validation score would be fitting noise. 23 correlated pairs resolved into 14 groups; 12 carry an explicit representative, enforced by test.
 
 ## DEC-078 — Stage A baseline configuration carried into ML-4
@@ -453,7 +453,7 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 **Status:** Accepted
 **Decision:** Stage A uses **L2 at C = 0.25** on the season-relative representation. L1 is rejected.
 **Rationale:** On the raw representation, stronger regularisation improves discrimination and Brier monotonically across C ∈ {1.0, 0.5, 0.25, 0.1, 0.05}, and `LR_C0.05` achieves the best ECE (0.0409) and max calibration gap (0.0908) in the entire study. The season-relative representation prefers a weaker penalty (0.25 rather than 0.05), consistent with z-scored inputs already carrying part of the regularising effect. `LR_C0.05` was not selected because its worst-year (0.6297) and low-support-robust macro (0.6899) fall materially below the season-relative model's (0.6742 / 0.6997), and worst-year robustness is the criterion this project has prioritised throughout. L1 at C ∈ {0.1, 1.0} ranks below the incumbent on the low-support-robust ranking (0.6694 and 0.6788); with 25 correlated features its arbitrary within-group selection is a liability.
-**Note:** No season-relative configuration below C = 0.25 was predeclared, so stronger regularisation on that representation is **untested, not rejected**. Adding one after seeing results would be post-hoc selection; it must be predeclared in a future phase (ML4_REPORT §22).
+**Note:** No season-relative configuration below C = 0.25 was predeclared, so stronger regularisation on that representation is **untested, not rejected**. Adding one after seeing results would be post-hoc selection; it must be predeclared in a future phase (ML4_STAGE_A §22).
 
 ## DEC-083 — Stage A ships uncalibrated; isotonic calibration is rejected
 **Status:** Accepted
@@ -465,7 +465,7 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 **Status:** Accepted
 **Decision:** Every Stage A model comparison must report the ranking **twice** — over all folds, and with folds flagged LOW NEGATIVE SUPPORT removed. A candidate whose ranking depends on such a fold has not been shown to be better. The sensitivity table is a required artifact.
 **Rationale:** DEC-075 flagged these folds but still allowed them into the year-macro average, where 2025 carries a full 1/7 weight on an ROC-AUC computed against two negatives. ML-4 showed this was silently deciding the leaderboard: the four largest negative shifts under re-ranking all belong to tree ensembles, and the naive protocol would have selected a model that is 12th once the fold is removed and reported a fictitious +0.028 improvement.
-**Note:** Strengthens DEC-075 rather than replacing it. Both aggregations are still reported. `scripts/validate_ml4_results.py` requires the sensitivity artifact to exist.
+**Note:** Strengthens DEC-075 rather than replacing it. Both aggregations are still reported. `scripts/experiments/validate_ml4_stage_a.py` requires the sensitivity artifact to exist.
 
 ## DEC-085 — Stage A class weighting stays `balanced`
 **Status:** Accepted
@@ -491,7 +491,7 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 **Decision:** Stage B model selection is decided by, in order: **(1) macro Spearman · (2) NDCG · (3) temporal stability · (4) worst-year ranking · (5) MAE as supporting evidence only · (6) simplicity · (7) interpretability · (8) consistency with product claims.** Selection by lowest RMSE or MAE alone is **prohibited**.
 **Rationale:** Numeric error carries almost no discriminating information on this problem. The entire field of 60 configurations spans **13.1–14.4 MAE**, and the B5A baseline — predicting the training-fold mean pick for every prospect — scores **14.02**. The best model beats a constant by 0.8 picks. Selecting on RMSE would have been selecting on approximately nothing, and would have preferred a gradient-boosting model whose rank quality is 0.028 worse. Rank quality is also what the product actually outputs (PRODUCT.md §4, ML_SPEC §13).
 **Method notes:** (a) Full-list NDCG discriminates poorly at 26–50 drafted prospects per year — every configuration scores 0.85–0.92 and even the perverse position baseline reaches 0.848 — so **NDCG@14 is the informative variant** and Spearman is primary. (b) A **constant predictor must report null rank metrics, never 1.0**; `stage_b_metrics` detects zero prediction variance, guarding against the ML-3 NDCG tie-break defect. (c) One **canonical orientation** exists project-wide: every prediction is inverse-transformed to the pick scale before `strength = −pick` is applied, so higher strength always means an earlier pick. Tested in both directions, including that a reversed board scores −1.
-**Draft-size provenance:** Draft sizes (60 for 2014–2021, 58 for 2022–2024, 59 for 2025) are version-controlled in `config/ml5_stage_b.json`, sourced from DATA.md §24.5 with **one correction**: DATA.md recorded 59 picks for 2014, but pick 60 exists in the raw data. Every observed pick is validated against its declared draft size.
+**Draft-size provenance:** Draft sizes (60 for 2014–2021, 58 for 2022–2024, 59 for 2025) are version-controlled in `config/ml/stage_b.json`, sourced from DATA.md §24.5 with **one correction**: DATA.md recorded 59 picks for 2014, but pick 60 exists in the raw data. Every observed pick is validated against its declared draft size.
 
 ## DEC-089 — Exact numeric pick prediction is NOT display-safe
 **Status:** Accepted
@@ -511,3 +511,26 @@ The parenthesis is the reliable discriminator: college programs are titled `<Tea
 **Decision:** ML_SPEC §6.3 candidate D (learning-to-rank) is addressed by treating **ranking as the evaluation objective** rather than by fitting a dedicated ranker. No ranking library is installed. A regression output inducing a ranking is the approved mechanism.
 **Rationale:** scikit-learn provides no scientifically clean learning-to-rank estimator for this setup — no LambdaMART, no RankNet, no pairwise or listwise objective. Installing a library solely to satisfy the candidate would breach DEC-074 and add a dependency for one experiment at a sample size (158–405 training rows) where the literature for these methods is thin. Every continuous target induces a ranking, and rank quality is the primary selection criterion (DEC-088).
 **Note:** Recorded as a documented limitation, not a silent omission. `test_no_ranking_library_was_installed` asserts that xgboost, lightgbm, catboost, allrank, pyltr and similar remain absent. `scipy` (Spearman, Kendall τ) was already an approved transitive dependency under DEC-074 — no new dependency was added in ML-5.
+
+## DEC-092 — Reusable analytical logic lives in `src/draftlens`; scripts stay thin
+**Status:** Accepted
+**Decision:** All reusable domain logic lives in the installable package `src/draftlens/` (data · features · ml). `scripts/` contains only thin entry points that parse arguments, call library functions, print results and return an exit code. A formula may have exactly **one** implementation, in the package; duplicating it in a script is a defect. Library modules are named for what they do (`stage_a.py`), not when they were written (`ml4_common.py`); experiment scripts and phase reports keep phase names because there the chronology is the evidence.
+**Rationale:** The phase-by-phase layout had reached the point where `run_ml5_stage_b.py` was imported by its own validator, by the test suite, and by another phase's runner — a 621-line "script" that was really the Stage B library. That coupling makes any change to Stage B a change to five files, and it makes the analytical core unusable by a future application layer without importing experiment CLIs. Packaging under a `src/` layout with a minimal `pyproject.toml` (setuptools, five direct dependencies, no publishing configuration) makes `import draftlens` work identically for scripts, tests and any later consumer.
+**Verified non-breaking:** the refactor moved code without changing behaviour. ML-2 features reproduced **bit-identically** (SHA-256 match on 887 × 81), and all ML-3, ML-4 and ML-5 artifacts reproduced with `atol=0`. Full suite 247 tests passing; all five phase validators pass.
+
+## DEC-093 — Experiment reports are historical evidence and live in `docs/experiments/`
+**Status:** Accepted
+**Decision:** Frozen phase reports live in `docs/experiments/` under descriptive names (`ML4_STAGE_A.md`, not `ML4_REPORT.md`). Their selection experiments remain runnable under `scripts/experiments/`. Neither may be used to change a frozen selection: that requires a new phase and a new decision. `docs/` itself holds only the living specifications — PRODUCT, MVP, DATA, ML_SPEC, ARCHITECTURE, DECISIONS.
+**Rationale:** Six phase reports at the top level made the specifications hard to find and implied the reports were still open for revision. They are not — they are the record of what was measured, and their numbers are pinned by `tests/integration/test_frozen_anchors.py`.
+
+## DEC-094 — Stage A and Stage B are frozen in code, and the anchors are tested
+**Status:** Accepted
+**Decision:** The frozen selections are declared as data in `draftlens.ml.stage_a.STAGE_A` and `draftlens.ml.stage_b.STAGE_B`, and the published metrics are asserted end-to-end in `tests/integration/test_frozen_anchors.py` at a tolerance of **1e-4** — the precision the reports publish. A failing anchor must be investigated, never accommodated by loosening the tolerance.
+**Rationale:** "Frozen" written only in prose is not enforceable. Declaring the configuration as inspectable data means a change is visible in a diff, and pinning the anchors means a change is visible in CI. The anchors covered: population 887/431/456; Stage A macro ROC-AUC 0.6986, pooled 0.6953, Brier 0.2238, NDCG 0.7061, SD 0.0281, worst year 0.6742, ECE 0.0590; Stage B macro Spearman 0.2968, Kendall 0.2089, NDCG 0.9043, NDCG@14 0.7555, MAE 13.2141, RMSE 15.5641.
+
+## DEC-095 — Stage B's frozen representation is STANDARD, not SEASON_RELATIVE
+**Status:** Accepted (corrects a documentation error in ML-5)
+**Decision:** Stage B's frozen feature representation is **`STANDARD`**. `draftlens.ml.stage_b.STAGE_B` and `config/ml/stage_b.json` record `STANDARD`, and a correction notice has been added to [ML5_STAGE_B.md](experiments/ML5_STAGE_B.md).
+**Rationale:** ML-5 declared it would inherit Stage A's `SEASON_RELATIVE` representation, and both the config and the report said so — but the experiment script imported `season_relative` without ever calling it. Discovered during the R-1 refactor when a rebuilt Stage B entry point produced macro Spearman 0.2999 instead of the published 0.2968. **Every published ML-5 number is correct and exactly reproducible**; only the *description* of the representation was wrong. The evidence supports `STANDARD`, so `STANDARD` is what is frozen.
+**Not silently repaired:** running Stage B with `SEASON_RELATIVE` moves macro Spearman from 0.2968 to 0.2999 (+0.0031, well inside the fold SD of 0.124). Adopting it would be a scientific change and requires its own evaluation phase, not a refactor. Recorded as open architectural debt.
+**Note:** this is exactly the failure mode the R-1 brief's "compare BEFORE and AFTER outputs, do not accept close enough" rule exists to catch.

@@ -196,7 +196,7 @@ A single regression over all early entrants must assign undrafted players some s
 | **C** | Ordinal draft tier | Robust to pick-level noise; interpretable; matches how scouts speak | Loses within-tier ordering; boundaries risk being arbitrary; **sparse cells** — see below |
 | **D** | Learning-to-rank | Directly optimises what the product outputs | More complex; harder to explain; smaller literature at this sample size |
 
-**All four were tested in ML-5. Resolved — see [ML5_REPORT.md](ML5_REPORT.md).**
+**All four were tested in ML-5. Resolved — see [ML5_STAGE_B.md](experiments/ML5_STAGE_B.md).**
 
 > **ML-5 outcome (DEC-086).** Candidate **A (raw pick)** is selected. The decisive finding is structural rather than empirical: **A, and the normalised variants of B, are affine images of one another within a draft year**, so for a linear model they cannot induce different rankings — measured rank correlation between their out-of-fold rankings is **0.998**, with the residual attributable entirely to draft size varying 58–60. Averaged over 12 models the four targets span macro Spearman 0.2596–0.2624 against a fold SD of 0.13. `log(pick)` is the only genuinely non-affine transform and is worse on NDCG, MAE, RMSE and worst-year. Candidate **C** is retained as a display representation only (DEC-090); candidate **D** is treated as the evaluation objective (DEC-091).
 
@@ -420,7 +420,7 @@ Required baselines: **(1)** scoring average only; **(2)** a simple standardised 
 
 **Complexity principle.** DraftLens prioritises temporal generalisation, explainability, calibration, and robustness over leaderboard performance. Prefer the simpler model unless a more complex one delivers **consistent** improvement across folds — not an improvement carried by one fold.
 
-> **Stage A resolved in ML-4 (DEC-080).** Random forest, HistGradientBoosting and classic gradient boosting were evaluated against the incumbent on all seven folds and rejected. The complexity principle above was decisive rather than rhetorical: the top-ranked random forest owed its lead to a single fold with two negative examples and fell to rank 12 once that fold was removed. See [ML4_REPORT.md](ML4_REPORT.md) §9. Stage B remains undecided.
+> **Stage A resolved in ML-4 (DEC-080).** Random forest, HistGradientBoosting and classic gradient boosting were evaluated against the incumbent on all seven folds and rejected. The complexity principle above was decisive rather than rhetorical: the top-ranked random forest owed its lead to a single fold with two negative examples and fell to rank 12 once that fold was removed. See [ML4_STAGE_A.md](experiments/ML4_STAGE_A.md) §9. Stage B remains undecided.
 
 **Deep learning is not justified** for this tabular problem at this sample size. Hundreds to low thousands of rows with dozens of correlated features is the regime where regularised linear models and small tree ensembles typically win, and where neural networks overfit.
 
@@ -666,12 +666,12 @@ Every experiment records: data window · feature set · target · preprocessing 
 
 | Phase | Work | Gate |
 | --- | --- | --- |
-| **ML-0** | Build the model-ready dataset from **early entrants only** | Population counts match §3.5 exactly *(done; counts corrected in ML-0.1 — see [ML0_REPORT.md](ML0_REPORT.md))* |
+| **ML-0** | Build the model-ready dataset from **early entrants only** | Population counts match §3.5 exactly *(done; counts corrected in ML-0.1 — see [ML0_DATASET.md](experiments/ML0_DATASET.md))* |
 | **ML-1** | EDA and leakage audit on the actual feature set | Leakage table re-derived; availability-correlation checked per feature |
-| **ML-2** | Derive transparent statistical features (§7) | Every feature traces to documented source columns *(done — 61 features, see [ML2_REPORT.md](ML2_REPORT.md) and `config/ml2_feature_dictionary.csv`)* |
-| **ML-3** | Establish baselines (§15) | All five baselines measured on the fold protocol *(done — see [ML3_REPORT.md](ML3_REPORT.md); every configuration lands in macro ROC-AUC 0.669–0.698, and the position-percentile composite matches regularised logistic regression)* |
-| **ML-4** | Train Stage A candidates | Beats baselines consistently across folds *(done — see [ML4_REPORT.md](ML4_REPORT.md); logistic regression retained (DEC-080), season-relative normalisation adopted (DEC-081). The B4 benchmark is **not** beaten on ranking and DEC-079 stands)* |
-| **ML-5** | Train Stage B candidates; compare the four target designs | Rank metrics reported per fold *(done — see [ML5_REPORT.md](ML5_REPORT.md); raw-pick ridge selected (DEC-086, DEC-087), macro Spearman 0.2968. Exact pick prediction found NOT display-safe (DEC-089))* |
+| **ML-2** | Derive transparent statistical features (§7) | Every feature traces to documented source columns *(done — 61 features, see [ML2_FEATURES.md](experiments/ML2_FEATURES.md) and `config/features/feature_dictionary.csv`)* |
+| **ML-3** | Establish baselines (§15) | All five baselines measured on the fold protocol *(done — see [ML3_BASELINES.md](experiments/ML3_BASELINES.md); every configuration lands in macro ROC-AUC 0.669–0.698, and the position-percentile composite matches regularised logistic regression)* |
+| **ML-4** | Train Stage A candidates | Beats baselines consistently across folds *(done — see [ML4_STAGE_A.md](experiments/ML4_STAGE_A.md); logistic regression retained (DEC-080), season-relative normalisation adopted (DEC-081). The B4 benchmark is **not** beaten on ranking and DEC-079 stands)* |
+| **ML-5** | Train Stage B candidates; compare the four target designs | Rank metrics reported per fold *(done — see [ML5_STAGE_B.md](experiments/ML5_STAGE_B.md); raw-pick ridge selected (DEC-086, DEC-087), macro Spearman 0.2968. Exact pick prediction found NOT display-safe (DEC-089))* |
 | **ML-6** | Construct and validate the Overall Board ranking | Board metrics (§14) computed; §17 requirements satisfied |
 | **ML-7** | **Freeze** the General Draft methodology | Written frozen spec; no further tuning permitted |
 | **ML-8** | Run the 2026 holdout **once** | Single evaluation; result reported as-is |
