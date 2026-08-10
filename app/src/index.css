@@ -173,7 +173,7 @@ table {
 
 /* ── Shared analytics panel ──────────────────────────────────────────
    Used by every page that shows a chart, so cards, titles and spacing
-   are identical across Board, Stats, Team Need, Prospect and 2027. */
+   are identical across Stats, Team Need, Prospect and the Dataset Lab. */
 .analyticsRow {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
@@ -198,6 +198,12 @@ table {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--color-text-tertiary);
+}
+
+/* A row holding one card takes the full width rather than leaving an
+   empty second column where a removed chart used to sit. */
+.analyticsRow:has(> .analyticsCard:only-child) {
+  grid-template-columns: 1fr;
 }
 
 @media (max-width: 720px) {

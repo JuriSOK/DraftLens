@@ -197,7 +197,14 @@ export interface WatchlistSource {
   playersListed: number;
 }
 
-/** A 2027 projected watchlist entry. Never carries a board, Draft
+/** A 2027 projected watchlist entry.
+ *
+ * The Watchlist was removed from the product, but the export still carries
+ * the block for reproducibility and audit — it is the record of a
+ * media-sourced projection documented in the methodology. These types keep
+ * the payload fully described; no page renders them.
+ *
+ * Never carries a board, Draft
  * Probability, or Overall Score — see docs/VALIDATION.md and the
  * Methodology page for why. */
 export interface WatchlistProspect {

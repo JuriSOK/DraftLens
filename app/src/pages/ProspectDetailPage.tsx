@@ -22,7 +22,7 @@ import {
   PROFILE_DESCRIPTIONS,
   PROFILE_LABELS,
 } from "../types/data";
-import type { DimensionEvidence, Dimensions, Prospect, WatchlistProspect } from "../types/data";
+import type { DimensionEvidence, Dimensions, Prospect } from "../types/data";
 import styles from "./ProspectDetailPage.module.css";
 
 /** Short labels so the six radar axes fit without overlapping. */
@@ -50,23 +50,6 @@ export function ProspectDetailPage() {
 
   if (loading) return <LoadingState />;
   if (error || !data) return <ErrorState message={error ?? "Unknown error"} />;
-
-  if (id?.startsWith("2027-")) {
-    const year2027 = data.years["2027"];
-    const wp =
-      year2027.status === "watchlist"
-        ? year2027.prospects.find((p) => p.id === id)
-        : undefined;
-    if (!wp) {
-      return (
-        <div className={`container ${styles.notFound}`}>
-          <p>Prospect not found.</p>
-          <Link to="/2027">Back to the Watchlist</Link>
-        </div>
-      );
-    }
-    return <WatchlistDetail prospect={wp} />;
-  }
 
   const year2026 = data.years["2026"];
   const prospect =
@@ -168,81 +151,6 @@ function BoardDetail({ prospect }: { prospect: Prospect }) {
       <p className={styles.coverage}>
         Data coverage: {formatPercent(prospect.coverage)}
       </p>
-    </div>
-  );
-}
-
-function WatchlistDetail({ prospect }: { prospect: WatchlistProspect }) {
-  return (
-    <div className="container">
-      <Link to="/2027" className={styles.back}>
-        ← 2027 Watchlist
-      </Link>
-
-      <header className={styles.header}>
-        <div className={styles.identity}>
-          <ProspectPhoto name={prospect.name} photo={prospect.photo} />
-          <div>
-            <h1 className={styles.name}>{prospect.name}</h1>
-            <p className={styles.meta}>
-              {prospect.school ?? "—"}
-              {prospect.classYear ? ` · ${prospect.classYear}` : ""}
-            </p>
-            {/* CRITICAL: never let a projection read as an official entry. */}
-            <span className={styles.projectedBadge}>
-              Projected — not an official Draft entrant
-            </span>
-          </div>
-        </div>
-      </header>
-
-      {!prospect.hasStats || !prospect.stats ? (
-        <div className={styles.noStats}>
-          NCAA stats available after the 2026-27 season begins.
-        </div>
-      ) : (
-        <>
-          <section className={styles.section}>
-            <h2 className={styles.sectionTitle}>Profile</h2>
-            <div className={styles.statsGrid}>
-              <Stat label="Height" value={formatHeight(prospect.stats.heightInches)} />
-              <Stat label="MIN/G" value={formatDecimal(prospect.stats.minutesPerGame)} />
-              <Stat label="GP" value={formatInt(prospect.stats.gamesPlayed)} />
-              <Stat label="PTS/40 min" value={formatDecimal(prospect.stats.pointsPer40)} />
-              <Stat label="REB/40 min" value={formatDecimal(prospect.stats.reboundsPer40)} />
-              <Stat label="AST/40 min" value={formatDecimal(prospect.stats.assistsPer40)} />
-              <Stat label="STL/40 min" value={formatDecimal(prospect.stats.stealsPer40)} />
-              <Stat label="BLK/40 min" value={formatDecimal(prospect.stats.blocksPer40)} />
-              <Stat label="TOV/40 min" value={formatDecimal(prospect.stats.turnoversPer40)} />
-              <Stat label="3P%" value={formatPercent(prospect.stats.threePointPct)} />
-              <Stat label="FT%" value={formatPercent(prospect.stats.ftPct)} />
-              <Stat label="TS%" value={formatPercent(prospect.stats.tsPct)} />
-            </div>
-            <p className={styles.noteSmall}>
-              Stats are from the 2025-26 NCAA season (their most recent
-              completed season). No Draft Probability, Draft Order or Overall
-              Score is computed for 2027 watchlist players.
-            </p>
-          </section>
-
-          {prospect.dimensions && (
-            <BasketballProfileSection
-              dimensions={prospect.dimensions}
-              evidence={prospect.dimensionEvidence}
-            />
-          )}
-
-          {prospect.profiles && <TeamNeedSection profiles={prospect.profiles} />}
-
-          {prospect.comparables.length > 0 && (
-            <ComparablesSection comparables={prospect.comparables} />
-          )}
-
-          <p className={styles.coverage}>
-            Data coverage: {formatPercent(prospect.coverage)}
-          </p>
-        </>
-      )}
     </div>
   );
 }

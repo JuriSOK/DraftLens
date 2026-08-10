@@ -65,30 +65,3 @@ export function binIndexOf(
   return idx;
 }
 
-export function positionCounts(
-  positions: (string | null | undefined)[],
-): { label: string; count: number }[] {
-  const order = ["G", "F", "C", "UNKNOWN"];
-  const tally = new Map<string, number>();
-  for (const p of positions) {
-    const key = p && order.includes(p) ? p : "UNKNOWN";
-    tally.set(key, (tally.get(key) ?? 0) + 1);
-  }
-  return order
-    .filter((p) => (tally.get(p) ?? 0) > 0)
-    .map((p) => ({ label: p, count: tally.get(p) as number }));
-}
-
-/** Tally any small set of category strings, most common first. */
-export function categoryCounts(
-  values: (string | null | undefined)[],
-): { label: string; count: number }[] {
-  const tally = new Map<string, number>();
-  for (const v of values) {
-    const key = (v ?? "unknown").toString();
-    tally.set(key, (tally.get(key) ?? 0) + 1);
-  }
-  return [...tally.entries()]
-    .map(([label, count]) => ({ label, count }))
-    .sort((a, b) => b.count - a.count);
-}

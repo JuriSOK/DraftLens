@@ -901,11 +901,6 @@ export function AboutPage() {
                 pre-draft NCAA box scores explain a real but limited share of
                 Draft outcomes.
               </li>
-              <li>
-                <strong>The 2027 Watchlist is a media-sourced projection</strong>,
-                not an official declaration — see the Watchlist page for
-                exactly what is and isn't computed for it.
-              </li>
             </ul>
             <p className={styles.note}>{note}</p>
           </section>

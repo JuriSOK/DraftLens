@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Layout.module.css";
 
@@ -11,8 +11,6 @@ const NAV_LINKS = [
 ];
 
 export function Layout() {
-  const location = useLocation();
-  const on2027 = location.pathname.startsWith("/2027");
 
   return (
     <div className={styles.shell}>
@@ -32,8 +30,7 @@ export function Layout() {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  isActive && !on2027
-                    ? `${styles.navLink} ${styles.navLinkActive}`
+                  isActive ? `${styles.navLink} ${styles.navLinkActive}`
                     : styles.navLink
                 }
               >
@@ -42,20 +39,6 @@ export function Layout() {
             ))}
           </nav>
           <div className={styles.headerActions}>
-          <div className={styles.yearToggle} role="group" aria-label="Draft class year">
-            <NavLink
-              to="/board"
-              className={on2027 ? styles.yearButton : `${styles.yearButton} ${styles.yearButtonActive}`}
-            >
-              2026
-            </NavLink>
-            <NavLink
-              to="/2027"
-              className={on2027 ? `${styles.yearButton} ${styles.yearButtonActive}` : styles.yearButton}
-            >
-              2027 Watchlist
-            </NavLink>
-          </div>
           <ThemeToggle />
           </div>
         </div>

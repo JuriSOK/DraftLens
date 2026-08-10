@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import { BarRow, CategoryMix, Histogram, Radar } from "../charts/Charts";
+import { BarRow, Histogram, Radar } from "../charts/Charts";
 import { PercentileBar } from "../PercentileBar";
-import { binValues, categoryCounts } from "../../lib/summaries";
+import { binValues } from "../../lib/summaries";
 import {
   METRICS, METRIC_FEATURE_KEY, METRIC_GROUPS, RELIABILITY_MIN_ATTEMPTS,
 } from "../../lib/statMetrics";
@@ -15,8 +15,8 @@ import styles from "./AnalysisWorkspace.module.css";
 /** The imported analysis, once a file has passed validation.
  *
  * A separate, temporary session: nothing here touches or replaces the
- * built-in 2026 and 2027 data, and refreshing the page loses it because the
- * dataset was never stored anywhere.
+ * built-in 2026 data, and refreshing the page loses it because the dataset
+ * was never stored anywhere.
  *
  * Every tab is hidden or disabled with its reason when the data cannot
  * support it — the workspace never shows an empty board where a real one
@@ -135,12 +135,6 @@ export function AnalysisWorkspace({
 function OverviewTab({
   analysis, validation,
 }: { analysis: AnalysisResult; validation: ValidationResult }) {
-  const positions = categoryCounts(analysis.prospects.map((p) => p.position));
-  const boardAvailable = analysis.capabilities
-    .find((c) => c.id === "generalBoard")?.available;
-  const scores = analysis.prospects
-    .map((p) => p.overallScore).filter((s): s is number => s !== null);
-
   return (
     <div className={styles.tabBody}>
       <h3 className={styles.blockTitle}>Available analysis</h3>
@@ -174,23 +168,6 @@ function OverviewTab({
           fewer measured inputs than the built-in one.
         </p>
       )}
-
-      <div className="analyticsRow">
-        {boardAvailable && scores.length > 0 && (
-          <div className="analyticsCard">
-            <span className="analyticsTitle">Overall Score distribution</span>
-            <Histogram
-              bins={binValues(scores, { min: 0, max: 100, buckets: 10 })}
-              ariaLabel="Distribution of Overall Score across the imported class"
-            />
-          </div>
-        )}
-        <div className="analyticsCard">
-          <span className="analyticsTitle">Position mix</span>
-          <CategoryMix counts={positions}
-                       ariaLabel="Position mix across the imported class" />
-        </div>
-      </div>
 
       {validation.warnings.length > 0 && (
         <div className={styles.warnings}>

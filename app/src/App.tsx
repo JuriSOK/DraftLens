@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import { DataProvider } from "./data/DataProvider";
 import { ThemeProvider } from "./theme/ThemeContext";
 import { OnboardingProvider } from "./onboarding/OnboardingContext";
@@ -10,7 +10,6 @@ import { StatsPage } from "./pages/StatsPage";
 import { ProspectDetailPage } from "./pages/ProspectDetailPage";
 import { TeamNeedPage } from "./pages/TeamNeedPage";
 import { AboutPage } from "./pages/AboutPage";
-import { WatchlistPage } from "./pages/WatchlistPage";
 import { AnalyzePage } from "./pages/AnalyzePage";
 
 // HashRouter: the production build is static files with no server-side
@@ -32,7 +31,10 @@ function App() {
               <Route path="prospect/:id" element={<ProspectDetailPage />} />
               <Route path="team-need" element={<TeamNeedPage />} />
               <Route path="methodology" element={<AboutPage />} />
-              <Route path="2027" element={<WatchlistPage />} />
+              {/* The 2027 Watchlist was removed from the product. The route
+                 stays as a redirect so an old bookmark lands somewhere real
+                 instead of a blank screen. */}
+              <Route path="2027" element={<Navigate to="/board" replace />} />
               <Route path="analyze" element={<AnalyzePage />} />
             </Route>
           </Routes>
