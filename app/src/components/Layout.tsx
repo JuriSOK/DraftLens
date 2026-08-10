@@ -2,6 +2,10 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Layout.module.css";
 
+// Served from app/public/, so the same tracked file backs the in-app mark
+// and the README's logo — one asset, no duplicated binary.
+const LOGO = `${import.meta.env.BASE_URL}brand/draftlens-logo.png`;
+
 const NAV_LINKS = [
   { to: "/board", label: "Board" },
   { to: "/stats", label: "Stats" },
@@ -20,9 +24,9 @@ export function Layout() {
              is only the entry screen, so the brand never navigates back to
              it. Layout wraps every in-app route, so this is the single
              definition of that behaviour. */}
-          <Link to="/board" className={styles.brand}>
-            <span className={styles.brandMark} aria-hidden="true" />
-            DraftLens
+          <Link to="/board" className={styles.brand} aria-label="DraftLens">
+            <img className={styles.brandLogo} src={LOGO} alt="DraftLens"
+                 width={500} height={500} />
           </Link>
           <nav className={styles.nav} aria-label="Primary">
             {NAV_LINKS.map((link) => (

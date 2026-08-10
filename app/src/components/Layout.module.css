@@ -20,22 +20,34 @@
   gap: 12px;
 }
 
+/* The logo is a circular badge carrying its own background, so it needs no
+   plate behind it and reads on both the light and the charcoal surface. The
+   square aspect ratio is fixed here so it can never be stretched by the
+   flex row. */
 .brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 17px;
-  font-weight: 750;
-  letter-spacing: -0.01em;
+  flex: none;
+  padding: 3px;
+  margin: -3px;
+  border-radius: 50%;
   text-decoration: none;
-  color: var(--color-text);
+  line-height: 0;
 }
 
-.brandMark {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  background: var(--color-accent);
+.brandLogo {
+  width: 44px;
+  height: 44px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  display: block;
+}
+
+/* On charcoal the badge's dark navy rim sits close to the page colour. A
+   faint warm ring separates it without touching the artwork. */
+:global(:root[data-theme="dark"]) .brandLogo {
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.09);
 }
 
 .nav {
@@ -88,6 +100,18 @@
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
+  }
+
+  /* A touch more compact on a phone. The extra padding keeps the tap
+     target at 46px, above the 44px minimum. */
+  .brand {
+    padding: 5px;
+    margin: -5px;
+  }
+
+  .brandLogo {
+    width: 36px;
+    height: 36px;
   }
 }
 

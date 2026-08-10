@@ -1,222 +1,384 @@
-# DraftLens
+<p align="center">
+  <img src="app/public/brand/draftlens-logo.png" alt="DraftLens" width="180" />
+</p>
 
-**Data-driven NBA Draft decision support — transparent pre-draft NCAA analytics, validated the way a draft actually happens: forwards through time.**
+<h1 align="center">DraftLens</h1>
 
-Built for the **AQX Sports Analytics Data Bowl 3.0**.
+<p align="center">
+  <strong>Pre-draft analytics for smarter NBA Draft decisions.</strong>
+</p>
+
+<p align="center">
+  An independent statistical read on NCAA prospects — every score traced back
+  to a box-score input, and validated forwards through time.
+</p>
+
+<p align="center">
+  Built for the <strong>AQX Sports Analytics Data Bowl 3.0</strong>.
+</p>
 
 ---
 
-## What it does
+## What is DraftLens?
 
-DraftLens answers one narrow, checkable question about a declared NCAA early
-entrant, using only information available before a given draft:
+DraftLens is a pre-draft decision-support tool built on NCAA prospect data. It
+is not a mock draft and it does not try to reproduce one. Mock drafts already
+aggregate reporting and team intent; DraftLens answers a narrower, checkable
+question from the statistical record alone:
 
-> Among declared NCAA early entrants, which prospects does the objective
-> pre-draft record support, and how highly?
+> Among declared NCAA early entrants, which prospects does the pre-draft
+> record support, and how strongly?
 
-### General Draft Board
-Overall prospect quality from two frozen signals: **Draft Probability**
-(P(drafted)) and **Draft Order** (among drafted prospects, how highly their
-profile suggests they go), combined into a 0–100 **Overall Score**.
+That independence is the point. A signal built only from production is useful
+precisely because it disagrees with consensus sometimes, and when it does you
+can open the profile and see exactly which statistics drove it.
+
+It helps you rank prospects, inspect statistical profiles, compare players
+against their NCAA peers, evaluate fit against a specific team need, explore
+raw statistics, find NBA statistical comparables, and analyse your own NCAA
+dataset.
+
+DraftLens complements scouting. It has no access to interviews, medicals,
+workouts or private information, and it is designed to be one input among
+several rather than a verdict.
+
+## Why DraftLens?
+
+- **Traceable.** Every number resolves to a statistic you can inspect on the
+  prospect's page. Nothing is a black box score.
+- **Honest about uncertainty.** Draft Probability is a probability. Overall
+  Score is a ranking score. The Draft Order model's raw pick estimate is never
+  shown as a pick, because its error is 13 picks wide.
+- **Validated the way a draft happens.** Training on earlier classes,
+  evaluating on a later unseen one — never a random split.
+- **Refuses rather than guesses.** Where the data or the population cannot
+  support an analysis, DraftLens says so instead of producing a
+  plausible-looking number.
+
+## Features
+
+### General Board
+
+A ranking of declared NCAA early entrants, built from two frozen signals:
+
+| Signal | What it is |
+| --- | --- |
+| **Draft Probability** | P(drafted) for a declared early entrant. A real probability. |
+| **Draft Order signal** | Among drafted profiles, how early a profile resembles being taken. Used as a ranking-quality signal only. |
+| **General Board signal** | The two combined into one board ordering. |
+| **Overall Score** | The board signal expressed 0–100 *within its own class*. |
+
+**Overall Score is not a probability**, and DraftLens does not predict the
+actual draft order. A score of 90 means "this profile ranks in the 90th
+percentile of this class on the board signal" — nothing about a specific pick.
+
+### Prospect profiles
+
+Each prospect page carries core NCAA statistics, a six-dimension **Basketball
+Profile** on an NCAA peer-percentile scale, **Key Strengths** and **Areas to
+Watch** with the statistics behind each one, **Team Need fit** across six
+archetypes, and **NBA Statistical Comparables**.
+
+### Stats Explorer
+
+Rank the class directly by NCAA production — scoring, rebounding, playmaking,
+defensive production, shooting — with distributions and thin-sample flags.
 
 ### Team Need
-A separate, non-predictive ranking against the specific traits a team is
-looking for — six basketball archetypes plus a custom weighted mode, scored
-as peer percentiles against the full NCAA population. Not a re-weighting of
-the board: historically the two rankings correlate at only ρ = 0.18–0.62, and
-each archetype surfaces different players.
+
+Six predefined archetypes: **Shooter**, **Slasher / Rim Attacker**,
+**Playmaker**, **3&D Wing**, **Rim Protector**, **Stretch Big**. Conjunctive
+archetypes use a geometric mean, so a prospect elite at one pillar and poor at
+another does not average into a good fit.
+
+**Custom Need** lets you weight the dimensions yourself. If too much of the
+requested weight lands on a dimension a prospect has no data for, the fit is
+reported unavailable rather than computed from a fraction of the request.
 
 ### NBA Statistical Comparables
-For a prospect, the three NBA players whose statistical role and style most
-resemble theirs — purely descriptive resemblance, never a projection.
 
-## Why DraftLens
+```
+prospect → height plausibility gate → six-dimension similarity → 3 NBA players
+```
 
-- **Every score traces to a statistic.** No opaque ratings. Formulas are
-  documented, unit-tested, and readable in [`src/features/`](src/features/).
-- **Validated forwards through time.** Seven expanding-window folds — train
-  on earlier drafts, predict a later unseen one. Random splitting is
-  prohibited, because it would leak.
-- **Leakage was hunted, not assumed.** Multiple channels were found and
-  closed — including two where a feature leaked through its *availability*
-  rather than its values. Date of birth is 100% present for drafted
-  prospects and 69% for undrafted ones, so it's excluded, and so is any
-  indicator that could reconstruct it.
-- **The 2026 draft has never been opened.** It is a sealed holdout. No 2026
-  target has been loaded and no 2026 prediction generated, and tests enforce
-  this structurally, not by convention.
-- **Nothing is faked when the data is absent.** There is no athleticism
-  measurement in the data, so DraftLens does not score athleticism — and
-  refuses a request for it rather than quietly substituting dunk rate.
-- **NBA comparables describe, they don't predict.** They're generated without
-  the system ever seeing who a historical prospect became.
-- **Negative results are published.** Draft Order's numeric predicted pick is
-  accurate to only ±13 picks on a 60-pick draft — not display-safe, so only
-  its ordering is ever used. That limitation is in `docs/VALIDATION.md`, not
-  hidden.
+Height gates *which* NBA players are eligible to be compared against; it never
+enters the similarity itself. The six dimensions are role and style axes
+(scoring role, creation, rebounding, defensive activity, perimeter
+orientation, shooting efficiency), compared as percentiles within each league
+so NCAA and NBA production are never compared directly.
 
----
+**Comparables are descriptive statistical resemblance, not career
+projections.**
 
-## Current status
+### Dataset Lab
 
-| Component | Status |
+Bring your own class. Upload an **Excel (.xlsx / .xls)** or **JSON (.json)**
+file and DraftLens runs the same frozen analyses on it.
+
+**The analysis runs entirely in your browser.** The file is parsed locally,
+nothing is uploaded, and there is no server to upload it to.
+
+What you get back depends on what your data can support:
+
+| Analysis | Requires |
 | --- | --- |
-| Historical data pipeline (2011–2026, 4 public sources) | ✅ implemented |
-| Identity resolution + leakage audit | ✅ implemented |
-| Basketball feature engineering | ✅ implemented |
-| **General Draft Board** (Draft Probability + Draft Order + Overall Score) | ✅ frozen |
-| **Team Need** | ✅ frozen |
-| **NBA Statistical Comparables** | ✅ frozen |
-| **2026 final holdout replay** | ✅ complete |
-| Web application | ✅ implemented |
+| Stats Explorer | Season totals |
+| Basketball Profile & Team Need | A season DraftLens holds NCAA peer references for |
+| NBA Comparables | The above, plus player heights |
+| General Board | The above, plus a declared early-entry population and a draft size |
 
-All three product systems are frozen, reproducible on historical classes, and
-have completed their one-time 2026 holdout evaluation. A static React
-application (`app/`) presents the frozen 2026 output — it performs no
-analytical computation of its own; see [Application](#application) below.
+Not every dataset receives every analysis. Each one that is unavailable is
+listed with the reason — a file that is not a declared early-entry population
+receives **no Draft Probability at all**, because that is the only population
+the model was validated on.
 
-### 2026 holdout, in brief
+## How it works
 
-Methodology frozen (tag `analytics-freeze-pre-2026`, commit `bed3c43`) before
-any 2026 outcome was opened. Predictions for all 26 2026 NCAA early entrants
-were generated, written, and SHA-256-hashed first; the actual results were
-loaded only afterward, and the prediction file's hash was re-verified
-unchanged both immediately after and at the end of evaluation. Full method,
-numbers, and honest limitations (a 96.2%-drafted class provides little
-discrimination signal) are in `docs/VALIDATION.md`.
+```mermaid
+flowchart LR
+  A[NCAA box scores<br/>and shot events] --> B[Feature engineering]
+  B --> C[Draft Probability]
+  B --> D[Draft Order signal]
+  C --> E[General Board signal]
+  D --> E
+  E --> F[Overall Score<br/>0-100, class-relative]
+```
 
-### Where it currently stands, honestly
+```mermaid
+flowchart LR
+  S[Prospect statistics] --> T[NCAA peer percentiles]
+  T --> U[Basketball Profile]
+  U --> V[Team Need archetypes<br/>and Custom Need]
+  S --> W[Six-dimension profile]
+  X[Height] --> Y[Plausibility gate]
+  W --> Z[NBA Comparables]
+  Y --> Z
+```
 
-| | Result | Reading |
-| --- | --- | --- |
-| Draft Probability | macro ROC-AUC **0.6986** | Real signal; still close to a transparent percentile baseline (0.6943) |
-| Draft Order | macro Spearman **0.2968** | Orders drafted prospects better than any baseline, but modestly |
-| General Board | binary AUC **0.7123**, graded NDCG **0.8283** | Beats either signal alone; Draft Order's incremental value is real but modest |
-| Draft Order exact pick | MAE **13.3 picks** | **Not display-safe** — the ordering is useful, the number is not |
-| Team Need | no ground truth exists | Not a prediction — validated for consistency, stability and transparency instead |
-| NBA comparables | no ground truth exists | Descriptive resemblance only; the third name is often one of several equally close |
+## Methodology
 
-Pre-draft NCAA box-score data explains a real but limited share of draft
-outcomes. Workouts, medicals, interviews and team need are not in this data
-and never will be. `docs/VALIDATION.md` says so in detail.
+Full detail lives in **[docs/METHODOLOGY.md](docs/METHODOLOGY.md)**. The short
+version:
 
----
+**Populations.** The development window is **2014–2025**: 887 declared NCAA
+early entrants, 431 drafted and 456 undrafted. **2011–2013** (125 prospects)
+is held aside as a robustness window. The **2026** class was a one-time
+holdout, scored once with the frozen system on its 26 final NCAA early
+entrants.
 
-## Repository
+**Temporal validation, never a random split.** Seven forward-in-time folds
+train on earlier classes and evaluate on the next unseen one. A random split
+would let a later draft class inform an earlier prediction, which is not a
+situation that exists when you are actually evaluating a draft.
+
+**Draft Probability.** Logistic regression with balanced class weights, on a
+season-relative feature representation — each prospect's production is
+expressed against the full NCAA population of *their own season and position*,
+so a 19-point season in a low-scoring year is not compared naively against a
+high-scoring one.
+
+**Draft Order.** Ridge regression trained **only on historically drafted
+prospects**. Its raw output is a predicted pick, but the model's error is 13.2
+picks on a 60-pick draft, so that number is never shown. It is used as an
+ordering signal — "if this profile were draftable, which part of the draft
+does it resemble?"
+
+**General Board.** The two signals combine multiplicatively, as an
+expectation: probability of being drafted, times the quality of the slot the
+profile resembles.
+
+$$
+\text{board signal} = P(\text{drafted}) \times \frac{S + 1 - \mathrm{clip}(\hat{p},\, 1,\, S)}{S}
+$$
+
+where $S$ is the draft size and $\hat{p}$ the Draft Order model's predicted
+pick, clipped into the legal slot range. **Overall Score** is the percentile
+rank of that signal within the class, mapped to 0–100.
+
+**Missing data is never zero.** An absent measurement is treated as absent —
+imputed by the frozen training median for the model, or dropped from a
+dimension which then renormalises. Filling gaps with zero would make
+missingness itself a signal, and missing-data rows were disproportionately
+undrafted historically.
+
+## Validation
+
+Full evidence in **[docs/VALIDATION.md](docs/VALIDATION.md)**. Historical
+out-of-fold results across 2019–2025:
+
+| Draft Probability | | Draft Order | | General Board | |
+| --- | --- | --- | --- | --- | --- |
+| Macro AUC | 0.6986 | Macro Spearman | 0.2968 | Binary AUC | 0.7123 |
+| Pooled AUC | 0.6953 | Macro Kendall | 0.2089 | Graded NDCG | 0.8283 |
+| Brier | 0.2238 | Macro NDCG | 0.9043 | Drafted-only Spearman | 0.2781 |
+| | | NDCG@14 | 0.7555 | | |
+| | | MAE / RMSE | 13.21 / 15.56 picks | | |
+
+These are honest numbers for a box-score-only model, and they are why the
+product is framed as decision support. An AUC near 0.70 separates drafted from
+undrafted prospects meaningfully but not decisively — which is the correct
+expectation when interviews, medicals and workouts are absent from the data.
+
+### The 2026 replay
+
+The methodology was frozen and committed **before** any 2026 outcome was
+opened. Predictions were generated and hashed first, and the outcomes were
+unsealed only to evaluate them. No model, hyperparameter, feature, formula or
+score was changed afterwards.
+
+One disclosure, because the audit trail matters more than a clean story: while
+sourcing the draft size — a structural fact about the draft, not a player
+outcome — an aggregate diagnostic row for 2026 was incidentally seen before
+the freeze. It described a different, broader population than the one this
+replay scores, no code path consumed it, and no prospect-level outcome label
+was exposed before predictions were generated and hashed. This is recorded in
+full in [docs/VALIDATION.md](docs/VALIDATION.md). It is not a perfectly sealed
+zero-information holdout, and DraftLens does not claim one.
+
+### Dataset Lab parity
+
+The Dataset Lab runs the frozen models in the browser, so those models have to
+give the same answers there as in Python. Before the feature shipped, the
+known 2026 inputs were run through the browser runtime and compared against
+the Python system for every prospect:
+
+- Maximum numerical discrepancy across all continuous outputs: **< 1e-12**
+- **Exactly equal**: board rank, Overall Score, Fit Score, eligibility states,
+  and NBA comparable identities
+
+The parity harness is a release gate — if it fails, the browser board does not
+ship.
+
+## Tech stack
+
+**Frontend** — React 19, TypeScript, Vite, React Router, CSS Modules.
+Excel parsing via [`read-excel-file`](https://www.npmjs.com/package/read-excel-file),
+loaded on demand.
+
+**Analytics** — Python with pandas, pyarrow, numpy, scipy and scikit-learn.
+
+**Architecture** — a static frontend with a browser-local Dataset Lab. **No
+backend, no database, no user accounts.** The Python pipeline produces
+immutable artifacts; the app reads them.
+
+## Project structure
 
 ```
 src/
-  data/         acquisition, identity resolution, dataset build
-  features/     basketball formulas + feature engineering
-  board/        Draft Probability, Draft Order, General Board
-  team_need/    six-dimension peer-percentile fit scoring
-  comparables/  NBA statistical comparables
-  validation.py leakage rules, temporal protocol, shared guards
-  paths.py      filesystem locations
+  data/          acquisition, identity resolution, dataset build
+  features/      basketball formulas + feature engineering
+  board/         Draft Probability, Draft Order, General Board
+  team_need/     six-dimension peer-percentile fit scoring
+  comparables/   NBA statistical comparables
+  dataset_format.py   DraftLens Dataset Format v1
+  runtime_bundle.py   frozen models serialised for the browser
 
-scripts/
-  acquire.py    fetch raw public data
-  build.py      dataset -> features -> team_need/comparables references
-  validate.py   run every domain's validator
-  demo.py       exercise the three product APIs on one historical class
-
-config/         board.json · team_need.json · comparables.json
-tests/          data/ · features/ · board/ · team_need/ · comparables/ · integration/
-docs/           DATA.md · METHODOLOGY.md · VALIDATION.md
-data/           raw (immutable, git-ignored) / interim (generated, git-ignored)
-
-app/            static React product interface — see Application below
-  src/
-    components/   ScoreBadge, PercentileBar, ProfileCard, ComparableCard, …
-    pages/        Board, Prospect Detail, Team Need, Methodology
-    data/         DataProvider — fetches app/public/data/draftlens_2026.json
-    lib/          display formatting + the custom Team Need weighted formula
-    types/        TypeScript interfaces for the public export
-  public/data/    draftlens_2026.json — the ONE file the app reads
+scripts/         acquire.py · build.py · validate.py · demo.py
+config/          board.json · team_need.json · comparables.json
+docs/            DATA.md · METHODOLOGY.md · VALIDATION.md
+app/             React frontend
+tests/           unit + integration + parity fixtures
 ```
-
-## Application
-
-A static, read-only React interface over the frozen 2026 output. It never
-retrains a model, recomputes a score, or reaches a 2026 outcome — every
-number it renders was already computed by the Python analytics and exported
-once, deterministically, to `app/public/data/draftlens_2026.json`. The one
-exception is Team Need's **custom** mode, which runs the frozen weighted-average
-formula (`fit = Σ(weight × dimension) / Σ(active weights)`) client-side over
-already-frozen dimension scores, because the weights are a live user
-preference — not a re-derivation of any model.
-
-Three experiences: the **General Draft Board** (search, filter, sortable by
-rank), **Prospect Detail** (profile stats, six-dimension score bars, all
-predefined Team Need fits, three NBA statistical comparables), and **Team
-Need** (predefined-profile ranking or custom-priority sliders). A small
-**Methodology** page summarizes the system and links back to
-`docs/VALIDATION.md`; it never shows a per-prospect 2026 outcome.
-
-The Board and Team Need pages offer two 2026 populations: **Final entrants**
-(the 26-prospect population the one-time holdout evaluation actually scored,
-default) and **All declared** (60 NCAA players who initially filed for early
-entry, including 34 who later withdrew — an additional exploration generated
-after the holdout with the same frozen methodology, sourced from the NBA's
-official early-entry announcement; see `docs/VALIDATION.md` §"2026
-all-declared product board"). Withdrawn players are labeled with a neutral
-"Withdrawn" badge — a process fact, not a Draft outcome. A 2027 slot exists
-in the data schema but is deliberately empty: DraftLens does not invent a
-declared class from mock drafts or recruiting rankings.
-
-```bash
-pip install -e .
-python scripts/build.py app-data     # writes app/public/data/draftlens_2026.json
-
-cd app
-npm install
-npm run dev                          # http://localhost:5173
-npm run build                        # static production build in app/dist/
-```
-
-`app-data` requires the 2026 replay artifacts (`scripts/build.py replay-2026`
-then `replay-2026-eval`) to already exist — see `docs/VALIDATION.md` for that
-one-time procedure. The All Declared board additionally requires
-`scripts/acquire.py declared --years 2026` (fetches the fixed Wikipedia
-revision capturing the NBA's official initial declaration list) followed by
-`scripts/build.py declared-2026`; without those, `app-data` still runs and
-exports Final Entrants only. Stack: React + TypeScript + Vite,
-`react-router-dom` for the four routes, plain CSS Modules for styling — no
-backend, no database, no state library, no charting dependency.
 
 ## Run locally
 
+The frontend reads committed data artifacts, so it runs without the Python
+pipeline.
+
 ```bash
-pip install -e .
-
-python scripts/acquire.py mbb --years 2011-2026        # ~200 MB, not committed
-python scripts/acquire.py nba --years 2011-2026
-python scripts/acquire.py population --years 2011-2026 --wikidata
-
-python scripts/build.py            # dataset -> features -> team_need -> comparables
-python scripts/validate.py         # every domain's validator
-python scripts/demo.py --year 2024 # General Board + Team Need + Comparables on one class
-
-python -m unittest discover -s tests -t .
+git clone https://github.com/JuriSOK/DraftLens.git
+cd DraftLens/app
+npm install
+npm run dev
 ```
 
-Acquisition is the only slow step and is not needed to read the results —
-`docs/VALIDATION.md` is self-contained. Generated analytical outputs are
-git-ignored; every published number is regenerated by the commands above and
-checked against tight tolerances by `tests/integration/test_frozen_anchors.py`.
+Other frontend commands:
 
-**Sources**, all public and openly licensed: hoopR/ESPN college and NBA
-basketball (CC BY 4.0), English Wikipedia draft articles (CC BY-SA 4.0),
-Wikidata (CC0 1.0).
+```bash
+npm run build     # typecheck + production build
+npm run preview   # serve the production build
+npm run lint
+```
 
----
+### Working on the analytics
 
-## Documentation
+The Python side is only needed to rebuild artifacts.
 
-| Document | What it covers |
-| --- | --- |
-| [docs/DATA.md](docs/DATA.md) | Sources, licensing, population, identity resolution, source hazards |
-| [docs/METHODOLOGY.md](docs/METHODOLOGY.md) | The final system: how each of the three products works and why |
-| [docs/VALIDATION.md](docs/VALIDATION.md) | The evidence — fold results, leakage findings, stability audits, honest limitations |
+```bash
+python -m venv .venv && source .venv/bin/activate
+pip install -e .
 
-Working conventions for this repository are in [CLAUDE.md](CLAUDE.md).
+python -m unittest discover -s tests -t .   # test suite
+python scripts/validate.py                  # leakage + contract validation
+node app/tests/parity.mjs                   # browser/Python parity
+```
+
+Rebuilding artifacts (raw data is not committed; see
+[docs/DATA.md](docs/DATA.md) for acquisition):
+
+```bash
+python scripts/build.py             # dataset → features → references
+python scripts/build.py app-data    # the app's product data
+python scripts/build.py app-runtime # browser runtime bundle + templates
+```
+
+## Dataset Lab format
+
+Imported files follow **DraftLens Dataset Format v1**:
+
+- **Metadata** — `dataset_name`, `season`, `population_type`, `draft_size`
+- **Prospects** — identity, NCAA season totals, and optionally team context,
+  shot-profile counts, height and weight
+
+Every input is a season **total** or a physical measurement. DraftLens derives
+each percentage itself, which is why there is no question of whether `41.2`
+means 41.2% or 0.412 — a percentage is never an input.
+
+**Use the templates rather than rebuilding the schema by hand.** The Analyze
+Data page offers downloadable **JSON and Excel templates** plus a full column
+reference with types, units and required/optional status.
+
+## Limitations
+
+These are scope boundaries, and stating them is part of the design.
+
+- DraftLens is a **statistical model, not a scouting replacement**. It has no
+  interviews, medicals, workouts, or private scouting information.
+- **Defensive evaluation uses box-score proxies** (steals, blocks). That is
+  production, not defensive quality, and it is labelled that way everywhere it
+  appears.
+- **NBA comparables are descriptive**, not career forecasts.
+- **Draft Probability is validated on declared NCAA early entrants.** Applied
+  to another population it would not mean what it says, which is why the
+  Dataset Lab withholds it for incompatible files.
+- **Unsupported seasons receive reduced analysis.** No neighbouring season's
+  distribution is substituted.
+- **Dataset Lab sessions are memory-only** and are lost on refresh.
+- Outputs are **decision-support signals**, not predictions of what a team
+  will do.
+
+## Privacy
+
+Dataset Lab files are parsed and analysed **locally in your browser**.
+DraftLens does not upload your dataset anywhere, stores nothing, and uses no
+database. Closing the tab ends the session.
+
+## Data sources
+
+| Source | Used for | Licence |
+| --- | --- | --- |
+| [hoopR-mbb-data](https://github.com/sportsdataverse/hoopR-mbb-data) (sportsdataverse, upstream ESPN) | NCAA box scores and shot events, 2011–2026 | CC BY 4.0 |
+| [hoopR-nba-data](https://github.com/sportsdataverse/hoopR-nba-data) (sportsdataverse, upstream ESPN) | NBA player season statistics | CC BY 4.0 |
+| English Wikipedia "*year* NBA draft" articles | Declared early-entrant population, draft results, college affiliation | CC BY-SA 4.0 |
+| Wikidata | Date of birth, display only | CC0 1.0 |
+| ESPN athlete endpoint | NBA heights for the comparables plausibility gate | — |
+
+Full provenance, source hazards and identity-resolution notes are in
+[docs/DATA.md](docs/DATA.md).
+
+## Hackathon note
+
+Built for the **AQX Sports Analytics Data Bowl 3.0**. The analytical
+methodology is frozen: `docs/METHODOLOGY.md` records what each system does and
+why, `docs/VALIDATION.md` is the evidence behind every number here, and the
+frozen anchors are asserted by the test suite.
