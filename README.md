@@ -147,11 +147,22 @@ already-frozen dimension scores, because the weights are a live user
 preference — not a re-derivation of any model.
 
 Three experiences: the **General Draft Board** (search, filter, sortable by
-rank), **Prospect Detail** (profile stats, six-dimension percentile bars, all
+rank), **Prospect Detail** (profile stats, six-dimension score bars, all
 predefined Team Need fits, three NBA statistical comparables), and **Team
 Need** (predefined-profile ranking or custom-priority sliders). A small
 **Methodology** page summarizes the system and links back to
 `docs/VALIDATION.md`; it never shows a per-prospect 2026 outcome.
+
+The Board and Team Need pages offer two 2026 populations: **Final entrants**
+(the 26-prospect population the one-time holdout evaluation actually scored,
+default) and **All declared** (60 NCAA players who initially filed for early
+entry, including 34 who later withdrew — an additional exploration generated
+after the holdout with the same frozen methodology, sourced from the NBA's
+official early-entry announcement; see `docs/VALIDATION.md` §"2026
+all-declared product board"). Withdrawn players are labeled with a neutral
+"Withdrawn" badge — a process fact, not a Draft outcome. A 2027 slot exists
+in the data schema but is deliberately empty: DraftLens does not invent a
+declared class from mock drafts or recruiting rankings.
 
 ```bash
 pip install -e .
@@ -165,9 +176,13 @@ npm run build                        # static production build in app/dist/
 
 `app-data` requires the 2026 replay artifacts (`scripts/build.py replay-2026`
 then `replay-2026-eval`) to already exist — see `docs/VALIDATION.md` for that
-one-time procedure. Stack: React + TypeScript + Vite, `react-router-dom` for
-the four routes, plain CSS Modules for styling — no backend, no database, no
-state library, no charting dependency.
+one-time procedure. The All Declared board additionally requires
+`scripts/acquire.py declared --years 2026` (fetches the fixed Wikipedia
+revision capturing the NBA's official initial declaration list) followed by
+`scripts/build.py declared-2026`; without those, `app-data` still runs and
+exports Final Entrants only. Stack: React + TypeScript + Vite,
+`react-router-dom` for the four routes, plain CSS Modules for styling — no
+backend, no database, no state library, no charting dependency.
 
 ## Run locally
 

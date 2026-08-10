@@ -317,5 +317,19 @@ excluded from the ordinary `scripts/build.py` (`all`) run, so a normal build
 can never re-trigger either step. The methodology is now closed to further
 tuning; the next phase is application integration.
 
+**The 2026 all-declared product board is a separate, later, additional use
+of this same frozen methodology — not part of the holdout above.** After the
+holdout replay and evaluation were complete, `src/declared.py` applied the
+identical frozen Draft Probability, Draft Order, General Board, Team Need and
+NBA Comparables computation to a larger population — every NCAA player who
+initially declared for 2026 early entry (60), rather than only the 26 who
+remained through the withdrawal deadline. This exists because the product
+wants to show declared-but-withdrawn players; it changes nothing about the
+methodology or the holdout's own numbers, which are unchanged and remain the
+authority on 2026 holdout performance. See `docs/VALIDATION.md` §"2026
+all-declared product board" for the full account, including why a
+prospect's Overall Score legitimately differs between the two boards
+(Overall Score is class-relative; Draft Probability and Team Need are not).
+
 See `docs/VALIDATION.md` for the evidence behind every methodology choice
 above.

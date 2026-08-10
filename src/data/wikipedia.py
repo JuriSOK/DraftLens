@@ -57,6 +57,14 @@ def wikitext(page):
     return http_json(url, throttle=THROTTLE)["parse"]["wikitext"]["*"]
 
 
+def wikitext_revision(revid):
+    """Wikitext of one specific, fixed revision — used only for the declared
+    (pre-withdrawal) snapshot below, so the acquired list is reproducible and
+    does not silently change if the live article is edited later."""
+    url = f"{WP_API}?action=parse&oldid={revid}&prop=wikitext&format=json"
+    return http_json(url, throttle=THROTTLE)["parse"]["wikitext"]["*"]
+
+
 def section(text, name):
     m = re.search(r"^(=+)\s*" + re.escape(name) + r"\s*=+\s*$", text, re.M)
     if not m:
@@ -350,6 +358,107 @@ def write_csv(path, fields, rows):
         w.writeheader()
         for r in rows:
             w.writerow({k: r.get(k, "") for k in fields})
+
+
+# --------------------------------------------------- declared (pre-withdrawal)
+DECLARED_FIELDS = ["draft_year", "player_name", "normalized_name", "college",
+                   "position", "class", "wikipedia_title"]
+
+# One fixed Wikipedia revision per year: the first revision captured after the
+# NBA's official initial early-entry announcement, BEFORE any withdrawal. Each
+# revision's "Early entrants" section at that point in time enumerates exactly
+# the players named in the cited NBA.com press release (e.g. for 2026:
+# https://www.nba.com/news/2026-nba-draft-early-entry-candidates, "the NBA
+# announced 71 players ... who filed as early entry candidates"). Recorded as
+# a fixed revid (not "the live article") so this is reproducible and does not
+# silently change if the article is edited later. Adding a year requires
+# looking up its announcement date and the first revision after it via the
+# MediaWiki API (action=query&prop=revisions&rvstart=<date>&rvdir=older) —
+# never inventing one. Absence of an entry means "not yet acquired", not zero
+# declared players.
+DECLARED_SNAPSHOTS = {
+    2026: dict(revid=1351570404, captured="2026-04-28T20:21:02Z",
+               announcement_date="2026-04-27",
+               canonical_url="https://www.nba.com/news/2026-nba-draft-early-entry-candidates",
+               note="NBA announced 71 players (60 NCAA, 11 international) who "
+                    "filed as early entry candidates. This snapshot predates "
+                    "both subsequent withdrawal rounds (May 29 and June 16)."),
+}
+
+
+def build_declared(year, report=None):
+    """The ORIGINAL declared NCAA pool for `year`, before any withdrawal.
+
+    Distinct from `build_year` above, which reconstructs the FINAL population
+    (after withdrawal deadlines) that `data.population.load_population`
+    serves as the ML sampling frame. This function serves PRODUCT/DISPLAY
+    population status only (DECLARED vs WITHDRAWN vs FINAL_ENTRY) — its output
+    must never be joined into a feature frame as a model input.
+
+    Returns None if no snapshot is recorded for `year` (see DECLARED_SNAPSHOTS)
+    rather than fabricating one.
+    """
+    snap = DECLARED_SNAPSHOTS.get(year)
+    if snap is None:
+        return None, None
+
+    text = wikitext_revision(snap["revid"])
+    canon = resolve_canonical(collect_school_candidates(text))
+    ncaa_targets = {t for t, c in canon.items() if is_ncaa_program(c)}
+    entrants = parse_early_entrants(text, ncaa_targets)
+    ncaa = [e for e in entrants if e["is_ncaa"]]
+
+    pop = {}
+    for e in ncaa:
+        k = normalize_name(e["player_name"])
+        pop[k] = dict(draft_year=year, player_name=e["player_name"],
+                      normalized_name=k, college=e["college"],
+                      position=e["position"], **{"class": e["klass"]},
+                      wikipedia_title=e["wikipedia_title"])
+
+    row = dict(draft_year=year, total_declared=len(entrants),
+              ncaa_declared=len(ncaa), revid=snap["revid"],
+              captured=snap["captured"])
+    if report is not None:
+        report.append(row)
+    return list(pop.values()), row
+
+
+def acquire_declared(years):
+    """Rebuild draft_declared_<year>.csv for every year with a recorded
+    snapshot in `years`. Written to data/raw/draft_population/ alongside (but
+    never merged with) draft_population_<year>.csv — same firewall directory,
+    same "no outcome column, ever" rule, since this is pre-draft declaration
+    information exactly like the final population file."""
+    from data.acquire import load_manifest, manifest_record, sha256_file, utcnow, write_manifest
+    from paths import rel
+
+    records = load_manifest()
+    report = []
+    for y in years:
+        pop, row = build_declared(y, report)
+        if pop is None:
+            print(f"  {y}: no declared snapshot recorded — skipped "
+                  f"(see wikipedia.DECLARED_SNAPSHOTS)")
+            continue
+        path = POP_DIR / f"draft_declared_{y}.csv"
+        write_csv(path, DECLARED_FIELDS, pop)
+        records[rel(path)] = manifest_record(
+            source_family="wikipedia", dataset="draft_declared",
+            season_or_year=y,
+            canonical_url=f"https://en.wikipedia.org/w/index.php?"
+                          f"title={y}_NBA_draft&oldid={row['revid']}",
+            local_path=rel(path), downloaded_at_utc=utcnow(),
+            file_size_bytes=path.stat().st_size, sha256=sha256_file(path),
+            row_count=len(pop),
+            license="CC BY-SA 4.0 (English Wikipedia) — attribution required",
+            notes=f"initial declared NCAA pool, revid={row['revid']} "
+                 f"(captured {row['captured']}), before any withdrawal; "
+                 f"underlying primary source: {DECLARED_SNAPSHOTS[y]['canonical_url']}")
+        print(f"  {y}: declared_total={row['total_declared']} "
+              f"ncaa_declared={row['ncaa_declared']} -> {rel(path)}")
+    write_manifest(records)
+    return 0
 
 
 # -------------------------------------------------------- Wikidata (2026)

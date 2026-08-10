@@ -6,9 +6,15 @@ import { PercentileBar } from "../components/PercentileBar";
 import { ProfileCard } from "../components/ProfileCard";
 import { ComparableCard } from "../components/ComparableCard";
 import { MetricTooltip } from "../components/MetricTooltip";
-import { formatDecimal, formatPercent, formatInt, formatPercentile } from "../lib/format";
-import { DIMENSION_LABELS, PROFILE_LABELS } from "../types/data";
-import type { Dimensions, Prospect } from "../types/data";
+import {
+  formatDecimal,
+  formatPercent,
+  formatInt,
+  formatHeight,
+  formatScoreOutOf100,
+} from "../lib/format";
+import { DIMENSION_LABELS, DIMENSION_PEER_GROUP, PROFILE_LABELS } from "../types/data";
+import type { Dimensions, Prospect, YearAvailable } from "../types/data";
 import styles from "./ProspectDetailPage.module.css";
 
 const DIMENSION_ORDER: (keyof Dimensions)[] = [
@@ -46,7 +52,11 @@ export function ProspectDetailPage() {
   if (loading) return <LoadingState />;
   if (error || !data) return <ErrorState message={error ?? "Unknown error"} />;
 
-  const prospect = data.prospects.find((p) => p.id === id);
+  const year2026 = data.years["2026"];
+  const prospect =
+    year2026.status === "available"
+      ? year2026.prospects.find((p) => p.id === id)
+      : undefined;
   if (!prospect) {
     return (
       <div className={`container ${styles.notFound}`}>
@@ -57,6 +67,8 @@ export function ProspectDetailPage() {
   }
 
   const { strengths, weaknesses } = strengthsAndWeaknesses(prospect);
+  const board = prospect.finalEntrantsBoard ?? prospect.declaredBoard;
+  const declaredCount = (year2026 as YearAvailable).scoreableDeclaredCount;
 
   return (
     <div className="container">
@@ -70,51 +82,75 @@ export function ProspectDetailPage() {
           <p className={styles.meta}>
             {prospect.school} · {prospect.position}
           </p>
+          <p className={styles.statusLine}>
+            {prospect.populationStatus === "FINAL_ENTRY"
+              ? "Final early entrant — remained eligible through the withdrawal deadline."
+              : "Declared for the 2026 Draft, then withdrew before the final entry deadline."}
+          </p>
         </div>
-        <div className={styles.headerStats}>
-          <div className={styles.headerStat}>
-            <span className={styles.headerStatLabel}>Board Rank</span>
-            <span className={styles.headerStatValue}>#{prospect.board.rank}</span>
+        {board && (
+          <div className={styles.headerStats}>
+            <div className={styles.headerStat}>
+              <span className={styles.headerStatLabel}>
+                {prospect.finalEntrantsBoard ? "Board Rank" : "Declared Board Rank"}
+              </span>
+              <span className={styles.headerStatValue}>#{board.rank}</span>
+            </div>
+            <div className={styles.headerStat}>
+              <span className={styles.headerStatLabel}>
+                Overall Score
+                <MetricTooltip text="Relative ranking score within this Draft class. 0-100, not a probability or predicted pick." />
+              </span>
+              <ScoreBadge value={board.overallScore} size="lg" />
+            </div>
+            <div className={styles.headerStat}>
+              <span className={styles.headerStatLabel}>Draft Probability</span>
+              <span className={styles.headerStatValue}>
+                {formatPercent(board.draftProbability)}
+              </span>
+            </div>
           </div>
-          <div className={styles.headerStat}>
-            <span className={styles.headerStatLabel}>
-              Overall Score
-              <MetricTooltip text="Relative ranking score within this Draft class. 0-100, not a probability or predicted pick." />
-            </span>
-            <ScoreBadge value={prospect.board.overallScore} size="lg" />
-          </div>
-          <div className={styles.headerStat}>
-            <span className={styles.headerStatLabel}>Draft Probability</span>
-            <span className={styles.headerStatValue}>
-              {formatPercent(prospect.board.draftProbability)}
-            </span>
-          </div>
-        </div>
+        )}
       </header>
+
+      {prospect.finalEntrantsBoard && prospect.declaredBoard && (
+        <p className={styles.declaredNote}>
+          Also ranked #{prospect.declaredBoard.rank} of {declaredCount} in the
+          2026 All-Declared Board (see the Board page).
+        </p>
+      )}
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Profile</h2>
         <div className={styles.statsGrid}>
-          <Stat label="PTS/40" value={formatDecimal(prospect.stats.pointsPer40)} />
-          <Stat label="REB/40" value={formatDecimal(prospect.stats.reboundsPer40)} />
-          <Stat label="AST/40" value={formatDecimal(prospect.stats.assistsPer40)} />
+          <Stat label="Height" value={formatHeight(prospect.stats.heightInches)} />
+          <Stat label="MIN/G" value={formatDecimal(prospect.stats.minutesPerGame)} />
+          <Stat label="GP" value={formatInt(prospect.stats.gamesPlayed)} />
+          <Stat label="PTS/40 min" value={formatDecimal(prospect.stats.pointsPer40)} />
+          <Stat label="REB/40 min" value={formatDecimal(prospect.stats.reboundsPer40)} />
+          <Stat label="AST/40 min" value={formatDecimal(prospect.stats.assistsPer40)} />
+          <Stat label="STL/40 min" value={formatDecimal(prospect.stats.stealsPer40)} />
+          <Stat label="BLK/40 min" value={formatDecimal(prospect.stats.blocksPer40)} />
+          <Stat label="TOV/40 min" value={formatDecimal(prospect.stats.turnoversPer40)} />
           <Stat label="3P%" value={formatPercent(prospect.stats.threePointPct)} />
           <Stat label="FT%" value={formatPercent(prospect.stats.ftPct)} />
           <Stat label="TS%" value={formatPercent(prospect.stats.tsPct)} />
-          <Stat label="MIN/G" value={formatDecimal(prospect.stats.minutesPerGame)} />
-          <Stat label="GP" value={formatInt(prospect.stats.gamesPlayed)} />
         </div>
       </section>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Basketball Profile</h2>
-        <p className={styles.sectionSub}>Percentile vs NCAA peers</p>
+        <h2 className={styles.sectionTitle}>
+          Basketball Profile
+          <MetricTooltip text="These scores show where a prospect ranks relative to NCAA peers. A score of 81 means the prospect ranks higher than about 81% of the reference players for that trait." />
+        </h2>
+        <p className={styles.sectionSub}>Score vs NCAA peers, 0-100</p>
         <div className={styles.dimensionGrid}>
           {DIMENSION_ORDER.map((key) => (
             <PercentileBar
               key={key}
               label={DIMENSION_LABELS[key]}
               value={prospect.dimensions[key]}
+              peerGroup={DIMENSION_PEER_GROUP[key]}
               hint={
                 key === "defensiveProduction"
                   ? "Based on steals and blocks; not a complete measure of defensive quality."
@@ -122,13 +158,6 @@ export function ProspectDetailPage() {
               }
             />
           ))}
-          <div className={styles.athleticism}>
-            <span className={styles.athleticismLabel}>Athleticism</span>
-            <span className={styles.athleticismValue}>Not available</span>
-            <p className={styles.athleticismNote}>
-              No reliable Combine measurement available.
-            </p>
-          </div>
         </div>
 
         {(strengths.length > 0 || weaknesses.length > 0) && (
@@ -139,7 +168,12 @@ export function ProspectDetailPage() {
                 <ul className={styles.swList}>
                   {strengths.map((s) => (
                     <li key={s.key}>
-                      {s.label} — {formatPercentile(s.value)} percentile
+                      {s.label}
+                      <br />
+                      {formatScoreOutOf100(s.value)} vs {DIMENSION_PEER_GROUP[s.key] ===
+                      "POSITION"
+                        ? "similar NCAA players"
+                        : "NCAA peers"}
                     </li>
                   ))}
                 </ul>
@@ -151,7 +185,12 @@ export function ProspectDetailPage() {
                 <ul className={styles.swList}>
                   {weaknesses.map((w) => (
                     <li key={w.key}>
-                      {w.label} — {formatPercentile(w.value)} percentile
+                      {w.label}
+                      <br />
+                      {formatScoreOutOf100(w.value)} vs {DIMENSION_PEER_GROUP[w.key] ===
+                      "POSITION"
+                        ? "similar NCAA players"
+                        : "NCAA peers"}
                     </li>
                   ))}
                 </ul>

@@ -482,6 +482,29 @@ def build_features(d):
 ENGINEERED = None       # populated on first build; excludes identity/denoms
 
 
+def engineer_year(year, raw):
+    """Raw (pre-engineering) primitives for one season -> the full engineered
+    feature row, including team context. `raw` must carry `hoopr_athlete_id`
+    plus every column `build_features` reads (as produced by
+    `data.build.raw_prospect_features`). Pulled out of `assemble` so a
+    population other than the approved partitions (e.g. the declared-pool
+    product board in `declared.py`) can reach the identical engineered layer
+    without duplicating this logic."""
+    ids = set(pd.to_numeric(raw.hoopr_athlete_id, errors="coerce")
+              .dropna().astype("int64"))
+    ctx = team_context(year, ids)
+    ctx["athlete_id"] = ctx.athlete_id.astype("int64")
+    raw = raw.copy()
+    raw["_aid"] = pd.to_numeric(raw.hoopr_athlete_id, errors="coerce")
+    d = raw.merge(ctx.rename(columns={"athlete_id": "_aid"}),
+                  on="_aid", how="left").reset_index(drop=True)
+    f = build_features(d).reset_index(drop=True)
+    cols = [c for c in DENOMINATORS if c in d.columns] + \
+           [c for c in AUDIT if c in d.columns]
+    keep = pd.concat([d[IDENTITY], d[cols], f], axis=1)
+    return keep.loc[:, ~keep.columns.duplicated()]
+
+
 def assemble(label, years):
     base = pd.read_parquet(DATASET / f"features_{label}.parquet")
     frames = []
@@ -489,18 +512,7 @@ def assemble(label, years):
         b = base[base.draft_year == y].copy()
         if b.empty:
             continue
-        ids = set(pd.to_numeric(b.hoopr_athlete_id, errors="coerce")
-                  .dropna().astype("int64"))
-        ctx = team_context(y, ids)
-        ctx["athlete_id"] = ctx.athlete_id.astype("int64")
-        b["_aid"] = pd.to_numeric(b.hoopr_athlete_id, errors="coerce")
-        d = b.merge(ctx.rename(columns={"athlete_id": "_aid"}),
-                    on="_aid", how="left").reset_index(drop=True)
-        f = build_features(d).reset_index(drop=True)
-        cols = [c for c in DENOMINATORS if c in d.columns] + \
-               [c for c in AUDIT if c in d.columns]
-        keep = pd.concat([d[IDENTITY], d[cols], f], axis=1)
-        frames.append(keep)
+        frames.append(engineer_year(y, b))
     out = pd.concat(frames, ignore_index=True)
     return out.loc[:, ~out.columns.duplicated()]
 

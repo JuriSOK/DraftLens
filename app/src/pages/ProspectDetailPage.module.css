@@ -36,6 +36,18 @@
   color: var(--color-text-secondary);
 }
 
+.statusLine {
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+}
+
+.declaredNote {
+  margin: -16px 0 20px;
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+}
+
 .headerStats {
   display: flex;
   gap: 28px;
@@ -76,6 +88,9 @@
 
 .sectionTitle {
   font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .sectionSub {
@@ -88,7 +103,7 @@
 .statsGrid {
   margin-top: 16px;
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -121,29 +136,6 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 18px 32px;
-}
-
-.athleticism {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  opacity: 0.75;
-}
-
-.athleticismLabel {
-  font-size: 13.5px;
-  font-weight: 500;
-}
-
-.athleticismValue {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-text-tertiary);
-}
-
-.athleticismNote {
-  font-size: 12px;
-  color: var(--color-text-tertiary);
 }
 
 .swGrid {

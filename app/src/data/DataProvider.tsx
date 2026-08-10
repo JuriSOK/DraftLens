@@ -22,9 +22,8 @@ function looksLikeDraftLensData(value: unknown): value is DraftLensData {
   const v = value as Record<string, unknown>;
   return (
     typeof v.version === "string" &&
-    typeof v.prospectCount === "number" &&
-    Array.isArray(v.prospects) &&
-    v.prospects.length === v.prospectCount &&
+    typeof v.years === "object" &&
+    v.years !== null &&
     Array.isArray(v.teamNeedProfiles) &&
     Array.isArray(v.customDimensions)
   );

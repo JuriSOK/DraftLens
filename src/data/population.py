@@ -38,6 +38,52 @@ def load_population(year):
     return pop.reset_index(drop=True)
 
 
+def load_declared(year):
+    """The ORIGINAL declared NCAA pool for `year` (before withdrawal), if a
+    snapshot was acquired (`scripts/acquire.py declared`). Returns None — not
+    an empty frame — when no snapshot exists, so callers can distinguish "no
+    withdrawals occurred" from "not yet acquired". PRODUCT/DISPLAY use only;
+    never an ML sampling frame (see `load_population`)."""
+    path = POP_DIR / f"draft_declared_{year}.csv"
+    if not path.exists():
+        return None
+    declared = pd.read_csv(path)
+    declared["draft_year"] = year
+    declared["canonical_prospect_id"] = (
+        declared.draft_year.astype(str) + "-"
+        + declared.normalized_name.str.replace(" ", "_"))
+    return declared.reset_index(drop=True)
+
+
+FINAL_ENTRY = "FINAL_ENTRY"
+WITHDRAWN = "WITHDRAWN"
+
+
+def population_status(year):
+    """Eligibility/process status for every prospect on the declared pool:
+    FINAL_ENTRY (remained through the withdrawal deadline — the approved ML
+    sampling frame) or WITHDRAWN (declared, then withdrew before the draft).
+
+    Uses ONLY declaration/withdrawal facts — never a draft outcome. Returns
+    None if no declared-pool snapshot has been acquired for `year`.
+    """
+    declared = load_declared(year)
+    if declared is None:
+        return None
+    final = load_population(year)
+    final_names = set(final.normalized_name)
+    missing = final_names - set(declared.normalized_name)
+    if missing:
+        raise AssertionError(
+            f"{year}: {len(missing)} final entrant(s) absent from the "
+            f"declared-pool snapshot — investigate name matching: {missing}")
+    out = declared[["canonical_prospect_id", "normalized_name", "player_name",
+                    "college", "position", "class"]].copy()
+    out["population_status"] = out.normalized_name.map(
+        lambda n: FINAL_ENTRY if n in final_names else WITHDRAWN)
+    return out.reset_index(drop=True)
+
+
 def load_targets(year, pop):
     """Draft outcome for the population. Read ONLY from data/raw/draft_targets/
     and never joined into a feature frame before the feature boundary."""

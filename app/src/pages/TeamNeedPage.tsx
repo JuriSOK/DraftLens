@@ -7,10 +7,11 @@ import { WeightSlider } from "../components/WeightSlider";
 import { computeCustomFit } from "../lib/customFit";
 import type { Weights } from "../lib/customFit";
 import { CUSTOM_DIMENSION_LABELS, PROFILE_LABELS } from "../types/data";
-import type { CustomDimensionKey, ProfileKey } from "../types/data";
+import type { CustomDimensionKey, Prospect, ProfileKey, YearAvailable } from "../types/data";
 import styles from "./TeamNeedPage.module.css";
 
 type Mode = "predefined" | "custom";
+type Population = "finalEntrants" | "allDeclared";
 
 const EMPTY_WEIGHTS: Weights = {
   shooting: 0,
@@ -20,33 +21,44 @@ const EMPTY_WEIGHTS: Weights = {
   size: 0,
 };
 
+function boardOf(p: Prospect, population: Population) {
+  return population === "finalEntrants" ? p.finalEntrantsBoard : p.declaredBoard;
+}
+
 export function TeamNeedPage() {
   const { data, error, loading } = useDraftLensData();
   const [mode, setMode] = useState<Mode>("predefined");
+  const [population, setPopulation] = useState<Population>("finalEntrants");
   const [profile, setProfile] = useState<ProfileKey>("shooter");
   const [weights, setWeights] = useState<Weights>({ ...EMPTY_WEIGHTS, shooting: 70 });
 
+  const year2026 = data?.years["2026"];
+  const available = year2026?.status === "available" ? (year2026 as YearAvailable) : null;
+
+  const eligibleProspects = useMemo(() => {
+    if (!available) return [];
+    return available.prospects.filter((p) => boardOf(p, population) !== null);
+  }, [available, population]);
+
   const predefinedResults = useMemo(() => {
-    if (!data) return [];
-    return [...data.prospects]
+    return [...eligibleProspects]
       .filter((p) => p.profiles[profile].fitScore !== null)
       .sort((a, b) => {
         const fa = a.profiles[profile].fitScore ?? -1;
         const fb = b.profiles[profile].fitScore ?? -1;
         return fb - fa;
       });
-  }, [data, profile]);
+  }, [eligibleProspects, profile]);
 
   const customResults = useMemo(() => {
-    if (!data) return [];
-    return data.prospects
+    return eligibleProspects
       .map((p) => ({ prospect: p, fit: computeCustomFit(p, weights) }))
       .filter((r) => r.fit.fitScore !== null)
       .sort((a, b) => (b.fit.fitScore ?? -1) - (a.fit.fitScore ?? -1));
-  }, [data, weights]);
+  }, [eligibleProspects, weights]);
 
   if (loading) return <LoadingState />;
-  if (error || !data) return <ErrorState message={error ?? "Unknown error"} />;
+  if (error || !data || !available) return <ErrorState message={error ?? "Unknown error"} />;
 
   const hasActiveWeight = Object.values(weights).some((w) => w > 0);
 
@@ -80,6 +92,33 @@ export function TeamNeedPage() {
         </button>
       </div>
 
+      <div
+        className={styles.populationToggle}
+        role="tablist"
+        aria-label="Population"
+      >
+        <button
+          type="button"
+          role="tab"
+          aria-selected={population === "finalEntrants"}
+          className={styles.popButton}
+          data-active={population === "finalEntrants"}
+          onClick={() => setPopulation("finalEntrants")}
+        >
+          Final entrants
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={population === "allDeclared"}
+          className={styles.popButton}
+          data-active={population === "allDeclared"}
+          onClick={() => setPopulation("allDeclared")}
+        >
+          All declared
+        </button>
+      </div>
+
       {mode === "predefined" ? (
         <>
           <div className={styles.chipRow} role="group" aria-label="Choose a profile">
@@ -102,8 +141,8 @@ export function TeamNeedPage() {
               id: p.id,
               name: p.name,
               position: p.position,
-              overallScore: p.board.overallScore,
-              boardRank: p.board.rank,
+              overallScore: boardOf(p, population)!.overallScore,
+              boardRank: boardOf(p, population)!.rank,
               fitScore: p.profiles[profile].fitScore,
             }))}
             fitColumnLabel="Fit Score"
@@ -133,8 +172,8 @@ export function TeamNeedPage() {
                 id: prospect.id,
                 name: prospect.name,
                 position: prospect.position,
-                overallScore: prospect.board.overallScore,
-                boardRank: prospect.board.rank,
+                overallScore: boardOf(prospect, population)!.overallScore,
+                boardRank: boardOf(prospect, population)!.rank,
                 fitScore: fit.fitScore,
               }))}
               fitColumnLabel="Custom Fit Score"

@@ -1,17 +1,28 @@
 """The public application data export — the ONE thing the frontend reads.
 
 Turns the already-frozen, already-hashed 2026 prediction artifacts
-(`src/replay.py`) into a small, deterministic, target-free JSON file the
-static React app consumes directly. This module performs NO analytical
+(`src/replay.py`) and the additional, separately-frozen all-declared product
+board (`src/declared.py`) into a small, deterministic, target-free JSON file
+the static React app consumes directly. This module performs NO analytical
 computation of its own: every number here was already produced by the frozen
 Draft Probability / Draft Order / General Board / Team Need / NBA Comparables
-systems during the 2026 replay. It only selects, renames and rounds fields
-for display.
+systems. It only selects, renames and rounds fields for display.
+
+TWO 2026 populations, kept explicitly distinct:
+  * finalEntrantsBoard — the 26-prospect FROZEN holdout board (`replay.py`),
+    read from its artifact untouched. This is the population the one-time
+    2026 evaluation actually scored.
+  * declaredBoard — the larger ALL-DECLARED product board (`declared.py`,
+    ~60 prospects including 34 who later withdrew), an additional
+    exploration generated AFTER the holdout with the same frozen methodology.
+    Never presented as the holdout population or its evaluation result.
 
 Nothing here may read `_draft_order_raw_pick_signal_INTERNAL_ONLY` or any
 2026 outcome field — `assert_no_leakage` checks the finished payload before
 it is written, the same discipline `replay.assert_target_free` applies to the
-prediction artifact itself.
+prediction artifacts themselves. Declaration/withdrawal status
+(`populationStatus`) is display metadata only; it is attached after every
+model prediction, never before.
 """
 
 import hashlib
@@ -40,10 +51,13 @@ PROFILE_KEYS = {
 
 # Custom Team Need mode's approved sliders (config/team_need.json
 # custom_mode.supported_dimensions). RIM_PRESSURE is explicitly NOT approved
-# for the custom UI; ATHLETICISM is permanently unavailable. Do not add to
+# for the custom UI; ATHLETICISM does not exist as a product concept at all
+# (there is no data source for it — see docs/METHODOLOGY.md). Do not add to
 # this list without a product decision recorded in config/team_need.json.
 CUSTOM_DIMENSIONS = ["shooting", "playmaking", "defensiveProduction",
                      "rebounding", "size"]
+
+YEAR = 2026
 
 
 def _r1(x):
@@ -71,6 +85,47 @@ def _profile(row, prefix):
     return {"fitScore": _rint(fit), "eligibility": elig}
 
 
+def _profiles(row):
+    return {v: _profile(row, k.lower()) for k, v in PROFILE_KEYS.items()}
+
+
+def _board(row):
+    return {
+        "rank": int(row.board_rank),
+        "overallScore": int(row.overall_score),
+        "draftProbability": _r3(row.stage_a_probability),
+        "draftOrderSignal": _r3(row.stage_b_quality),
+    }
+
+
+def _stats(feats_row):
+    return {
+        "heightInches": _r1(feats_row.get("height")),
+        "pointsPer40": _r1(feats_row.points_per_40),
+        "reboundsPer40": _r1(feats_row.reb_per_40),
+        "assistsPer40": _r1(feats_row.assists_per_40),
+        "stealsPer40": _r1(feats_row.get("steals_per_40")),
+        "blocksPer40": _r1(feats_row.get("blocks_per_40")),
+        "turnoversPer40": _r1(feats_row.get("turnovers_per_40")),
+        "threePointPct": _r3(feats_row.three_point_pct),
+        "ftPct": _r3(feats_row.ft_pct),
+        "tsPct": _r3(feats_row.ts_pct),
+        "minutesPerGame": _r1(feats_row.minutes_per_game),
+        "gamesPlayed": _rint(feats_row.games_played),
+    }
+
+
+def _dimensions(row):
+    return {
+        "shooting": _r1(row.dimension_shooting),
+        "playmaking": _r1(row.dimension_playmaking),
+        "defensiveProduction": _r1(row.dimension_box_score_defensive_production),
+        "rebounding": _r1(row.dimension_rebounding),
+        "size": _r1(row.dimension_size),
+        "rimPressure": _r1(row.dimension_rim_pressure),
+    }
+
+
 def _comparable(entry):
     close = [
         dict(label=d["label"], prospectPercentile=_r1(d["prospect_percentile"]),
@@ -92,101 +147,149 @@ def _comparable(entry):
     )
 
 
-def _prospect(row, feats_row, comparables_entry):
-    pid = row.canonical_prospect_id
-    comps = []
-    if comparables_entry is not None and comparables_entry.get("status") == "OK":
-        comps = [_comparable(c) for c in comparables_entry["comparables"]]
-
-    return {
-        "id": pid,
-        "name": row.player_name,
-        "school": row.college,
-        "position": row.position_3,
-        "board": {
-            "rank": int(row.board_rank),
-            "overallScore": int(row.overall_score),
-            "draftProbability": _r3(row.stage_a_probability),
-            "draftOrderSignal": _r3(row.stage_b_quality),
-        },
-        "stats": {
-            "pointsPer40": _r1(feats_row.points_per_40),
-            "reboundsPer40": _r1(feats_row.reb_per_40),
-            "assistsPer40": _r1(feats_row.assists_per_40),
-            "threePointPct": _r3(feats_row.three_point_pct),
-            "ftPct": _r3(feats_row.ft_pct),
-            "tsPct": _r3(feats_row.ts_pct),
-            "minutesPerGame": _r1(feats_row.minutes_per_game),
-            "gamesPlayed": _rint(feats_row.games_played),
-        },
-        "dimensions": {
-            "shooting": _r1(row.dimension_shooting),
-            "playmaking": _r1(row.dimension_playmaking),
-            "defensiveProduction": _r1(row.dimension_box_score_defensive_production),
-            "rebounding": _r1(row.dimension_rebounding),
-            "size": _r1(row.dimension_size),
-            "rimPressure": _r1(row.dimension_rim_pressure),
-        },
-        "profiles": {v: _profile(row, k.lower()) for k, v in PROFILE_KEYS.items()},
-        "coverage": _r3(row.team_need_data_coverage),
-        "comparables": comps,
-    }
+def _comparables(pid, comparables_json):
+    entry = comparables_json.get(pid)
+    if entry is None or entry.get("status") != "OK":
+        return []
+    return [_comparable(c) for c in entry["comparables"]]
 
 
-def build_payload():
-    """Assemble the full export in memory. Pure function of the frozen
-    artifacts already on disk — reads nothing else, computes nothing new."""
+# --------------------------------------------------------------------- 2026
+def _load_final_entrants():
+    """The frozen 26-prospect holdout board — read untouched, never
+    recomputed. Returns {canonical_prospect_id: {...}}."""
     from paths import interim
 
     pred_path = ROOT / "data" / "processed" / "2026" / "draftlens_2026_predictions.parquet"
     comp_path = ROOT / "data" / "processed" / "2026" / "draftlens_2026_comparables.json"
-    prov_path = ROOT / "data" / "processed" / "2026" / "replay_provenance.json"
-    if not (pred_path.exists() and comp_path.exists() and prov_path.exists()):
-        raise FileNotFoundError(
-            "2026 replay artifacts missing — run scripts/build.py replay-2026 "
-            "then scripts/build.py replay-2026-eval before exporting")
+    if not (pred_path.exists() and comp_path.exists()):
+        return {}, None
 
-    predictions = pd.read_parquet(pred_path).sort_values("board_rank")
+    import replay
+    replay._require_frozen_predictions()  # refuse to export a tampered artifact
+
+    predictions = pd.read_parquet(pred_path)
     comparables = json.loads(comp_path.read_text())
-    provenance = json.loads(prov_path.read_text())
     feats = pd.read_parquet(interim("features") / "features_2026.parquet") \
         .set_index("canonical_prospect_id")
 
-    prospects = []
+    out = {}
     for _, row in predictions.iterrows():
-        feats_row = feats.loc[row.canonical_prospect_id]
-        prospects.append(_prospect(row, feats_row,
-                                   comparables.get(row.canonical_prospect_id)))
+        pid = row.canonical_prospect_id
+        feats_row = feats.loc[pid]
+        out[pid] = dict(
+            name=row.player_name, school=row.college, position=row.position_3,
+            board=_board(row), stats=_stats(feats_row),
+            dimensions=_dimensions(row), profiles=_profiles(row),
+            coverage=_r3(row.team_need_data_coverage),
+            comparables=_comparables(pid, comparables))
 
-    validation = json.loads(
-        (ROOT / "data" / "processed" / "2026" / "replay_evaluation.json").read_text()
-    ) if (ROOT / "data" / "processed" / "2026" / "replay_evaluation.json").exists() else None
-
-    payload = {
-        "version": "2026-final",
-        "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "methodologyFreeze": provenance["analytics_freeze_tag"],
-        "prospectCount": len(prospects),
-        "prospects": prospects,
-        "teamNeedProfiles": list(PROFILE_KEYS.values()),
-        "customDimensions": CUSTOM_DIMENSIONS,
-        "methodologySummary": {
-            "generalBoard": "Draft Probability × Draft Order quality, "
-                           "combined into a 0-100 class-relative Overall Score.",
-            "teamNeed": "NCAA peer-relative statistical trait scoring against "
-                       "six factual dimensions. Not a prediction.",
-            "comparables": "Normalized NCAA ↔ NBA statistical similarity "
-                          "across six role dimensions. Descriptive resemblance "
-                          "only, never a projection.",
-            "validation": "Seven historical forward-in-time folds (2019-2025), "
-                         "plus one final 2026 holdout replay.",
-        },
-        "validationSummary": _validation_summary(validation),
-    }
-    return payload
+    provenance_path = ROOT / "data" / "processed" / "2026" / "replay_provenance.json"
+    provenance = json.loads(provenance_path.read_text()) if provenance_path.exists() else None
+    return out, provenance
 
 
-def _validation_summary(evaluation):
+def _load_all_declared():
+    """The larger ALL-DECLARED product board — additional exploration
+    generated after the holdout. Returns ({canonical_prospect_id: {...}},
+    insufficient_data_records, audit)."""
+    import declared
+
+    if not (declared.DECLARED_PREDICTIONS_PATH.exists()
+           and declared.DECLARED_FEATURES_PATH.exists()):
+        return {}, [], None
+
+    predictions = pd.read_parquet(declared.DECLARED_PREDICTIONS_PATH)
+    feats = pd.read_parquet(declared.DECLARED_FEATURES_PATH) \
+        .set_index("canonical_prospect_id")
+    comparables = (json.loads(declared.DECLARED_COMPARABLES_PATH.read_text())
+                  if declared.DECLARED_COMPARABLES_PATH.exists() else {})
+    insufficient = (json.loads(declared.DECLARED_INSUFFICIENT_PATH.read_text())
+                    if declared.DECLARED_INSUFFICIENT_PATH.exists() else [])
+    audit = (json.loads(declared.DECLARED_PROVENANCE_PATH.read_text()).get("audit")
+            if declared.DECLARED_PROVENANCE_PATH.exists() else None)
+
+    out = {}
+    for _, row in predictions.iterrows():
+        pid = row.canonical_prospect_id
+        feats_row = feats.loc[pid]
+        out[pid] = dict(
+            name=row.player_name, school=row.college, position=row.position_3,
+            populationStatus=row.population_status,
+            board=_board(row), stats=_stats(feats_row),
+            dimensions=_dimensions(row), profiles=_profiles(row),
+            coverage=_r3(row.team_need_data_coverage),
+            comparables=_comparables(pid, comparables))
+    return out, insufficient, audit
+
+
+def _official_source(year=YEAR):
+    from data.wikipedia import DECLARED_SNAPSHOTS
+    snap = DECLARED_SNAPSHOTS.get(year)
+    if snap is None:
+        return None
+    return dict(name="NBA official early-entry candidate announcement",
+               url=snap["canonical_url"], announcementDate=snap["announcement_date"],
+               note=snap["note"])
+
+
+def build_year_2026():
+    final_entrants, replay_provenance = _load_final_entrants()
+    all_declared, insufficient, audit = _load_all_declared()
+    if not final_entrants:
+        return dict(status="unavailable",
+                   reason="2026 holdout replay artifacts not found — run "
+                         "scripts/build.py replay-2026 then replay-2026-eval")
+
+    merged = {}
+    for pid, rec in all_declared.items():
+        merged[pid] = dict(
+            id=pid, name=rec["name"], school=rec["school"], position=rec["position"],
+            populationStatus=rec["populationStatus"],
+            finalEntrantsBoard=final_entrants[pid]["board"] if pid in final_entrants else None,
+            declaredBoard=rec["board"],
+            stats=rec["stats"], dimensions=rec["dimensions"],
+            profiles=rec["profiles"], coverage=rec["coverage"],
+            comparables=rec["comparables"])
+    # Any FINAL_ENTRY prospect not present in the declared computation (e.g.
+    # the declared-pool acquisition has not been run) still appears, using
+    # only the frozen holdout data.
+    for pid, rec in final_entrants.items():
+        if pid in merged:
+            continue
+        merged[pid] = dict(
+            id=pid, name=rec["name"], school=rec["school"], position=rec["position"],
+            populationStatus="FINAL_ENTRY", finalEntrantsBoard=rec["board"],
+            declaredBoard=None, stats=rec["stats"], dimensions=rec["dimensions"],
+            profiles=rec["profiles"], coverage=rec["coverage"],
+            comparables=rec["comparables"])
+
+    prospects = sorted(merged.values(),
+                       key=lambda p: (p["finalEntrantsBoard"] is None,
+                                     (p["finalEntrantsBoard"] or p["declaredBoard"])["rank"]))
+
+    insufficient_out = [
+        dict(id=r["canonical_prospect_id"], name=r["player_name"],
+            school=r["college"], position=r.get("position"),
+            populationStatus=r["population_status"])
+        for r in insufficient
+    ]
+
+    out = dict(
+        status="available",
+        methodologyFreeze=(replay_provenance or {}).get("analytics_freeze_tag"),
+        finalEntrantsCount=len(final_entrants),
+        declaredCount=len(all_declared) + len(insufficient_out),
+        scoreableDeclaredCount=len(all_declared),
+        officialSource=_official_source(),
+        audit=audit,
+        prospects=prospects,
+        insufficientDataProspects=insufficient_out,
+    )
+    return out
+
+
+def _validation_summary(year_2026):
     """Aggregate, class-level validation numbers only — never a per-prospect
     2026 outcome. Safe for the About page per docs/VALIDATION.md."""
     out = {
@@ -201,10 +304,14 @@ def _validation_summary(evaluation):
         "noPostHoldoutTuning": True,
         "note": "Methodology was frozen (tag analytics-freeze-pre-2026) before "
                "the 2026 prediction freeze; predictions were hashed before "
-               "any 2026 outcome was opened. See docs/VALIDATION.md for the "
-               "complete record, including a disclosed process note.",
+               "any 2026 outcome was opened. The all-declared product board "
+               "was generated separately, afterward, with the same frozen "
+               "methodology — it was never part of the holdout evaluation. "
+               "See docs/VALIDATION.md for the complete record.",
     }
-    if evaluation is not None:
+    eval_path = ROOT / "data" / "processed" / "2026" / "replay_evaluation.json"
+    if eval_path.exists():
+        evaluation = json.loads(eval_path.read_text())
         gb = evaluation.get("general_board", {})
         support = evaluation.get("support", {})
         out["holdout2026"] = {
@@ -215,8 +322,39 @@ def _validation_summary(evaluation):
     return out
 
 
-def _lower_first(s):
-    return s[0].lower() + s[1:] if s else s
+def build_payload():
+    """Assemble the full export in memory. Pure function of the frozen
+    artifacts already on disk — reads nothing else, computes nothing new."""
+    year_2026 = build_year_2026()
+    payload = {
+        "version": "2026.1",
+        "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "years": {
+            "2026": year_2026,
+            "2027": {
+                "status": "unavailable",
+                "reason": "Official 2027 NBA early-entry declarations have "
+                         "not been announced yet. DraftLens never generates "
+                         "a prospect list or prediction from mock drafts, "
+                         "recruiting rankings or media speculation.",
+            },
+        },
+        "teamNeedProfiles": list(PROFILE_KEYS.values()),
+        "customDimensions": CUSTOM_DIMENSIONS,
+        "methodologySummary": {
+            "generalBoard": "Draft Probability × Draft Order quality, "
+                           "combined into a 0-100 class-relative Overall Score.",
+            "teamNeed": "NCAA peer-relative statistical trait scoring against "
+                       "six factual dimensions. Not a prediction.",
+            "comparables": "Normalized NCAA ↔ NBA statistical similarity "
+                          "across six role dimensions. Descriptive resemblance "
+                          "only, never a projection.",
+            "validation": "Seven historical forward-in-time folds (2019-2025), "
+                         "plus one final 2026 holdout replay.",
+        },
+        "validationSummary": _validation_summary(year_2026),
+    }
+    return payload
 
 
 def _to_camel(key):
@@ -258,4 +396,5 @@ def write_payload(payload=None, path=APP_DATA_PATH):
     path.write_text(text + "\n")
 
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
-    return path, digest, len(payload["prospects"])
+    n = len(payload["years"].get("2026", {}).get("prospects", []))
+    return path, digest, n

@@ -165,6 +165,12 @@ def _replay_2026_eval(a):
     return 0
 
 
+def _declared_2026(a):
+    import declared
+    declared.score_declared()
+    return 0
+
+
 def _app_data(a):
     import app_export
     path, digest, n = app_export.write_payload()
@@ -177,6 +183,7 @@ def _app_data(a):
 REPLAY_STAGES = {
     "replay-2026": _replay_2026,
     "replay-2026-eval": _replay_2026_eval,
+    "declared-2026": _declared_2026,
     "app-data": _app_data,
 }
 

@@ -262,3 +262,61 @@ historical anchor. Draft Probability, Draft Order, the General Board formula,
 Overall Score, Team Need's dimensions and profiles, and NBA Comparables'
 common space and similarity method are byte-for-byte what they were at
 `analytics-freeze-pre-2026`.
+
+## 2026 all-declared product board (APP-1.1)
+
+An additional product exploration, generated AFTER the holdout replay above
+— **not** a re-run, extension, or correction of it. The 26-prospect holdout
+population and its evaluation numbers on this page are unchanged and remain
+the sole source of DraftLens's 2026 holdout performance.
+
+**Why this exists.** The product wants to show every NCAA player who
+initially declared for the draft, including those who later withdrew — a
+coverage decision for the Board page, not a scientific one.
+
+**Source.** `data/raw/draft_population/draft_declared_2026.csv`, acquired via
+`scripts/acquire.py declared --years 2026` (`src/data/wikipedia.py
+build_declared`/`DECLARED_SNAPSHOTS`). One fixed Wikipedia revision
+(revid `1351570404`, captured 2026-04-28, immediately after the NBA's
+April 27 official early-entry announcement) is parsed the same way every
+other year's population is — never a live/mutable fetch, never a mock draft
+or recruiting ranking. That revision names 71 declared candidates (60 NCAA,
+11 international); the 60 NCAA names are the declared pool. Matched against
+the frozen final population: all 26 final entrants are present in the
+declared pool, leaving exactly 34 who later withdrew.
+
+**Matching and coverage.** All 60 declared NCAA players matched to hoopR
+statistical records (0 unmatched, 0 insufficient-data) — reusing the same
+name/school matching (`data.matching.match_prospects`) and
+`config/identity_overrides.csv` as every other year. A future year with
+unmatched or data-insufficient declared players would show them on the Board
+page labeled "Insufficient data" rather than being silently dropped
+(`app_export.py`'s `insufficientDataProspects`).
+
+**Scoring.** `src/declared.py` reuses `replay.py`'s Draft Probability, Draft
+Order, General Board, Team Need and NBA Comparables functions unchanged,
+applied to the 60-player declared feature frame instead of the 26-player
+holdout frame. Draft Probability and Team Need are row-independent
+computations, so a given final entrant's own probability and Team Need
+values are numerically identical whether scored in the 26-only holdout or
+the 60-player declared pool (verified directly when this phase was built).
+Overall Score is NOT row-independent — it is a class-relative percentile of
+the combined signal — so a final entrant's declared-board rank and Overall
+Score legitimately differ from their frozen holdout board position; both
+numbers are shown on the Prospect Detail page, clearly labeled.
+
+**Declaration/withdrawal status never enters scoring.** `population_status`
+(`data.population.population_status`, `FINAL_ENTRY`/`WITHDRAWN`) is computed
+from declaration/withdrawal facts only — never a Draft outcome — and is
+joined onto the finished predictions only after every model prediction and
+board computation completes (`tests/integration/test_declared_2026.py`
+asserts this by source inspection, not just by convention).
+
+**Regression guard.** `tests/integration/test_declared_2026.py::TestFinalEntrantsUnchangedByDeclaredWork`
+re-verifies the frozen 26-prospect artifact's hash against its recorded
+provenance, and cross-checks that the public export's `finalEntrantsBoard`
+field for every one of the 26 matches that frozen file exactly. This phase's
+new code (`src/declared.py`, the `app_export.py` rewrite, and a
+behavior-preserving refactor of `data.build.build_year`/
+`features.basketball.assemble` into shared, argument-generic helpers) never
+writes to `data/processed/2026/draftlens_2026_predictions.parquet`.

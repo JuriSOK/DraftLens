@@ -97,13 +97,19 @@ def coverage_by_outcome(feats, tgt, cols):
 
 
 # ---------------------------------------------------------------- build
-def build_year(year, overrides, stats):
-    """One draft year: population, matching, aggregation, targets."""
+def raw_prospect_features(year, pop, idx, overrides):
+    """Population -> matched identity + raw (pre-engineering) box/shot/physical
+    primitives, for ONE population frame. Pulled out of `build_year` so the
+    identical matching+aggregation logic is available to a different
+    population (e.g. the declared-pool product board in `declared.py`)
+    without copying it. Behavior for the approved ML partitions is unchanged:
+    `build_year` below calls this with exactly the arguments it always did.
+
+    Returns (matched_pop, feats, dupes, box_rows). Reads no targets.
+    """
     from features.basketball import aggregate_box, physical
     from features.shot_profile import aggregate_shots
 
-    pop = load_population(year)
-    idx = season_index(year)
     pop = match_prospects(pop, idx, overrides)
 
     matched_ids = set(pop.hoopr_athlete_id.dropna().astype("int64"))
@@ -131,6 +137,14 @@ def build_year(year, overrides, stats):
     feats["two_points_attempted"] = (feats.field_goals_attempted
                                      - feats.three_points_attempted)
     feats["covid_era_flag"] = int(year in COVID_YEARS)      # metadata, not a feature
+    return pop, feats, dupes, box_rows
+
+
+def build_year(year, overrides, stats):
+    """One draft year: population, matching, aggregation, targets."""
+    pop = load_population(year)
+    idx = season_index(year)
+    pop, feats, dupes, box_rows = raw_prospect_features(year, pop, idx, overrides)
 
     cw = pop[["canonical_prospect_id", "draft_year", "player_name",
               "normalized_name", "college", "position", "class",

@@ -19,16 +19,19 @@ export function formatDecimal(value: number | null, decimals = 1): string {
   return value.toFixed(decimals);
 }
 
-export function formatPercentile(value: number | null): string {
+/** "81 / 100" rather than an ordinal ("81st") — clearer to a non-technical
+ * reader and avoids "81th" grammar bugs. Never implies a probability or an
+ * accuracy percentage; pair with a "Higher than X% of ..." sentence. */
+export function formatScoreOutOf100(value: number | null): string {
   if (value === null || Number.isNaN(value)) return UNAVAILABLE;
-  const rounded = Math.round(value);
-  const suffix =
-    rounded % 10 === 1 && rounded % 100 !== 11
-      ? "st"
-      : rounded % 10 === 2 && rounded % 100 !== 12
-        ? "nd"
-        : rounded % 10 === 3 && rounded % 100 !== 13
-          ? "rd"
-          : "th";
-  return `${rounded}${suffix}`;
+  return `${Math.round(value)} / 100`;
+}
+
+/** Height in inches -> feet/inches, e.g. 80 -> `6'8"`. */
+export function formatHeight(inches: number | null): string {
+  if (inches === null || Number.isNaN(inches)) return UNAVAILABLE;
+  const total = Math.round(inches);
+  const feet = Math.floor(total / 12);
+  const rem = total % 12;
+  return `${feet}'${rem}"`;
 }

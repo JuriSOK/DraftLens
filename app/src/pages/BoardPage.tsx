@@ -8,8 +8,10 @@ import type { PositionValue } from "../components/PositionFilter";
 import { ScoreBadge, RankBadge } from "../components/ScoreBadge";
 import { formatPercent } from "../lib/format";
 import { PROFILE_LABELS } from "../types/data";
-import type { Prospect } from "../types/data";
+import type { Prospect, YearAvailable } from "../types/data";
 import styles from "./BoardPage.module.css";
+
+type Population = "finalEntrants" | "allDeclared";
 
 interface TopProfile {
   key: keyof Prospect["profiles"];
@@ -29,22 +31,49 @@ function topProfile(prospect: Prospect): TopProfile | null {
   return candidates.reduce((a, b) => (b.score > a.score ? b : a));
 }
 
+const POPULATION_HELP: Record<Population, string> = {
+  finalEntrants: "Players who remained eligible after the withdrawal deadline.",
+  allDeclared:
+    "All NCAA players who initially filed for early entry, including players who later withdrew.",
+};
+
 export function BoardPage() {
   const { data, error, loading } = useDraftLensData();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [position, setPosition] = useState<PositionValue>("ALL");
+  const [population, setPopulation] = useState<Population>("finalEntrants");
+
+  const year2026 = data?.years["2026"];
+  const available = year2026?.status === "available" ? (year2026 as YearAvailable) : null;
 
   const prospects = useMemo(() => {
-    if (!data) return [];
-    return data.prospects
+    if (!available) return [];
+    return available.prospects
+      .filter((p) =>
+        population === "finalEntrants" ? p.finalEntrantsBoard !== null : p.declaredBoard !== null,
+      )
       .filter((p) => position === "ALL" || p.position === position)
       .filter((p) => p.name.toLowerCase().includes(query.trim().toLowerCase()))
-      .sort((a, b) => a.board.rank - b.board.rank);
-  }, [data, query, position]);
+      .sort((a, b) => {
+        const ra = (population === "finalEntrants" ? a.finalEntrantsBoard : a.declaredBoard)!.rank;
+        const rb = (population === "finalEntrants" ? b.finalEntrantsBoard : b.declaredBoard)!.rank;
+        return ra - rb;
+      });
+  }, [available, query, position, population]);
+
+  const insufficientData = useMemo(() => {
+    if (!available || population !== "allDeclared") return [];
+    if (position !== "ALL") return [];
+    return available.insufficientDataProspects.filter((p) =>
+      p.name.toLowerCase().includes(query.trim().toLowerCase()),
+    );
+  }, [available, population, position, query]);
 
   if (loading) return <LoadingState />;
-  if (error || !data) return <ErrorState message={error ?? "Unknown error"} />;
+  if (error || !data || !available) return <ErrorState message={error ?? "Unknown error"} />;
+
+  const boardOf = (p: Prospect) => (population === "finalEntrants" ? p.finalEntrantsBoard! : p.declaredBoard!);
 
   return (
     <div className="container">
@@ -56,17 +85,47 @@ export function BoardPage() {
       </div>
 
       <div className={styles.boardHead}>
-        <h2 className={styles.boardTitle}>2026 General Draft Board</h2>
+        <h2 className={styles.boardTitle}>
+          {population === "finalEntrants" ? "2026 General Draft Board" : "2026 All-Declared Board"}
+        </h2>
         <p className={styles.boardSub}>
-          {data.prospectCount} declared NCAA early entrants, ranked by Overall
-          Score — Draft Probability × Draft Order quality.
+          {population === "finalEntrants"
+            ? `${available.finalEntrantsCount} declared NCAA early entrants, ranked by Overall Score — Draft Probability × Draft Order quality.`
+            : `${available.scoreableDeclaredCount} NCAA players who initially declared for the 2026 Draft, ranked by Overall Score within this larger pool — an additional exploration, not the evaluated holdout board.`}
         </p>
       </div>
 
       <div className={styles.controls}>
+        <div
+          className={styles.populationToggle}
+          role="tablist"
+          aria-label="Population"
+        >
+          <button
+            type="button"
+            role="tab"
+            aria-selected={population === "finalEntrants"}
+            className={styles.popButton}
+            data-active={population === "finalEntrants"}
+            onClick={() => setPopulation("finalEntrants")}
+          >
+            Final entrants
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={population === "allDeclared"}
+            className={styles.popButton}
+            data-active={population === "allDeclared"}
+            onClick={() => setPopulation("allDeclared")}
+          >
+            All declared
+          </button>
+        </div>
         <SearchInput value={query} onChange={setQuery} />
         <PositionFilter value={position} onChange={setPosition} />
       </div>
+      <p className={styles.populationHelp}>{POPULATION_HELP[population]}</p>
 
       <div className={styles.tableWrap}>
         <table className={styles.table}>
@@ -92,6 +151,7 @@ export function BoardPage() {
           </thead>
           <tbody>
             {prospects.map((p) => {
+              const board = boardOf(p);
               const best = topProfile(p);
               return (
                 <tr
@@ -106,7 +166,7 @@ export function BoardPage() {
                   }}
                 >
                   <td className={styles.colRank}>
-                    <RankBadge rank={p.board.rank} />
+                    <RankBadge rank={board.rank} />
                   </td>
                   <td>
                     <span className={styles.name}>{p.name}</span>
@@ -115,21 +175,42 @@ export function BoardPage() {
                         {PROFILE_LABELS[best.key]}
                       </span>
                     )}
+                    {p.populationStatus === "WITHDRAWN" && (
+                      <span className={styles.withdrawnBadge}>Withdrawn</span>
+                    )}
                   </td>
                   <td className={styles.colHideSm}>
                     <span className={styles.school}>{p.school}</span>
                   </td>
                   <td className={styles.colPos}>{p.position}</td>
                   <td className={styles.colScore}>
-                    <ScoreBadge value={p.board.overallScore} size="sm" />
+                    <ScoreBadge value={board.overallScore} size="sm" />
                   </td>
                   <td className={styles.colProb}>
-                    {formatPercent(p.board.draftProbability)}
+                    {formatPercent(board.draftProbability)}
                   </td>
                 </tr>
               );
             })}
-            {prospects.length === 0 && (
+            {insufficientData.map((p) => (
+              <tr key={p.id} className={styles.insufficientRow}>
+                <td className={styles.colRank}>—</td>
+                <td>
+                  <span className={styles.name}>{p.name}</span>
+                  <span className={styles.insufficientBadge}>Insufficient data</span>
+                  {p.populationStatus === "WITHDRAWN" && (
+                    <span className={styles.withdrawnBadge}>Withdrawn</span>
+                  )}
+                </td>
+                <td className={styles.colHideSm}>
+                  <span className={styles.school}>{p.school ?? "—"}</span>
+                </td>
+                <td className={styles.colPos}>{p.position ?? "—"}</td>
+                <td className={styles.colScore}>—</td>
+                <td className={styles.colProb}>—</td>
+              </tr>
+            ))}
+            {prospects.length === 0 && insufficientData.length === 0 && (
               <tr>
                 <td colSpan={6} className={styles.empty}>
                   No prospects match this search.

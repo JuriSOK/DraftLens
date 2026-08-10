@@ -49,6 +49,17 @@ etc.):
 are retained with null features rather than dropped — dropping them would
 selectively remove negatives and inflate every downstream metric.
 
+**Declared vs final entrants (2026 product only).** The ML sampling frame
+above (`data.population.load_population`) is always the FINAL population —
+after the withdrawal deadline. For the 2026 product's All Declared board,
+`data.population.load_declared`/`population_status` additionally read the
+ORIGINAL declared pool (before withdrawal), acquired separately via
+`scripts/acquire.py declared` from one fixed Wikipedia revision capturing the
+NBA's official initial early-entry announcement — never a mock draft,
+recruiting ranking, or "live" scrape. This is product/display metadata only;
+it never changes the ML sampling frame or feeds a model. See
+`docs/VALIDATION.md` §"2026 all-declared product board".
+
 ## 4. NCAA statistics available
 
 Per-season box score totals (points, rebounds, assists, steals, blocks,

@@ -9,6 +9,8 @@ export function AboutPage() {
   if (error || !data) return <ErrorState message={error ?? "Unknown error"} />;
 
   const { historical, holdout2026, note } = data.validationSummary;
+  const year2026 = data.years["2026"];
+  const available = year2026.status === "available" ? year2026 : null;
 
   return (
     <div className="container">
@@ -30,6 +32,44 @@ export function AboutPage() {
         />
         <SummaryCard title="Validation" body={data.methodologySummary.validation} />
       </div>
+
+      {available && (
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Two 2026 populations</h2>
+          <p className={styles.sectionSub}>
+            The Board page offers two different 2026 groups. They are not the
+            same thing.
+          </p>
+          <ul className={styles.factList}>
+            <li>
+              <strong>Final entrants</strong> ({available.finalEntrantsCount}{" "}
+              players) — the players who remained eligible after the
+              withdrawal deadline. This is the exact population DraftLens's
+              one-time 2026 holdout evaluation scored, and its ranking has not
+              changed since that evaluation.
+            </li>
+            <li>
+              <strong>All declared</strong> (
+              {available.scoreableDeclaredCount} scoreable of{" "}
+              {available.declaredCount} total) — every NCAA player who
+              initially filed for early entry, including{" "}
+              {available.declaredCount - available.finalEntrantsCount} who
+              later withdrew, sourced from the{" "}
+              {available.officialSource ? (
+                <a href={available.officialSource.url} target="_blank" rel="noreferrer">
+                  {available.officialSource.name}
+                </a>
+              ) : (
+                "official NBA early-entry announcement"
+              )}
+              . This ranking was generated separately, after the holdout
+              evaluation, using the same frozen methodology — it is an
+              additional product exploration, not a re-run or extension of
+              the holdout evaluation itself.
+            </li>
+          </ul>
+        </section>
+      )}
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>About the validation</h2>
