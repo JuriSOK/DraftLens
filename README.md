@@ -75,11 +75,7 @@ $$
 =
 P(\text{drafted})
 \times
-\frac{
-S + 1 - \mathrm{clip}(\hat{p}, 1, S)
-}{
-S
-}
+\frac{S + 1 - \mathrm{clip}(\hat{p}, 1, S)}{S}
 $$
 
 where $S$ is the draft size and $\hat{p}$ is the Draft Order model output.
