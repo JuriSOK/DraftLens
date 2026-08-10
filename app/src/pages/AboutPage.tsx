@@ -757,9 +757,77 @@ export function AboutPage() {
             </p>
           </section>
 
-          {/* 16. Validation */}
+          {/* 16. Analyze your own dataset */}
+          <section id="analyze-your-own" className={styles.section}>
+            <h2 className={styles.sectionTitle}>16. Analyze your own dataset</h2>
+            <p className={styles.paragraph}>
+              <Link to="/analyze">Analyze Data</Link> runs this same frozen
+              methodology on a dataset you supply. Nothing about the models
+              changes: the browser loads the fitted Draft Probability, Draft
+              Order, Team Need and NBA Comparables parameters exported from
+              the Python system and applies them exactly as the built-in board
+              does.
+            </p>
+            <ul className={styles.factList}>
+              <li>
+                <strong>Formats.</strong> Excel (.xlsx, .xls) or JSON (.json),
+                in the strict DraftLens Dataset Format — a two-sheet workbook
+                or the equivalent JSON object. The full column reference and
+                both templates are on the Analyze Data page.
+              </li>
+              <li>
+                <strong>Counts, never rates.</strong> Every input is a season
+                total or a physical measurement. DraftLens computes each
+                percentage itself, which is why there is no question of
+                whether 41.2 means 41.2% or 0.412.
+              </li>
+              <li>
+                <strong>Your data stays in your browser.</strong> The file is
+                parsed and analysed locally. There is no upload, no server and
+                no storage — reloading the page discards the session.
+              </li>
+              <li>
+                <strong>Analysis is limited to what the data supports.</strong>{" "}
+                Stats work from the totals alone. Basketball Profile, Team
+                Need and NBA Comparables need a season DraftLens holds NCAA
+                peer references for. Missing optional columns remove specific
+                components rather than being filled in.
+              </li>
+              <li>
+                <strong>A General Board requires a compatible population.</strong>{" "}
+                Draft Probability and Draft Order were validated on final NCAA
+                early entrants. A file declaring any other population gets no
+                Draft Probability and no Overall Score, because those numbers
+                would not mean what they say — DraftLens says so rather than
+                producing a plausible substitute. A draft size is required too,
+                since the board converts a predicted slot into utility against
+                the size of the draft being entered.
+              </li>
+              <li>
+                <strong>Supported seasons only.</strong> Season-relative
+                normalisation and peer percentiles need that season's NCAA
+                reference distribution. An unsupported season loses those
+                analyses; no neighbouring season is substituted for it.
+              </li>
+              <li>
+                <strong>Pre-draft only.</strong> A column recording a draft
+                outcome is rejected outright, not ignored.
+              </li>
+              <li>
+                <strong>Verified against Python.</strong> Before this feature
+                shipped, the frozen 2026 inputs were run through the browser
+                runtime and compared against the Python system for every
+                prospect. Draft Probability, Draft Order, board signal, Team
+                Need dimensions and profile scores agree to within 1e-13, and
+                board rank, Overall Score, Fit Score, eligibility and the top
+                three NBA comparables are identical.
+              </li>
+            </ul>
+          </section>
+
+          {/* 17. Validation */}
           <section id="validation" className={styles.section}>
-            <h2 className={styles.sectionTitle}>16. Validation</h2>
+            <h2 className={styles.sectionTitle}>17. Validation</h2>
             <ul className={styles.factList}>
               <li>Methodology was frozen before the final 2026 replay.</li>
               <li>

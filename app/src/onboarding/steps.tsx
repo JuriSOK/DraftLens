@@ -106,6 +106,10 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
           before the statistical match runs. This is descriptive
           resemblance, never a prediction of a player's future career.
         </li>
+        <li>
+          <strong>Analyze Data</strong> — you can also analyze your own
+          DraftLens-compatible NCAA dataset, entirely inside your browser.
+        </li>
       </ul>
     ),
   },

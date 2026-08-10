@@ -10,8 +10,8 @@ import {
   RELIABILITY_MIN_ATTEMPTS,
 } from "../lib/statMetrics";
 import type { MetricDef, MetricGroup, SortDirection } from "../lib/statMetrics";
-import { Histogram, KpiStrip } from "../components/charts/Charts";
-import { binValues, maxOf, mean, median } from "../lib/summaries";
+import { Histogram } from "../components/charts/Charts";
+import { binValues } from "../lib/summaries";
 import type { Prospect, YearAvailable } from "../types/data";
 import styles from "./StatsPage.module.css";
 
@@ -150,18 +150,6 @@ export function StatsPage() {
 
       {rows.length > 0 && (
         <>
-          <KpiStrip
-            items={[
-              { label: "players ranked", value: String(rows.length) },
-              { label: `median ${metric.label}`, value: fmt(median(values)) },
-              { label: `average ${metric.label}`, value: fmt(mean(values)) },
-              {
-                label: metric.lowerIsBetter ? "lowest" : "highest",
-                value: fmt(metric.lowerIsBetter ? Math.min(...values) : maxOf(values)),
-                hint: leaders[0]?.prospect.name,
-              },
-            ]}
-          />
           <div className="analyticsRow">
             <div className="analyticsCard">
               <span className="analyticsTitle">{metric.label} distribution</span>

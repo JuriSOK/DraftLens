@@ -7,12 +7,12 @@ import { ProfileCard } from "../components/ProfileCard";
 import { ComparableCard } from "../components/ComparableCard";
 import { ProspectPhoto } from "../components/ProspectPhoto";
 import { MetricTooltip } from "../components/MetricTooltip";
+import { StrengthProfile } from "../components/StrengthProfile";
 import {
   formatDecimal,
   formatPercent,
   formatInt,
   formatHeight,
-  formatScoreOutOf100,
 } from "../lib/format";
 import { Radar } from "../components/charts/Charts";
 import { TOOLTIPS } from "../lib/tooltips";
@@ -22,7 +22,7 @@ import {
   PROFILE_DESCRIPTIONS,
   PROFILE_LABELS,
 } from "../types/data";
-import type { Dimensions, Prospect, WatchlistProspect } from "../types/data";
+import type { DimensionEvidence, Dimensions, Prospect, WatchlistProspect } from "../types/data";
 import styles from "./ProspectDetailPage.module.css";
 
 /** Short labels so the six radar axes fit without overlapping. */
@@ -43,25 +43,6 @@ const DIMENSION_ORDER: (keyof Dimensions)[] = [
   "size",
   "rimPressure",
 ];
-
-function strengthsAndWeaknesses(dimensions: Dimensions) {
-  const entries = DIMENSION_ORDER.map((key) => ({
-    key,
-    label: DIMENSION_LABELS[key],
-    value: dimensions[key],
-  })).filter((e): e is { key: keyof Dimensions; label: string; value: number } =>
-    e.value !== null,
-  );
-  const strengths = entries
-    .filter((e) => e.value >= 70)
-    .sort((a, b) => b.value - a.value)
-    .slice(0, 3);
-  const weaknesses = entries
-    .filter((e) => e.value <= 35)
-    .sort((a, b) => a.value - b.value)
-    .slice(0, 2);
-  return { strengths, weaknesses };
-}
 
 export function ProspectDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -105,7 +86,6 @@ export function ProspectDetailPage() {
 }
 
 function BoardDetail({ prospect }: { prospect: Prospect }) {
-  const { strengths, weaknesses } = strengthsAndWeaknesses(prospect.dimensions);
   const board = prospect.declaredBoard;
 
   return (
@@ -178,8 +158,7 @@ function BoardDetail({ prospect }: { prospect: Prospect }) {
 
       <BasketballProfileSection
         dimensions={prospect.dimensions}
-        strengths={strengths}
-        weaknesses={weaknesses}
+        evidence={prospect.dimensionEvidence}
       />
 
       <TeamNeedSection profiles={prospect.profiles} />
@@ -249,8 +228,7 @@ function WatchlistDetail({ prospect }: { prospect: WatchlistProspect }) {
           {prospect.dimensions && (
             <BasketballProfileSection
               dimensions={prospect.dimensions}
-              strengths={strengthsAndWeaknesses(prospect.dimensions).strengths}
-              weaknesses={strengthsAndWeaknesses(prospect.dimensions).weaknesses}
+              evidence={prospect.dimensionEvidence}
             />
           )}
 
@@ -271,12 +249,10 @@ function WatchlistDetail({ prospect }: { prospect: WatchlistProspect }) {
 
 function BasketballProfileSection({
   dimensions,
-  strengths,
-  weaknesses,
+  evidence,
 }: {
   dimensions: Dimensions;
-  strengths: ReturnType<typeof strengthsAndWeaknesses>["strengths"];
-  weaknesses: ReturnType<typeof strengthsAndWeaknesses>["weaknesses"];
+  evidence: DimensionEvidence | null;
 }) {
   // Same six exported scores, drawn as a shape — a second reading of the
   // bars below, not a new computation.
@@ -317,44 +293,7 @@ function BasketballProfileSection({
         </div>
       </div>
 
-      {(strengths.length > 0 || weaknesses.length > 0) && (
-        <div className={styles.swGrid}>
-          {strengths.length > 0 && (
-            <div>
-              <h3 className={styles.swTitle}>Strengths</h3>
-              <ul className={styles.swList}>
-                {strengths.map((s) => (
-                  <li key={s.key}>
-                    {s.label}
-                    <br />
-                    {formatScoreOutOf100(s.value)} vs{" "}
-                    {DIMENSION_PEER_GROUP[s.key] === "POSITION"
-                      ? "similar NCAA players"
-                      : "NCAA peers"}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {weaknesses.length > 0 && (
-            <div>
-              <h3 className={styles.swTitle}>Areas below peers</h3>
-              <ul className={styles.swList}>
-                {weaknesses.map((w) => (
-                  <li key={w.key}>
-                    {w.label}
-                    <br />
-                    {formatScoreOutOf100(w.value)} vs{" "}
-                    {DIMENSION_PEER_GROUP[w.key] === "POSITION"
-                      ? "similar NCAA players"
-                      : "NCAA peers"}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      )}
+      <StrengthProfile dimensions={dimensions} evidence={evidence} />
     </section>
   );
 }

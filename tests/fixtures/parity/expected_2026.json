@@ -1,0 +1,4746 @@
+{
+ "draftSize": 60,
+ "prospects": [
+  {
+   "boardRank": 53,
+   "boardSignal": 0.12985750452615458,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4683678,
+      "rank": 1,
+      "rawDistance": 10.7324,
+      "similarityScore": 100
+     },
+     {
+      "id": 2527963,
+      "rank": 2,
+      "rawDistance": 11.2481,
+      "similarityScore": 99
+     },
+     {
+      "id": 4395695,
+      "rank": 3,
+      "rawDistance": 11.2559,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 62.23502717703172,
+    "playmaking": 68.13884890662679,
+    "rebounding": 33.74944135000237,
+    "rim_pressure": 65.40804088044227,
+    "shooting": 28.317574167204356,
+    "size": 17.0
+   },
+   "draftOrderPick": 33.02604129965255,
+   "draftProbability": 0.2785251224193914,
+   "overallScore": 12,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 68.13884890662679,
+     "fitScore": 68.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 21.585390715662054,
+     "fitScore": 22.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 30.27088539985032,
+     "fitScore": 30.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 65.40804088044227,
+     "fitScore": 65.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 21.94080128077537,
+     "fitScore": 22.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 41.980292970435244,
+     "fitScore": 42.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-acaden_lewis",
+   "stageBQuality": 0.46623264500579087
+  },
+  {
+   "boardRank": 5,
+   "boardSignal": 0.6104372029949502,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4433255,
+      "rank": 1,
+      "rawDistance": 17.7185,
+      "similarityScore": 95
+     },
+     {
+      "id": 5104157,
+      "rank": 2,
+      "rawDistance": 18.6772,
+      "similarityScore": 94
+     },
+     {
+      "id": 3102531,
+      "rank": 3,
+      "rawDistance": 21.8454,
+      "similarityScore": 89
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 58.43298577701297,
+    "playmaking": 52.40406570859924,
+    "rebounding": 64.61004665470779,
+    "rim_pressure": 74.28299721982768,
+    "shooting": 40.716115772048575,
+    "size": 99.1
+   },
+   "draftOrderPick": 13.350673217925754,
+   "draftProbability": 0.7686621124199358,
+   "overallScore": 92,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 52.40406570859924,
+     "fitScore": 52.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 85.9387163389334,
+     "fitScore": 86.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 25.083284515962873,
+     "fitScore": 25.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.28299721982768,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.521390672827785,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 48.77667694506595,
+     "fitScore": 49.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-aday_mara",
+   "stageBQuality": 0.7941554463679041
+  },
+  {
+   "boardRank": 44,
+   "boardSignal": 0.2807136640663745,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3147657,
+      "rank": 1,
+      "rawDistance": 8.4777,
+      "similarityScore": 100
+     },
+     {
+      "id": 2991070,
+      "rank": 2,
+      "rawDistance": 8.5658,
+      "similarityScore": 100
+     },
+     {
+      "id": 6429,
+      "rank": 3,
+      "rawDistance": 10.291,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 49.55934781817534,
+    "playmaking": 70.11102890895623,
+    "rebounding": 37.44946929687275,
+    "rim_pressure": 63.872983543488616,
+    "shooting": 64.20340051820293,
+    "size": 49.0
+   },
+   "draftOrderPick": 25.404589204967404,
+   "draftProbability": 0.4731739139342344,
+   "overallScore": 28,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 70.11102890895623,
+     "fitScore": 70.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 37.719037953227804,
+     "fitScore": 38.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 60.30267238203536,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.872983543488616,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 56.088917135134146,
+     "fitScore": 56.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 56.40814353789033,
+     "fitScore": 56.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-aiden_tobiason",
+   "stageBQuality": 0.5932568465838766
+  },
+  {
+   "boardRank": 3,
+   "boardSignal": 0.7219779133129416,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 1966,
+      "rank": 1,
+      "rawDistance": 5.4462,
+      "similarityScore": 100
+     },
+     {
+      "id": 4065648,
+      "rank": 2,
+      "rawDistance": 5.7328,
+      "similarityScore": 100
+     },
+     {
+      "id": 3945274,
+      "rank": 3,
+      "rawDistance": 8.9507,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 36.91723238356178,
+    "playmaking": 74.15920740820775,
+    "rebounding": 40.235431777681825,
+    "rim_pressure": 75.89806211323679,
+    "shooting": 54.35558439744978,
+    "size": 79.33333333333334
+   },
+   "draftOrderPick": 8.991978129090693,
+   "draftProbability": 0.8329229461235633,
+   "overallScore": 96,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.15920740820775,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 52.01086777629757,
+     "fitScore": 52.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 43.1108702747603,
+     "fitScore": 43.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 75.89806211323679,
+     "fitScore": 76.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 65.66741730516752,
+     "fitScore": 66.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 44.79573350828132,
+     "fitScore": 45.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-aj_dybantsa",
+   "stageBQuality": 0.8668003645151551
+  },
+  {
+   "boardRank": 60,
+   "boardSignal": 0.05156297586642868,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4397885,
+      "rank": 1,
+      "rawDistance": 10.1788,
+      "similarityScore": 100
+     },
+     {
+      "id": 4396991,
+      "rank": 2,
+      "rawDistance": 11.5148,
+      "similarityScore": 99
+     },
+     {
+      "id": 4432168,
+      "rank": 3,
+      "rawDistance": 12.3506,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 65.80707411922356,
+    "playmaking": 67.41040889440009,
+    "rebounding": 43.77083949562012,
+    "rim_pressure": 39.58747349968265,
+    "shooting": 32.567319883553964,
+    "size": 50.5
+   },
+   "draftOrderPick": 36.135054079844004,
+   "draftProbability": 0.12442329703511824,
+   "overallScore": 1,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.41040889440009,
+     "fitScore": 67.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 51.72063072075682,
+     "fitScore": 52.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 34.98262289151193,
+     "fitScore": 35.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 39.58747349968265,
+     "fitScore": 40.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 40.55428034276377,
+     "fitScore": 41.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 46.294276465255365,
+     "fitScore": 46.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-alijah_arenas",
+   "stageBQuality": 0.4144157653359333
+  },
+  {
+   "boardRank": 1,
+   "boardSignal": 0.767046081485309,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 6450,
+      "rank": 1,
+      "rawDistance": 16.9864,
+      "similarityScore": 96
+     },
+     {
+      "id": 6583,
+      "rank": 2,
+      "rawDistance": 19.7068,
+      "similarityScore": 93
+     },
+     {
+      "id": 4701230,
+      "rank": 3,
+      "rawDistance": 20.7965,
+      "similarityScore": 91
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 89.55918306817827,
+    "playmaking": 81.14003180989269,
+    "rebounding": 88.2888049869185,
+    "rim_pressure": 58.0266905374631,
+    "shooting": 68.03867179813793,
+    "size": 80.5
+   },
+   "draftOrderPick": 13.043855243896678,
+   "draftProbability": 0.9596844184031553,
+   "overallScore": 99,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 81.14003180989269,
+     "fitScore": 81.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 85.98983616624915,
+     "fitScore": 86.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.53046838943684,
+     "fitScore": 56.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.0266905374631,
+     "fitScore": 58.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.00752042698161,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 78.06079594319502,
+     "fitScore": 78.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-allen_graves",
+   "stageBQuality": 0.7992690792683886
+  },
+  {
+   "boardRank": 30,
+   "boardSignal": 0.3562978665771471,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4871145,
+      "rank": 1,
+      "rawDistance": 12.4177,
+      "similarityScore": 99
+     },
+     {
+      "id": 4269,
+      "rank": 2,
+      "rawDistance": 12.759,
+      "similarityScore": 99
+     },
+     {
+      "id": 4066650,
+      "rank": 3,
+      "rawDistance": 13.2322,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 55.05730844903492,
+    "playmaking": 72.6457143504313,
+    "rebounding": 51.47332372742517,
+    "rim_pressure": 58.933430893015036,
+    "shooting": 60.09667172730827,
+    "size": 67.5
+   },
+   "draftOrderPick": 25.097013953628604,
+   "draftProbability": 0.5954343732584723,
+   "overallScore": 51,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 72.6457143504313,
+     "fitScore": 73.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 61.762634392482546,
+     "fitScore": 62.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 62.50769270168067,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.933430893015036,
+     "fitScore": 59.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.690857598193084,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 57.52183056936564,
+     "fitScore": 58.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-amari_allen",
+   "stageBQuality": 0.5983831007728566
+  },
+  {
+   "boardRank": 51,
+   "boardSignal": 0.14371343716889698,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 5105550,
+      "rank": 1,
+      "rawDistance": 10.0672,
+      "similarityScore": 100
+     },
+     {
+      "id": 4683634,
+      "rank": 2,
+      "rawDistance": 11.129,
+      "similarityScore": 99
+     },
+     {
+      "id": 4397136,
+      "rank": 3,
+      "rawDistance": 12.3902,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 44.79049628458386,
+    "playmaking": 55.1066544315466,
+    "rebounding": 80.58106991527049,
+    "rim_pressure": 74.24376702557694,
+    "shooting": 45.93620529296986,
+    "size": 62.5
+   },
+   "draftOrderPick": 22.420535834000567,
+   "draftProbability": 0.22350767219139367,
+   "overallScore": 16,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.1066544315466,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 68.19011446914942,
+     "fitScore": 68.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 38.996075005216525,
+     "fitScore": 39.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.24376702557694,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 53.58183302958771,
+     "fitScore": 54.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 45.35973360264199,
+     "fitScore": 45.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-andrej_stojakovic",
+   "stageBQuality": 0.6429910694333238
+  },
+  {
+   "boardRank": 22,
+   "boardSignal": 0.42038389906201734,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4600663,
+      "rank": 1,
+      "rawDistance": 12.0317,
+      "similarityScore": 99
+     },
+     {
+      "id": 4278129,
+      "rank": 2,
+      "rawDistance": 12.4429,
+      "similarityScore": 99
+     },
+     {
+      "id": 4017837,
+      "rank": 3,
+      "rawDistance": 12.9938,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 40.47331996598549,
+    "playmaking": 37.63530037968261,
+    "rebounding": 92.06817039716809,
+    "rim_pressure": 67.57231910220264,
+    "shooting": 49.45639103220685,
+    "size": 99.22916666666666
+   },
+   "draftOrderPick": 22.267977297314552,
+   "draftProbability": 0.6512191252529712,
+   "overallScore": 64,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 37.63530037968261,
+     "fitScore": 38.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 95.42425528434254,
+     "fitScore": 95.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 35.25400738756394,
+     "fitScore": 35.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.57231910220264,
+     "fitScore": 68.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 70.05366848685863,
+     "fitScore": 70.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 44.739963551721885,
+     "fitScore": 45.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-anton_bonke",
+   "stageBQuality": 0.6455337117114242
+  },
+  {
+   "boardRank": 33,
+   "boardSignal": 0.3467598157088952,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 6603,
+      "rank": 1,
+      "rawDistance": 7.9308,
+      "similarityScore": 100
+     },
+     {
+      "id": 4432165,
+      "rank": 2,
+      "rawDistance": 11.1822,
+      "similarityScore": 99
+     },
+     {
+      "id": 6440,
+      "rank": 3,
+      "rawDistance": 12.5574,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 77.64883771329315,
+    "playmaking": 61.54541003226649,
+    "rebounding": 75.6135175152342,
+    "rim_pressure": 58.75993525553648,
+    "shooting": 50.11273621392536,
+    "size": 57.5
+   },
+   "draftOrderPick": 26.035692041428725,
+   "draftProbability": 0.5950522163111583,
+   "overallScore": 46,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 61.54541003226649,
+     "fitScore": 62.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 69.76461411951149,
+     "fitScore": 70.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 37.794560862886925,
+     "fitScore": 38.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.75993525553648,
+     "fitScore": 59.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 53.67944049913996,
+     "fitScore": 54.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 62.37944951379547,
+     "fitScore": 62.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-billy_richmond",
+   "stageBQuality": 0.582738465976188
+  },
+  {
+   "boardRank": 18,
+   "boardSignal": 0.4436190754660145,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 6442,
+      "rank": 1,
+      "rawDistance": 7.043,
+      "similarityScore": 100
+     },
+     {
+      "id": 4593803,
+      "rank": 2,
+      "rawDistance": 8.5596,
+      "similarityScore": 100
+     },
+     {
+      "id": 4066320,
+      "rank": 3,
+      "rawDistance": 8.5629,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 65.7145465340927,
+    "playmaking": 74.39519246070331,
+    "rebounding": 58.02843955579661,
+    "rim_pressure": 62.85786422065237,
+    "shooting": 73.67591362541175,
+    "size": 54.0
+   },
+   "draftOrderPick": 19.516997730365937,
+   "draftProbability": 0.641639781878682,
+   "overallScore": 71,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.39519246070331,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 46.90769259548855,
+     "fitScore": 47.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 65.73937820572465,
+     "fitScore": 66.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 62.85786422065237,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 63.07534649744092,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 69.58145769081668,
+     "fitScore": 70.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-brayden_burries",
+   "stageBQuality": 0.6913833711605677
+  },
+  {
+   "boardRank": 54,
+   "boardSignal": 0.12962695116853717,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 6461,
+      "rank": 1,
+      "rawDistance": 10.2502,
+      "similarityScore": 100
+     },
+     {
+      "id": 4702233,
+      "rank": 2,
+      "rawDistance": 12.6741,
+      "similarityScore": 99
+     },
+     {
+      "id": 4423314,
+      "rank": 3,
+      "rawDistance": 14.5787,
+      "similarityScore": 98
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 10.627214674230324,
+    "playmaking": 50.862595470964415,
+    "rebounding": 34.378771158523335,
+    "rim_pressure": 36.883447770952685,
+    "shooting": 34.98862319986342,
+    "size": 63.17857142857143
+   },
+   "draftOrderPick": 39.01391844839825,
+   "draftProbability": 0.35375185213690835,
+   "overallScore": 11,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.862595470964415,
+     "fitScore": 51.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 41.53873585234775,
+     "fitScore": 42.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 37.07697458519129,
+     "fitScore": 37.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 36.883447770952685,
+     "fitScore": 37.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 47.0162868591294,
+     "fitScore": 47.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 19.282935717901054,
+     "fitScore": 19.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-bryson_tucker",
+   "stageBQuality": 0.3664346925266958
+  },
+  {
+   "boardRank": 2,
+   "boardSignal": 0.7496215709646108,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 6583,
+      "rank": 1,
+      "rawDistance": 7.9764,
+      "similarityScore": 100
+     },
+     {
+      "id": 4871144,
+      "rank": 2,
+      "rawDistance": 11.9802,
+      "similarityScore": 99
+     },
+     {
+      "id": 4066261,
+      "rank": 3,
+      "rawDistance": 12.0586,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 83.57832661592117,
+    "playmaking": 76.35017846563856,
+    "rebounding": 84.09339706547962,
+    "rim_pressure": 83.47581484387881,
+    "shooting": 42.27048579828628,
+    "size": 75.75
+   },
+   "draftOrderPick": 13.918748308927759,
+   "draftProbability": 0.9553122026788732,
+   "overallScore": 98,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 76.35017846563856,
+     "fitScore": 76.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 82.1956261705797,
+     "fitScore": 82.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 28.774802396537428,
+     "fitScore": 29.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 83.47581484387881,
+     "fitScore": 83.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 56.58612285021996,
+     "fitScore": 57.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 59.438173493663356,
+     "fitScore": 59.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-caleb_wilson",
+   "stageBQuality": 0.7846875281845374
+  },
+  {
+   "boardRank": 4,
+   "boardSignal": 0.6208361508784197,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 1966,
+      "rank": 1,
+      "rawDistance": 17.822,
+      "similarityScore": 95
+     },
+     {
+      "id": 6450,
+      "rank": 2,
+      "rawDistance": 18.3443,
+      "similarityScore": 95
+     },
+     {
+      "id": 3945274,
+      "rank": 3,
+      "rawDistance": 18.4434,
+      "similarityScore": 94
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 64.73218939325565,
+    "playmaking": 76.01983640878981,
+    "rebounding": 89.57851846509749,
+    "rim_pressure": 78.0347564664111,
+    "shooting": 69.7228183633391,
+    "size": 88.3
+   },
+   "draftOrderPick": 17.341909563859193,
+   "draftProbability": 0.8532248818163825,
+   "overallScore": 94,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 76.01983640878981,
+     "fitScore": 76.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 81.46275248626526,
+     "fitScore": 81.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 51.18260817232052,
+     "fitScore": 51.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 78.0347564664111,
+     "fitScore": 78.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 78.46352567583773,
+     "fitScore": 78.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.18117804360999,
+     "fitScore": 67.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-cameron_boozer",
+   "stageBQuality": 0.7276348406023468
+  },
+  {
+   "boardRank": 6,
+   "boardSignal": 0.5955437471352464,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4066320,
+      "rank": 1,
+      "rawDistance": 8.5768,
+      "similarityScore": 100
+     },
+     {
+      "id": 4593803,
+      "rank": 2,
+      "rawDistance": 10.7125,
+      "similarityScore": 100
+     },
+     {
+      "id": 6450,
+      "rank": 3,
+      "rawDistance": 10.7636,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 61.37189060914261,
+    "playmaking": 60.184373452762486,
+    "rebounding": 65.56028579563018,
+    "rim_pressure": 59.208018676598854,
+    "shooting": 74.55650590721011,
+    "size": 33.5
+   },
+   "draftOrderPick": 19.51259233915745,
+   "draftProbability": 0.8612884449235096,
+   "overallScore": 91,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 60.184373452762486,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 57.26182521676826,
+     "fitScore": 57.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 69.91917274254823,
+     "fitScore": 70.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 59.208018676598854,
+     "fitScore": 59.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 49.9764239206002,
+     "fitScore": 50.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.64372642556881,
+     "fitScore": 68.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-cameron_carr",
+   "stageBQuality": 0.6914567943473758
+  },
+  {
+   "boardRank": 32,
+   "boardSignal": 0.3504570853723996,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 5105623,
+      "rank": 1,
+      "rawDistance": 8.6702,
+      "similarityScore": 100
+     },
+     {
+      "id": 4277919,
+      "rank": 2,
+      "rawDistance": 10.2448,
+      "similarityScore": 100
+     },
+     {
+      "id": 4278129,
+      "rank": 3,
+      "rawDistance": 11.0077,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 57.489272239860504,
+    "playmaking": 50.05782090269341,
+    "rebounding": 86.38679052108039,
+    "rim_pressure": 36.42207133960174,
+    "shooting": 43.76800756783558,
+    "size": 95.0
+   },
+   "draftOrderPick": 28.56804863920312,
+   "draftProbability": 0.6483552250192853,
+   "overallScore": 48,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.05782090269341,
+     "fitScore": 50.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 84.2012805242046,
+     "fitScore": 84.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 41.24294466137278,
+     "fitScore": 41.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 36.42207133960174,
+     "fitScore": 36.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 64.48225119321117,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.16164772476652,
+     "fitScore": 50.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-chris_cenac",
+   "stageBQuality": 0.540532522679948
+  },
+  {
+   "boardRank": 8,
+   "boardSignal": 0.5685498952954939,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3136776,
+      "rank": 1,
+      "rawDistance": 8.8438,
+      "similarityScore": 100
+     },
+     {
+      "id": 3064230,
+      "rank": 2,
+      "rawDistance": 11.8736,
+      "similarityScore": 99
+     },
+     {
+      "id": 4432107,
+      "rank": 3,
+      "rawDistance": 12.1803,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 54.310667177660726,
+    "playmaking": 59.02230857779032,
+    "rebounding": 25.58430871774341,
+    "rim_pressure": 58.50682667914543,
+    "shooting": 84.63427562507133,
+    "size": 13.5
+   },
+   "draftOrderPick": 19.358984459849687,
+   "draftProbability": 0.819216180855096,
+   "overallScore": 88,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 59.02230857779032,
+     "fitScore": 59.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 22.10071766333592,
+     "fitScore": 22.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 83.31186902500092,
+     "fitScore": 83.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.50682667914543,
+     "fitScore": 59.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 33.80181534974805,
+     "fitScore": 34.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.79781689181192,
+     "fitScore": 68.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-christian_anderson",
+   "stageBQuality": 0.6940169256691718
+  },
+  {
+   "boardRank": 39,
+   "boardSignal": 0.30952830272032955,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 6606,
+      "rank": 1,
+      "rawDistance": 4.8243,
+      "similarityScore": 100
+     },
+     {
+      "id": 4396907,
+      "rank": 2,
+      "rawDistance": 7.5612,
+      "similarityScore": 100
+     },
+     {
+      "id": 3934672,
+      "rank": 3,
+      "rawDistance": 8.1575,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 29.8333665903704,
+    "playmaking": 86.01854291592129,
+    "rebounding": 36.60058441645462,
+    "rim_pressure": 55.56598249671141,
+    "shooting": 62.94690350440073,
+    "size": 19.0
+   },
+   "draftOrderPick": 30.872150050036915,
+   "draftProbability": 0.6164295890368549,
+   "overallScore": 36,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 86.01854291592129,
+     "fitScore": 86.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 17.13172000493121,
+     "fitScore": 17.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 44.92698767554314,
+     "fitScore": 45.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.56598249671141,
+     "fitScore": 56.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 34.58310521893044,
+     "fitScore": 35.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 43.334951805389814,
+     "fitScore": 43.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-colby_garland",
+   "stageBQuality": 0.5021308324993847
+  },
+  {
+   "boardRank": 47,
+   "boardSignal": 0.25285314955665095,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3936299,
+      "rank": 1,
+      "rawDistance": 4.9999,
+      "similarityScore": 100
+     },
+     {
+      "id": 4396907,
+      "rank": 2,
+      "rawDistance": 5.5816,
+      "similarityScore": 100
+     },
+     {
+      "id": 4431678,
+      "rank": 3,
+      "rawDistance": 7.6691,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 51.07718559130895,
+    "playmaking": 78.78186346024975,
+    "rebounding": 24.703051868544293,
+    "rim_pressure": 51.61508608101323,
+    "shooting": 67.76120295459206,
+    "size": 16.5
+   },
+   "draftOrderPick": 32.01193494426826,
+   "draftProbability": 0.5233598359956522,
+   "overallScore": 22,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 78.78186346024975,
+     "fitScore": 79.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 26.188572564102714,
+     "fitScore": 26.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 59.513278947912504,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 51.61508608101323,
+     "fitScore": 52.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 33.437401943792956,
+     "fitScore": 33.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.83070235176573,
+     "fitScore": 59.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-cruz_davis",
+   "stageBQuality": 0.48313441759552894
+  },
+  {
+   "boardRank": 9,
+   "boardSignal": 0.5303334142857371,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 1966,
+      "rank": 1,
+      "rawDistance": 12.4309,
+      "similarityScore": 99
+     },
+     {
+      "id": 6430,
+      "rank": 2,
+      "rawDistance": 12.6096,
+      "similarityScore": 99
+     },
+     {
+      "id": 3945274,
+      "rank": 3,
+      "rawDistance": 13.1634,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 72.06583038373827,
+    "playmaking": 58.1567028452837,
+    "rebounding": 94.00614972615054,
+    "rim_pressure": 81.84156632596273,
+    "shooting": 62.980266116224655,
+    "size": 66.25
+   },
+   "draftOrderPick": 14.922418071978846,
+   "draftProbability": 0.6905745381094647,
+   "overallScore": 86,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.1567028452837,
+     "fitScore": 58.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 63.42961048492383,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 46.17388428301631,
+     "fitScore": 46.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 81.84156632596273,
+     "fitScore": 82.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 64.59444736353025,
+     "fitScore": 65.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.37006141792172,
+     "fitScore": 67.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-dailyn_swain",
+   "stageBQuality": 0.7679596988003525
+  },
+  {
+   "boardRank": 25,
+   "boardSignal": 0.3827866413973993,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4396907,
+      "rank": 1,
+      "rawDistance": 6.1086,
+      "similarityScore": 100
+     },
+     {
+      "id": 6606,
+      "rank": 2,
+      "rawDistance": 8.953,
+      "similarityScore": 100
+     },
+     {
+      "id": 3936299,
+      "rank": 3,
+      "rawDistance": 9.8514,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 37.30658557082306,
+    "playmaking": 89.97416391147571,
+    "rebounding": 20.337269236864998,
+    "rim_pressure": 60.21794517295118,
+    "shooting": 73.11532704908953,
+    "size": 21.5
+   },
+   "draftOrderPick": 26.83943761607854,
+   "draftProbability": 0.6723308072543343,
+   "overallScore": 59,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 89.97416391147571,
+     "fitScore": 90.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 25.727576067650972,
+     "fitScore": 26.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 59.940766912348614,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 60.21794517295118,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 39.64819707824588,
+     "fitScore": 40.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 52.22722666479211,
+     "fitScore": 52.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-darius_acuff",
+   "stageBQuality": 0.569342706398691
+  },
+  {
+   "boardRank": 7,
+   "boardSignal": 0.5832428948757822,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 6450,
+      "rank": 1,
+      "rawDistance": 13.5988,
+      "similarityScore": 99
+     },
+     {
+      "id": 4594268,
+      "rank": 2,
+      "rawDistance": 15.4731,
+      "similarityScore": 97
+     },
+     {
+      "id": 4593803,
+      "rank": 3,
+      "rawDistance": 15.639,
+      "similarityScore": 97
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 86.03137463788516,
+    "playmaking": 75.93895633647148,
+    "rebounding": 55.84279777720352,
+    "rim_pressure": 51.0708573627839,
+    "shooting": 70.62679244455467,
+    "size": 45.5
+   },
+   "draftOrderPick": 14.315337854617004,
+   "draftProbability": 0.7495946652364885,
+   "overallScore": 89,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 75.93895633647148,
+     "fitScore": 76.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 56.21806284372795,
+     "fitScore": 56.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.10959120691767,
+     "fitScore": 67.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 51.0708573627839,
+     "fitScore": 51.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 56.687909259622884,
+     "fitScore": 57.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 77.94947107113451,
+     "fitScore": 78.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-darryn_peterson",
+   "stageBQuality": 0.7780777024230499
+  },
+  {
+   "boardRank": 23,
+   "boardSignal": 0.4182398996240264,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3058254,
+      "rank": 1,
+      "rawDistance": 14.5727,
+      "similarityScore": 98
+     },
+     {
+      "id": 3059319,
+      "rank": 2,
+      "rawDistance": 15.097,
+      "similarityScore": 98
+     },
+     {
+      "id": 5105592,
+      "rank": 3,
+      "rawDistance": 15.8864,
+      "similarityScore": 97
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 82.1853715750035,
+    "playmaking": 51.37624577967105,
+    "rebounding": 91.722978112083,
+    "rim_pressure": 67.90371009992023,
+    "shooting": 58.078563934054685,
+    "size": 57.5
+   },
+   "draftOrderPick": 16.525765233890496,
+   "draftProbability": 0.5642456606485369,
+   "overallScore": 62,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 51.37624577967105,
+     "fitScore": 51.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 69.74382160018858,
+     "fitScore": 70.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.05229748282982,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.90371009992023,
+     "fitScore": 68.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 57.788557917706754,
+     "fitScore": 58.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 69.08840971872834,
+     "fitScore": 69.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-dennis_parker",
+   "stageBQuality": 0.7412372461018251
+  },
+  {
+   "boardRank": 26,
+   "boardSignal": 0.38003687480474524,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3908809,
+      "rank": 1,
+      "rawDistance": 5.705,
+      "similarityScore": 100
+     },
+     {
+      "id": 3456,
+      "rank": 2,
+      "rawDistance": 6.8539,
+      "similarityScore": 100
+     },
+     {
+      "id": 6580,
+      "rank": 3,
+      "rawDistance": 7.6952,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 69.8841470855775,
+    "playmaking": 90.56218394821408,
+    "rebounding": 42.70165881100287,
+    "rim_pressure": 69.1124792117041,
+    "shooting": 63.247161238318,
+    "size": 21.5
+   },
+   "draftOrderPick": 21.269065513249995,
+   "draftProbability": 0.5739158361827381,
+   "overallScore": 57,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 90.56218394821408,
+     "fitScore": 91.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 33.95570457104648,
+     "fitScore": 34.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.41086346769196,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 69.1124792117041,
+     "fitScore": 69.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 36.87565547381953,
+     "fitScore": 37.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 66.4828844043627,
+     "fitScore": 66.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-ebuka_okorie",
+   "stageBQuality": 0.6621822414458334
+  },
+  {
+   "boardRank": 14,
+   "boardSignal": 0.47801727276052236,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4396909,
+      "rank": 1,
+      "rawDistance": 10.3901,
+      "similarityScore": 100
+     },
+     {
+      "id": 4397183,
+      "rank": 2,
+      "rawDistance": 10.9606,
+      "similarityScore": 99
+     },
+     {
+      "id": 3934719,
+      "rank": 3,
+      "rawDistance": 12.3313,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 75.86989635153886,
+    "playmaking": 45.40170647212676,
+    "rebounding": 81.6054763812816,
+    "rim_pressure": 54.59009991543361,
+    "shooting": 82.03203974953735,
+    "size": 64.5
+   },
+   "draftOrderPick": 15.76340219219426,
+   "draftProbability": 0.6340228433510162,
+   "overallScore": 78,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 45.40170647212676,
+     "fitScore": 45.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 71.42553440588206,
+     "fitScore": 71.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 81.04462263796582,
+     "fitScore": 81.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 54.59009991543361,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 72.73971792525151,
+     "fitScore": 73.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 78.89082553315502,
+     "fitScore": 79.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-eian_elmer",
+   "stageBQuality": 0.7539432967967623
+  },
+  {
+   "boardRank": 56,
+   "boardSignal": 0.11186836769965484,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4432107,
+      "rank": 1,
+      "rawDistance": 9.8419,
+      "similarityScore": 100
+     },
+     {
+      "id": 3064230,
+      "rank": 2,
+      "rawDistance": 10.583,
+      "similarityScore": 100
+     },
+     {
+      "id": 3133601,
+      "rank": 3,
+      "rawDistance": 10.8817,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 45.605324859603684,
+    "playmaking": 55.77000275863137,
+    "rebounding": 21.594161454741865,
+    "rim_pressure": 46.45015165746368,
+    "shooting": 59.83096110837161,
+    "size": 13.5
+   },
+   "draftOrderPick": 39.808123622463114,
+   "draftProbability": 0.3167299554981376,
+   "overallScore": 8,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.77000275863137,
+     "fitScore": 56.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 21.843418843295815,
+     "fitScore": 22.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 62.896562743690026,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 46.45015165746368,
+     "fitScore": 46.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 28.420379571058103,
+     "fitScore": 28.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 52.23610263036094,
+     "fitScore": 52.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-elliot_cadeau",
+   "stageBQuality": 0.35319793962561474
+  },
+  {
+   "boardRank": 50,
+   "boardSignal": 0.16178508611154294,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4395651,
+      "rank": 1,
+      "rawDistance": 7.9236,
+      "similarityScore": 100
+     },
+     {
+      "id": 4351851,
+      "rank": 2,
+      "rawDistance": 10.7432,
+      "similarityScore": 100
+     },
+     {
+      "id": 3064440,
+      "rank": 3,
+      "rawDistance": 10.7523,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 18.85967399343081,
+    "playmaking": 73.1368546731938,
+    "rebounding": 14.937544235774112,
+    "rim_pressure": 50.48955862181408,
+    "shooting": 67.60920313987789,
+    "size": 35.0
+   },
+   "draftOrderPick": 26.655203626901056,
+   "draftProbability": 0.282636853083683,
+   "overallScore": 18,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 73.1368546731938,
+     "fitScore": 73.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 19.94166322884736,
+     "fitScore": 20.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.73378701863112,
+     "fitScore": 68.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.48955862181408,
+     "fitScore": 50.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 48.644856972713235,
+     "fitScore": 49.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 35.708367789269445,
+     "fitScore": 36.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-finley_bizjack",
+   "stageBQuality": 0.5724132728849824
+  },
+  {
+   "boardRank": 15,
+   "boardSignal": 0.46921619263788483,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3906665,
+      "rank": 1,
+      "rawDistance": 8.9648,
+      "similarityScore": 100
+     },
+     {
+      "id": 4066328,
+      "rank": 2,
+      "rawDistance": 9.2179,
+      "similarityScore": 100
+     },
+     {
+      "id": 4277847,
+      "rank": 3,
+      "rawDistance": 10.2848,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 67.50741389285638,
+    "playmaking": 49.960889750262325,
+    "rebounding": 77.06695380222818,
+    "rim_pressure": 67.15243347027358,
+    "shooting": 43.75156192291268,
+    "size": 92.0
+   },
+   "draftOrderPick": 23.33688450619711,
+   "draftProbability": 0.7474944966489933,
+   "overallScore": 76,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 49.960889750262325,
+     "fitScore": 50.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 88.53918893274816,
+     "fitScore": 89.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 20.752324960983184,
+     "fitScore": 21.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.15243347027358,
+     "fitScore": 67.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.44402018242516,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 54.346617182571734,
+     "fitScore": 54.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-flory_bidunga",
+   "stageBQuality": 0.6277185915633815
+  },
+  {
+   "boardRank": 34,
+   "boardSignal": 0.33435190447861596,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4397102,
+      "rank": 1,
+      "rawDistance": 17.2435,
+      "similarityScore": 96
+     },
+     {
+      "id": 4600663,
+      "rank": 2,
+      "rawDistance": 20.2313,
+      "similarityScore": 92
+     },
+     {
+      "id": 5104157,
+      "rank": 3,
+      "rawDistance": 44.877,
+      "similarityScore": 19
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 49.939430114280064,
+    "playmaking": 12.667256500644102,
+    "rebounding": 34.31426270570678,
+    "rim_pressure": 62.84988599637132,
+    "shooting": 52.85298792116974,
+    "size": 82.33333333333334
+   },
+   "draftOrderPick": 16.572210834370104,
+   "draftProbability": 0.4515442844551127,
+   "overallScore": 44,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 12.667256500644102,
+     "fitScore": 13.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 65.23743244491885,
+     "fitScore": 65.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 24.45886046106884,
+     "fitScore": 24.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 62.84988599637132,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 65.96637531482463,
+     "fitScore": 66.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 51.375559331457836,
+     "fitScore": 51.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-gabe_dynes",
+   "stageBQuality": 0.7404631527604982
+  },
+  {
+   "boardRank": 17,
+   "boardSignal": 0.4492258197137072,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3058254,
+      "rank": 1,
+      "rawDistance": 12.2343,
+      "similarityScore": 99
+     },
+     {
+      "id": 3133628,
+      "rank": 2,
+      "rawDistance": 13.7599,
+      "similarityScore": 98
+     },
+     {
+      "id": 3136195,
+      "rank": 3,
+      "rawDistance": 14.3907,
+      "similarityScore": 98
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 67.19613092344015,
+    "playmaking": 53.12172724087569,
+    "rebounding": 95.90837100409203,
+    "rim_pressure": 71.3238060644611,
+    "shooting": 57.23225558077961,
+    "size": 94.8
+   },
+   "draftOrderPick": 21.729186087703862,
+   "draftProbability": 0.6863506634473642,
+   "overallScore": 72,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 53.12172724087569,
+     "fitScore": 53.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 91.88112349944399,
+     "fitScore": 92.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 37.70924847644268,
+     "fitScore": 38.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 71.3238060644611,
+     "fitScore": 71.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 73.65879329080747,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 62.01440267429696,
+     "fitScore": 62.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-hannes_steinbach",
+   "stageBQuality": 0.6545135652049355
+  },
+  {
+   "boardRank": 11,
+   "boardSignal": 0.5013824365039243,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4433255,
+      "rank": 1,
+      "rawDistance": 8.8121,
+      "similarityScore": 100
+     },
+     {
+      "id": 3136195,
+      "rank": 2,
+      "rawDistance": 10.4212,
+      "similarityScore": 100
+     },
+     {
+      "id": 3102531,
+      "rank": 3,
+      "rawDistance": 11.5681,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 33.943276059502494,
+    "playmaking": 66.91647238042752,
+    "rebounding": 55.0747464100732,
+    "rim_pressure": 60.47315157573556,
+    "shooting": 61.30934700193468,
+    "size": 90.33333333333334
+   },
+   "draftOrderPick": 20.536353924818897,
+   "draftProbability": 0.7434561417016551,
+   "overallScore": 82,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 66.91647238042752,
+     "fitScore": 67.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.95540337016216,
+     "fitScore": 75.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 48.42847511105579,
+     "fitScore": 48.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 60.47315157573556,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.41960547580706,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 45.618418323244185,
+     "fitScore": 46.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-henri_veesaar",
+   "stageBQuality": 0.6743941012530184
+  },
+  {
+   "boardRank": 27,
+   "boardSignal": 0.37077336022629165,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4433287,
+      "rank": 1,
+      "rawDistance": 10.8541,
+      "similarityScore": 100
+     },
+     {
+      "id": 6475,
+      "rank": 2,
+      "rawDistance": 10.9924,
+      "similarityScore": 99
+     },
+     {
+      "id": 4397688,
+      "rank": 3,
+      "rawDistance": 11.2404,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 59.91820262580027,
+    "playmaking": 63.40363636804155,
+    "rebounding": 35.860178651045516,
+    "rim_pressure": 41.68271794022615,
+    "shooting": 79.33327567024675,
+    "size": 42.0
+   },
+   "draftOrderPick": 20.13915792362235,
+   "draftProbability": 0.5444430531312648,
+   "overallScore": 56,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.40363636804155,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 48.83835911038328,
+     "fitScore": 49.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 81.42071509118588,
+     "fitScore": 81.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 41.68271794022615,
+     "fitScore": 42.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 57.7234577806143,
+     "fitScore": 58.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 68.94568359642479,
+     "fitScore": 69.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-isaiah_evans",
+   "stageBQuality": 0.6810140346062942
+  },
+  {
+   "boardRank": 49,
+   "boardSignal": 0.17077967108901326,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4888725,
+      "rank": 1,
+      "rawDistance": 10.753,
+      "similarityScore": 100
+     },
+     {
+      "id": 2426,
+      "rank": 2,
+      "rawDistance": 12.9359,
+      "similarityScore": 99
+     },
+     {
+      "id": 4278052,
+      "rank": 3,
+      "rawDistance": 12.9737,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 83.63914647699708,
+    "playmaking": 58.19539344085007,
+    "rebounding": 72.97292328578129,
+    "rim_pressure": 18.918232054394345,
+    "shooting": 33.35637294304388,
+    "size": 68.0
+   },
+   "draftOrderPick": 30.19742945943267,
+   "draftProbability": 0.3326599074530378,
+   "overallScore": 19,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.19539344085007,
+     "fitScore": 58.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 70.45979452647387,
+     "fitScore": 70.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 36.74987677738187,
+     "fitScore": 37.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 18.918232054394345,
+     "fitScore": 19.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 47.62597358718228,
+     "fitScore": 48.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 52.81949036600588,
+     "fitScore": 53.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-isiah_harwell",
+   "stageBQuality": 0.5133761756761221
+  },
+  {
+   "boardRank": 35,
+   "boardSignal": 0.3245688985100108,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4269,
+      "rank": 1,
+      "rawDistance": 8.8827,
+      "similarityScore": 100
+     },
+     {
+      "id": 4066392,
+      "rank": 2,
+      "rawDistance": 10.31,
+      "similarityScore": 100
+     },
+     {
+      "id": 4277964,
+      "rank": 3,
+      "rawDistance": 12.3195,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 74.02044090223858,
+    "playmaking": 45.50423550224881,
+    "rebounding": 59.52615521484242,
+    "rim_pressure": 56.136711020458186,
+    "shooting": 41.966433939877064,
+    "size": 90.6
+   },
+   "draftOrderPick": 26.722153917476817,
+   "draftProbability": 0.5681259511964983,
+   "overallScore": 42,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 45.50423550224881,
+     "fitScore": 46.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 79.74327968737362,
+     "fitScore": 80.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 38.41465611798395,
+     "fitScore": 38.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 56.136711020458186,
+     "fitScore": 56.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 61.66164865581251,
+     "fitScore": 62.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.73485393651239,
+     "fitScore": 56.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-jacob_cofie",
+   "stageBQuality": 0.5712974347087197
+  },
+  {
+   "boardRank": 58,
+   "boardSignal": 0.07193952637436268,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4257,
+      "rank": 1,
+      "rawDistance": 6.4413,
+      "similarityScore": 100
+     },
+     {
+      "id": 2384,
+      "rank": 2,
+      "rawDistance": 7.3419,
+      "similarityScore": 100
+     },
+     {
+      "id": 5105637,
+      "rank": 3,
+      "rawDistance": 8.4698,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 73.38371228947928,
+    "playmaking": 9.991216935478175,
+    "rebounding": 95.54323418441416,
+    "rim_pressure": 84.67664687831598,
+    "shooting": 42.1015830604496,
+    "size": 96.0
+   },
+   "draftOrderPick": 25.03408473812661,
+   "draftProbability": 0.12001283857323222,
+   "overallScore": 4,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 9.991216935478175,
+     "fitScore": 10.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 94.64844979012108,
+     "fitScore": 95.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 21.661463402212583,
+     "fitScore": 22.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 84.67664687831598,
+     "fitScore": 85.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.574774665767876,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.58390466888456,
+     "fitScore": 56.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-jayden_quaintance",
+   "stageBQuality": 0.5994319210312232
+  },
+  {
+   "boardRank": 29,
+   "boardSignal": 0.3624877782686614,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 2799,
+      "rank": 1,
+      "rawDistance": 8.1632,
+      "similarityScore": 100
+     },
+     {
+      "id": 4277905,
+      "rank": 2,
+      "rawDistance": 8.5215,
+      "similarityScore": 100
+     },
+     {
+      "id": 3032979,
+      "rank": 3,
+      "rawDistance": 11.4717,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 39.096110529200395,
+    "playmaking": 67.62106746952341,
+    "rebounding": 14.642144862107532,
+    "rim_pressure": 63.89664242487141,
+    "shooting": 51.75828735921042,
+    "size": 25.0
+   },
+   "draftOrderPick": 31.491651639630295,
+   "draftProbability": 0.7370546948445742,
+   "overallScore": 52,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.62106746952341,
+     "fitScore": 68.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 13.911407877387667,
+     "fitScore": 14.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 45.43513320815435,
+     "fitScore": 45.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.89664242487141,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 35.97161636596639,
+     "fitScore": 36.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 44.98386069911971,
+     "fitScore": 45.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-jeremy_fears",
+   "stageBQuality": 0.49180580600616175
+  },
+  {
+   "boardRank": 42,
+   "boardSignal": 0.2945265019885756,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4066320,
+      "rank": 1,
+      "rawDistance": 10.6889,
+      "similarityScore": 100
+     },
+     {
+      "id": 6429,
+      "rank": 2,
+      "rawDistance": 12.3831,
+      "similarityScore": 99
+     },
+     {
+      "id": 6442,
+      "rank": 3,
+      "rawDistance": 12.557,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 35.47912991913687,
+    "playmaking": 74.35789073038784,
+    "rebounding": 72.68759952119827,
+    "rim_pressure": 46.35685177232085,
+    "shooting": 77.00540507423639,
+    "size": 44.16666666666667
+   },
+   "draftOrderPick": 24.300555054847223,
+   "draftProbability": 0.48152199973936066,
+   "overallScore": 31,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.35789073038784,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 36.662203635837926,
+     "fitScore": 37.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 75.31868774823326,
+     "fitScore": 75.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 46.35685177232085,
+     "fitScore": 46.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 58.318711040672376,
+     "fitScore": 58.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 52.26934829424023,
+     "fitScore": 52.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-john_blackwell",
+   "stageBQuality": 0.6116574157525463
+  },
+  {
+   "boardRank": 19,
+   "boardSignal": 0.44102795001729167,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4066383,
+      "rank": 1,
+      "rawDistance": 8.532,
+      "similarityScore": 100
+     },
+     {
+      "id": 3059319,
+      "rank": 2,
+      "rawDistance": 11.4755,
+      "similarityScore": 99
+     },
+     {
+      "id": 3917376,
+      "rank": 3,
+      "rawDistance": 12.3324,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 52.20077275250832,
+    "playmaking": 73.60415423834381,
+    "rebounding": 84.28315250059492,
+    "rim_pressure": 58.619476934117024,
+    "shooting": 61.118659114042714,
+    "size": 59.0
+   },
+   "draftOrderPick": 16.22244234672379,
+   "draftProbability": 0.5909584708915314,
+   "overallScore": 69,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 73.60415423834381,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 55.107162096066766,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 62.78390731049352,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.619476934117024,
+     "fitScore": 59.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 60.04998657558985,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 56.48399096514131,
+     "fitScore": 56.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-juke_harris",
+   "stageBQuality": 0.7462926275546036
+  },
+  {
+   "boardRank": 24,
+   "boardSignal": 0.3850818625647246,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3032978,
+      "rank": 1,
+      "rawDistance": 4.8602,
+      "similarityScore": 100
+     },
+     {
+      "id": 4684793,
+      "rank": 2,
+      "rawDistance": 10.4295,
+      "similarityScore": 100
+     },
+     {
+      "id": 6478,
+      "rank": 3,
+      "rawDistance": 12.245,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 16.916953480842416,
+    "playmaking": 50.925717214306374,
+    "rebounding": 72.86829077074474,
+    "rim_pressure": 62.574928135503825,
+    "shooting": 57.580432779586346,
+    "size": 85.0
+   },
+   "draftOrderPick": 27.49837515010928,
+   "draftProbability": 0.6896654074961635,
+   "overallScore": 61,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.925717214306374,
+     "fitScore": 51.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.02979341868985,
+     "fitScore": 67.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 53.42968538728593,
+     "fitScore": 53.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 62.574928135503825,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 69.9595367785182,
+     "fitScore": 70.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 31.210342880830957,
+     "fitScore": 31.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-keanu_dawes",
+   "stageBQuality": 0.5583604141648453
+  },
+  {
+   "boardRank": 31,
+   "boardSignal": 0.35269996710896206,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 6609,
+      "rank": 1,
+      "rawDistance": 4.8123,
+      "similarityScore": 100
+     },
+     {
+      "id": 4066320,
+      "rank": 2,
+      "rawDistance": 6.634,
+      "similarityScore": 100
+     },
+     {
+      "id": 2566769,
+      "rank": 3,
+      "rawDistance": 8.2698,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 52.63782222282455,
+    "playmaking": 84.00791739433367,
+    "rebounding": 66.70047725708366,
+    "rim_pressure": 64.02114300740502,
+    "shooting": 72.46055925809452,
+    "size": 37.333333333333336
+   },
+   "draftOrderPick": 21.064582150863977,
+   "draftProbability": 0.5299055116057976,
+   "overallScore": 49,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 84.00791739433367,
+     "fitScore": 84.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 50.00692149990838,
+     "fitScore": 50.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 69.39165922690471,
+     "fitScore": 69.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 64.02114300740502,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 52.011481543041974,
+     "fitScore": 52.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 61.7589348709482,
+     "fitScore": 62.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-keaton_wagler",
+   "stageBQuality": 0.6655902974856004
+  },
+  {
+   "boardRank": 57,
+   "boardSignal": 0.08891852644287371,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 2284101,
+      "rank": 1,
+      "rawDistance": 7.4017,
+      "similarityScore": 100
+     },
+     {
+      "id": 4711297,
+      "rank": 2,
+      "rawDistance": 10.1772,
+      "similarityScore": 100
+     },
+     {
+      "id": 4397018,
+      "rank": 3,
+      "rawDistance": 10.3506,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 42.872517497787975,
+    "playmaking": 57.5964201219316,
+    "rebounding": 2.906181144761713,
+    "rim_pressure": 34.02538039396798,
+    "shooting": 59.91416863399066,
+    "size": 64.5
+   },
+   "draftOrderPick": 27.871891779355803,
+   "draftProbability": 0.16104486109012953,
+   "overallScore": 6,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 57.5964201219316,
+     "fitScore": 58.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 18.78612015692983,
+     "fitScore": 19.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 66.97193642179643,
+     "fitScore": 67.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 34.02538039396798,
+     "fitScore": 34.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 62.16481220829349,
+     "fitScore": 62.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.682060367808475,
+     "fitScore": 51.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-kennard_davis",
+   "stageBQuality": 0.5521351370107366
+  },
+  {
+   "boardRank": 38,
+   "boardSignal": 0.3103273439497492,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3908809,
+      "rank": 1,
+      "rawDistance": 7.255,
+      "similarityScore": 100
+     },
+     {
+      "id": 3992,
+      "rank": 2,
+      "rawDistance": 7.3021,
+      "similarityScore": 100
+     },
+     {
+      "id": 3936299,
+      "rank": 3,
+      "rawDistance": 7.4047,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 79.71285640814313,
+    "playmaking": 86.1404932688329,
+    "rebounding": 50.988569146978996,
+    "rim_pressure": 55.03694222332858,
+    "shooting": 63.177970875956646,
+    "size": 22.75
+   },
+   "draftOrderPick": 32.01788455225045,
+   "draftProbability": 0.6424527799067463,
+   "overallScore": 38,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 86.1404932688329,
+     "fitScore": 86.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 39.28203827079826,
+     "fitScore": 39.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 45.63324992048048,
+     "fitScore": 46.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.03694222332858,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 37.91172427400282,
+     "fitScore": 38.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 70.96546005341598,
+     "fitScore": 71.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-kingston_flemings",
+   "stageBQuality": 0.4830352574624925
+  },
+  {
+   "boardRank": 40,
+   "boardSignal": 0.29996772738592503,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3149673,
+      "rank": 1,
+      "rawDistance": 8.3677,
+      "similarityScore": 100
+     },
+     {
+      "id": 4065648,
+      "rank": 2,
+      "rawDistance": 9.6273,
+      "similarityScore": 100
+     },
+     {
+      "id": 4395628,
+      "rank": 3,
+      "rawDistance": 10.2161,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 39.31600467181517,
+    "playmaking": 74.46488796740255,
+    "rebounding": 41.46861241961399,
+    "rim_pressure": 67.74090092295222,
+    "shooting": 40.364760948030835,
+    "size": 87.0
+   },
+   "draftOrderPick": 30.59049413035512,
+   "draftProbability": 0.5918564977776036,
+   "overallScore": 34,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.46488796740255,
+     "fitScore": 74.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.81778104833437,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 25.46813420670221,
+     "fitScore": 25.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.74090092295222,
+     "fitScore": 68.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 59.259886959719104,
+     "fitScore": 59.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 39.83693173437788,
+     "fitScore": 40.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-koa_peat",
+   "stageBQuality": 0.5068250978274147
+  },
+  {
+   "boardRank": 12,
+   "boardSignal": 0.4961112524665443,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3936299,
+      "rank": 1,
+      "rawDistance": 4.9897,
+      "similarityScore": 100
+     },
+     {
+      "id": 3908809,
+      "rank": 2,
+      "rawDistance": 8.881,
+      "similarityScore": 100
+     },
+     {
+      "id": 6580,
+      "rank": 3,
+      "rawDistance": 9.2889,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 45.27842950808321,
+    "playmaking": 78.9468192693906,
+    "rebounding": 31.648409762092264,
+    "rim_pressure": 70.63127947325857,
+    "shooting": 74.84342216669246,
+    "size": 19.1
+   },
+   "draftOrderPick": 15.95167603457136,
+   "draftProbability": 0.6607720893420241,
+   "overallScore": 81,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 78.9468192693906,
+     "fitScore": 79.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 25.081799227574972,
+     "fitScore": 25.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 66.39534124888645,
+     "fitScore": 66.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 70.63127947325857,
+     "fitScore": 71.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 37.80885297630473,
+     "fitScore": 38.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.21333708625792,
+     "fitScore": 58.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-labaron_philon",
+   "stageBQuality": 0.7508053994238106
+  },
+  {
+   "boardRank": 59,
+   "boardSignal": 0.06612362711888366,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4683021,
+      "rank": 1,
+      "rawDistance": 7.9275,
+      "similarityScore": 100
+     },
+     {
+      "id": 3149673,
+      "rank": 2,
+      "rawDistance": 9.1281,
+      "similarityScore": 100
+     },
+     {
+      "id": 3064290,
+      "rank": 3,
+      "rawDistance": 9.7017,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 27.470826032245302,
+    "playmaking": 46.060923180547576,
+    "rebounding": 58.99361197985559,
+    "rim_pressure": 52.80669545228174,
+    "shooting": 42.189320626535746,
+    "size": 70.5
+   },
+   "draftOrderPick": 39.73585590659401,
+   "draftProbability": 0.18657781896630937,
+   "overallScore": 2,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 46.060923180547576,
+     "fitScore": 46.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 54.97018964918024,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 37.8157764700605,
+     "fitScore": 38.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 52.80669545228174,
+     "fitScore": 53.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 54.53757515851589,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 34.04372904589304,
+     "fitScore": 34.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-lejuan_watts",
+   "stageBQuality": 0.3544024015567665
+  },
+  {
+   "boardRank": 48,
+   "boardSignal": 0.20234923342993255,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4432811,
+      "rank": 1,
+      "rawDistance": 6.6357,
+      "similarityScore": 100
+     },
+     {
+      "id": 4432582,
+      "rank": 2,
+      "rawDistance": 10.2635,
+      "similarityScore": 100
+     },
+     {
+      "id": 2581177,
+      "rank": 3,
+      "rawDistance": 11.5179,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 30.990199122809333,
+    "playmaking": 59.06300606514665,
+    "rebounding": 41.74413668202462,
+    "rim_pressure": 23.3610450662489,
+    "shooting": 66.63021721338941,
+    "size": 54.5
+   },
+   "draftOrderPick": 34.77885403721156,
+   "draftProbability": 0.4630214874294855,
+   "overallScore": 21,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 59.06300606514665,
+     "fitScore": 59.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 43.705046303865004,
+     "fitScore": 44.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 69.86784597271729,
+     "fitScore": 70.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 23.3610450662489,
+     "fitScore": 23.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 60.26065746512996,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 45.44099139586389,
+     "fitScore": 45.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-lou_hutchinson",
+   "stageBQuality": 0.4370190993798074
+  },
+  {
+   "boardRank": 43,
+   "boardSignal": 0.29059423806523427,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 2488653,
+      "rank": 1,
+      "rawDistance": 10.0831,
+      "similarityScore": 100
+     },
+     {
+      "id": 4433621,
+      "rank": 2,
+      "rawDistance": 10.515,
+      "similarityScore": 100
+     },
+     {
+      "id": 4348700,
+      "rank": 3,
+      "rawDistance": 12.2395,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 66.66898028793187,
+    "playmaking": 44.88825155614949,
+    "rebounding": 66.36750316942364,
+    "rim_pressure": 68.80749189505968,
+    "shooting": 44.39193403208896,
+    "size": 95.8
+   },
+   "draftOrderPick": 30.5593143509071,
+   "draftProbability": 0.5727746899299432,
+   "overallScore": 29,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 44.88825155614949,
+     "fitScore": 45.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 84.80128992247772,
+     "fitScore": 85.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 24.22955725902643,
+     "fitScore": 24.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 68.80749189505968,
+     "fitScore": 69.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 65.21309132585361,
+     "fitScore": 65.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 54.4018839281188,
+     "fitScore": 54.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-malachi_moreno",
+   "stageBQuality": 0.507344760818215
+  },
+  {
+   "boardRank": 20,
+   "boardSignal": 0.4332775629753691,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3919454,
+      "rank": 1,
+      "rawDistance": 10.7083,
+      "similarityScore": 100
+     },
+     {
+      "id": 3934719,
+      "rank": 2,
+      "rawDistance": 11.1394,
+      "similarityScore": 99
+     },
+     {
+      "id": 4711294,
+      "rank": 3,
+      "rawDistance": 14.5288,
+      "similarityScore": 98
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 88.28823725183823,
+    "playmaking": 54.59979995467265,
+    "rebounding": 75.41329549481279,
+    "rim_pressure": 33.12113321661988,
+    "shooting": 66.2043886623699,
+    "size": 57.5
+   },
+   "draftOrderPick": 19.868886893569698,
+   "draftProbability": 0.6320435265453079,
+   "overallScore": 68,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 54.59979995467265,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 64.84932646349391,
+     "fitScore": 65.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 68.74607122523179,
+     "fitScore": 69.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 33.12113321661988,
+     "fitScore": 33.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 61.69888449628786,
+     "fitScore": 62.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 76.45304947048368,
+     "fitScore": 76.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-matt_able",
+   "stageBQuality": 0.6855185517738385
+  },
+  {
+   "boardRank": 28,
+   "boardSignal": 0.37044193381762813,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 6442,
+      "rank": 1,
+      "rawDistance": 8.3047,
+      "similarityScore": 100
+     },
+     {
+      "id": 3908809,
+      "rank": 2,
+      "rawDistance": 10.5457,
+      "similarityScore": 100
+     },
+     {
+      "id": 4592492,
+      "rank": 3,
+      "rawDistance": 10.9537,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 63.44774478239059,
+    "playmaking": 79.86816083097983,
+    "rebounding": 56.462316881623465,
+    "rim_pressure": 43.69708257886281,
+    "shooting": 72.39596072428493,
+    "size": 30.0
+   },
+   "draftOrderPick": 25.109052114475084,
+   "draftProbability": 0.6192791591893789,
+   "overallScore": 54,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 79.86816083097983,
+     "fitScore": 80.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 37.26293890471887,
+     "fitScore": 37.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 65.29658358149386,
+     "fitScore": 65.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 43.69708257886281,
+     "fitScore": 44.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 46.60342070844745,
+     "fitScore": 47.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 67.77433466519908,
+     "fitScore": 68.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-meleek_thomas",
+   "stageBQuality": 0.5981824647587486
+  },
+  {
+   "boardRank": 10,
+   "boardSignal": 0.5132530270715948,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3936299,
+      "rank": 1,
+      "rawDistance": 6.3199,
+      "similarityScore": 100
+     },
+     {
+      "id": 4066262,
+      "rank": 2,
+      "rawDistance": 7.0994,
+      "similarityScore": 100
+     },
+     {
+      "id": 4395695,
+      "rank": 3,
+      "rawDistance": 9.8334,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 52.828852649506956,
+    "playmaking": 63.046054992912886,
+    "rebounding": 30.014719942159143,
+    "rim_pressure": 65.18501431599528,
+    "shooting": 68.58758290856483,
+    "size": 32.5
+   },
+   "draftOrderPick": 13.89509810511402,
+   "draftProbability": 0.6537574729062118,
+   "overallScore": 84,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.046054992912886,
+     "fitScore": 63.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 29.223228669384543,
+     "fitScore": 29.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 71.65247644283967,
+     "fitScore": 72.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 65.18501431599528,
+     "fitScore": 65.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 47.213307917666164,
+     "fitScore": 47.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 60.19471165361967,
+     "fitScore": 60.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-mikel_brown",
+   "stageBQuality": 0.7850816982480997
+  },
+  {
+   "boardRank": 16,
+   "boardSignal": 0.45675390511492336,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4432585,
+      "rank": 1,
+      "rawDistance": 11.6984,
+      "similarityScore": 99
+     },
+     {
+      "id": 5105839,
+      "rank": 2,
+      "rawDistance": 15.3462,
+      "similarityScore": 97
+     },
+     {
+      "id": 4432817,
+      "rank": 3,
+      "rawDistance": 17.7529,
+      "similarityScore": 95
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 32.258882421997036,
+    "playmaking": 57.63443008625684,
+    "rebounding": 7.303768881661924,
+    "rim_pressure": 33.84989490476361,
+    "shooting": 94.84675271991568,
+    "size": 80.5
+   },
+   "draftOrderPick": 11.665175385729075,
+   "draftProbability": 0.5554947143557489,
+   "overallScore": 74,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 57.63443008625684,
+     "fitScore": 58.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 29.31198871354617,
+     "fitScore": 29.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 92.63147530373918,
+     "fitScore": 93.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 33.84989490476361,
+     "fitScore": 34.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 87.37942317246785,
+     "fitScore": 87.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 55.31410529060365,
+     "fitScore": 55.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-milan_momcilovic",
+   "stageBQuality": 0.8222470769045155
+  },
+  {
+   "boardRank": 37,
+   "boardSignal": 0.314022294863799,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3058254,
+      "rank": 1,
+      "rawDistance": 12.1844,
+      "similarityScore": 99
+     },
+     {
+      "id": 3150844,
+      "rank": 2,
+      "rawDistance": 13.6381,
+      "similarityScore": 99
+     },
+     {
+      "id": 6477,
+      "rank": 3,
+      "rawDistance": 13.8931,
+      "similarityScore": 98
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 61.95378457651588,
+    "playmaking": 50.203942981889476,
+    "rebounding": 84.96994785389398,
+    "rim_pressure": 72.39417619617265,
+    "shooting": 60.52637416859163,
+    "size": 92.5
+   },
+   "draftOrderPick": 25.07921642214707,
+   "draftProbability": 0.524524685019528,
+   "overallScore": 39,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.203942981889476,
+     "fitScore": 50.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 88.74483961969034,
+     "fitScore": 89.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 36.463251098485784,
+     "fitScore": 36.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 72.39417619617265,
+     "fitScore": 72.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 74.82439181573562,
+     "fitScore": 75.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 61.23592039349557,
+     "fitScore": 61.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-morez_johnson",
+   "stageBQuality": 0.5986797262975488
+  },
+  {
+   "boardRank": 36,
+   "boardSignal": 0.31813143740856603,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4066261,
+      "rank": 1,
+      "rawDistance": 9.9224,
+      "similarityScore": 100
+     },
+     {
+      "id": 4432158,
+      "rank": 2,
+      "rawDistance": 11.4609,
+      "similarityScore": 99
+     },
+     {
+      "id": 4066650,
+      "rank": 3,
+      "rawDistance": 11.6856,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 60.28941706811378,
+    "playmaking": 65.02899678811353,
+    "rebounding": 50.45186042180373,
+    "rim_pressure": 50.92182781665658,
+    "shooting": 45.75571791100479,
+    "size": 78.75
+   },
+   "draftOrderPick": 25.236386189569178,
+   "draftProbability": 0.533723642853642,
+   "overallScore": 41,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 65.02899678811353,
+     "fitScore": 65.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 66.8011774400766,
+     "fitScore": 67.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 43.35627730247782,
+     "fitScore": 43.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.92182781665658,
+     "fitScore": 51.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 60.027183721141085,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 52.52223872215971,
+     "fitScore": 53.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-nate_ament",
+   "stageBQuality": 0.5960602301738471
+  },
+  {
+   "boardRank": 45,
+   "boardSignal": 0.26281250707991705,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3149673,
+      "rank": 1,
+      "rawDistance": 10.4776,
+      "similarityScore": 100
+     },
+     {
+      "id": 3058254,
+      "rank": 2,
+      "rawDistance": 11.7722,
+      "similarityScore": 99
+     },
+     {
+      "id": 6478,
+      "rank": 3,
+      "rawDistance": 12.8007,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 28.588992517953685,
+    "playmaking": 71.92337634433656,
+    "rebounding": 62.59171208825381,
+    "rim_pressure": 61.17772109431101,
+    "shooting": 57.36591044939084,
+    "size": 84.5
+   },
+   "draftOrderPick": 28.663968061853456,
+   "draftProbability": 0.48765261164257934,
+   "overallScore": 26,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 71.92337634433656,
+     "fitScore": 72.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 69.0044880782081,
+     "fitScore": 69.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 45.31062664123669,
+     "fitScore": 45.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 61.17772109431101,
+     "fitScore": 61.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 69.62341152926592,
+     "fitScore": 70.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 40.49732811708984,
+     "fitScore": 40.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-paulius_murauskas",
+   "stageBQuality": 0.5389338656357758
+  },
+  {
+   "boardRank": 41,
+   "boardSignal": 0.2967205406281451,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4593803,
+      "rank": 1,
+      "rawDistance": 7.8522,
+      "similarityScore": 100
+     },
+     {
+      "id": 3908809,
+      "rank": 2,
+      "rawDistance": 7.9501,
+      "similarityScore": 100
+     },
+     {
+      "id": 6580,
+      "rank": 3,
+      "rawDistance": 8.0252,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 58.204266193920134,
+    "playmaking": 75.1537626899531,
+    "rebounding": 62.29156170304606,
+    "rim_pressure": 68.67298242391688,
+    "shooting": 64.63193827058726,
+    "size": 31.0
+   },
+   "draftOrderPick": 24.50897937212286,
+   "draftProbability": 0.48787981622218624,
+   "overallScore": 32,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 75.1537626899531,
+     "fitScore": 75.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 37.91510203819944,
+     "fitScore": 38.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 60.75380070794596,
+     "fitScore": 61.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 68.67298242391688,
+     "fitScore": 69.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 44.76147993965576,
+     "fitScore": 45.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 61.333959106927686,
+     "fitScore": 61.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-rowan_brumbaugh",
+   "stageBQuality": 0.6081836771312857
+  },
+  {
+   "boardRank": 55,
+   "boardSignal": 0.12451412303758636,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3452,
+      "rank": 1,
+      "rawDistance": 9.4593,
+      "similarityScore": 100
+     },
+     {
+      "id": 3102529,
+      "rank": 2,
+      "rawDistance": 9.8167,
+      "similarityScore": 100
+     },
+     {
+      "id": 3948153,
+      "rank": 3,
+      "rawDistance": 10.6095,
+      "similarityScore": 100
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 60.85457368031085,
+    "playmaking": 27.036689078758574,
+    "rebounding": 98.80615308288571,
+    "rim_pressure": 75.0970562269475,
+    "shooting": 43.442856007989526,
+    "size": 96.5
+   },
+   "draftOrderPick": 32.31197547864842,
+   "draftProbability": 0.2604169337869489,
+   "overallScore": 9,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 27.036689078758574,
+     "fitScore": 27.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 93.76828749156256,
+     "fitScore": 94.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 21.151871500144757,
+     "fitScore": 21.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 75.0970562269475,
+     "fitScore": 75.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 64.74747566331054,
+     "fitScore": 65.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 51.41688907179561,
+     "fitScore": 51.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-rueben_chinyelu",
+   "stageBQuality": 0.47813374202252634
+  },
+  {
+   "boardRank": 46,
+   "boardSignal": 0.25523031604550783,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4066650,
+      "rank": 1,
+      "rawDistance": 8.6203,
+      "similarityScore": 100
+     },
+     {
+      "id": 4433255,
+      "rank": 2,
+      "rawDistance": 10.9329,
+      "similarityScore": 99
+     },
+     {
+      "id": 4684793,
+      "rank": 3,
+      "rawDistance": 11.3898,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 51.55126564134423,
+    "playmaking": 54.850612996415734,
+    "rebounding": 46.38810380084243,
+    "rim_pressure": 50.18755055269652,
+    "shooting": 58.25600961824884,
+    "size": 87.0
+   },
+   "draftOrderPick": 22.376242319944847,
+   "draftProbability": 0.3964870298116629,
+   "overallScore": 24,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 54.850612996415734,
+     "fitScore": 55.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 63.689182331443746,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 59.10145363782754,
+     "fitScore": 59.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.18755055269652,
+     "fitScore": 50.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 71.19180315729929,
+     "fitScore": 71.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 54.80119548910452,
+     "fitScore": 55.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-sebastian_rancik",
+   "stageBQuality": 0.6437292946675858
+  },
+  {
+   "boardRank": 52,
+   "boardSignal": 0.1435032389096314,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 4432192,
+      "rank": 1,
+      "rawDistance": 11.1548,
+      "similarityScore": 99
+     },
+     {
+      "id": 3919454,
+      "rank": 2,
+      "rawDistance": 11.788,
+      "similarityScore": 99
+     },
+     {
+      "id": 4432819,
+      "rank": 3,
+      "rawDistance": 12.339,
+      "similarityScore": 99
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 70.12954718961817,
+    "playmaking": 64.13178643266936,
+    "rebounding": 70.78554267375685,
+    "rim_pressure": 34.73011648795012,
+    "shooting": 49.34226410719562,
+    "size": 49.0
+   },
+   "draftOrderPick": 33.835074012766675,
+   "draftProbability": 0.3169599776794684,
+   "overallScore": 14,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 64.13178643266936,
+     "fitScore": 64.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 61.80760223475256,
+     "fitScore": 62.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 51.70514653010484,
+     "fitScore": 52.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 34.73011648795012,
+     "fitScore": 35.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 49.170834254185536,
+     "fitScore": 49.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 58.82474512607921,
+     "fitScore": 59.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-shane_blakeney",
+   "stageBQuality": 0.45274876645388873
+  },
+  {
+   "boardRank": 21,
+   "boardSignal": 0.4214206483925117,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3059319,
+      "rank": 1,
+      "rawDistance": 12.92,
+      "similarityScore": 99
+     },
+     {
+      "id": 5105592,
+      "rank": 2,
+      "rawDistance": 13.5611,
+      "similarityScore": 99
+     },
+     {
+      "id": 4278078,
+      "rank": 3,
+      "rawDistance": 14.3578,
+      "similarityScore": 98
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 89.52745209270424,
+    "playmaking": 60.11729366334556,
+    "rebounding": 81.74980088561853,
+    "rim_pressure": 50.253423844842594,
+    "shooting": 47.06184799303172,
+    "size": 59.5
+   },
+   "draftOrderPick": 20.28515627847016,
+   "draftProbability": 0.6210324440022343,
+   "overallScore": 66,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 60.11729366334556,
+     "fitScore": 60.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 67.55694477914238,
+     "fitScore": 68.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 46.89977468703487,
+     "fitScore": 47.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 50.253423844842594,
+     "fitScore": 50.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 52.91672661442115,
+     "fitScore": 53.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 64.91014821728787,
+     "fitScore": 65.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-tounde_yessoufou",
+   "stageBQuality": 0.678580728692164
+  },
+  {
+   "boardRank": 13,
+   "boardSignal": 0.48477700923731143,
+   "comparables": {
+    "heightWindowInches": 2,
+    "players": [
+     {
+      "id": 3908809,
+      "rank": 1,
+      "rawDistance": 10.1448,
+      "similarityScore": 100
+     },
+     {
+      "id": 6442,
+      "rank": 2,
+      "rawDistance": 13.0309,
+      "similarityScore": 99
+     },
+     {
+      "id": 2530530,
+      "rank": 3,
+      "rawDistance": 14.1654,
+      "similarityScore": 98
+     }
+    ],
+    "status": "OK"
+   },
+   "dimensions": {
+    "box_score_defensive_production": 82.87164131980472,
+    "playmaking": 86.89822114458471,
+    "rebounding": 34.536666429959055,
+    "rim_pressure": 72.47456325757793,
+    "shooting": 69.15220527456569,
+    "size": 6.25
+   },
+   "draftOrderPick": 24.798207390109212,
+   "draftProbability": 0.8034580184377901,
+   "overallScore": 79,
+   "profiles": {
+    "playmaker": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 86.89822114458471,
+     "fitScore": 87.0,
+     "status": "OK"
+    },
+    "rim_protector": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 21.432871447367127,
+     "fitScore": 21.0,
+     "status": "OK"
+    },
+    "shooter": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 57.91842924942889,
+     "fitScore": 58.0,
+     "status": "OK"
+    },
+    "slasher": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 72.47456325757793,
+     "fitScore": 72.0,
+     "status": "OK"
+    },
+    "stretch_big": {
+     "eligibility": "OUT_OF_POSITION",
+     "fitRaw": 20.78945124254211,
+     "fitScore": 21.0,
+     "status": "OK"
+    },
+    "three_and_d": {
+     "eligibility": "ELIGIBLE",
+     "fitRaw": 75.70176188165844,
+     "fitScore": 76.0,
+     "status": "OK"
+    }
+   },
+   "prospectId": "2026-tyler_tanner",
+   "stageBQuality": 0.6033632101648465
+  }
+ ],
+ "season": 2026
+}

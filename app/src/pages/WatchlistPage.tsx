@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useDraftLensData } from "../data/DataProvider";
 import { LoadingState, ErrorState } from "../components/DataStates";
-import { CategoryMix, Histogram, KpiStrip } from "../components/charts/Charts";
+import { CategoryMix, Histogram } from "../components/charts/Charts";
 import { binValues, categoryCounts } from "../lib/summaries";
 import { formatDecimal } from "../lib/format";
 import type { YearWatchlist } from "../types/data";
@@ -45,14 +45,6 @@ export function WatchlistPage() {
         </p>
       </div>
 
-      <KpiStrip
-        items={[
-          { label: "watchlist players", value: String(w.prospectCount) },
-          { label: "with 2025-26 NCAA data", value: String(w.returningCount) },
-          { label: "incoming, no stats yet", value: String(w.incomingCount) },
-          { label: "approved sources", value: String(w.sources.length) },
-        ]}
-      />
       {returning.length > 0 && (
         <div className="analyticsRow">
           <div className="analyticsCard">

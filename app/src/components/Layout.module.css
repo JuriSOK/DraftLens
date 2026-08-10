@@ -117,3 +117,9 @@
     align-items: flex-start;
   }
 }
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

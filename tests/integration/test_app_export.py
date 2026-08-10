@@ -9,9 +9,24 @@ been run.
 """
 
 import json
+import tempfile
 import unittest
+from pathlib import Path
 
 import app_export
+
+
+def _temp_payload_path(case):
+    """A throwaway destination for `write_payload`.
+
+    Tests must never write to the real `app/public/data/draftlens_2026.json`:
+    the payload embeds a fresh `generatedAt`, so running the suite would
+    otherwise dirty the working tree on every invocation and make an unrelated
+    `git status` look like a pending data change.
+    """
+    tmp = tempfile.TemporaryDirectory()
+    case.addCleanup(tmp.cleanup)
+    return Path(tmp.name) / "draftlens_2026.json"
 
 HAVE_REPLAY = (app_export.ROOT / "data" / "processed" / "2026"
               / "draftlens_2026_predictions.parquet").exists()
@@ -232,7 +247,7 @@ class TestNoTargetLeakage(unittest.TestCase):
 
     @needs_replay
     def test_written_json_file_has_no_prohibited_substring(self):
-        path, _, _ = app_export.write_payload()
+        path, _, _ = app_export.write_payload(path=_temp_payload_path(self))
         text = path.read_text().lower()
         for bad in ("actual_pick", "actualpick", "draft_team", "draftteam",
                    "actual_round", "\"drafted\":", "\"pick\":"):
@@ -246,7 +261,7 @@ class TestNoTargetLeakage(unittest.TestCase):
         unconverted pandas NaN class_year). Guard against a repeat by
         re-parsing the written bytes with strict constant handling."""
         import json as _json
-        path, _, _ = app_export.write_payload()
+        path, _, _ = app_export.write_payload(path=_temp_payload_path(self))
         text = path.read_text()
 
         def _reject(_):

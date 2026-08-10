@@ -69,6 +69,20 @@ export interface Dimensions {
   rimPressure: number | null;
 }
 
+/** One statistic a dimension is actually computed from.
+ *
+ * The export builds these from `config/team_need.json`'s component lists, so
+ * the evidence shown under a dimension is always a real input to it — never
+ * a statistic chosen afterwards because it reads well. */
+export interface EvidenceItem {
+  label: string;
+  value: number;
+  formattedValue: string;
+  lowerIsBetter: boolean;
+}
+
+export type DimensionEvidence = Record<keyof Dimensions, EvidenceItem[]>;
+
 export interface ProfileFit {
   fitScore: number | null;
   eligibility: Eligibility;
@@ -125,6 +139,7 @@ export interface Prospect {
   declaredBoard: BoardInfo | null;
   stats: ProspectStats;
   dimensions: Dimensions;
+  dimensionEvidence: DimensionEvidence | null;
   profiles: Profiles;
   /** 0-1 fraction of Team Need components that had data. */
   coverage: number | null;
@@ -197,6 +212,7 @@ export interface WatchlistProspect {
   hasStats: boolean;
   stats: ProspectStats | null;
   dimensions: Dimensions | null;
+  dimensionEvidence: DimensionEvidence | null;
   profiles: Profiles | null;
   coverage: number | null;
   comparables: Comparable[];

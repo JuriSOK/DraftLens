@@ -8,8 +8,8 @@ import { MetricTooltip } from "../components/MetricTooltip";
 import { TOOLTIPS } from "../lib/tooltips";
 import { computeCustomFit } from "../lib/customFit";
 import type { Weights } from "../lib/customFit";
-import { BarRow, Histogram, KpiStrip } from "../components/charts/Charts";
-import { binValues, mean, median } from "../lib/summaries";
+import { BarRow, Histogram } from "../components/charts/Charts";
+import { binValues, mean } from "../lib/summaries";
 import { CUSTOM_DIMENSION_LABELS, PROFILE_LABELS } from "../types/data";
 import type { CustomDimensionKey, Prospect, ProfileKey, YearAvailable } from "../types/data";
 import styles from "./TeamNeedPage.module.css";
@@ -129,23 +129,6 @@ export function TeamNeedPage() {
 
           {predefinedResults.length > 0 && (
             <>
-              <KpiStrip
-                items={[
-                  { label: "eligible prospects", value: String(predefinedResults.length) },
-                  {
-                    label: "best fit",
-                    value: String(predefinedResults[0].profiles[profile].fitScore ?? "—"),
-                    hint: predefinedResults[0].name,
-                  },
-                  {
-                    label: "median Fit Score",
-                    value:
-                      median(
-                        predefinedResults.map((p) => p.profiles[profile].fitScore),
-                      )?.toFixed(0) ?? "—",
-                  },
-                ]}
-              />
               <div className="analyticsRow">
                 <div className="analyticsCard">
                   <span className="analyticsTitle">Fit Score distribution</span>

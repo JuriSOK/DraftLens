@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "metadata": {
+    "dataset_name": "My Draft Class",
+    "season": 2026,
+    "population_type": "ncaa_early_entry",
+    "draft_size": 60
+  },
+  "prospects": [
+    {
+      "prospect_id": "P001",
+      "name": "Example Player",
+      "school": "State",
+      "position": "F",
+      "height_inches": 80,
+      "weight_lbs": 215,
+      "games_played": 33,
+      "games_started": 30,
+      "minutes": 1050,
+      "points": 520,
+      "field_goals_made": 190,
+      "field_goals_attempted": 400,
+      "three_points_made": 55,
+      "three_points_attempted": 150,
+      "free_throws_made": 85,
+      "free_throws_attempted": 110,
+      "offensive_rebounds": 70,
+      "defensive_rebounds": 180,
+      "total_rebounds": 250,
+      "assists": 95,
+      "turnovers": 60,
+      "steals": 40,
+      "blocks": 25,
+      "personal_fouls": 70
+    }
+  ]
+}

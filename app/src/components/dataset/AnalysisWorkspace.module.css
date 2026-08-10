@@ -1,0 +1,462 @@
+.workspace {
+  margin-bottom: 48px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.datasetName {
+  font-size: 20px;
+}
+
+.datasetMeta {
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+  margin-top: 3px;
+}
+
+.ghostButton {
+  padding: 7px 13px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.ghostButton:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ── Tabs ──────────────────────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 14px 0 18px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab {
+  padding: 9px 15px;
+  border: none;
+  background: none;
+  color: var(--color-text-secondary);
+  font-size: 13.5px;
+  font-weight: 550;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.tab:hover:not(:disabled) {
+  color: var(--color-text);
+}
+
+.tabActive {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+.tab:disabled {
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+}
+
+.tabOff {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.tabBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.blockTitle {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-text-tertiary);
+  margin: 16px 0 8px;
+}
+
+.note {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+}
+
+/* ── Capabilities ──────────────────────────────────────────────────── */
+.capabilityList {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.capability {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+}
+
+.capabilityMark {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--color-surface-alt);
+  color: var(--color-text-tertiary);
+}
+
+.capability[data-available="true"] .capabilityMark {
+  background: var(--color-positive-soft);
+  color: var(--color-positive);
+}
+
+.capabilityLabel {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.capability[data-available="false"] .capabilityLabel {
+  color: var(--color-text-secondary);
+}
+
+.capabilityReason {
+  display: block;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+  max-width: 70ch;
+}
+
+.warnings {
+  margin-top: 10px;
+}
+
+.warningList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--color-text-secondary);
+}
+
+.warningList li {
+  padding-left: 12px;
+  border-left: 2px solid var(--color-warning);
+}
+
+.warnWhere {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-tertiary);
+}
+
+/* ── Tables ────────────────────────────────────────────────────────── */
+.tableWrap {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  background: var(--color-surface);
+}
+
+.table {
+  font-size: 13.5px;
+  min-width: 560px;
+}
+
+.table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.row {
+  cursor: pointer;
+}
+
+.row:hover {
+  background: var(--color-surface-alt);
+}
+
+.name {
+  font-weight: 600;
+}
+
+.colRank,
+.colNum {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.colRank {
+  width: 62px;
+}
+
+.colPos {
+  width: 56px;
+}
+
+.lowSample {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.lowerNote {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  margin-bottom: 8px;
+}
+
+/* ── Metric chips ──────────────────────────────────────────────────── */
+.metricGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.metricGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.chip {
+  padding: 5px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.chip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.chipActive {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* ── Players ───────────────────────────────────────────────────────── */
+.playerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.playerCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 13px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  text-align: left;
+}
+
+.playerCard:hover {
+  border-color: var(--color-accent);
+}
+
+.playerInitials,
+.detailInitials {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-surface-alt);
+  color: var(--color-text-secondary);
+  font-weight: 700;
+}
+
+.playerInitials {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+}
+
+.detailInitials {
+  width: 52px;
+  height: 52px;
+  font-size: 17px;
+}
+
+.playerName {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text);
+  display: block;
+}
+
+.playerMeta {
+  display: block;
+  font-size: 11.5px;
+  color: var(--color-text-tertiary);
+}
+
+.backLink {
+  align-self: flex-start;
+  border: none;
+  background: none;
+  padding: 6px 0;
+  color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.detailHead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detailName {
+  font-size: 20px;
+}
+
+.detailMeta {
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+  margin-top: 2px;
+}
+
+.profileLayout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.dimensionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+}
+
+.fitGrid,
+.comparableGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.fitCard,
+.comparableCard {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.fitLabel {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.fitScore {
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.fitElig {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+.comparableRank {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+}
+
+.comparableName {
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.comparableMeta {
+  font-size: 11.5px;
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 900px) {
+  .profileLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .dimensionGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,10 +1,12 @@
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { ThemeToggle } from "./ThemeToggle";
 import styles from "./Layout.module.css";
 
 const NAV_LINKS = [
   { to: "/board", label: "Board" },
   { to: "/stats", label: "Stats" },
   { to: "/team-need", label: "Team Need" },
+  { to: "/analyze", label: "Analyze Data" },
   { to: "/methodology", label: "Methodology" },
 ];
 
@@ -39,6 +41,7 @@ export function Layout() {
               </NavLink>
             ))}
           </nav>
+          <div className={styles.headerActions}>
           <div className={styles.yearToggle} role="group" aria-label="Draft class year">
             <NavLink
               to="/board"
@@ -52,6 +55,8 @@ export function Layout() {
             >
               2027 Watchlist
             </NavLink>
+          </div>
+          <ThemeToggle />
           </div>
         </div>
       </header>

@@ -24,6 +24,7 @@ others already having run:
   python scripts/build.py declared-2026      # all-declared product board
   python scripts/build.py watchlist-2027     # 2027 projected watchlist
   python scripts/build.py app-data           # write app/public/data/draftlens_2026.json
+  python scripts/build.py app-runtime        # write the browser inference bundle
 """
 
 import argparse
@@ -197,12 +198,34 @@ def _app_data(a):
     return 0
 
 
+def _app_runtime(a):
+    """The frozen estimators and peer references, serialised for the browser.
+
+    Also refreshes the parity fixture the browser runtime is held to, so the
+    two can never drift apart: a bundle rebuild that changed an answer would
+    fail `app/tests/parity.mjs` immediately.
+    """
+    import dataset_format
+    import runtime_bundle
+
+    print("  dataset templates")
+    dataset_format.write_templates()
+    print("  runtime bundle")
+    written = runtime_bundle.write_bundle()
+    print("  parity fixture")
+    runtime_bundle.write_parity_fixture()
+    print(f"  {len(written)} files written to "
+          f"{runtime_bundle.RUNTIME_DIR.relative_to(runtime_bundle.ROOT)}")
+    return 0
+
+
 REPLAY_STAGES = {
     "replay-2026": _replay_2026,
     "replay-2026-eval": _replay_2026_eval,
     "declared-2026": _declared_2026,
     "watchlist-2027": _watchlist_2027,
     "app-data": _app_data,
+    "app-runtime": _app_runtime,
 }
 
 

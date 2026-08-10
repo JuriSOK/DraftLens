@@ -24,6 +24,12 @@
   --color-warning-soft: #fbe8cc;
   --color-focus: #c4531d;
 
+  /* Chart furniture, so a plot never hardcodes a grey that survives a
+     theme switch. */
+  --chart-grid: #e4e2de;
+  --chart-muted: #cfccc6;
+  --chart-track: #efedea;
+
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 14px;
@@ -37,6 +43,48 @@
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 
   color-scheme: light;
+}
+
+/* ── Night mode ───────────────────────────────────────────────────────
+   The same tokens, re-pointed at the landing page's warm charcoal family
+   so the app and the front door look like one product. Only colours move:
+   no component knows which theme it is in, and no analytical value
+   depends on any of this.
+
+   Warm charcoal rather than pure black, and the existing basketball
+   orange rather than a second dark-mode accent — brightened, because
+   #c4531d on near-black does not carry. */
+:root[data-theme="dark"] {
+  --color-bg: #14100e;
+  --color-surface: #1c1815;
+  --color-surface-alt: #241f1b;
+  --color-border: #322b25;
+  --color-text: #f4ede6;
+  --color-text-secondary: #b0a49a;
+  --color-text-tertiary: #877b72;
+
+  --color-accent: #ff8c4a;
+  --color-accent-soft: #2f1d12;
+  --color-accent-strong: #ffa571;
+  --color-accent-bright: #ff8c4a;
+  --color-accent-muted: #d3854f;
+  --color-accent-deep: #a06c48;
+
+  --color-positive: #5cbf85;
+  --color-positive-soft: #17301f;
+  --color-negative: #ff7d57;
+  --color-warning: #e2a75d;
+  --color-warning-soft: #33240f;
+  --color-focus: #ff8c4a;
+
+  --chart-grid: #322b25;
+  --chart-muted: #4a413a;
+  --chart-track: #272220;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
 }
 
 * {

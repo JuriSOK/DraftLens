@@ -137,6 +137,90 @@ def _dimensions(row):
     }
 
 
+# Which product dimension key each frozen dimension maps to, and how to render
+# the statistics it is actually built from. The metric lists are NOT written
+# here — they are read from `config/team_need.json` — so evidence can never
+# quote a statistic that is not a component of the dimension it explains.
+_EVIDENCE_KEY = {
+    "SHOOTING": "shooting",
+    "PLAYMAKING": "playmaking",
+    "BOX_SCORE_DEFENSIVE_PRODUCTION": "defensiveProduction",
+    "REBOUNDING": "rebounding",
+    "SIZE": "size",
+    "RIM_PRESSURE": "rimPressure",
+}
+
+# metric -> (label, rendering). Labels name the statistic a scout recognises;
+# the rendering decides units only.
+_EVIDENCE_METRICS = {
+    "three_point_pct": ("3P%", "pct"),
+    "three_point_attempt_rate": ("3PA rate", "pct"),
+    "ft_pct": ("FT%", "pct"),
+    "efg_pct": ("eFG%", "pct"),
+    "ast_pct": ("AST%", "rate"),
+    "tov_pct": ("TOV%", "rate"),
+    "stl_pct": ("STL%", "rate"),
+    "blk_pct": ("BLK%", "rate"),
+    "orb_pct": ("ORB%", "rate"),
+    "drb_pct": ("DRB%", "rate"),
+    "height": ("Height", "inches"),
+    "weight": ("Weight", "lbs"),
+    "rim_attempt_share": ("Rim attempt share", "pct"),
+    "free_throw_rate": ("FT rate", "pct"),
+    "rim_make_pct": ("Rim FG%", "pct"),
+    "unassisted_made_fg_share": ("Unassisted FG share", "pct"),
+}
+
+
+def _format_evidence(value, kind):
+    if value is None:
+        return None
+    if kind == "pct":
+        return f"{value * 100:.1f}%"
+    if kind == "rate":
+        return f"{value:.1f}%"
+    if kind == "inches":
+        return f"{int(round(value))}\""
+    if kind == "lbs":
+        return f"{int(round(value))} lb"
+    return f"{value:.1f}"
+
+
+def _dimension_evidence(feats_row):
+    """The statistics each dimension is computed from, ready to display.
+
+    Deterministic and config-driven: the component list comes from the frozen
+    Team Need configuration, and the values are the prospect's own. No
+    statistic is selected because it flatters anyone, and nothing is written
+    for a metric the prospect has no value for.
+    """
+    from team_need.dimensions import DIMENSIONS
+
+    out = {}
+    for name, spec in DIMENSIONS.items():
+        key = _EVIDENCE_KEY.get(name)
+        if key is None:
+            continue
+        items = []
+        for component in spec["components"]:
+            metric = component["metric"]
+            meta = _EVIDENCE_METRICS.get(metric)
+            if meta is None:
+                continue
+            label, kind = meta
+            value = _r3(feats_row.get(metric))
+            if value is None:
+                continue
+            items.append({
+                "label": label,
+                "value": value,
+                "formattedValue": _format_evidence(value, kind),
+                "lowerIsBetter": component["orientation"] == "LOWER_IS_BETTER",
+            })
+        out[key] = items
+    return out
+
+
 def _comparable(entry):
     close = [
         dict(label=d["label"], prospectPercentile=_r1(d["prospect_percentile"]),
@@ -223,6 +307,7 @@ def _load_final_entrants():
             name=row.player_name, school=row.college, position=row.position_3,
             board=_board(row), stats=_stats(feats_row),
             dimensions=_dimensions(row), profiles=_profiles(row),
+            dimensionEvidence=_dimension_evidence(feats_row),
             coverage=_r3(row.team_need_data_coverage),
             comparables=_comparables(pid, comparables))
 
@@ -260,6 +345,7 @@ def _load_all_declared():
             populationStatus=row.population_status,
             board=_board(row), stats=_stats(feats_row),
             dimensions=_dimensions(row), profiles=_profiles(row),
+            dimensionEvidence=_dimension_evidence(feats_row),
             coverage=_r3(row.team_need_data_coverage),
             comparables=_comparables(pid, comparables))
     return out, insufficient, audit
@@ -354,6 +440,7 @@ def build_year_2026():
             finalEntrantsBoard=final_entrants[pid]["board"] if pid in final_entrants else None,
             declaredBoard=rec["board"],
             stats=rec["stats"], dimensions=rec["dimensions"],
+            dimensionEvidence=rec["dimensionEvidence"],
             profiles=rec["profiles"], coverage=rec["coverage"],
             comparables=rec["comparables"])
     # Any FINAL_ENTRY prospect not present in the declared computation (e.g.
@@ -367,6 +454,7 @@ def build_year_2026():
             populationStatus="FINAL_ENTRY", photo=photos.get(pid),
             finalEntrantsBoard=rec["board"],
             declaredBoard=None, stats=rec["stats"], dimensions=rec["dimensions"],
+            dimensionEvidence=rec["dimensionEvidence"],
             profiles=rec["profiles"], coverage=rec["coverage"],
             comparables=rec["comparables"])
 

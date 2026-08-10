@@ -48,7 +48,7 @@ export function LandingPage() {
           <div className={styles.content}>
             <span className={styles.eyebrow}>
               <span className={styles.eyebrowDot} aria-hidden="true" />
-              NBA Draft Analytics · 2026 Class
+              DraftLens
             </span>
 
             <h1 className={styles.title}>

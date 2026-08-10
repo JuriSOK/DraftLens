@@ -74,3 +74,28 @@ export function isLowSample(prospect: Prospect, metric: MetricDef): boolean {
   const attempts = prospect.stats[metric.attemptsKey];
   return attempts === null || attempts < RELIABILITY_MIN_ATTEMPTS;
 }
+
+/** Where each product statistic lives in the runtime's engineered feature row.
+ *
+ * The Dataset Lab reuses the METRICS list above rather than defining its own,
+ * so an imported class is explored with the same labels, directions,
+ * percent handling and reliability minimums as the built-in board. This map
+ * is the only translation needed, because the two sides name the same
+ * quantity differently — nothing about the metric itself changes. */
+export const METRIC_FEATURE_KEY: Record<keyof ProspectStats, string> = {
+  heightInches: "height",
+  pointsPer40: "points_per_40",
+  reboundsPer40: "reb_per_40",
+  assistsPer40: "assists_per_40",
+  stealsPer40: "steals_per_40",
+  blocksPer40: "blocks_per_40",
+  turnoversPer40: "turnovers_per_40",
+  threePointPct: "three_point_pct",
+  threePointAttempts: "three_points_attempted",
+  ftPct: "ft_pct",
+  ftAttempts: "free_throws_attempted",
+  tsPct: "ts_pct",
+  fgAttempts: "field_goals_attempted",
+  minutesPerGame: "minutes_per_game",
+  gamesPlayed: "games_played",
+};
