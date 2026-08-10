@@ -1,0 +1,134 @@
+.hero {
+  padding: 8px 0 24px;
+}
+
+.title {
+  font-size: 30px;
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+.boardHead {
+  padding: 12px 0 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.boardTitle {
+  font-size: 20px;
+}
+
+.boardSub {
+  margin-top: 4px;
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.tableWrap {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.table {
+  font-size: 14px;
+}
+
+.table thead th {
+  background: var(--color-surface);
+  text-align: left;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-tertiary);
+  font-weight: 700;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.row {
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.row:hover,
+.row:focus-visible {
+  background: var(--color-surface-alt);
+}
+
+.row:last-child td {
+  border-bottom: none;
+}
+
+.name {
+  font-weight: 650;
+  display: block;
+}
+
+.archetype {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--color-accent-strong);
+  background: var(--color-accent-soft);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.school {
+  color: var(--color-text-secondary);
+}
+
+.colRank {
+  width: 56px;
+}
+
+.colPos {
+  width: 48px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.colScore {
+  width: 110px;
+}
+
+.colProb {
+  width: 140px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+}
+
+.empty {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 640px) {
+  .colHideSm {
+    display: none;
+  }
+}

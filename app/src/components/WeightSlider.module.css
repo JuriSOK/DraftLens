@@ -1,0 +1,29 @@
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+}
+
+.label {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.value {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+  min-width: 24px;
+  text-align: right;
+}
+
+.slider {
+  width: 100%;
+  accent-color: var(--color-accent);
+  height: 20px;
+}

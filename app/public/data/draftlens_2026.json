@@ -1,0 +1,3784 @@
+{
+  "customDimensions": [
+    "shooting",
+    "playmaking",
+    "defensiveProduction",
+    "rebounding",
+    "size"
+  ],
+  "generatedAt": "2026-08-10T09:26:39Z",
+  "methodologyFreeze": "analytics-freeze-pre-2026",
+  "methodologySummary": {
+    "comparables": "Normalized NCAA ↔ NBA statistical similarity across six role dimensions. Descriptive resemblance only, never a projection.",
+    "generalBoard": "Draft Probability × Draft Order quality, combined into a 0-100 class-relative Overall Score.",
+    "teamNeed": "NCAA peer-relative statistical trait scoring against six factual dimensions. Not a prediction.",
+    "validation": "Seven historical forward-in-time folds (2019-2025), plus one final 2026 holdout replay."
+  },
+  "prospectCount": 26,
+  "prospects": [
+    {
+      "board": {
+        "draftOrderSignal": 0.799,
+        "draftProbability": 0.96,
+        "overallScore": 98,
+        "rank": 1
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 71.9,
+              "prospectPercentile": 71.6
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 37.2,
+              "prospectPercentile": 37.8
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 88.5,
+              "prospectPercentile": 93.0
+            }
+          ],
+          "differences": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 49.5,
+              "prospectPercentile": 77.0
+            }
+          ],
+          "nbaPlayerName": "Victor Wembanyama",
+          "rank": 1,
+          "referenceSeasons": [
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 99
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 74.8,
+              "prospectPercentile": 71.6
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 86.1,
+              "prospectPercentile": 93.0
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 67.1,
+              "prospectPercentile": 77.0
+            }
+          ],
+          "differences": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 8.4,
+              "prospectPercentile": 37.8
+            }
+          ],
+          "nbaPlayerName": "Joel Embiid",
+          "rank": 2,
+          "referenceSeasons": [
+            "2022",
+            "2023",
+            "2024"
+          ],
+          "similarityScore": 97
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 66.1,
+              "prospectPercentile": 71.6
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 31.3,
+              "prospectPercentile": 37.8
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 94.6,
+              "prospectPercentile": 87.0
+            }
+          ],
+          "differences": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 58.9,
+              "prospectPercentile": 93.0
+            }
+          ],
+          "nbaPlayerName": "Kawhi Leonard",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 96
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 89.6,
+        "playmaking": 81.1,
+        "rebounding": 88.3,
+        "rimPressure": 58.0,
+        "shooting": 68.0,
+        "size": 80.5
+      },
+      "id": "2026-allen_graves",
+      "name": "Allen Graves",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 81
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 86
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 56
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 58
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 74
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 78
+        }
+      },
+      "school": "Santa Clara",
+      "stats": {
+        "assistsPer40": 3.2,
+        "ftPct": 0.75,
+        "gamesPlayed": 35,
+        "minutesPerGame": 22.6,
+        "pointsPer40": 20.9,
+        "reboundsPer40": 11.5,
+        "threePointPct": 0.413,
+        "tsPct": 0.62
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.785,
+        "draftProbability": 0.955,
+        "overallScore": 94,
+        "rank": 2
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 92.2,
+              "prospectPercentile": 92.7
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 95.2,
+              "prospectPercentile": 94.5
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 8.1,
+              "prospectPercentile": 12.5
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Anthony Davis",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 74.8,
+              "prospectPercentile": 75.1
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 8.4,
+              "prospectPercentile": 12.5
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 99.6,
+              "prospectPercentile": 94.5
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Joel Embiid",
+          "rank": 2,
+          "referenceSeasons": [
+            "2022",
+            "2023",
+            "2024"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 49.5,
+              "prospectPercentile": 50.9
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 89.2,
+              "prospectPercentile": 87.6
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 97.6,
+              "prospectPercentile": 94.5
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Victor Wembanyama",
+          "rank": 3,
+          "referenceSeasons": [
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 83.6,
+        "playmaking": 76.4,
+        "rebounding": 84.1,
+        "rimPressure": 83.5,
+        "shooting": 42.3,
+        "size": 75.8
+      },
+      "id": "2026-caleb_wilson",
+      "name": "Caleb Wilson",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 76
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 82
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 29
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 83
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 57
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 59
+        }
+      },
+      "school": "North Carolina",
+      "stats": {
+        "assistsPer40": 3.4,
+        "ftPct": 0.713,
+        "gamesPlayed": 24,
+        "minutesPerGame": 31.5,
+        "pointsPer40": 25.2,
+        "reboundsPer40": 12.0,
+        "threePointPct": 0.259,
+        "tsPct": 0.637
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.867,
+        "draftProbability": 0.833,
+        "overallScore": 90,
+        "rank": 3
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 62.6,
+              "prospectPercentile": 62.6
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 26.9,
+              "prospectPercentile": 24.8
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 50.0,
+              "prospectPercentile": 47.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "LeBron James",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 47.4,
+              "prospectPercentile": 47.7
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 98.3,
+              "prospectPercentile": 99.7
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 60.9,
+              "prospectPercentile": 62.6
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Jayson Tatum",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 99.5,
+              "prospectPercentile": 99.7
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 27.5,
+              "prospectPercentile": 24.8
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 56.9,
+              "prospectPercentile": 62.6
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Luka Doncic",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 36.9,
+        "playmaking": 74.2,
+        "rebounding": 40.2,
+        "rimPressure": 75.9,
+        "shooting": 54.4,
+        "size": 79.3
+      },
+      "id": "2026-aj_dybantsa",
+      "name": "AJ Dybantsa",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 74
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 52
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 43
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 76
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 66
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 45
+        }
+      },
+      "school": "BYU",
+      "stats": {
+        "assistsPer40": 4.3,
+        "ftPct": 0.774,
+        "gamesPlayed": 35,
+        "minutesPerGame": 34.8,
+        "pointsPer40": 29.3,
+        "reboundsPer40": 7.8,
+        "threePointPct": 0.331,
+        "tsPct": 0.609
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.728,
+        "draftProbability": 0.853,
+        "overallScore": 87,
+        "rank": 4
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 95.5,
+              "prospectPercentile": 96.8
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 80.2,
+              "prospectPercentile": 82.4
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 74.8,
+              "prospectPercentile": 70.9
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Nikola Jokic",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 99.6,
+              "prospectPercentile": 96.8
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 74.1,
+              "prospectPercentile": 70.9
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 86.1,
+              "prospectPercentile": 94.8
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Joel Embiid",
+          "rank": 2,
+          "referenceSeasons": [
+            "2022",
+            "2023",
+            "2024"
+          ],
+          "similarityScore": 99
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 20.7,
+              "prospectPercentile": 23.1
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 85.6,
+              "prospectPercentile": 82.4
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 93.4,
+              "prospectPercentile": 96.8
+            }
+          ],
+          "differences": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 59.7,
+              "prospectPercentile": 90.9
+            }
+          ],
+          "nbaPlayerName": "Karl-Anthony Towns",
+          "rank": 3,
+          "referenceSeasons": [
+            "2022",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 98
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 64.7,
+        "playmaking": 76.0,
+        "rebounding": 89.6,
+        "rimPressure": 78.0,
+        "shooting": 69.7,
+        "size": 88.3
+      },
+      "id": "2026-cameron_boozer",
+      "name": "Cameron Boozer",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 76
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 81
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 51
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 78
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 78
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 67
+        }
+      },
+      "school": "Duke",
+      "stats": {
+        "assistsPer40": 4.9,
+        "ftPct": 0.789,
+        "gamesPlayed": 38,
+        "minutesPerGame": 33.5,
+        "pointsPer40": 26.8,
+        "reboundsPer40": 12.2,
+        "threePointPct": 0.391,
+        "tsPct": 0.663
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.794,
+        "draftProbability": 0.769,
+        "overallScore": 83,
+        "rank": 5
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 50.2,
+              "prospectPercentile": 48.9
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 55.3,
+              "prospectPercentile": 53.8
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 83.8,
+              "prospectPercentile": 90.3
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Zach Collins",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 88.8,
+              "prospectPercentile": 90.3
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 91.8,
+              "prospectPercentile": 84.8
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 61.4,
+              "prospectPercentile": 53.8
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Giannis Antetokounmpo",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 99
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 82.8,
+              "prospectPercentile": 80.7
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 12.5,
+              "prospectPercentile": 17.5
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 84.7,
+              "prospectPercentile": 90.3
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Bam Adebayo",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 99
+        }
+      ],
+      "coverage": 0.958,
+      "dimensions": {
+        "defensiveProduction": 58.4,
+        "playmaking": 52.4,
+        "rebounding": 64.6,
+        "rimPressure": 74.3,
+        "shooting": 40.7,
+        "size": 99.1
+      },
+      "id": "2026-aday_mara",
+      "name": "Aday Mara",
+      "position": "C",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 52
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 86
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 25
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 74
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 64
+        },
+        "threeAndD": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 49
+        }
+      },
+      "school": "Michigan",
+      "stats": {
+        "assistsPer40": 4.1,
+        "ftPct": 0.564,
+        "gamesPlayed": 40,
+        "minutesPerGame": 23.4,
+        "pointsPer40": 20.7,
+        "reboundsPer40": 11.6,
+        "threePointPct": 0.3,
+        "tsPct": 0.667
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.691,
+        "draftProbability": 0.861,
+        "overallScore": 79,
+        "rank": 6
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 92.1,
+              "prospectPercentile": 92.0
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 49.7,
+              "prospectPercentile": 50.7
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 73.2,
+              "prospectPercentile": 70.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Paul George",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 48.0,
+              "prospectPercentile": 50.7
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 57.6,
+              "prospectPercentile": 62.0
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 96.7,
+              "prospectPercentile": 92.0
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Kyrie Irving",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 93.0,
+              "prospectPercentile": 92.0
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 53.8,
+              "prospectPercentile": 50.7
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 83.1,
+              "prospectPercentile": 78.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Desmond Bane",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 61.4,
+        "playmaking": 60.2,
+        "rebounding": 65.6,
+        "rimPressure": 59.2,
+        "shooting": 74.6,
+        "size": 33.5
+      },
+      "id": "2026-cameron_carr",
+      "name": "Cameron Carr",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 60
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 57
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 70
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 59
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 50
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 68
+        }
+      },
+      "school": "Baylor",
+      "stats": {
+        "assistsPer40": 3.1,
+        "ftPct": 0.801,
+        "gamesPlayed": 34,
+        "minutesPerGame": 33.7,
+        "pointsPer40": 22.4,
+        "reboundsPer40": 6.9,
+        "threePointPct": 0.374,
+        "tsPct": 0.629
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.778,
+        "draftProbability": 0.75,
+        "overallScore": 75,
+        "rank": 7
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 49.7,
+              "prospectPercentile": 51.0
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 75.6,
+              "prospectPercentile": 73.8
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 43.1,
+              "prospectPercentile": 45.8
+            }
+          ],
+          "differences": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 73.2,
+              "prospectPercentile": 47.5
+            }
+          ],
+          "nbaPlayerName": "Paul George",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 99
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 75.8,
+              "prospectPercentile": 79.0
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 94.6,
+              "prospectPercentile": 99.8
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 86.7,
+              "prospectPercentile": 73.8
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Kawhi Leonard",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 99
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 37.9,
+              "prospectPercentile": 47.5
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 68.5,
+              "prospectPercentile": 79.0
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 62.5,
+              "prospectPercentile": 73.8
+            }
+          ],
+          "differences": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 72.3,
+              "prospectPercentile": 45.8
+            }
+          ],
+          "nbaPlayerName": "Naz Reid",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 97
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 86.0,
+        "playmaking": 75.9,
+        "rebounding": 55.8,
+        "rimPressure": 51.1,
+        "shooting": 70.6,
+        "size": 45.5
+      },
+      "id": "2026-darryn_peterson",
+      "name": "Darryn Peterson",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 76
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 56
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 67
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 51
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 57
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 78
+        }
+      },
+      "school": "Kansas",
+      "stats": {
+        "assistsPer40": 2.2,
+        "ftPct": 0.826,
+        "gamesPlayed": 24,
+        "minutesPerGame": 29.0,
+        "pointsPer40": 27.8,
+        "reboundsPer40": 5.8,
+        "threePointPct": 0.382,
+        "tsPct": 0.584
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.694,
+        "draftProbability": 0.819,
+        "overallScore": 71,
+        "rank": 8
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 81.3,
+              "prospectPercentile": 81.7
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 48.0,
+              "prospectPercentile": 51.0
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 93.5,
+              "prospectPercentile": 99.3
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "D'Angelo Russell",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 23.2,
+              "prospectPercentile": 17.4
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 45.1,
+              "prospectPercentile": 51.0
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 74.5,
+              "prospectPercentile": 81.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Ty Jerome",
+          "rank": 2,
+          "referenceSeasons": [
+            "2022",
+            "2023",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 99.9,
+              "prospectPercentile": 99.3
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 19.4,
+              "prospectPercentile": 17.4
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 81.3,
+              "prospectPercentile": 85.9
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Tyrese Haliburton",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 54.3,
+        "playmaking": 59.0,
+        "rebounding": 25.6,
+        "rimPressure": 58.5,
+        "shooting": 84.6,
+        "size": 13.5
+      },
+      "id": "2026-christian_anderson",
+      "name": "Christian Anderson Jr.",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 59
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 22
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 83
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 59
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 34
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 68
+        }
+      },
+      "school": "Texas Tech",
+      "stats": {
+        "assistsPer40": 7.7,
+        "ftPct": 0.805,
+        "gamesPlayed": 33,
+        "minutesPerGame": 38.4,
+        "pointsPer40": 19.3,
+        "reboundsPer40": 3.7,
+        "threePointPct": 0.415,
+        "tsPct": 0.631
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.768,
+        "draftProbability": 0.691,
+        "overallScore": 67,
+        "rank": 9
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 80.2,
+              "prospectPercentile": 74.4
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 15.5,
+              "prospectPercentile": 23.3
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 74.8,
+              "prospectPercentile": 66.2
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Nikola Jokic",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 67.1,
+              "prospectPercentile": 74.4
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 74.1,
+              "prospectPercentile": 66.2
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 86.1,
+              "prospectPercentile": 77.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Joel Embiid",
+          "rank": 2,
+          "referenceSeasons": [
+            "2022",
+            "2023",
+            "2024"
+          ],
+          "similarityScore": 99
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 26.9,
+              "prospectPercentile": 23.3
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 97.3,
+              "prospectPercentile": 87.1
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 62.6,
+              "prospectPercentile": 74.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "LeBron James",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 99
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 72.1,
+        "playmaking": 58.2,
+        "rebounding": 94.0,
+        "rimPressure": 81.8,
+        "shooting": 63.0,
+        "size": 66.2
+      },
+      "id": "2026-dailyn_swain",
+      "name": "Dailyn Swain",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 58
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 63
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 46
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 82
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 65
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 67
+        }
+      },
+      "school": "Texas",
+      "stats": {
+        "assistsPer40": 4.4,
+        "ftPct": 0.815,
+        "gamesPlayed": 36,
+        "minutesPerGame": 32.9,
+        "pointsPer40": 21.1,
+        "reboundsPer40": 9.2,
+        "threePointPct": 0.344,
+        "tsPct": 0.645
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.785,
+        "draftProbability": 0.654,
+        "overallScore": 63,
+        "rank": 10
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 52.4,
+              "prospectPercentile": 52.8
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 25.2,
+              "prospectPercentile": 26.9
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 47.6,
+              "prospectPercentile": 52.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Jamal Murray",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 55.2,
+              "prospectPercentile": 52.4
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 21.7,
+              "prospectPercentile": 26.9
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 91.2,
+              "prospectPercentile": 97.5
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Malik Monk",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 98.8,
+              "prospectPercentile": 98.0
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 71.2,
+              "prospectPercentile": 65.1
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 61.0,
+              "prospectPercentile": 52.8
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Donovan Mitchell",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 52.8,
+        "playmaking": 63.0,
+        "rebounding": 30.0,
+        "rimPressure": 65.2,
+        "shooting": 68.6,
+        "size": 32.5
+      },
+      "id": "2026-mikel_brown",
+      "name": "Mikel Brown Jr.",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 63
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 29
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 72
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 65
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 47
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 60
+        }
+      },
+      "school": "Louisville",
+      "stats": {
+        "assistsPer40": 6.5,
+        "ftPct": 0.844,
+        "gamesPlayed": 21,
+        "minutesPerGame": 29.2,
+        "pointsPer40": 24.9,
+        "reboundsPer40": 4.6,
+        "threePointPct": 0.344,
+        "tsPct": 0.585
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.674,
+        "draftProbability": 0.743,
+        "overallScore": 60,
+        "rank": 11
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 87.9,
+              "prospectPercentile": 87.0
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 62.5,
+              "prospectPercentile": 60.2
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 84.6,
+              "prospectPercentile": 87.0
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Nikola Vucevic",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 67.8,
+              "prospectPercentile": 70.7
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 81.7,
+              "prospectPercentile": 87.0
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 59.6,
+              "prospectPercentile": 51.2
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Chet Holmgren",
+          "rank": 2,
+          "referenceSeasons": [
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 87.4,
+              "prospectPercentile": 87.0
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 59.7,
+              "prospectPercentile": 60.2
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 52.6,
+              "prospectPercentile": 51.2
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Karl-Anthony Towns",
+          "rank": 3,
+          "referenceSeasons": [
+            "2022",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 33.9,
+        "playmaking": 66.9,
+        "rebounding": 55.1,
+        "rimPressure": 60.5,
+        "shooting": 61.3,
+        "size": 90.3
+      },
+      "id": "2026-henri_veesaar",
+      "name": "Henri Veesaar",
+      "position": "C",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 67
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 75
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 48
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 60
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 74
+        },
+        "threeAndD": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 46
+        }
+      },
+      "school": "North Carolina",
+      "stats": {
+        "assistsPer40": 2.6,
+        "ftPct": 0.615,
+        "gamesPlayed": 31,
+        "minutesPerGame": 31.4,
+        "pointsPer40": 21.7,
+        "reboundsPer40": 11.1,
+        "threePointPct": 0.426,
+        "tsPct": 0.671
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.751,
+        "draftProbability": 0.661,
+        "overallScore": 56,
+        "rank": 12
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 52.4,
+              "prospectPercentile": 49.7
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 47.6,
+              "prospectPercentile": 43.7
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 25.2,
+              "prospectPercentile": 29.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Jamal Murray",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 43.8,
+              "prospectPercentile": 43.7
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 98.8,
+              "prospectPercentile": 99.4
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 35.3,
+              "prospectPercentile": 29.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Donovan Mitchell",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 41.5,
+              "prospectPercentile": 43.7
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 52.0,
+              "prospectPercentile": 49.7
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 26.7,
+              "prospectPercentile": 29.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Bradley Beal",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 45.3,
+        "playmaking": 78.9,
+        "rebounding": 31.6,
+        "rimPressure": 70.6,
+        "shooting": 74.8,
+        "size": 19.1
+      },
+      "id": "2026-labaron_philon",
+      "name": "Labaron Philon Jr.",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 79
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 25
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 66
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 71
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 38
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 58
+        }
+      },
+      "school": "Alabama",
+      "stats": {
+        "assistsPer40": 6.5,
+        "ftPct": 0.798,
+        "gamesPlayed": 33,
+        "minutesPerGame": 30.9,
+        "pointsPer40": 28.4,
+        "reboundsPer40": 4.6,
+        "threePointPct": 0.399,
+        "tsPct": 0.634
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.655,
+        "draftProbability": 0.686,
+        "overallScore": 52,
+        "rank": 13
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 67.8,
+              "prospectPercentile": 69.5
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 27.9,
+              "prospectPercentile": 24.2
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 78.6,
+              "prospectPercentile": 86.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Chet Holmgren",
+          "rank": 1,
+          "referenceSeasons": [
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 23.3,
+              "prospectPercentile": 24.2
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 92.0,
+              "prospectPercentile": 86.4
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 62.4,
+              "prospectPercentile": 68.1
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Kristaps Porzingis",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 25.0,
+              "prospectPercentile": 24.2
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 39.9,
+              "prospectPercentile": 35.8
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 81.5,
+              "prospectPercentile": 86.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Christian Wood",
+          "rank": 3,
+          "referenceSeasons": [
+            "2022",
+            "2023",
+            "2024"
+          ],
+          "similarityScore": 99
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 67.2,
+        "playmaking": 53.1,
+        "rebounding": 95.9,
+        "rimPressure": 71.3,
+        "shooting": 57.2,
+        "size": 94.8
+      },
+      "id": "2026-hannes_steinbach",
+      "name": "Hannes Steinbach",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 53
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 92
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 38
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 71
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 74
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 62
+        }
+      },
+      "school": "Washington",
+      "stats": {
+        "assistsPer40": 1.8,
+        "ftPct": 0.759,
+        "gamesPlayed": 30,
+        "minutesPerGame": 34.5,
+        "pointsPer40": 21.5,
+        "reboundsPer40": 13.6,
+        "threePointPct": 0.34,
+        "tsPct": 0.644
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.691,
+        "draftProbability": 0.642,
+        "overallScore": 48,
+        "rank": 14
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 73.2,
+              "prospectPercentile": 73.0
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 92.1,
+              "prospectPercentile": 89.5
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 66.0,
+              "prospectPercentile": 62.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Paul George",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 48.0,
+              "prospectPercentile": 44.9
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 57.6,
+              "prospectPercentile": 62.4
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 85.6,
+              "prospectPercentile": 80.3
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Kyrie Irving",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 86.3,
+              "prospectPercentile": 89.5
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 77.2,
+              "prospectPercentile": 73.0
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 43.1,
+              "prospectPercentile": 50.1
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Jalen Williams",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 65.7,
+        "playmaking": 74.4,
+        "rebounding": 58.0,
+        "rimPressure": 62.9,
+        "shooting": 73.7,
+        "size": 54.0
+      },
+      "id": "2026-brayden_burries",
+      "name": "Brayden Burries",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 74
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 47
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 66
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 63
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 63
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 70
+        }
+      },
+      "school": "Arizona",
+      "stats": {
+        "assistsPer40": 3.3,
+        "ftPct": 0.805,
+        "gamesPlayed": 39,
+        "minutesPerGame": 29.7,
+        "pointsPer40": 21.6,
+        "reboundsPer40": 6.6,
+        "threePointPct": 0.391,
+        "tsPct": 0.623
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.569,
+        "draftProbability": 0.672,
+        "overallScore": 44,
+        "rank": 15
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 45.0,
+              "prospectPercentile": 42.3
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 96.0,
+              "prospectPercentile": 99.0
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 40.1,
+              "prospectPercentile": 35.3
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Darius Garland",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 96.6,
+              "prospectPercentile": 99.1
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 37.5,
+              "prospectPercentile": 42.3
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 93.8,
+              "prospectPercentile": 99.0
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Damian Lillard",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 47.6,
+              "prospectPercentile": 42.3
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 77.1,
+              "prospectPercentile": 83.0
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 92.2,
+              "prospectPercentile": 99.0
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Jamal Murray",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 37.3,
+        "playmaking": 90.0,
+        "rebounding": 20.3,
+        "rimPressure": 60.2,
+        "shooting": 73.1,
+        "size": 21.5
+      },
+      "id": "2026-darius_acuff",
+      "name": "Darius Acuff Jr.",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 90
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 26
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 60
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 60
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 40
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 52
+        }
+      },
+      "school": "Arkansas",
+      "stats": {
+        "assistsPer40": 7.3,
+        "ftPct": 0.809,
+        "gamesPlayed": 36,
+        "minutesPerGame": 35.2,
+        "pointsPer40": 26.6,
+        "reboundsPer40": 3.5,
+        "threePointPct": 0.44,
+        "tsPct": 0.611
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.662,
+        "draftProbability": 0.574,
+        "overallScore": 40,
+        "rank": 16
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 98.8,
+              "prospectPercentile": 98.9
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 83.5,
+              "prospectPercentile": 83.8
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 71.2,
+              "prospectPercentile": 69.6
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Donovan Mitchell",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 61.8,
+              "prospectPercentile": 63.0
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 37.3,
+              "prospectPercentile": 34.9
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 87.5,
+              "prospectPercentile": 83.8
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Derrick Rose",
+          "rank": 2,
+          "referenceSeasons": [
+            "2021"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 26.7,
+              "prospectPercentile": 24.9
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 79.4,
+              "prospectPercentile": 83.8
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 41.5,
+              "prospectPercentile": 34.9
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Bradley Beal",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 69.9,
+        "playmaking": 90.6,
+        "rebounding": 42.7,
+        "rimPressure": 69.1,
+        "shooting": 63.2,
+        "size": 21.5
+      },
+      "id": "2026-ebuka_okorie",
+      "name": "Ebuka Okorie",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 91
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 34
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 55
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 69
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 37
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 66
+        }
+      },
+      "school": "Stanford",
+      "stats": {
+        "assistsPer40": 4.1,
+        "ftPct": 0.832,
+        "gamesPlayed": 31,
+        "minutesPerGame": 35.1,
+        "pointsPer40": 26.4,
+        "reboundsPer40": 4.2,
+        "threePointPct": 0.354,
+        "tsPct": 0.597
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.681,
+        "draftProbability": 0.544,
+        "overallScore": 37,
+        "rank": 17
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 47.0,
+              "prospectPercentile": 53.7
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 34.6,
+              "prospectPercentile": 26.7
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 84.1,
+              "prospectPercentile": 92.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Brandon Miller",
+          "rank": 1,
+          "referenceSeasons": [
+            "2024"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 91.3,
+              "prospectPercentile": 92.7
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 25.1,
+              "prospectPercentile": 26.7
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 80.8,
+              "prospectPercentile": 77.2
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Klay Thompson",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 99
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 58.9,
+              "prospectPercentile": 53.7
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 41.2,
+              "prospectPercentile": 34.7
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 84.1,
+              "prospectPercentile": 77.2
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Trey Murphy III",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 99
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 59.9,
+        "playmaking": 63.4,
+        "rebounding": 35.9,
+        "rimPressure": 41.7,
+        "shooting": 79.3,
+        "size": 42.0
+      },
+      "id": "2026-isaiah_evans",
+      "name": "Isaiah Evans",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 63
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 49
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 81
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 42
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 58
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 69
+        }
+      },
+      "school": "Duke",
+      "stats": {
+        "assistsPer40": 1.8,
+        "ftPct": 0.86,
+        "gamesPlayed": 38,
+        "minutesPerGame": 28.3,
+        "pointsPer40": 21.2,
+        "reboundsPer40": 4.5,
+        "threePointPct": 0.361,
+        "tsPct": 0.595
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.598,
+        "draftProbability": 0.619,
+        "overallScore": 33,
+        "rank": 18
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 73.2,
+              "prospectPercentile": 72.8
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 92.1,
+              "prospectPercentile": 92.7
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 75.6,
+              "prospectPercentile": 78.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Paul George",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 37.9,
+              "prospectPercentile": 37.8
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 57.6,
+              "prospectPercentile": 60.9
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 96.7,
+              "prospectPercentile": 92.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Kyrie Irving",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 93.0,
+              "prospectPercentile": 92.7
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 83.1,
+              "prospectPercentile": 78.4
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 48.2,
+              "prospectPercentile": 37.8
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Desmond Bane",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 63.4,
+        "playmaking": 79.9,
+        "rebounding": 56.5,
+        "rimPressure": 43.7,
+        "shooting": 72.4,
+        "size": 30.0
+      },
+      "id": "2026-meleek_thomas",
+      "name": "Meleek Thomas",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 80
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 37
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 65
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 44
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 47
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 68
+        }
+      },
+      "school": "Arkansas",
+      "stats": {
+        "assistsPer40": 3.3,
+        "ftPct": 0.843,
+        "gamesPlayed": 37,
+        "minutesPerGame": 30.5,
+        "pointsPer40": 20.5,
+        "reboundsPer40": 5.0,
+        "threePointPct": 0.416,
+        "tsPct": 0.563
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.666,
+        "draftProbability": 0.53,
+        "overallScore": 29,
+        "rank": 19
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 50.9,
+              "prospectPercentile": 50.6
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 46.0,
+              "prospectPercentile": 44.8
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 93.1,
+              "prospectPercentile": 91.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Khris Middleton",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 48.2,
+              "prospectPercentile": 50.6
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 49.0,
+              "prospectPercentile": 44.8
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 93.0,
+              "prospectPercentile": 87.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Desmond Bane",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 72.9,
+              "prospectPercentile": 75.3
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 84.9,
+              "prospectPercentile": 87.7
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 87.9,
+              "prospectPercentile": 91.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Malcolm Brogdon",
+          "rank": 3,
+          "referenceSeasons": [
+            "2022",
+            "2023",
+            "2024"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 52.6,
+        "playmaking": 84.0,
+        "rebounding": 66.7,
+        "rimPressure": 64.0,
+        "shooting": 72.5,
+        "size": 37.3
+      },
+      "id": "2026-keaton_wagler",
+      "name": "Keaton Wagler",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 84
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 50
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 69
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 64
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 52
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 62
+        }
+      },
+      "school": "Illinois",
+      "stats": {
+        "assistsPer40": 5.0,
+        "ftPct": 0.796,
+        "gamesPlayed": 37,
+        "minutesPerGame": 34.0,
+        "pointsPer40": 21.1,
+        "reboundsPer40": 6.0,
+        "threePointPct": 0.397,
+        "tsPct": 0.604
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.541,
+        "draftProbability": 0.648,
+        "overallScore": 25,
+        "rank": 20
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 90.2,
+              "prospectPercentile": 93.4
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 41.9,
+              "prospectPercentile": 45.6
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 64.8,
+              "prospectPercentile": 58.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Kel'el Ware",
+          "rank": 1,
+          "referenceSeasons": [
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 16.1,
+              "prospectPercentile": 14.2
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 88.4,
+              "prospectPercentile": 93.4
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 52.3,
+              "prospectPercentile": 58.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Mo Bamba",
+          "rank": 2,
+          "referenceSeasons": [
+            "2022",
+            "2023"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 91.1,
+              "prospectPercentile": 93.4
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 43.3,
+              "prospectPercentile": 45.6
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 19.3,
+              "prospectPercentile": 14.2
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Deandre Ayton",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 99
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 57.5,
+        "playmaking": 50.1,
+        "rebounding": 86.4,
+        "rimPressure": 36.4,
+        "shooting": 43.8,
+        "size": 95.0
+      },
+      "id": "2026-chris_cenac",
+      "name": "Chris Cenac Jr.",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 50
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 84
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 41
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 36
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 64
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 50
+        }
+      },
+      "school": "Houston",
+      "stats": {
+        "assistsPer40": 1.2,
+        "ftPct": 0.621,
+        "gamesPlayed": 37,
+        "minutesPerGame": 24.9,
+        "pointsPer40": 15.3,
+        "reboundsPer40": 12.7,
+        "threePointPct": 0.333,
+        "tsPct": 0.549
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.596,
+        "draftProbability": 0.534,
+        "overallScore": 21,
+        "rank": 21
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 69.3,
+              "prospectPercentile": 71.2
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 69.0,
+              "prospectPercentile": 63.3
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 84.7,
+              "prospectPercentile": 76.8
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Bam Adebayo",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 65.4,
+              "prospectPercentile": 63.3
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 97.3,
+              "prospectPercentile": 94.9
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 70.8,
+              "prospectPercentile": 76.8
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Zion Williamson",
+          "rank": 2,
+          "referenceSeasons": [
+            "2021",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 96.2,
+              "prospectPercentile": 94.9
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 69.1,
+              "prospectPercentile": 71.2
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 41.2,
+              "prospectPercentile": 47.5
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Jaylen Brown",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 60.3,
+        "playmaking": 65.0,
+        "rebounding": 50.5,
+        "rimPressure": 50.9,
+        "shooting": 45.8,
+        "size": 78.8
+      },
+      "id": "2026-nate_ament",
+      "name": "Nate Ament",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 65
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 67
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 43
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 51
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 60
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 53
+        }
+      },
+      "school": "Tennessee",
+      "stats": {
+        "assistsPer40": 3.2,
+        "ftPct": 0.79,
+        "gamesPlayed": 35,
+        "minutesPerGame": 29.7,
+        "pointsPer40": 22.5,
+        "reboundsPer40": 8.6,
+        "threePointPct": 0.333,
+        "tsPct": 0.543
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.599,
+        "draftProbability": 0.525,
+        "overallScore": 17,
+        "rank": 22
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 78.6,
+              "prospectPercentile": 78.7
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 59.6,
+              "prospectPercentile": 64.0
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 67.8,
+              "prospectPercentile": 74.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Chet Holmgren",
+          "rank": 1,
+          "referenceSeasons": [
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 62.4,
+              "prospectPercentile": 64.0
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 79.6,
+              "prospectPercentile": 74.7
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 23.3,
+              "prospectPercentile": 18.3
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Kristaps Porzingis",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 39.9,
+              "prospectPercentile": 38.9
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 81.5,
+              "prospectPercentile": 78.7
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 25.0,
+              "prospectPercentile": 18.3
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Christian Wood",
+          "rank": 3,
+          "referenceSeasons": [
+            "2022",
+            "2023",
+            "2024"
+          ],
+          "similarityScore": 99
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 62.0,
+        "playmaking": 50.2,
+        "rebounding": 85.0,
+        "rimPressure": 72.4,
+        "shooting": 60.5,
+        "size": 92.5
+      },
+      "id": "2026-morez_johnson",
+      "name": "Morez Johnson Jr.",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 50
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 89
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 36
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 72
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 75
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 61
+        }
+      },
+      "school": "Michigan",
+      "stats": {
+        "assistsPer40": 1.9,
+        "ftPct": 0.782,
+        "gamesPlayed": 40,
+        "minutesPerGame": 25.1,
+        "pointsPer40": 20.9,
+        "reboundsPer40": 11.7,
+        "threePointPct": 0.343,
+        "tsPct": 0.687
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.483,
+        "draftProbability": 0.642,
+        "overallScore": 13,
+        "rank": 23
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 35.3,
+              "prospectPercentile": 34.4
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 43.8,
+              "prospectPercentile": 45.9
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 71.2,
+              "prospectPercentile": 74.9
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Donovan Mitchell",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 66.2,
+              "prospectPercentile": 66.7
+            },
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 99.0,
+              "prospectPercentile": 97.8
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 41.1,
+              "prospectPercentile": 34.4
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "James Harden",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 91.8,
+              "prospectPercentile": 91.0
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 47.6,
+              "prospectPercentile": 45.9
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 77.1,
+              "prospectPercentile": 74.9
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Jamal Murray",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 79.7,
+        "playmaking": 86.1,
+        "rebounding": 51.0,
+        "rimPressure": 55.0,
+        "shooting": 63.2,
+        "size": 22.8
+      },
+      "id": "2026-kingston_flemings",
+      "name": "Kingston Flemings",
+      "position": "G",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 86
+        },
+        "rimProtector": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 39
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 46
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 55
+        },
+        "stretchBig": {
+          "eligibility": "OUT_OF_POSITION",
+          "fitScore": 38
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 71
+        }
+      },
+      "school": "Houston",
+      "stats": {
+        "assistsPer40": 6.6,
+        "ftPct": 0.845,
+        "gamesPlayed": 37,
+        "minutesPerGame": 31.6,
+        "pointsPer40": 20.3,
+        "reboundsPer40": 5.1,
+        "threePointPct": 0.387,
+        "tsPct": 0.568
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.507,
+        "draftProbability": 0.592,
+        "overallScore": 10,
+        "rank": 24
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 49.5,
+              "prospectPercentile": 49.5
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 20.3,
+              "prospectPercentile": 21.4
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 70.9,
+              "prospectPercentile": 73.2
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Pascal Siakam",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 79.6,
+              "prospectPercentile": 80.1
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 47.4,
+              "prospectPercentile": 51.9
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 98.3,
+              "prospectPercentile": 88.9
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Jayson Tatum",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 80.7,
+              "prospectPercentile": 80.1
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 70.8,
+              "prospectPercentile": 73.2
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 97.3,
+              "prospectPercentile": 88.9
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Zion Williamson",
+          "rank": 3,
+          "referenceSeasons": [
+            "2021",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 1.0,
+      "dimensions": {
+        "defensiveProduction": 39.3,
+        "playmaking": 74.5,
+        "rebounding": 41.5,
+        "rimPressure": 67.7,
+        "shooting": 40.4,
+        "size": 87.0
+      },
+      "id": "2026-koa_peat",
+      "name": "Koa Peat",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 74
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 64
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 25
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 68
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 59
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 40
+        }
+      },
+      "school": "Arizona",
+      "stats": {
+        "assistsPer40": 3.7,
+        "ftPct": 0.623,
+        "gamesPlayed": 36,
+        "minutesPerGame": 27.9,
+        "pointsPer40": 20.3,
+        "reboundsPer40": 8.1,
+        "threePointPct": 0.35,
+        "tsPct": 0.564
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.366,
+        "draftProbability": 0.354,
+        "overallScore": 6,
+        "rank": 25
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 21.0,
+              "prospectPercentile": 21.8
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 32.3,
+              "prospectPercentile": 29.3
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 69.6,
+              "prospectPercentile": 63.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Markieff Morris",
+          "rank": 1,
+          "referenceSeasons": [
+            "2021"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 27.7,
+              "prospectPercentile": 21.5
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 56.2,
+              "prospectPercentile": 63.7
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 13.6,
+              "prospectPercentile": 21.8
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "David Roddy",
+          "rank": 2,
+          "referenceSeasons": [
+            "2023",
+            "2024"
+          ],
+          "similarityScore": 99
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "passing / creation role",
+              "nbaPercentile": 4.2,
+              "prospectPercentile": 6.8
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 19.1,
+              "prospectPercentile": 21.8
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 59.3,
+              "prospectPercentile": 63.7
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "JT Thor",
+          "rank": 3,
+          "referenceSeasons": [
+            "2023",
+            "2024"
+          ],
+          "similarityScore": 99
+        }
+      ],
+      "coverage": 0.958,
+      "dimensions": {
+        "defensiveProduction": 10.6,
+        "playmaking": 50.9,
+        "rebounding": 34.4,
+        "rimPressure": 36.9,
+        "shooting": 35.0,
+        "size": 63.2
+      },
+      "id": "2026-bryson_tucker",
+      "name": "Bryson Tucker",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 51
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 42
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 37
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 37
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 47
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 19
+        }
+      },
+      "school": "Washington",
+      "stats": {
+        "assistsPer40": 0.9,
+        "ftPct": 0.545,
+        "gamesPlayed": 21,
+        "minutesPerGame": 22.0,
+        "pointsPer40": 10.4,
+        "reboundsPer40": 7.1,
+        "threePointPct": 0.261,
+        "tsPct": 0.492
+      }
+    },
+    {
+      "board": {
+        "draftOrderSignal": 0.599,
+        "draftProbability": 0.12,
+        "overallScore": 2,
+        "rank": 26
+      },
+      "comparables": [
+        {
+          "closestDimensions": [
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 1.3,
+              "prospectPercentile": 2.0
+            },
+            {
+              "label": "scoring role",
+              "nbaPercentile": 26.2,
+              "prospectPercentile": 27.2
+            },
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 94.4,
+              "prospectPercentile": 95.5
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Rudy Gobert",
+          "rank": 1,
+          "referenceSeasons": [
+            "2023",
+            "2024",
+            "2025"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "rebounding role",
+              "nbaPercentile": 95.1,
+              "prospectPercentile": 95.5
+            },
+            {
+              "label": "shooting efficiency",
+              "nbaPercentile": 43.6,
+              "prospectPercentile": 39.5
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 74.2,
+              "prospectPercentile": 69.5
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Derrick Favors",
+          "rank": 2,
+          "referenceSeasons": [
+            "2021"
+          ],
+          "similarityScore": 100
+        },
+        {
+          "closestDimensions": [
+            {
+              "label": "scoring role",
+              "nbaPercentile": 26.8,
+              "prospectPercentile": 27.2
+            },
+            {
+              "label": "box-score defensive activity",
+              "nbaPercentile": 68.5,
+              "prospectPercentile": 69.5
+            },
+            {
+              "label": "perimeter vs interior shot diet",
+              "nbaPercentile": 4.6,
+              "prospectPercentile": 2.0
+            }
+          ],
+          "differences": [],
+          "nbaPlayerName": "Dwight Howard",
+          "rank": 3,
+          "referenceSeasons": [
+            "2021",
+            "2022"
+          ],
+          "similarityScore": 100
+        }
+      ],
+      "coverage": 0.875,
+      "dimensions": {
+        "defensiveProduction": 73.4,
+        "playmaking": 10.0,
+        "rebounding": 95.5,
+        "rimPressure": 84.7,
+        "shooting": 42.1,
+        "size": 96.0
+      },
+      "id": "2026-jayden_quaintance",
+      "name": "Jayden Quaintance",
+      "position": "F",
+      "profiles": {
+        "playmaker": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 10
+        },
+        "rimProtector": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 95
+        },
+        "shooter": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 22
+        },
+        "slasher": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 85
+        },
+        "stretchBig": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 64
+        },
+        "threeAndD": {
+          "eligibility": "ELIGIBLE",
+          "fitScore": 56
+        }
+      },
+      "school": "Kentucky",
+      "stats": {
+        "assistsPer40": 1.2,
+        "ftPct": 0.308,
+        "gamesPlayed": 4,
+        "minutesPerGame": 16.5,
+        "pointsPer40": 12.1,
+        "reboundsPer40": 12.1,
+        "threePointPct": null,
+        "tsPct": 0.507
+      }
+    }
+  ],
+  "teamNeedProfiles": [
+    "shooter",
+    "slasher",
+    "playmaker",
+    "threeAndD",
+    "rimProtector",
+    "stretchBig"
+  ],
+  "validationSummary": {
+    "historical": {
+      "developmentPopulation": [
+        887,
+        431,
+        456
+      ],
+      "draftOrderMacroSpearman": 0.2968,
+      "draftProbabilityMacroAuc": 0.6986,
+      "generalBoardBinaryAuc": 0.7123,
+      "generalBoardGradedNdcg": 0.8283
+    },
+    "holdout2026": {
+      "draftedShare": 96.2,
+      "generalBoardGradedNdcg": 0.9462,
+      "supportLabel": "LOW-SUPPORT / DESCRIPTIVE ONLY"
+    },
+    "noPostHoldoutTuning": true,
+    "note": "Methodology was frozen (tag analytics-freeze-pre-2026) before the 2026 prediction freeze; predictions were hashed before any 2026 outcome was opened. See docs/VALIDATION.md for the complete record, including a disclosed process note."
+  },
+  "version": "2026-final"
+}

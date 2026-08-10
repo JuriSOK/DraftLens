@@ -1,0 +1,72 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  border-radius: var(--radius-md);
+  line-height: 1;
+}
+
+.sm {
+  min-width: 30px;
+  height: 24px;
+  font-size: 13px;
+  padding: 0 6px;
+}
+
+.md {
+  min-width: 44px;
+  height: 34px;
+  font-size: 18px;
+  padding: 0 8px;
+}
+
+.lg {
+  min-width: 64px;
+  height: 52px;
+  font-size: 28px;
+  padding: 0 12px;
+  border-radius: var(--radius-lg);
+}
+
+.elite {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.strong {
+  background: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+}
+
+.mid {
+  background: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+.low {
+  background: var(--color-surface-alt);
+  color: var(--color-text-secondary);
+}
+
+.empty {
+  background: var(--color-surface-alt);
+  color: var(--color-text-tertiary);
+}
+
+.rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.rankTop {
+  color: var(--color-accent-strong);
+}

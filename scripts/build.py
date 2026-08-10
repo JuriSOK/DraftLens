@@ -13,11 +13,13 @@ never built here.
   python scripts/build.py team_need
   python scripts/build.py comparables
 
-Two more stages exist, deliberately excluded from `all` — the one-time 2026
-holdout replay (see src/replay.py):
+Three more stages exist, deliberately excluded from `all` — the one-time 2026
+holdout replay (see src/replay.py) and the public application data export
+(see src/app_export.py), which depends on the replay already having run:
 
   python scripts/build.py replay-2026        # PART A: target-free predictions
   python scripts/build.py replay-2026-eval   # PART B: unseal + evaluate
+  python scripts/build.py app-data           # write app/public/data/draftlens_2026.json
 """
 
 import argparse
@@ -163,9 +165,19 @@ def _replay_2026_eval(a):
     return 0
 
 
+def _app_data(a):
+    import app_export
+    path, digest, n = app_export.write_payload()
+    print(f"  wrote {path.relative_to(app_export.ROOT)}")
+    print(f"  prospects  {n}")
+    print(f"  sha256     {digest}")
+    return 0
+
+
 REPLAY_STAGES = {
     "replay-2026": _replay_2026,
     "replay-2026-eval": _replay_2026_eval,
+    "app-data": _app_data,
 }
 
 

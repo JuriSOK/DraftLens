@@ -1,0 +1,25 @@
+.state {
+  padding: 64px 24px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+
+.detail {
+  font-size: 13.5px;
+  margin-top: 6px;
+}
+
+.detail code {
+  background: var(--color-surface-alt);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}

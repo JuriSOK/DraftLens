@@ -68,11 +68,12 @@ resemble theirs — purely descriptive resemblance, never a projection.
 | **Team Need** | ✅ frozen |
 | **NBA Statistical Comparables** | ✅ frozen |
 | **2026 final holdout replay** | ✅ complete |
-| Web application | 🚧 not started |
+| Web application | ✅ implemented |
 
-**There is no application yet** — this repository is the analytical core. All
-three product systems are frozen, reproducible on historical classes, and
-have now completed their one-time 2026 holdout evaluation.
+All three product systems are frozen, reproducible on historical classes, and
+have completed their one-time 2026 holdout evaluation. A static React
+application (`app/`) presents the frozen 2026 output — it performs no
+analytical computation of its own; see [Application](#application) below.
 
 ### 2026 holdout, in brief
 
@@ -123,7 +124,50 @@ config/         board.json · team_need.json · comparables.json
 tests/          data/ · features/ · board/ · team_need/ · comparables/ · integration/
 docs/           DATA.md · METHODOLOGY.md · VALIDATION.md
 data/           raw (immutable, git-ignored) / interim (generated, git-ignored)
+
+app/            static React product interface — see Application below
+  src/
+    components/   ScoreBadge, PercentileBar, ProfileCard, ComparableCard, …
+    pages/        Board, Prospect Detail, Team Need, Methodology
+    data/         DataProvider — fetches app/public/data/draftlens_2026.json
+    lib/          display formatting + the custom Team Need weighted formula
+    types/        TypeScript interfaces for the public export
+  public/data/    draftlens_2026.json — the ONE file the app reads
 ```
+
+## Application
+
+A static, read-only React interface over the frozen 2026 output. It never
+retrains a model, recomputes a score, or reaches a 2026 outcome — every
+number it renders was already computed by the Python analytics and exported
+once, deterministically, to `app/public/data/draftlens_2026.json`. The one
+exception is Team Need's **custom** mode, which runs the frozen weighted-average
+formula (`fit = Σ(weight × dimension) / Σ(active weights)`) client-side over
+already-frozen dimension scores, because the weights are a live user
+preference — not a re-derivation of any model.
+
+Three experiences: the **General Draft Board** (search, filter, sortable by
+rank), **Prospect Detail** (profile stats, six-dimension percentile bars, all
+predefined Team Need fits, three NBA statistical comparables), and **Team
+Need** (predefined-profile ranking or custom-priority sliders). A small
+**Methodology** page summarizes the system and links back to
+`docs/VALIDATION.md`; it never shows a per-prospect 2026 outcome.
+
+```bash
+pip install -e .
+python scripts/build.py app-data     # writes app/public/data/draftlens_2026.json
+
+cd app
+npm install
+npm run dev                          # http://localhost:5173
+npm run build                        # static production build in app/dist/
+```
+
+`app-data` requires the 2026 replay artifacts (`scripts/build.py replay-2026`
+then `replay-2026-eval`) to already exist — see `docs/VALIDATION.md` for that
+one-time procedure. Stack: React + TypeScript + Vite, `react-router-dom` for
+the four routes, plain CSS Modules for styling — no backend, no database, no
+state library, no charting dependency.
 
 ## Run locally
 
