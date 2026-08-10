@@ -116,8 +116,8 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: #9a5b12;
-  background: #fbe8cc;
+  color: var(--color-warning);
+  background: var(--color-warning-soft);
   border-radius: 999px;
   padding: 1px 7px;
 }
@@ -213,4 +213,46 @@
   .colHideSm {
     display: none;
   }
+}
+
+.leaderList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: leader;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.leaderItem {
+  counter-increment: leader;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+}
+
+.leaderItem::before {
+  content: counter(leader);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  min-width: 12px;
+}
+
+.leaderName {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.leaderValue {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-accent-strong);
 }

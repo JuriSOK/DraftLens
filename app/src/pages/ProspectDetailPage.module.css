@@ -49,8 +49,8 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: #9a5b12;
-  background: #fbe8cc;
+  color: var(--color-warning);
+  background: var(--color-warning-soft);
   border-radius: 999px;
   padding: 3px 10px;
 }
@@ -228,5 +228,23 @@
   }
   .headerStats {
     gap: 18px;
+  }
+}
+
+.profileLayout {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.profileLayout .dimensionGrid {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .profileLayout {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,0 +1,230 @@
+/* Shared chart styling. Colours come from the global accent tokens so every
+   chart in the product reads as one visual system. */
+
+.kpiStrip {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.kpi {
+  flex: 1 1 130px;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border-left: 3px solid var(--color-accent);
+}
+
+.kpiValue {
+  font-size: 21px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.kpiLabel {
+  font-size: 10.5px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-tertiary);
+}
+
+.kpiHint {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+/* ------------------------------------------------------------- histogram */
+.histogram {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.histBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.histCol {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.histBar {
+  width: 100%;
+  background: var(--color-accent-soft);
+  border-top: 2px solid var(--color-accent);
+  border-radius: 2px 2px 0 0;
+  transition: background 0.12s ease;
+}
+
+.histBar[data-highlight="true"] {
+  background: var(--color-accent);
+  border-top-color: var(--color-accent-strong);
+}
+
+.histAxis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+}
+
+.histTick {
+  font-variant-numeric: tabular-nums;
+}
+
+/* -------------------------------------------------------------- bar rows */
+.barRow {
+  display: grid;
+  grid-template-columns: 128px 1fr 40px;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+}
+
+.barLabel {
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.barTrack {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-surface-alt);
+  overflow: hidden;
+}
+
+.barFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-accent);
+}
+
+.barFill[data-muted="true"] {
+  background: var(--color-text-tertiary);
+  opacity: 0.55;
+}
+
+.barValue {
+  text-align: right;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+
+/* ----------------------------------------------------------------- radar */
+.radar {
+  width: 100%;
+  max-width: 230px;
+  height: auto;
+}
+
+.radarGrid {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+.radarSpoke {
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+.radarShape {
+  fill: var(--color-accent);
+  fill-opacity: 0.22;
+  stroke: var(--color-accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.radarLabel {
+  font-size: 8.5px;
+  font-weight: 650;
+  fill: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ---------------------------------------------------------- position mix */
+.mix {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mixBar {
+  display: flex;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--color-surface-alt);
+}
+
+.mixSeg[data-index="0"] {
+  background: var(--color-accent);
+}
+.mixSeg[data-index="1"] {
+  background: var(--color-accent-muted);
+}
+.mixSeg[data-index="2"] {
+  background: var(--color-accent-deep);
+}
+.mixSeg[data-index="3"] {
+  background: var(--color-text-tertiary);
+}
+
+.mixLegend {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.mixLegendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.mixDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.mixDot[data-index="0"] {
+  background: var(--color-accent);
+}
+.mixDot[data-index="1"] {
+  background: var(--color-accent-muted);
+}
+.mixDot[data-index="2"] {
+  background: var(--color-accent-deep);
+}
+.mixDot[data-index="3"] {
+  background: var(--color-text-tertiary);
+}
+
+@media (max-width: 560px) {
+  .barRow {
+    grid-template-columns: 96px 1fr 36px;
+  }
+}

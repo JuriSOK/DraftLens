@@ -7,7 +7,9 @@ import { PositionFilter } from "../components/PositionFilter";
 import type { PositionValue } from "../components/PositionFilter";
 import { ScoreBadge, RankBadge } from "../components/ScoreBadge";
 import { MetricTooltip } from "../components/MetricTooltip";
+import { CategoryMix, Histogram, KpiStrip } from "../components/charts/Charts";
 import { TOOLTIPS } from "../lib/tooltips";
+import { binValues, mean, positionCounts } from "../lib/summaries";
 import { formatPercent } from "../lib/format";
 import { PROFILE_LABELS } from "../types/data";
 import type { Prospect, YearAvailable } from "../types/data";
@@ -54,6 +56,17 @@ export function BoardPage() {
       .sort((a, b) => a.declaredBoard!.rank - b.declaredBoard!.rank);
   }, [available, query, position]);
 
+  // Presentation-only summaries of the CURRENTLY FILTERED rows. Every value
+  // is an average or tally of numbers already in the table below — nothing
+  // is modelled or recomputed.
+  const avgProbability = mean(prospects.map((p) => p.declaredBoard!.draftProbability));
+  const avgScore = mean(prospects.map((p) => p.declaredBoard!.overallScore));
+  const scoreBins = binValues(
+    prospects.map((p) => p.declaredBoard!.overallScore),
+    { min: 0, max: 100, buckets: 10, format: (n) => String(Math.round(n)) },
+  );
+  const mix = positionCounts(prospects.map((p) => p.position));
+
   if (loading) return <LoadingState />;
   if (error || !data || !available) return <ErrorState message={error ?? "Unknown error"} />;
 
@@ -77,6 +90,45 @@ export function BoardPage() {
         <SearchInput value={query} onChange={setQuery} />
         <PositionFilter value={position} onChange={setPosition} />
       </div>
+
+      {prospects.length > 0 && (
+        <>
+          <KpiStrip
+            items={[
+              { label: "prospects shown", value: String(prospects.length) },
+              {
+                label: "avg Overall Score",
+                value: avgScore === null ? "—" : avgScore.toFixed(1),
+              },
+              {
+                label: "avg Draft Probability",
+                value: formatPercent(avgProbability),
+              },
+              {
+                label: "top Overall Score",
+                value: String(prospects[0].declaredBoard!.overallScore),
+                hint: prospects[0].name,
+              },
+            ]}
+          />
+          <div className="analyticsRow">
+            <div className="analyticsCard">
+              <span className="analyticsTitle">Overall Score distribution</span>
+              <Histogram
+                bins={scoreBins}
+                ariaLabel="Distribution of Overall Score across the prospects currently shown"
+              />
+            </div>
+            <div className="analyticsCard">
+              <span className="analyticsTitle">Position mix</span>
+              <CategoryMix
+                counts={mix}
+                ariaLabel="Position mix across the prospects currently shown"
+              />
+            </div>
+          </div>
+        </>
+      )}
 
       <div className={styles.tableWrap}>
         <table className={styles.table}>

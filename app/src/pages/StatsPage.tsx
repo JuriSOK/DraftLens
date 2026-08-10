@@ -10,6 +10,8 @@ import {
   RELIABILITY_MIN_ATTEMPTS,
 } from "../lib/statMetrics";
 import type { MetricDef, MetricGroup, SortDirection } from "../lib/statMetrics";
+import { Histogram, KpiStrip } from "../components/charts/Charts";
+import { binValues, maxOf, mean, median } from "../lib/summaries";
 import type { Prospect, YearAvailable } from "../types/data";
 import styles from "./StatsPage.module.css";
 
@@ -37,6 +39,23 @@ export function StatsPage() {
     );
     return withValue;
   }, [available, metric, effectiveDirection]);
+
+  // Presentation-only summaries of the values already listed in the table.
+  const values = rows.map((r) => r.value);
+  const fmt = (v: number | null) =>
+    v === null ? "—" : metric.isPercent ? `${(v * 100).toFixed(1)}%` : v.toFixed(1);
+  const lo = values.length ? Math.min(...values) : 0;
+  const hi = values.length ? Math.max(...values) : 1;
+  const distBins = binValues(values, {
+    min: lo,
+    max: hi === lo ? lo + 1 : hi,
+    buckets: 12,
+    format: (n) => (metric.isPercent ? `${Math.round(n * 100)}%` : n.toFixed(1)),
+  });
+  // "Best" respects the metric's own direction — fewest turnovers is best.
+  const leaders = [...rows]
+    .sort((a, b) => (metric.lowerIsBetter ? a.value - b.value : b.value - a.value))
+    .slice(0, 5);
 
   if (loading) return <LoadingState />;
   if (error || !data || !available) return <ErrorState message={error ?? "Unknown error"} />;
@@ -127,6 +146,45 @@ export function StatsPage() {
           Under {RELIABILITY_MIN_ATTEMPTS} attempts is flagged{" "}
           <span className={styles.lowSampleTag}>Low sample</span>.
         </p>
+      )}
+
+      {rows.length > 0 && (
+        <>
+          <KpiStrip
+            items={[
+              { label: "players ranked", value: String(rows.length) },
+              { label: `median ${metric.label}`, value: fmt(median(values)) },
+              { label: `average ${metric.label}`, value: fmt(mean(values)) },
+              {
+                label: metric.lowerIsBetter ? "lowest" : "highest",
+                value: fmt(metric.lowerIsBetter ? Math.min(...values) : maxOf(values)),
+                hint: leaders[0]?.prospect.name,
+              },
+            ]}
+          />
+          <div className="analyticsRow">
+            <div className="analyticsCard">
+              <span className="analyticsTitle">{metric.label} distribution</span>
+              <Histogram
+                bins={distBins}
+                ariaLabel={`Distribution of ${metric.label} across ranked prospects`}
+              />
+            </div>
+            <div className="analyticsCard">
+              <span className="analyticsTitle">
+                Top 5 {metric.lowerIsBetter ? "(fewest)" : ""}
+              </span>
+              <ol className={styles.leaderList}>
+                {leaders.map((l) => (
+                  <li key={l.prospect.id} className={styles.leaderItem}>
+                    <span className={styles.leaderName}>{l.prospect.name}</span>
+                    <span className={styles.leaderValue}>{fmt(l.value)}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </>
       )}
 
       <div className={styles.tableWrap}>

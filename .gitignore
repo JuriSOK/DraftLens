@@ -89,3 +89,14 @@ data/**
 !data/raw/draft_watchlist/draft_watchlist_sources_2027.csv
 !data/interim/
 !data/processed/
+
+# ── Landing hero image ────────────────────────────────────────────────
+# app/public/hero/ holds the landing-page hero photograph. It is NOT
+# committed: the file supplied for it is a professional NBA game photo
+# whose reuse rights have not been verified, and this project's own
+# policy (docs/METHODOLOGY.md, src/data/photos.py) refuses to ship an
+# image without a verified free licence. The landing degrades gracefully
+# to its original SVG hero when the file is absent, so the deployed site
+# is never broken. Drop a licence-cleared image at
+# app/public/hero/hero-player.jpg to enable it.
+app/public/hero/

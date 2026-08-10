@@ -6,13 +6,23 @@
   --color-text: #1c1b19;
   --color-text-secondary: #6b6862;
   --color-text-tertiary: #9a978f;
+  /* ── Accent system ────────────────────────────────────────────────
+     One basketball-orange ramp used by every surface in the product:
+     product pages, charts, badges, tooltips, and the dark landing hero.
+     Adding a new accent means adding it here, not in a page module. */
   --color-accent: #c4531d;
   --color-accent-soft: #fbeee5;
   --color-accent-strong: #9c4116;
+  --color-accent-bright: #ff8c4a;   /* dark surfaces (landing hero) */
+  --color-accent-muted: #e08a4e;    /* secondary chart series */
+  --color-accent-deep: #8a5a3c;     /* tertiary chart series */
+
   --color-positive: #2f7d4f;
   --color-positive-soft: #e8f4ec;
   --color-negative: #b3401f;
-  --color-focus: #2563eb;
+  --color-warning: #9a5b12;
+  --color-warning-soft: #fbe8cc;
+  --color-focus: #c4531d;
 
   --radius-sm: 4px;
   --radius-md: 8px;
@@ -111,6 +121,41 @@ table {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+/* ── Shared analytics panel ──────────────────────────────────────────
+   Used by every page that shows a chart, so cards, titles and spacing
+   are identical across Board, Stats, Team Need, Prospect and 2027. */
+.analyticsRow {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.analyticsCard {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.analyticsTitle {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+}
+
+@media (max-width: 720px) {
+  .analyticsRow {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 720px) {

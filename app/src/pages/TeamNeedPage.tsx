@@ -8,6 +8,8 @@ import { MetricTooltip } from "../components/MetricTooltip";
 import { TOOLTIPS } from "../lib/tooltips";
 import { computeCustomFit } from "../lib/customFit";
 import type { Weights } from "../lib/customFit";
+import { BarRow, Histogram, KpiStrip } from "../components/charts/Charts";
+import { binValues, mean, median } from "../lib/summaries";
 import { CUSTOM_DIMENSION_LABELS, PROFILE_LABELS } from "../types/data";
 import type { CustomDimensionKey, Prospect, ProfileKey, YearAvailable } from "../types/data";
 import styles from "./TeamNeedPage.module.css";
@@ -21,6 +23,14 @@ const EMPTY_WEIGHTS: Weights = {
   rebounding: 0,
   size: 0,
 };
+
+const CUSTOM_DIMENSION_ORDER: CustomDimensionKey[] = [
+  "shooting",
+  "playmaking",
+  "defensiveProduction",
+  "rebounding",
+  "size",
+];
 
 function boardOf(p: Prospect) {
   return p.declaredBoard;
@@ -61,6 +71,7 @@ export function TeamNeedPage() {
   if (error || !data || !available) return <ErrorState message={error ?? "Unknown error"} />;
 
   const hasActiveWeight = Object.values(weights).some((w) => w > 0);
+  const totalWeight = Object.values(weights).reduce((a, b) => a + b, 0) || 1;
 
   return (
     <div className="container">
@@ -116,6 +127,57 @@ export function TeamNeedPage() {
             ))}
           </div>
 
+          {predefinedResults.length > 0 && (
+            <>
+              <KpiStrip
+                items={[
+                  { label: "eligible prospects", value: String(predefinedResults.length) },
+                  {
+                    label: "best fit",
+                    value: String(predefinedResults[0].profiles[profile].fitScore ?? "—"),
+                    hint: predefinedResults[0].name,
+                  },
+                  {
+                    label: "median Fit Score",
+                    value:
+                      median(
+                        predefinedResults.map((p) => p.profiles[profile].fitScore),
+                      )?.toFixed(0) ?? "—",
+                  },
+                ]}
+              />
+              <div className="analyticsRow">
+                <div className="analyticsCard">
+                  <span className="analyticsTitle">Fit Score distribution</span>
+                  <Histogram
+                    bins={binValues(
+                      predefinedResults.map((p) => p.profiles[profile].fitScore),
+                      { min: 0, max: 100, buckets: 10 },
+                    )}
+                    ariaLabel={`Distribution of ${PROFILE_LABELS[profile]} Fit Score`}
+                  />
+                </div>
+                <div className="analyticsCard">
+                  <span className="analyticsTitle">
+                    Average dimensions · top 10 fits
+                  </span>
+                  {/* The average NCAA-peer score on each dimension across the
+                     ten best fits — shows WHICH traits this archetype is
+                     actually selecting for. Averages of exported values only. */}
+                  {CUSTOM_DIMENSION_ORDER.map((dim) => (
+                    <BarRow
+                      key={dim}
+                      label={CUSTOM_DIMENSION_LABELS[dim]}
+                      value={mean(
+                        predefinedResults.slice(0, 10).map((p) => p.dimensions[dim]),
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
           <ResultsTable
             rows={predefinedResults.map((p) => ({
               id: p.id,
@@ -146,17 +208,37 @@ export function TeamNeedPage() {
           </div>
 
           {hasActiveWeight ? (
-            <ResultsTable
-              rows={customResults.map(({ prospect, fit }) => ({
-                id: prospect.id,
-                name: prospect.name,
-                position: prospect.position,
-                overallScore: boardOf(prospect)!.overallScore,
-                boardRank: boardOf(prospect)!.rank,
-                fitScore: fit.fitScore,
-              }))}
-              fitColumnLabel="Custom Fit Score"
-            />
+            <div className={styles.customResults}>
+              <div className="analyticsCard">
+                <span className="analyticsTitle">
+                  Your weighting · normalized share
+                </span>
+                {/* Shows how each slider actually contributes once the frozen
+                   formula normalizes over active weights — the same
+                   normalization described on the Methodology page. */}
+                {(Object.keys(weights) as CustomDimensionKey[])
+                  .filter((k) => weights[k] > 0)
+                  .map((k) => (
+                    <BarRow
+                      key={k}
+                      label={CUSTOM_DIMENSION_LABELS[k]}
+                      value={(weights[k] / totalWeight) * 100}
+                      suffix="%"
+                    />
+                  ))}
+              </div>
+              <ResultsTable
+                rows={customResults.map(({ prospect, fit }) => ({
+                  id: prospect.id,
+                  name: prospect.name,
+                  position: prospect.position,
+                  overallScore: boardOf(prospect)!.overallScore,
+                  boardRank: boardOf(prospect)!.rank,
+                  fitScore: fit.fitScore,
+                }))}
+                fitColumnLabel="Custom Fit Score"
+              />
+            </div>
           ) : (
             <div className={styles.emptyState}>
               Set at least one priority above 0 to rank prospects.

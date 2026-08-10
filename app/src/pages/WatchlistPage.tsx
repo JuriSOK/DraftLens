@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useDraftLensData } from "../data/DataProvider";
 import { LoadingState, ErrorState } from "../components/DataStates";
+import { CategoryMix, Histogram, KpiStrip } from "../components/charts/Charts";
+import { binValues, categoryCounts } from "../lib/summaries";
 import { formatDecimal } from "../lib/format";
 import type { YearWatchlist } from "../types/data";
 import styles from "./WatchlistPage.module.css";
@@ -30,6 +32,7 @@ export function WatchlistPage() {
   const w = year2027 as YearWatchlist;
   const returning = w.prospects.filter((p) => p.hasStats);
   const incoming = w.prospects.filter((p) => !p.hasStats);
+  const classCounts = categoryCounts(returning.map((p) => p.classYear));
 
   return (
     <div className="container">
@@ -41,6 +44,38 @@ export function WatchlistPage() {
           No official NBA early-entry declaration list exists for 2027 yet.
         </p>
       </div>
+
+      <KpiStrip
+        items={[
+          { label: "watchlist players", value: String(w.prospectCount) },
+          { label: "with 2025-26 NCAA data", value: String(w.returningCount) },
+          { label: "incoming, no stats yet", value: String(w.incomingCount) },
+          { label: "approved sources", value: String(w.sources.length) },
+        ]}
+      />
+      {returning.length > 0 && (
+        <div className="analyticsRow">
+          <div className="analyticsCard">
+            <span className="analyticsTitle">
+              PTS / 40 min distribution · returning players
+            </span>
+            <Histogram
+              bins={binValues(
+                returning.map((p) => p.stats?.pointsPer40 ?? null),
+                { min: 10, max: 30, buckets: 10, format: (n) => n.toFixed(0) },
+              )}
+              ariaLabel="Distribution of points per 40 minutes across returning watchlist players"
+            />
+          </div>
+          <div className="analyticsCard">
+            <span className="analyticsTitle">Class mix · returning</span>
+            <CategoryMix
+              counts={classCounts}
+              ariaLabel="Class-year mix across returning watchlist players"
+            />
+          </div>
+        </div>
+      )}
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>How this list is built</h2>

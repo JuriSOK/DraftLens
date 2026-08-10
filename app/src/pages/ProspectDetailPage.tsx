@@ -14,6 +14,7 @@ import {
   formatHeight,
   formatScoreOutOf100,
 } from "../lib/format";
+import { Radar } from "../components/charts/Charts";
 import { TOOLTIPS } from "../lib/tooltips";
 import {
   DIMENSION_LABELS,
@@ -23,6 +24,16 @@ import {
 } from "../types/data";
 import type { Dimensions, Prospect, WatchlistProspect } from "../types/data";
 import styles from "./ProspectDetailPage.module.css";
+
+/** Short labels so the six radar axes fit without overlapping. */
+const RADAR_LABELS: Record<keyof Dimensions, string> = {
+  shooting: "Shoot",
+  playmaking: "Play",
+  defensiveProduction: "Def",
+  rebounding: "Reb",
+  size: "Size",
+  rimPressure: "Rim",
+};
 
 const DIMENSION_ORDER: (keyof Dimensions)[] = [
   "shooting",
@@ -267,6 +278,13 @@ function BasketballProfileSection({
   strengths: ReturnType<typeof strengthsAndWeaknesses>["strengths"];
   weaknesses: ReturnType<typeof strengthsAndWeaknesses>["weaknesses"];
 }) {
+  // Same six exported scores, drawn as a shape — a second reading of the
+  // bars below, not a new computation.
+  const radarAxes = DIMENSION_ORDER.map((key) => ({
+    label: RADAR_LABELS[key],
+    value: dimensions[key],
+  }));
+
   return (
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>
@@ -277,7 +295,12 @@ function BasketballProfileSection({
           label="About Basketball Profile scores"
         />
       </h2>
-      <div className={styles.dimensionGrid}>
+      <div className={styles.profileLayout}>
+        <div className="analyticsCard">
+          <span className="analyticsTitle">Six-dimension shape</span>
+          <Radar axes={radarAxes} ariaLabel="Basketball Profile radar across six dimensions" />
+        </div>
+        <div className={styles.dimensionGrid}>
         {DIMENSION_ORDER.map((key) => (
           <PercentileBar
             key={key}
@@ -291,6 +314,7 @@ function BasketballProfileSection({
             }
           />
         ))}
+        </div>
       </div>
 
       {(strengths.length > 0 || weaknesses.length > 0) && (

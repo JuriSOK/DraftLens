@@ -1,31 +1,77 @@
 /* The landing page is the ONE dark surface in DraftLens. Product pages stay
    light and data-first; this page is the entry impression, so it carries a
-   deep charcoal + basketball-orange identity of its own. All tokens are
-   local to this module — the product palette is untouched. */
+   deep charcoal + basketball-orange identity. Accent values come from the
+   shared global tokens so the landing and the product read as one system. */
 .page {
   --dl-ink: #14100e;
-  --dl-ink-soft: #1e1815;
-  --dl-line: rgba(255, 255, 255, 0.1);
-  --dl-orange: #ff8c4a;
-  --dl-orange-deep: #c4531d;
-  --dl-text: #f6f1ec;
-  --dl-text-dim: #b3a79f;
+  --dl-line: rgba(255, 255, 255, 0.12);
+  --dl-orange: var(--color-accent-bright);
+  --dl-text: #f7f2ed;
+  --dl-text-dim: #b9ada4;
 
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   background:
-    radial-gradient(1100px 620px at 78% 12%, rgba(196, 83, 29, 0.28), transparent 62%),
-    radial-gradient(760px 520px at 8% 88%, rgba(255, 140, 74, 0.1), transparent 60%),
+    radial-gradient(1000px 640px at 20% 18%, rgba(196, 83, 29, 0.2), transparent 62%),
     var(--dl-ink);
   color: var(--dl-text);
 }
 
+/* ---------------------------------------------------------- hero photo */
+.photoLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 22%;
+  /* Fade the photo into the page rather than sitting it on top as a
+     rectangle: desaturate + warm it, then dissolve its left and bottom
+     edges so the copy block reads against near-solid ink. */
+  filter: grayscale(0.35) contrast(1.06) brightness(0.82) sepia(0.28)
+    saturate(1.25);
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 4%, rgba(0, 0, 0, 0.35) 32%, #000 62%),
+    linear-gradient(to bottom, #000 55%, transparent 97%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 4%, rgba(0, 0, 0, 0.35) 32%, #000 62%),
+    linear-gradient(to bottom, #000 55%, transparent 97%);
+  mask-composite: intersect;
+  opacity: 0.9;
+}
+
+/* Warm colour wash + left-side darkening so headline contrast is safe
+   regardless of what the photograph is doing behind it. */
+.photoScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(100deg, var(--dl-ink) 26%, rgba(20, 16, 14, 0.82) 44%,
+      rgba(20, 16, 14, 0.22) 68%, rgba(20, 16, 14, 0.5) 100%),
+    linear-gradient(to top, var(--dl-ink) 2%, transparent 42%),
+    radial-gradient(760px 520px at 74% 34%, rgba(255, 122, 51, 0.22), transparent 68%);
+}
+
+/* ---------------------------------------------------------------- hero */
 .hero {
+  position: relative;
+  z-index: 1;
   flex: 1;
   display: flex;
-  align-items: center;
-  padding: 56px 24px 40px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 64px 24px 40px;
 }
 
 .heroInner {
@@ -33,13 +79,15 @@
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
   gap: 48px;
   align-items: center;
+  flex: 1;
 }
 
 .content {
   min-width: 0;
+  max-width: 560px;
 }
 
 .eyebrow {
@@ -51,10 +99,11 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--dl-orange);
-  border: 1px solid rgba(255, 140, 74, 0.28);
-  background: rgba(255, 140, 74, 0.07);
+  border: 1px solid rgba(255, 140, 74, 0.3);
+  background: rgba(255, 140, 74, 0.08);
   border-radius: 999px;
   padding: 6px 14px;
+  backdrop-filter: blur(4px);
 }
 
 .eyebrowDot {
@@ -67,11 +116,12 @@
 
 .title {
   margin-top: 22px;
-  font-size: clamp(38px, 5.4vw, 68px);
-  line-height: 1.04;
-  letter-spacing: -0.03em;
+  font-size: clamp(40px, 5.8vw, 74px);
+  line-height: 1.02;
+  letter-spacing: -0.032em;
   font-weight: 750;
   color: var(--dl-text);
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.55);
 }
 
 .titleAccent {
@@ -83,87 +133,33 @@
   font-size: 16.5px;
   line-height: 1.55;
   color: var(--dl-text-dim);
-  max-width: 460px;
+  max-width: 430px;
+  text-shadow: 0 1px 16px rgba(0, 0, 0, 0.6);
 }
 
 .ctaRow {
   display: flex;
-  gap: 12px;
-  margin-top: 30px;
-  flex-wrap: wrap;
+  margin-top: 32px;
 }
 
 .primaryCta {
   background: linear-gradient(135deg, #ff8c4a, #c4531d);
   border: none;
   color: #fff;
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 700;
-  padding: 14px 30px;
+  padding: 15px 36px;
   border-radius: 10px;
-  box-shadow: 0 8px 26px rgba(196, 83, 29, 0.38);
+  box-shadow: 0 10px 30px rgba(196, 83, 29, 0.42);
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .primaryCta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 32px rgba(196, 83, 29, 0.5);
+  box-shadow: 0 14px 38px rgba(196, 83, 29, 0.55);
 }
 
-.secondaryCta {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--dl-line);
-  color: var(--dl-text);
-  font-size: 15px;
-  font-weight: 650;
-  padding: 14px 26px;
-  border-radius: 10px;
-  transition: background 0.12s ease, border-color 0.12s ease;
-}
-
-.secondaryCta:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(255, 140, 74, 0.4);
-}
-
-.statStrip {
-  display: flex;
-  align-items: flex-end;
-  gap: 22px;
-  margin-top: 40px;
-  padding-top: 24px;
-  border-top: 1px solid var(--dl-line);
-  flex-wrap: wrap;
-}
-
-.statChip {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.statValue {
-  font-size: 24px;
-  font-weight: 750;
-  color: var(--dl-text);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-}
-
-.statLabel {
-  font-size: 11px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--dl-text-dim);
-}
-
-.statSpark {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-left: auto;
-}
-
+/* SVG fallback, only rendered when no hero photograph is available. */
 .visualWrap {
   display: flex;
   justify-content: center;
@@ -171,30 +167,27 @@
   min-width: 0;
 }
 
+/* -------------------------------------------------------- capabilities */
 .capabilities {
+  width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px 48px;
+  margin: 48px auto 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  width: 100%;
 }
 
 .capabilityCard {
   border: 1px solid var(--dl-line);
   border-radius: 12px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.045),
-    rgba(255, 255, 255, 0.015)
-  );
-  padding: 20px 18px;
+  background: rgba(24, 19, 16, 0.62);
+  backdrop-filter: blur(10px);
+  padding: 18px;
   transition: border-color 0.14s ease, transform 0.14s ease;
 }
 
 .capabilityCard:hover {
-  border-color: rgba(255, 140, 74, 0.36);
+  border-color: rgba(255, 140, 74, 0.4);
   transform: translateY(-2px);
 }
 
@@ -213,69 +206,47 @@
   color: var(--dl-text-dim);
 }
 
-.footer {
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 18px 24px 24px;
-  border-top: 1px solid var(--dl-line);
-  font-size: 12.5px;
-  color: var(--dl-text-dim);
-}
-
-.footerLink {
-  text-decoration: none;
-  color: var(--dl-text-dim);
-}
-
-.footerLink:hover {
-  color: var(--dl-orange);
-}
-
 @media (max-width: 900px) {
   .heroInner {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 24px;
   }
-  .visualWrap {
-    order: -1;
+  .photo {
+    object-position: 64% 18%;
+    -webkit-mask-image: linear-gradient(to bottom, #000 34%, transparent 88%);
+    mask-image: linear-gradient(to bottom, #000 34%, transparent 88%);
+    opacity: 0.55;
+  }
+  .photoScrim {
+    background:
+      linear-gradient(to bottom, rgba(20, 16, 14, 0.35) 0%,
+        rgba(20, 16, 14, 0.86) 46%, var(--dl-ink) 76%),
+      radial-gradient(620px 420px at 70% 18%, rgba(255, 122, 51, 0.24), transparent 70%);
   }
   .visualWrap svg {
-    max-width: 340px;
+    max-width: 320px;
   }
   .capabilities {
     grid-template-columns: 1fr;
+    margin-top: 32px;
   }
 }
 
 @media (max-width: 560px) {
   .hero {
-    padding: 32px 20px 28px;
+    padding: 220px 20px 32px;
+    justify-content: flex-end;
   }
   .tagline {
     font-size: 15px;
   }
   .ctaRow {
-    flex-direction: column;
-  }
-  .primaryCta,
-  .secondaryCta {
     width: 100%;
   }
-  .statStrip {
-    gap: 18px;
-  }
-  .statValue {
-    font-size: 20px;
+  .primaryCta {
+    width: 100%;
   }
   .visualWrap svg {
-    max-width: 260px;
-  }
-  .footer {
-    flex-direction: column;
-    gap: 6px;
+    max-width: 240px;
   }
 }
