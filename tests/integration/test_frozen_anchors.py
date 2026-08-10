@@ -2,14 +2,14 @@
 
 These are the guard against a refactor, dependency bump or data refresh silently
 moving the science. Every value below is quoted from a committed report and was
-verified byte-identical across the R-1 refactor.
+verified byte-identical across the R-2 repository simplification.
 
 Tolerances are DELIBERATELY TIGHT (1e-4, i.e. the precision the reports publish).
 If one of these fails, the correct response is to find out what changed — not to
 loosen the tolerance.
 
-These tests need the generated ML-0/ML-2 layers present, so they skip cleanly on
-a fresh clone rather than failing.
+These tests need the generated dataset/features layers present, so they skip
+cleanly on a fresh clone rather than failing.
 
   ./.venv/bin/python -m unittest discover -s tests -t .
 """
@@ -21,31 +21,28 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from draftlens.ml.datasets import ML0, ML2, load_development, load_stage_b
-from draftlens.ml.metrics import (board_metrics, expected_calibration_error,
-                                  stage_a_metrics, stage_b_metrics)
-from draftlens.ml.stage_a import STAGE_A, feature_set
-from draftlens.ml.stage_a import fit_predict_fold as stage_a_fold
-from draftlens.ml.board import BOARD, build_board, graded_relevance
-from draftlens.ml.metrics import (board_binary_metrics, board_graded_metrics,
-                                  board_order_metrics)
-from draftlens.ml.stage_b import STAGE_B, draft_sizes
-from draftlens.ml.stage_b import fit_predict_fold as stage_b_fold
-from draftlens.ml.validation import folds, load_fold_config
+from data.build import DATASET, FEATURES, load_development, load_draft_order
+from board.probability import DRAFT_PROBABILITY, feature_set, probability_metrics, ranking_metrics
+from board.probability import fit_predict_fold as probability_fold
+from board.scoring import GENERAL_BOARD, build_board, graded_relevance
+from board.scoring import board_binary_metrics, board_graded_metrics, board_order_metrics
+from board.order import DRAFT_ORDER, draft_sizes, order_metrics
+from board.order import fit_predict_fold as order_fold
+from validation import folds, load_fold_config
 
 ROOT = Path(__file__).resolve().parents[2]
 TOL = 1e-4
 
-HAVE_DATA = (ML2 / "features_2014_2025.parquet").exists() and \
-            (ML0 / "targets_2014_2025.parquet").exists()
+HAVE_DATA = (FEATURES / "features_2014_2025.parquet").exists() and \
+            (DATASET / "targets_2014_2025.parquet").exists()
 needs_data = unittest.skipUnless(
-    HAVE_DATA, "generated ML-0/ML-2 layers absent — run scripts/build_dataset.py "
-               "then scripts/build_features.py")
+    HAVE_DATA, "generated dataset/features layers absent — run "
+               "scripts/build.py dataset then scripts/build.py features")
 
 
 @needs_data
 class TestPopulationAnchors(unittest.TestCase):
-    """ML0_DATASET.md, corrected in ML-0.1."""
+    """The development sampling frame."""
 
     def test_development_population(self):
         dev = load_development()
@@ -54,34 +51,34 @@ class TestPopulationAnchors(unittest.TestCase):
         self.assertEqual(int((dev.drafted == 0).sum()), 456)
 
     def test_unresolved_prospects_retained(self):
-        """All 8 are undrafted (DEC-071); dropping them would selectively
-        remove negatives and inflate every downstream metric."""
+        """All 8 are undrafted; dropping them would selectively remove
+        negatives and inflate every downstream metric."""
         dev = load_development()
         unresolved = dev[dev.hoopr_athlete_id.isna()]
         self.assertGreaterEqual(len(unresolved), 8)
         self.assertEqual(int(unresolved.drafted.sum()), 0)
 
-    def test_stage_b_population(self):
-        self.assertEqual(len(load_stage_b()), 431)
+    def test_draft_order_population(self):
+        self.assertEqual(len(load_draft_order()), 431)
 
-    def test_stage_b_excludes_undrafted_without_synthetic_picks(self):
-        b = load_stage_b()
+    def test_draft_order_excludes_undrafted_without_synthetic_picks(self):
+        b = load_draft_order()
         self.assertTrue((b.drafted == 1).all())
         self.assertTrue(b.pick.notna().all())
         for sentinel in (0, 61, 100, 999):
             self.assertEqual(int((b.pick == sentinel).sum()), 0)
 
     def test_feature_layer_shape(self):
-        self.assertEqual(pd.read_parquet(ML2 / "features_2014_2025.parquet").shape,
+        self.assertEqual(pd.read_parquet(FEATURES / "features_2014_2025.parquet").shape,
                          (887, 81))
 
 
 class TestFrozenConfiguration(unittest.TestCase):
-    """The selections themselves. Changing one of these requires a DECISIONS
-    entry, and this test is what makes that non-optional."""
+    """The selections themselves. Changing one of these requires a
+    docs/METHODOLOGY.md entry, and this test is what makes that non-optional."""
 
-    def test_stage_a_frozen(self):
-        self.assertEqual(STAGE_A, {
+    def test_draft_probability_frozen(self):
+        self.assertEqual(DRAFT_PROBABILITY, {
             "family": "LogisticRegression",
             "feature_set": "SET_2_BOX_SHOT_PROFILE",
             "normalization": "SEASON_RELATIVE",
@@ -93,13 +90,13 @@ class TestFrozenConfiguration(unittest.TestCase):
             "calibration": "none",
         })
 
-    def test_stage_b_frozen(self):
-        self.assertEqual(STAGE_B["family"], "Ridge")
-        self.assertEqual(STAGE_B["alpha"], 10.0)
-        self.assertEqual(STAGE_B["target"], "RAW_PICK")
-        self.assertEqual(STAGE_B["feature_set"], "SET_2_BOX_SHOT_PROFILE")
-        # STANDARD, not SEASON_RELATIVE — see ML5_STAGE_B.md correction notice.
-        self.assertEqual(STAGE_B["normalization"], "STANDARD")
+    def test_draft_order_frozen(self):
+        self.assertEqual(DRAFT_ORDER["family"], "Ridge")
+        self.assertEqual(DRAFT_ORDER["alpha"], 10.0)
+        self.assertEqual(DRAFT_ORDER["target"], "RAW_PICK")
+        self.assertEqual(DRAFT_ORDER["feature_set"], "SET_2_BOX_SHOT_PROFILE")
+        # STANDARD, not SEASON_RELATIVE — see docs/VALIDATION.md correction notice.
+        self.assertEqual(DRAFT_ORDER["normalization"], "STANDARD")
 
     def test_folds_unchanged(self):
         self.assertEqual([(f, tr[0], tr[-1], vy) for f, tr, vy in folds()],
@@ -109,12 +106,11 @@ class TestFrozenConfiguration(unittest.TestCase):
                           (7, 2014, 2024, 2025)])
 
     def test_board_frozen(self):
-        """ML-6 selection (DEC-096..100)."""
-        self.assertEqual(BOARD["method"], "C_MULTIPLICATIVE")
-        self.assertEqual(BOARD["stage_b_transform"], "DRAFT_SLOT_UTILITY")
-        self.assertEqual(BOARD["score_transform"], "CURRENT_BOARD_PERCENTILE")
-        self.assertEqual(BOARD["score_range"], (0, 100))
-        self.assertEqual(BOARD["score_dtype"], "int")
+        self.assertEqual(GENERAL_BOARD["method"], "C_MULTIPLICATIVE")
+        self.assertEqual(GENERAL_BOARD["stage_b_transform"], "DRAFT_SLOT_UTILITY")
+        self.assertEqual(GENERAL_BOARD["score_transform"], "CURRENT_BOARD_PERCENTILE")
+        self.assertEqual(GENERAL_BOARD["score_range"], (0, 100))
+        self.assertEqual(GENERAL_BOARD["score_dtype"], "int")
 
     def test_draft_sizes_unchanged(self):
         s = draft_sizes()
@@ -123,24 +119,24 @@ class TestFrozenConfiguration(unittest.TestCase):
 
 
 @needs_data
-class TestStageAAnchors(unittest.TestCase):
-    """ML4_STAGE_A.md §8 — the selected configuration's published metrics."""
+class TestDraftProbabilityAnchors(unittest.TestCase):
+    """docs/VALIDATION.md — the selected configuration's published metrics."""
 
     @classmethod
     def setUpClass(cls):
         cfg = load_fold_config()
         dev = load_development()
-        feats = feature_set(STAGE_A["feature_set"], cfg)
+        feats = feature_set(DRAFT_PROBABILITY["feature_set"], cfg)
         low = cfg["low_negative_support_threshold"]
         rows, oof = [], []
         for _, tr_years, vy in folds(cfg):
             train = dev[dev.draft_year.isin(tr_years)].reset_index(drop=True)
             valid = dev[dev.draft_year == vy].reset_index(drop=True)
-            p, _ = stage_a_fold(train, valid, feats)
-            m = stage_a_metrics(valid.drafted, p, low)
-            m.update(board_metrics(valid.drafted, p,
-                                   {"drafted": int(valid.drafted.sum()),
-                                    "top25": math.ceil(0.25 * len(valid))}))
+            p, _ = probability_fold(train, valid, feats)
+            m = probability_metrics(valid.drafted, p, low)
+            m.update(ranking_metrics(valid.drafted, p,
+                                     {"drafted": int(valid.drafted.sum()),
+                                      "top25": math.ceil(0.25 * len(valid))}))
             rows.append(dict(validate_year=vy, **m))
             oof.append(pd.DataFrame({"y": valid.drafted.values, "p": p}))
         cls.fold_df = pd.DataFrame(rows)
@@ -151,7 +147,7 @@ class TestStageAAnchors(unittest.TestCase):
         self.assertAlmostEqual(self.fold_df.roc_auc.mean(), 0.6986, delta=TOL)
 
     def test_pooled_roc_auc(self):
-        pooled = stage_a_metrics(self.oof.y, self.oof.p, self.low)["roc_auc"]
+        pooled = probability_metrics(self.oof.y, self.oof.p, self.low)["roc_auc"]
         self.assertAlmostEqual(pooled, 0.6953, delta=TOL)
 
     def test_macro_brier(self):
@@ -167,6 +163,7 @@ class TestStageAAnchors(unittest.TestCase):
         self.assertAlmostEqual(scored.roc_auc.min(), 0.6742, delta=TOL)
 
     def test_expected_calibration_error(self):
+        from board.probability import expected_calibration_error
         self.assertAlmostEqual(expected_calibration_error(self.oof.y, self.oof.p),
                                0.0590, delta=TOL)
 
@@ -176,25 +173,25 @@ class TestStageAAnchors(unittest.TestCase):
 
 
 @needs_data
-class TestStageBAnchors(unittest.TestCase):
-    """ML5_STAGE_B.md §11 — the selected configuration's published metrics."""
+class TestDraftOrderAnchors(unittest.TestCase):
+    """docs/VALIDATION.md — the selected configuration's published metrics."""
 
     @classmethod
     def setUpClass(cls):
         cfg = load_fold_config()
-        dev = load_stage_b()
+        dev = load_draft_order()
         dev["draft_size"] = dev.draft_year.map(draft_sizes())
-        feats = feature_set(STAGE_B["feature_set"], cfg)
+        feats = feature_set(DRAFT_ORDER["feature_set"], cfg)
         rows = []
         for _, tr_years, vy in folds(cfg):
             train = dev[dev.draft_year.isin(tr_years)].reset_index(drop=True)
             valid = dev[dev.draft_year == vy].reset_index(drop=True)
-            pred, _ = stage_b_fold(train, valid, feats,
-                                   family=STAGE_B["family"],
-                                   params={"alpha": STAGE_B["alpha"]},
-                                   target=STAGE_B["target"])
+            pred, _ = order_fold(train, valid, feats,
+                                 family=DRAFT_ORDER["family"],
+                                 params={"alpha": DRAFT_ORDER["alpha"]},
+                                 target=DRAFT_ORDER["target"])
             rows.append(dict(validate_year=vy,
-                             **stage_b_metrics(valid.pick, pred, valid.draft_size)))
+                             **order_metrics(valid.pick, pred, valid.draft_size)))
         cls.fold_df = pd.DataFrame(rows)
 
     def test_macro_spearman(self):
@@ -229,8 +226,8 @@ class TestHoldoutFirewall(unittest.TestCase):
     def test_development_excludes_holdout(self):
         self.assertNotIn(2026, set(load_development().draft_year))
 
-    def test_stage_b_excludes_holdout(self):
-        self.assertNotIn(2026, set(load_stage_b().draft_year))
+    def test_draft_order_excludes_holdout(self):
+        self.assertNotIn(2026, set(load_draft_order().draft_year))
 
     def test_no_fold_touches_holdout(self):
         for _, tr, vy in folds():
@@ -238,33 +235,32 @@ class TestHoldoutFirewall(unittest.TestCase):
             self.assertNotEqual(vy, 2026)
 
     def test_board_never_reaches_the_holdout(self):
-        """ML-6 implemented board.py. It must still be unable to score 2026."""
-        from draftlens.ml import board
-        src = (ROOT / "src" / "draftlens" / "ml" / "board.py").read_text()
+        from board import scoring
+        src = (ROOT / "src" / "board" / "scoring.py").read_text()
         for banned in ("targets_2026", "features_2026", "predictions_2026"):
             self.assertNotIn(banned, src)
-        self.assertTrue(hasattr(board, "build_board"))
+        self.assertTrue(hasattr(scoring, "build_board"))
 
 
 @needs_data
 class TestBoardAnchors(unittest.TestCase):
-    """ML6_BOARD.md — the selected board's published metrics."""
+    """docs/VALIDATION.md — the selected board's published metrics."""
 
     @classmethod
     def setUpClass(cls):
         cfg = load_fold_config()
         dev = load_development()
         dev["draft_size"] = dev.draft_year.map(draft_sizes())
-        feats = feature_set(STAGE_A["feature_set"], cfg)
+        feats = feature_set(DRAFT_PROBABILITY["feature_set"], cfg)
         rows = []
         for _, tr_years, vy in folds(cfg):
             tr_all = dev[dev.draft_year.isin(tr_years)].reset_index(drop=True)
             va = dev[dev.draft_year == vy].reset_index(drop=True)
             tr_dr = tr_all[tr_all.drafted == 1].reset_index(drop=True)
-            p_a, _ = stage_a_fold(tr_all, va, feats)
-            p_b, _ = stage_b_fold(tr_dr, va, feats, family=STAGE_B["family"],
-                                  params={"alpha": STAGE_B["alpha"]},
-                                  target=STAGE_B["target"])
+            p_a, _ = probability_fold(tr_all, va, feats)
+            p_b, _ = order_fold(tr_dr, va, feats, family=DRAFT_ORDER["family"],
+                                params={"alpha": DRAFT_ORDER["alpha"]},
+                                target=DRAFT_ORDER["target"])
             b = build_board(p_a, p_b, va.draft_size)
             sig = b.final_board_signal.to_numpy()
             rel = graded_relevance(va.drafted, va.pick, va.draft_size)
@@ -301,9 +297,9 @@ class TestBoardAnchors(unittest.TestCase):
         self.assertAlmostEqual(self.fold_df.graded_ndcg.std(), 0.0594, delta=TOL)
         self.assertAlmostEqual(self.fold_df.graded_ndcg.min(), 0.7281, delta=TOL)
 
-    def test_beats_stage_a_only_on_every_headline_metric(self):
-        """The reason Stage B is in the board at all. Stage A-only reference:
-        AUC 0.6986, graded NDCG 0.8159, drafted Spearman 0.2461."""
+    def test_beats_draft_probability_only_on_every_headline_metric(self):
+        """The reason Draft Order is in the board at all. Draft-Probability-only
+        reference: AUC 0.6986, graded NDCG 0.8159, drafted Spearman 0.2461."""
         sc = self.fold_df[self.fold_df.roc_auc.notna()]
         self.assertGreater(sc.roc_auc.mean(), 0.6986)
         self.assertGreater(self.fold_df.graded_ndcg.mean(), 0.8159)

@@ -34,19 +34,9 @@ env/
 ENV/
 .python-version
 
-# ── Node ──────────────────────────────────────────────────────────────
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-.pnpm-store/
-.npm/
-
 # ── Environment files ─────────────────────────────────────────────────
 .env
 .env.*
-!.env.example
 
 # ── Notebooks ─────────────────────────────────────────────────────────
 .ipynb_checkpoints/
@@ -97,4 +87,3 @@ data/**
 !data/raw/
 !data/interim/
 !data/processed/
-!data/**/.gitkeep

@@ -13,18 +13,17 @@ from pathlib import Path
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "scripts" / "experiments"))
 
-from draftlens.leakage import (DENY_EXACT, DENY_SUBSTRING,  # noqa: E402
+from validation import (DENY_EXACT, DENY_SUBSTRING,  # noqa: E402
                                SUSPICIOUS, SUSPICIOUS_ALLOWED)
-from draftlens.data.population import EXPECTED  # noqa: E402
-from draftlens.data.identity.matching import to_int_id  # noqa: E402
-from draftlens.data.identity.normalization import match_key, norm_school  # noqa: E402
-from draftlens.features.boxscore import aggregate_box_frame  # noqa: E402
-from draftlens.features.shot_profile import aggregate_shots_frame  # noqa: E402
-from draftlens.paths import interim  # noqa: E402
+from data.population import EXPECTED  # noqa: E402
+from data.matching import to_int_id  # noqa: E402
+from data.matching import match_key, norm_school  # noqa: E402
+from features.basketball import aggregate_box_frame  # noqa: E402
+from features.shot_profile import aggregate_shots_frame  # noqa: E402
+from paths import interim  # noqa: E402
 
-OUT = interim("ml0")
+OUT = interim("dataset")
 
 
 def box_row(athlete_id, game_id, team_id, **kw):

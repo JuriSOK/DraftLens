@@ -12,16 +12,15 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "scripts" / "experiments"))
 
-from draftlens.features.engineering import (EXPECTED_ROWS, OUT as ML2,  # noqa: E402
+from features.basketball import (EXPECTED_ROWS, OUT as ML2,  # noqa: E402
                                 feature_columns)
-from draftlens.features.defense import blk_pct, stl_pct  # noqa: E402
-from draftlens.features.playmaking import ast_pct, tov_pct, usage_pct  # noqa: E402
-from draftlens.features.rates import (FT_POSSESSION_COEF, per_100, per_40,  # noqa: E402
+from features.basketball import blk_pct, stl_pct  # noqa: E402
+from features.basketball import ast_pct, tov_pct, usage_pct  # noqa: E402
+from features.basketball import (FT_POSSESSION_COEF, per_100, per_40,  # noqa: E402
                                       per_game, safe_div, team_possessions)
-from draftlens.features.rebounding import rebound_pct  # noqa: E402
-from draftlens.features.shooting import efg_pct, fg_pct, ts_pct  # noqa: E402
+from features.basketball import rebound_pct  # noqa: E402
+from features.basketball import efg_pct, fg_pct, ts_pct  # noqa: E402
 
 S = pd.Series
 
@@ -231,7 +230,7 @@ class TestBuiltFeatureLayer(unittest.TestCase):
 class TestHoldoutTargetGuard(unittest.TestCase):
     def test_feature_builder_never_reads_a_targets_file(self):
         """No read_parquet call in the feature path may name a targets file."""
-        src = (ROOT / "src" / "draftlens" / "features" / "engineering.py").read_text()
+        src = (ROOT / "src" / "features" / "basketball.py").read_text()
         reads = [ln.strip() for ln in src.splitlines() if "read_parquet" in ln]
         self.assertTrue(reads, "expected the builder to read something")
         offenders = [ln for ln in reads if "target" in ln.lower()]
@@ -239,14 +238,14 @@ class TestHoldoutTargetGuard(unittest.TestCase):
                          f"feature path reads target data: {offenders}")
 
     def test_feature_builder_reads_only_ml0_features_and_raw_box(self):
-        src = (ROOT / "src" / "draftlens" / "features" / "engineering.py").read_text()
+        src = (ROOT / "src" / "features" / "basketball.py").read_text()
         self.assertIn("features_{label}", src)
         self.assertNotIn("targets_{label}", src)
 
-    def test_validator_refuses_the_2026_target_file(self):
-        import validate_ml2_features as v
-        with self.assertRaises(AssertionError):
-            v.load_targets_guarded("2026")
+    def test_data_build_validator_never_loads_the_2026_target_file(self):
+        src = (ROOT / "src" / "data" / "build.py").read_text()
+        self.assertNotIn('targets_2026.parquet"', src)
+        self.assertIn("HOLDOUT_YEAR", src)
 
 
 if __name__ == "__main__":

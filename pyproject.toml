@@ -20,8 +20,9 @@ dependencies = [
     "scikit-learn>=1.8",
 ]
 
+[tool.setuptools]
+package-dir = {"" = "src"}
+py-modules = ["paths", "validation"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.setuptools.package-data]
-draftlens = ["py.typed"]

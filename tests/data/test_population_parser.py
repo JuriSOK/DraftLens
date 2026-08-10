@@ -13,9 +13,8 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "scripts" / "experiments"))
 
-from draftlens.data.acquisition.wikipedia import (collect_school_candidates,  # noqa: E402
+from data.wikipedia import (collect_school_candidates,  # noqa: E402
                                       find_school, is_ncaa_program,
                                       parse_early_entrants)
 
