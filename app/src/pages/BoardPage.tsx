@@ -6,6 +6,8 @@ import { SearchInput } from "../components/SearchInput";
 import { PositionFilter } from "../components/PositionFilter";
 import type { PositionValue } from "../components/PositionFilter";
 import { ScoreBadge, RankBadge } from "../components/ScoreBadge";
+import { MetricTooltip } from "../components/MetricTooltip";
+import { TOOLTIPS } from "../lib/tooltips";
 import { formatPercent } from "../lib/format";
 import { PROFILE_LABELS } from "../types/data";
 import type { Prospect, YearAvailable } from "../types/data";
@@ -67,9 +69,7 @@ export function BoardPage() {
       <div className={styles.boardHead}>
         <h2 className={styles.boardTitle}>2026 General Draft Board</h2>
         <p className={styles.boardSub}>
-          {available.scoreableDeclaredCount} players in the 2026 NCAA Prospect
-          Pool, ranked by Overall Score — Draft Probability × Draft Order
-          quality.
+          {available.scoreableDeclaredCount} players · 2026 NCAA Prospect Pool
         </p>
       </div>
 
@@ -93,10 +93,24 @@ export function BoardPage() {
                 Pos
               </th>
               <th scope="col" className={styles.colScore}>
-                Overall Score
+                <span className={styles.thWithHelp}>
+                  Overall Score
+                  <MetricTooltip
+                    text={TOOLTIPS.overallScore.text}
+                    learnMoreHref={TOOLTIPS.overallScore.href}
+                    label="About Overall Score"
+                  />
+                </span>
               </th>
               <th scope="col" className={styles.colProb}>
-                Draft Probability
+                <span className={styles.thWithHelp}>
+                  Draft Probability
+                  <MetricTooltip
+                    text={TOOLTIPS.draftProbability.text}
+                    learnMoreHref={TOOLTIPS.draftProbability.href}
+                    label="About Draft Probability"
+                  />
+                </span>
               </th>
             </tr>
           </thead>

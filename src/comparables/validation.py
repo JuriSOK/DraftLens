@@ -166,7 +166,8 @@ def validate():
     for i in sample:
         name = dev.loc[i, "player_name"]
         r = find_comparables(ncaa_dims.loc[i], pool, nba_dims,
-                             prospect_name=name, distance_reference=dist_ref)
+                             prospect_name=name, distance_reference=dist_ref,
+                             prospect_height=dev.loc[i, "height"])
         if r["status"] != "OK":
             unavailable += 1
             continue

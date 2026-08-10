@@ -240,7 +240,8 @@ def build_2026_comparables(feats_2026):
         pid = row.canonical_prospect_id
         r = find_comparables(holdout_ncaa_dims.loc[i], pool, nba_dims,
                              prospect_name=row.player_name,
-                             distance_reference=dist_ref)
+                             distance_reference=dist_ref,
+                             prospect_height=row.get("height"))
         r = explain_comparables(holdout_ncaa_dims.loc[i], nba_dims, pool, r)
         results[pid] = r
     return results

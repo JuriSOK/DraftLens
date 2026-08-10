@@ -35,22 +35,18 @@ export function WatchlistPage() {
     <div className="container">
       <div className={styles.intro}>
         <h1 className={styles.title}>2027 Watchlist</h1>
+        {/* CRITICAL: a projection must never read as an official declaration. */}
         <span className={styles.projectedBadge}>Projected — not official declarations</span>
         <p className={styles.sub}>
-          There is no official NBA early-entry declaration list for the 2027
-          Draft yet — that announcement typically comes the following spring.
-          This watchlist is built from public NBA Draft coverage instead, so
-          you can start following next year's class early.
+          No official NBA early-entry declaration list exists for 2027 yet.
         </p>
       </div>
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>How this list is built</h2>
         <p className={styles.sectionSub}>
-          {w.consensusRule}. A player's rank on any individual source is used
-          only to decide whether they belong on this list — never as a
-          DraftLens feature, and never to order the list itself, which is
-          alphabetical.
+          {w.consensusRule}. Source rank decides only who belongs on the
+          list — never a DraftLens feature, and never its order.
         </p>
         <ul className={styles.sourceList}>
           {w.sources.map((s) => (
@@ -68,13 +64,12 @@ export function WatchlistPage() {
         <h2 className={styles.sectionTitle}>
           Returning players with 2025-26 NCAA data ({returning.length})
         </h2>
+        {/* CRITICAL: explains an ABSENCE the user would otherwise read as a
+           bug, and states the scientific reason no board score is shown. */}
         <p className={styles.sectionSub}>
-          Profile stats, Basketball Profile, Team Need Fit and NBA
-          Statistical Comparables are shown, computed the same way as the
-          2026 board. Draft Probability, Draft Order and Overall Score are
-          NOT shown — those models were validated on the declared
-          early-entrant population, and a 2027 media projection is a
-          different sampling frame.
+          No Draft Probability, Draft Order or Overall Score is shown — those
+          models were validated on the declared early-entrant population, and
+          a media projection is a different sampling frame.
         </p>
         <div className={styles.tableWrap}>
           <table className={styles.table}>

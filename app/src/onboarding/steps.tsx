@@ -100,10 +100,11 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
           points, rebounds, assists, steals, blocks, or shooting efficiency.
         </li>
         <li>
-          <strong>NBA Comparables</strong> — find NBA players whose
-          statistical profile most resembles a prospect's. This is
-          descriptive resemblance, never a prediction of a player's future
-          career.
+          <strong>NBA Comparables</strong> — find NBA players of plausible
+          height whose statistical profile most resembles a prospect's.
+          Height is used only to keep the comparison physically sensible
+          before the statistical match runs. This is descriptive
+          resemblance, never a prediction of a player's future career.
         </li>
       </ul>
     ),

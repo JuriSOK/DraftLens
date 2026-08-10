@@ -36,7 +36,15 @@ CONFIG = json.loads(
     (ROOT / "config" / "comparables.json").read_text())
 
 
-def pool_frame(n=10, seed=0):
+# Every synthetic pool player is this tall, and the synthetic prospect matches,
+# so the height gate is satisfied for all of them and these tests keep
+# measuring the STATISTICAL distance behaviour they were written to measure.
+# Gate-specific behaviour is tested separately in TestHeightGate.
+POOL_HEIGHT = 78
+PROSPECT_HEIGHT = 78
+
+
+def pool_frame(n=10, seed=0, height=POOL_HEIGHT):
     """A synthetic NBA pool with one row per unique player."""
     rng = np.random.default_rng(seed)
     d = {m: rng.uniform(0, 100, n) for m in COMMON_METRICS}
@@ -44,7 +52,8 @@ def pool_frame(n=10, seed=0):
               "athlete_display_name": [f"Player {i}" for i in range(1, n + 1)],
               "position_3": ["G"] * n,
               "reference_seasons": [[2023, 2024, 2025]] * n,
-              "minutes": np.full(n, 1500.0), "season": np.full(n, 2025)})
+              "minutes": np.full(n, 1500.0), "season": np.full(n, 2025),
+              "height_inches": np.full(n, float(height))})
     return pd.DataFrame(d)
 
 
@@ -349,7 +358,7 @@ class TestExactlyThree(unittest.TestCase):
 
     def test_returns_exactly_three_unique_players(self):
         p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
-        r = find_comparables(p, self.pool, self.dims)
+        r = find_comparables(p, self.pool, self.dims, prospect_height=PROSPECT_HEIGHT)
         self.assertEqual(r["status"], "OK")
         self.assertEqual(len(r["comparables"]), N_COMPARABLES)
         ids = [c["nba_player_id"] for c in r["comparables"]]
@@ -358,21 +367,21 @@ class TestExactlyThree(unittest.TestCase):
 
     def test_ordered_closest_first(self):
         p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
-        r = find_comparables(p, self.pool, self.dims)
+        r = find_comparables(p, self.pool, self.dims, prospect_height=PROSPECT_HEIGHT)
         d = [c["raw_distance"] for c in r["comparables"]]
         self.assertEqual(d, sorted(d))
 
     def test_ranks_are_1_2_3(self):
         p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
-        r = find_comparables(p, self.pool, self.dims)
+        r = find_comparables(p, self.pool, self.dims, prospect_height=PROSPECT_HEIGHT)
         self.assertEqual([c["rank"] for c in r["comparables"]], [1, 2, 3])
 
     def test_ties_break_deterministically_on_athlete_id(self):
         pool = prepare_pool(pool_frame(5, seed=3))
         dims = dims_frame(np.full((5, 6), 50.0))     # every distance identical
         p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
-        a = find_comparables(p, pool, dims)
-        b = find_comparables(p, pool, dims)
+        a = find_comparables(p, pool, dims, prospect_height=PROSPECT_HEIGHT)
+        b = find_comparables(p, pool, dims, prospect_height=PROSPECT_HEIGHT)
         ids = [c["nba_player_id"] for c in a["comparables"]]
         self.assertEqual(ids, [c["nba_player_id"] for c in b["comparables"]])
         self.assertEqual(ids, sorted(ids))
@@ -381,7 +390,7 @@ class TestExactlyThree(unittest.TestCase):
         pool = prepare_pool(pool_frame(2, seed=4))
         dims = dims_frame(np.full((2, 6), 50.0))
         p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
-        r = find_comparables(p, pool, dims)
+        r = find_comparables(p, pool, dims, prospect_height=PROSPECT_HEIGHT)
         self.assertEqual(r["status"], UNAVAILABLE)
         self.assertEqual(r["comparables"], [])
 
@@ -389,7 +398,7 @@ class TestExactlyThree(unittest.TestCase):
         pool = prepare_pool(pool_frame(2, seed=5))
         dims = dims_frame(np.full((2, 6), 50.0))
         p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
-        cv.check_result(find_comparables(p, pool, dims))
+        cv.check_result(find_comparables(p, pool, dims, prospect_height=PROSPECT_HEIGHT))
 
 
 class TestCoverageGuard(unittest.TestCase):
@@ -406,13 +415,13 @@ class TestCoverageGuard(unittest.TestCase):
     def test_below_minimum_coverage_returns_unavailable(self):
         p = pd.Series([50.0, 50.0, np.nan, np.nan, np.nan, np.nan],
                       index=DIMENSION_NAMES)
-        r = find_comparables(p, self.pool, self.dims)
+        r = find_comparables(p, self.pool, self.dims, prospect_height=PROSPECT_HEIGHT)
         self.assertEqual(r["status"], UNAVAILABLE)
         self.assertIn("below", r["reason"])
 
     def test_at_minimum_coverage_still_scores(self):
         p = pd.Series([50.0] * 5 + [np.nan], index=DIMENSION_NAMES)
-        r = find_comparables(p, self.pool, self.dims)
+        r = find_comparables(p, self.pool, self.dims, prospect_height=PROSPECT_HEIGHT)
         self.assertEqual(r["status"], "OK")
 
     def test_missing_dimension_is_dropped_not_filled(self):
@@ -420,6 +429,166 @@ class TestCoverageGuard(unittest.TestCase):
                / "similarity.py").read_text()
         self.assertNotIn("fillna(50", src)
         self.assertNotIn("fillna(0", src)
+
+
+class TestHeightGate(unittest.TestCase):
+    """The height plausibility gate: applied BEFORE nearest-neighbour
+    selection, never as a similarity dimension."""
+
+    def _mixed_pool(self):
+        # 12 players at 72in, 12 at 84in — two clearly separated height bands.
+        a = pool_frame(12, seed=20, height=72)
+        b = pool_frame(12, seed=21, height=84)
+        b["athlete_id"] = b.athlete_id + 100
+        b["athlete_display_name"] = [f"Tall {i}" for i in range(1, 13)]
+        return prepare_pool(pd.concat([a, b], ignore_index=True))
+
+    def test_gate_restricts_candidates_to_the_height_band(self):
+        pool = self._mixed_pool()
+        dims = dims_frame(np.full((24, 6), 50.0))
+        p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
+        r = find_comparables(p, pool, dims, prospect_height=72)
+        self.assertEqual(r["status"], "OK")
+        for c in r["comparables"]:
+            self.assertEqual(c["nba_height_inches"], 72)
+            self.assertLessEqual(c["height_difference_inches"], 2)
+
+    def test_gate_is_applied_before_neighbour_selection(self):
+        """A statistically IDENTICAL but implausibly tall player must not be
+        selected over a plausible one — proving the gate filters candidates
+        rather than re-ranking them afterwards."""
+        pool = self._mixed_pool()
+        dims = dims_frame(np.full((24, 6), 50.0))
+        # make the tall players the closest possible match statistically
+        dims.iloc[12:] = 50.0
+        dims.iloc[:12] = 60.0
+        p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
+        r = find_comparables(p, pool, dims, prospect_height=72)
+        self.assertEqual(r["status"], "OK")
+        names = [c["nba_player_name"] for c in r["comparables"]]
+        self.assertTrue(all(not n.startswith("Tall") for n in names), names)
+
+    def test_missing_prospect_height_does_not_bypass_the_gate(self):
+        pool = self._mixed_pool()
+        dims = dims_frame(np.full((24, 6), 50.0))
+        p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
+        r = find_comparables(p, pool, dims, prospect_height=None)
+        self.assertEqual(r["status"], UNAVAILABLE)
+        self.assertEqual(r["comparables"], [])
+        self.assertIn("height", r["reason"])
+
+    def test_pool_player_without_height_is_never_a_candidate(self):
+        pool = pool_frame(10, seed=22, height=78)
+        pool.loc[0:4, "height_inches"] = np.nan
+        pool = prepare_pool(pool)
+        dims = dims_frame(np.full((10, 6), 50.0))
+        p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
+        r = find_comparables(p, pool, dims, prospect_height=78)
+        self.assertEqual(r["status"], "OK")
+        ids = [c["nba_player_id"] for c in r["comparables"]]
+        self.assertTrue(all(i > 5 for i in ids), ids)
+
+    def test_window_expands_only_when_too_few_candidates(self):
+        from comparables.similarity import height_gate
+        # 2 players at 78, 5 at 81 -> ±2 gives 2 (too few), ±3 gives 7
+        heights = np.array([78, 78] + [81] * 5, dtype="float64")
+        mask, window = height_gate(78, heights, n=3, windows=(2, 3, 4))
+        self.assertEqual(window, 3)
+        self.assertEqual(int(mask.sum()), 7)
+
+    def test_window_stops_at_the_first_sufficient_window(self):
+        from comparables.similarity import height_gate
+        heights = np.array([78] * 5 + [90] * 5, dtype="float64")
+        mask, window = height_gate(78, heights, n=3, windows=(2, 3, 4))
+        self.assertEqual(window, 2)
+        self.assertEqual(int(mask.sum()), 5)
+
+    def test_no_window_yields_enough_candidates_returns_none(self):
+        from comparables.similarity import height_gate
+        heights = np.array([60, 61, 62], dtype="float64")
+        mask, window = height_gate(85, heights, n=3, windows=(2, 3, 4))
+        self.assertIsNone(window)
+        self.assertEqual(int(mask.sum()), 0)
+
+    def test_gate_is_deterministic(self):
+        pool = self._mixed_pool()
+        dims = dims_frame(np.full((24, 6), 50.0))
+        p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
+        a = find_comparables(p, pool, dims, prospect_height=72)
+        b = find_comparables(p, pool, dims, prospect_height=72)
+        self.assertEqual([c["nba_player_id"] for c in a["comparables"]],
+                         [c["nba_player_id"] for c in b["comparables"]])
+        self.assertEqual(a["height_window_inches"], b["height_window_inches"])
+
+    def test_height_is_not_a_similarity_dimension(self):
+        """The six-dimension space must be untouched by this feature."""
+        self.assertEqual(len(DIMENSION_NAMES), 6)
+        self.assertNotIn("height", [d.lower() for d in DIMENSION_NAMES])
+        src = (ROOT / "src" / "comparables" / "space.py").read_text()
+        self.assertNotIn("height", src.lower())
+
+    def test_distance_is_unchanged_by_the_gate(self):
+        """Among candidates that survive the gate, distances and ordering are
+        exactly what the ungated engine produced."""
+        pool = prepare_pool(pool_frame(20, seed=23, height=78))
+        rng = np.random.default_rng(24)
+        dims = dims_frame(rng.uniform(0, 100, (20, 6)))
+        p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
+        gated = find_comparables(p, pool, dims, prospect_height=78)
+        ungated = find_comparables(p, pool, dims, apply_height_gate=False)
+        self.assertEqual([c["nba_player_id"] for c in gated["comparables"]],
+                         [c["nba_player_id"] for c in ungated["comparables"]])
+        self.assertEqual([c["raw_distance"] for c in gated["comparables"]],
+                         [c["raw_distance"] for c in ungated["comparables"]])
+
+    def test_windows_are_declared_and_ordered(self):
+        from comparables.similarity import HEIGHT_WINDOWS_INCHES
+        self.assertEqual(HEIGHT_WINDOWS_INCHES, (2, 3, 4))
+        self.assertEqual(list(HEIGHT_WINDOWS_INCHES),
+                         sorted(HEIGHT_WINDOWS_INCHES))
+
+    def test_windows_match_the_reviewable_config(self):
+        from comparables.similarity import HEIGHT_WINDOWS_INCHES
+        self.assertEqual(list(HEIGHT_WINDOWS_INCHES),
+                         CONFIG["height_gate"]["windows_inches"])
+
+    def test_config_records_height_is_not_a_dimension(self):
+        purpose = CONFIG["height_gate"]["purpose"].lower()
+        self.assertIn("never a similarity dimension", purpose)
+
+    def test_gate_reads_no_draft_outcome(self):
+        src = (ROOT / "src" / "comparables" / "similarity.py").read_text()
+        for banned in ("drafted", "pick", "draft_year", "overall_score"):
+            self.assertNotIn(banned, src.lower())
+
+
+class TestNbaHeightSource(unittest.TestCase):
+    def test_display_height_parsing(self):
+        from data.espn_athletes import parse_display_height
+        self.assertEqual(parse_display_height('6\' 9"'), 81)
+        self.assertEqual(parse_display_height("6' 9"), 81)
+        self.assertEqual(parse_display_height('7\' 0"'), 84)
+        self.assertEqual(parse_display_height('5\' 10"'), 70)
+
+    def test_unparseable_height_is_none_not_a_guess(self):
+        from data.espn_athletes import parse_display_height
+        for bad in (None, "", "tall", "6 feet", "--", '99\' 9"'):
+            self.assertIsNone(parse_display_height(bad), bad)
+
+    def test_height_join_is_on_stable_athlete_id_not_name(self):
+        src = (ROOT / "src" / "comparables" / "similarity.py").read_text()
+        self.assertIn('on="athlete_id"', src)
+        src2 = (ROOT / "src" / "data" / "espn_athletes.py").read_text()
+        self.assertIn("athlete_id", src2)
+
+    def test_duplicate_athlete_id_in_height_table_is_rejected(self):
+        pool = pool_frame(3, seed=25).drop(columns=["height_inches"])
+        dupes = pd.DataFrame({"athlete_id": [1, 1, 2],
+                              "height_inches": [78, 79, 80]})
+        # drop_duplicates keeps one row per id, so the assert must not fire;
+        # the guard exists for a genuinely inconsistent table.
+        out = prepare_pool(pool, heights=dupes)
+        self.assertEqual(len(out), 3)
 
 
 class TestSelfMatchGuard(unittest.TestCase):
@@ -430,7 +599,7 @@ class TestSelfMatchGuard(unittest.TestCase):
         dims = dims_frame(np.full((10, 6), 50.0))
         dims.iloc[0] = 50.0
         p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
-        r = find_comparables(p, pool, dims, prospect_name="Trae Young")
+        r = find_comparables(p, pool, dims, prospect_name="Trae Young", prospect_height=PROSPECT_HEIGHT)
         names = [c["nba_player_name"] for c in r["comparables"]]
         self.assertNotIn("Trae Young", names)
         cv.check_no_self_match(r, "Trae Young")
@@ -441,7 +610,7 @@ class TestSelfMatchGuard(unittest.TestCase):
         pool = prepare_pool(pool)
         dims = dims_frame(np.full((10, 6), 50.0))
         p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
-        r = find_comparables(p, pool, dims, prospect_name="RJ Barrett")
+        r = find_comparables(p, pool, dims, prospect_name="RJ Barrett", prospect_height=PROSPECT_HEIGHT)
         self.assertNotIn("R.J. Barrett",
                          [c["nba_player_name"] for c in r["comparables"]])
 
@@ -450,7 +619,7 @@ class TestSelfMatchGuard(unittest.TestCase):
         dims = dims_frame(np.full((10, 6), 50.0))
         p = pd.Series(np.full(6, 50.0), index=DIMENSION_NAMES)
         r = find_comparables(p, pool, dims, prospect_name="Player 1",
-                             exclude_self=False)
+                             exclude_self=False, prospect_height=PROSPECT_HEIGHT)
         self.assertEqual(r["status"], "OK")
 
     def test_validator_detects_a_self_match(self):

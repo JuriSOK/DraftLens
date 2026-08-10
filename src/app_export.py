@@ -151,6 +151,7 @@ def _comparable(entry):
     return dict(
         rank=entry["rank"],
         nbaPlayerName=entry["nba_player_name"],
+        nbaHeightInches=_rint(entry.get("nba_height_inches")),
         similarityScore=_rint(entry["similarity_score"]),
         referenceSeasons=list(entry["reference_seasons"]),
         closestDimensions=close,
@@ -163,6 +164,36 @@ def _comparables(pid, comparables_json):
     if entry is None or entry.get("status") != "OK":
         return []
     return [_comparable(c) for c in entry["comparables"]]
+
+
+def _load_photo_index():
+    """prospect_id -> verified photo metadata. Only rows the acquisition
+    marked OK are exported, so a prospect whose identity was ambiguous or
+    whose licence was rejected simply has no photo — never a broken or
+    unattributed one."""
+    from data.photos import load_photos
+
+    df = load_photos()
+    if df is None:
+        return {}
+    out = {}
+    for r in df.itertuples():
+        if str(r.status) != "OK":
+            continue
+        thumb = str(r.thumbnail_url or "").strip()
+        license_name = str(r.license or "").strip()
+        attribution = str(r.attribution or "").strip()
+        # Attribution and licence are REQUIRED for a photo to ship.
+        if not thumb or not license_name or not attribution:
+            continue
+        out[str(r.prospect_id)] = dict(
+            thumbnailUrl=thumb,
+            sourceUrl=str(r.source_url or "").strip() or None,
+            attribution=attribution,
+            license=license_name,
+            licenseUrl=str(r.license_url or "").strip() or None,
+        )
+    return out
 
 
 # --------------------------------------------------------------------- 2026
@@ -256,11 +287,14 @@ def build_year_2027():
 
     incoming = (json.loads(watchlist2027.INCOMING_PATH.read_text())
                if watchlist2027.INCOMING_PATH.exists() else [])
+    photos = _load_photo_index()
     prospects = []
     for r in incoming:
+        pid = r["canonical_prospect_id"]
         prospects.append(dict(
-            id=r["canonical_prospect_id"], name=r["player_name"],
+            id=pid, name=r["player_name"],
             school=r["college"], classYear=_clean_str(r.get("class_year")),
+            photo=photos.get(pid),
             hasStats=False, stats=None, dimensions=None, profiles=None,
             coverage=None, comparables=[]))
 
@@ -273,6 +307,7 @@ def build_year_2027():
             prospects.append(dict(
                 id=pid, name=row.player_name, school=row.college,
                 classYear=_clean_str(row.get("class_year")), hasStats=True,
+                photo=photos.get(pid),
                 stats=_stats(row), dimensions=_dimensions(row),
                 profiles=_profiles(row), coverage=_r3(row.team_need_data_coverage),
                 comparables=_comparables(pid, comparables)))
@@ -308,11 +343,14 @@ def build_year_2026():
                    reason="2026 holdout replay artifacts not found — run "
                          "scripts/build.py replay-2026 then replay-2026-eval")
 
+    photos = _load_photo_index()
+
     merged = {}
     for pid, rec in all_declared.items():
         merged[pid] = dict(
             id=pid, name=rec["name"], school=rec["school"], position=rec["position"],
             populationStatus=rec["populationStatus"],
+            photo=photos.get(pid),
             finalEntrantsBoard=final_entrants[pid]["board"] if pid in final_entrants else None,
             declaredBoard=rec["board"],
             stats=rec["stats"], dimensions=rec["dimensions"],
@@ -326,7 +364,8 @@ def build_year_2026():
             continue
         merged[pid] = dict(
             id=pid, name=rec["name"], school=rec["school"], position=rec["position"],
-            populationStatus="FINAL_ENTRY", finalEntrantsBoard=rec["board"],
+            populationStatus="FINAL_ENTRY", photo=photos.get(pid),
+            finalEntrantsBoard=rec["board"],
             declaredBoard=None, stats=rec["stats"], dimensions=rec["dimensions"],
             profiles=rec["profiles"], coverage=rec["coverage"],
             comparables=rec["comparables"])

@@ -224,7 +224,40 @@ multi-season choice) or a full-career representation (75% overlap, but
 diagnostic-only: it blurs distinct role eras together for a long-career
 player).
 
-### 4.3 Similarity
+### 4.3 Height plausibility gate (APP-1.4)
+
+Before any distance is computed, candidate NBA players are restricted to a
+plausible height band around the prospect. **Height is a candidate gate, never
+a similarity dimension** — the six-dimension space in §4.1 is unchanged, and
+two candidates that both pass the gate are ranked exactly as they were before
+it existed.
+
+```
+height plausibility filter  ->  six-dimension statistical similarity  ->  top 3
+```
+
+The rule is adaptive and fixed in advance: start at **±2 inches**; if fewer
+than three candidates qualify, widen to ±3, then ±4; if three still cannot be
+found, the result is `UNAVAILABLE`. Selected from a coverage audit over every
+scoreable 2026 and 2027 prospect — ±2in already yields ≥3 candidates for all
+75 (mean pool 217, median 249, min 3 of 542), while ±1in leaves the tallest
+prospect (7'5") with a single candidate. **No window was chosen by inspecting
+which NBA names it produced.**
+
+NBA heights come from the ESPN athlete endpoint
+(`data.espn_athletes`), joined on the SAME `athlete_id` the reference pool is
+built on — an exact identity join with no name matching, therefore no name
+ambiguity. Coverage is 542/542 with 0 name mismatches. A pool player without a
+height is never an eligible candidate and a prospect without a height receives
+no comparables: **a missing measurement never silently bypasses the gate.**
+
+Measured effect on the 2026 product pool (180 prospect-comparable pairs):
+mean absolute height difference **2.29in → 1.18in**, median **2.00 → 1.00**,
+max **9.00 → 2.00**. Coverage stayed at 60/60 prospects with exactly three
+comparables. Top-3 name retention was 63.3% (2026) and 60.0% (2027) —
+reported descriptively; retention was never an optimization target.
+
+### 4.4 Similarity
 
 Coverage-normalized **Euclidean** distance over the shared dimensions (at
 least 75% of dimensions must be present on both sides, or the result is
@@ -242,7 +275,7 @@ for every prospect regardless of whether the underlying match was tight or
 loose. The external-reference transform was verified to discriminate properly
 between genuinely close and loose matches.
 
-### 4.4 Exactly three players
+### 4.5 Exactly three players
 
 `find_comparables` returns exactly three unique NBA players, closest-first,
 deterministically tie-broken, with a historical prospect's own eventual NBA
@@ -250,7 +283,7 @@ self excluded by normalized-name match. Below the 75% coverage minimum, the
 result is `UNAVAILABLE` with no names returned — never a manufactured
 comparable built from too little evidence.
 
-### 4.5 Limitations
+### 4.6 Limitations
 
 Individual comparable identities are sensitive: leave-one-dimension-out
 stability sits at 45–56% (the *specific three names* often change when one

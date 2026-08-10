@@ -67,6 +67,12 @@
   vertical-align: middle;
 }
 
+.thWithHelp {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
 .row {
   cursor: pointer;
   transition: background 0.1s ease;

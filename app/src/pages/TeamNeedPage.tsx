@@ -4,6 +4,8 @@ import { useDraftLensData } from "../data/DataProvider";
 import { LoadingState, ErrorState } from "../components/DataStates";
 import { ScoreBadge } from "../components/ScoreBadge";
 import { WeightSlider } from "../components/WeightSlider";
+import { MetricTooltip } from "../components/MetricTooltip";
+import { TOOLTIPS } from "../lib/tooltips";
 import { computeCustomFit } from "../lib/customFit";
 import type { Weights } from "../lib/customFit";
 import { CUSTOM_DIMENSION_LABELS, PROFILE_LABELS } from "../types/data";
@@ -63,7 +65,14 @@ export function TeamNeedPage() {
   return (
     <div className="container">
       <div className={styles.intro}>
-        <h1 className={styles.title}>Team Need</h1>
+        <h1 className={styles.title}>
+          Team Need
+          <MetricTooltip
+            text={TOOLTIPS.teamNeedFit.text}
+            learnMoreHref={TOOLTIPS.teamNeedFit.href}
+            label="About Team Need Fit Score"
+          />
+        </h1>
         <p className={styles.sub}>Rank prospects by the traits your team needs.</p>
       </div>
 
@@ -123,8 +132,7 @@ export function TeamNeedPage() {
         <div className={styles.customLayout}>
           <div className={styles.sliderPanel}>
             <p className={styles.sliderHint}>
-              Set relative priorities. Total preference weights do not need to
-              sum to 100 — the scoring formula normalizes automatically.
+              Relative weights — they need not sum to 100.
             </p>
             {(Object.keys(weights) as CustomDimensionKey[]).map((key) => (
               <WeightSlider

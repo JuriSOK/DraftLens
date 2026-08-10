@@ -123,7 +123,8 @@ def main():
     dev_i = dev.index[(dev.draft_year == a.year)
                       & (dev.player_name == name)][0]
     r = find_comparables(ncaa_dims.loc[dev_i], pool, nba_dims,
-                         prospect_name=name, distance_reference=dist_ref)
+                         prospect_name=name, distance_reference=dist_ref,
+                         prospect_height=dev.loc[dev_i, "height"])
     r = explain_comparables(ncaa_dims.loc[dev_i], nba_dims, pool, r)
 
     print(f"\n{'=' * 78}\nNBA STATISTICAL COMPARABLES — {name}\n{'=' * 78}")

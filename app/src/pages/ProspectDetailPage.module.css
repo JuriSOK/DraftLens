@@ -26,6 +26,12 @@
   margin-bottom: 28px;
 }
 
+.identity {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
 .name {
   font-size: 28px;
 }

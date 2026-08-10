@@ -694,12 +694,51 @@ export function AboutPage() {
           <section id="comparables" className={styles.section}>
             <h2 className={styles.sectionTitle}>15. NBA Statistical Comparables</h2>
             <p className={styles.body}>
-              For each prospect, DraftLens finds the three current NBA
-              players whose statistical role and style most closely resemble
-              theirs, using a normalized six-dimension space shared between
-              NCAA and NBA box scores. The NBA reference pool is recent,
-              meaningfully-used players (2021-2025 seasons, minimum minutes
-              and games).
+              Comparables are found in two steps. Height decides{" "}
+              <em>who is eligible</em> to be compared; statistics decide{" "}
+              <em>who is closest</em>.
+            </p>
+            <FormulaBox
+              parts={["Height plausibility filter", "→", "Six-dimension statistical similarity"]}
+              result="Top 3 NBA comparables"
+            />
+            <p className={styles.body}>
+              <strong>Step 1 — height plausibility.</strong> DraftLens first
+              restricts the NBA pool to players within a reasonable height
+              range of the prospect. The rule is adaptive and fixed in
+              advance: start at <strong>±2 inches</strong>; if that leaves
+              fewer than three eligible players, widen to ±3 inches, then ±4
+              inches; if three still cannot be found, the comparison is
+              reported unavailable rather than filled with implausible names.
+              An NBA player with no recorded height is never an eligible
+              candidate, and a prospect with no recorded height gets no
+              comparables — a missing measurement never silently bypasses the
+              filter.
+            </p>
+            <p className={styles.techNote}>
+              The ±2-inch starting window was chosen from a coverage audit
+              over every scoreable 2026 and 2027 prospect: it already gives
+              all 75 at least three candidates (median pool 249 of 542
+              players), while ±1 inch leaves the tallest prospect with a
+              single candidate. No window was picked by looking at which NBA
+              names it produced.
+            </p>
+            <p className={styles.body}>
+              <strong>Step 2 — statistical similarity.</strong> Within that
+              physically plausible pool, DraftLens finds the three closest
+              profiles using the <em>unchanged</em> six-dimension normalized
+              comparison space shared between NCAA and NBA box scores. The
+              NBA reference pool is recent, meaningfully-used players
+              (2021-2025 seasons, minimum minutes and games).
+            </p>
+            <p className={styles.body}>
+              <strong>Height is a filter, not a similarity dimension.</strong>{" "}
+              It never enters the distance calculation, so two candidates who
+              both pass the filter are ranked purely on statistical
+              resemblance. Sharing a height band does <strong>not</strong>{" "}
+              mean two players share a body type, athleticism, or future
+              outcome — it only means comparing them is not physically
+              absurd.
             </p>
             <p className={styles.body}>
               This is <strong>purely descriptive resemblance</strong>,

@@ -1,3 +1,4 @@
+import { formatHeight } from "../lib/format";
 import type { Comparable } from "../types/data";
 import styles from "./ComparableCard.module.css";
 
@@ -14,6 +15,11 @@ export function ComparableCard({ comparable }: { comparable: Comparable }) {
         {RANK_LABEL[comparable.rank] ?? `#${comparable.rank} closest profile`}
       </div>
       <h3 className={styles.name}>{comparable.nbaPlayerName}</h3>
+      {comparable.nbaHeightInches !== null && (
+        <span className={styles.height}>
+          {formatHeight(comparable.nbaHeightInches)}
+        </span>
+      )}
 
       {comparable.closestDimensions.length > 0 && (
         <div className={styles.block}>

@@ -1,34 +1,69 @@
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import styles from "./MetricTooltip.module.css";
 
-/** A small "?" affordance that reveals an explanatory note on hover/focus.
- * Keyboard-accessible: the trigger is a real button, the note is linked via
- * aria-describedby and toggled on focus as well as hover. An optional
- * `learnMoreHref` adds a link into the corresponding Methodology section —
- * used sparingly, not on every tooltip. */
+/** The ONE contextual-help affordance used across the product.
+ *
+ * Works with all three input modes, which a hover-only tooltip does not:
+ *   mouse    — opens on hover
+ *   keyboard — the trigger is a real <button>, opens on focus, Escape closes
+ *   touch    — click/tap toggles it open and closed
+ *
+ * No tooltip library; plain React state and CSS. */
 export function MetricTooltip({
   text,
   learnMoreHref,
+  label = "More information",
 }: {
   text: string;
   learnMoreHref?: string;
+  label?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [pinned, setPinned] = useState(false);
   const id = useId();
+  const wrapRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!pinned) return;
+    const onDocClick = (e: MouseEvent) => {
+      if (!wrapRef.current?.contains(e.target as Node)) {
+        setPinned(false);
+        setOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setPinned(false);
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [pinned]);
 
   return (
-    <span className={styles.wrap}>
+    <span className={styles.wrap} ref={wrapRef}>
       <button
         type="button"
         className={styles.trigger}
-        aria-describedby={id}
-        aria-label="More information"
+        aria-describedby={open ? id : undefined}
+        aria-expanded={open}
+        aria-label={label}
+        onClick={() => {
+          const next = !pinned;
+          setPinned(next);
+          setOpen(next);
+        }}
         onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
+        onMouseLeave={() => !pinned && setOpen(false)}
         onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
+        onBlur={() => !pinned && setOpen(false)}
       >
         ?
       </button>

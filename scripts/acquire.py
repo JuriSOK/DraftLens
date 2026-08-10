@@ -18,10 +18,13 @@ from data import hoopr, wikipedia
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("source", choices=["mbb", "nba", "all", "population", "declared"],
+    ap.add_argument("source",
+                    choices=["mbb", "nba", "all", "population", "declared",
+                            "nba-heights", "photos"],
                     help="hoopR dataset family, the Wikipedia FINAL draft "
-                        "population, or the ORIGINAL declared pool "
-                        "(pre-withdrawal, see data.wikipedia.DECLARED_SNAPSHOTS)")
+                        "population, the ORIGINAL declared pool "
+                        "(pre-withdrawal, see data.wikipedia.DECLARED_SNAPSHOTS), "
+                        "or NBA player heights for the comparables gate")
     ap.add_argument("--years", default="2011-2026")
     ap.add_argument("--force", action="store_true",
                     help="re-download files that already exist")
@@ -34,6 +37,14 @@ def main():
         return wikipedia.acquire(years, wikidata=a.wikidata)
     if a.source == "declared":
         return wikipedia.acquire_declared(years)
+    if a.source == "nba-heights":
+        from data.espn_athletes import acquire_nba_heights
+        acquire_nba_heights()
+        return 0
+    if a.source == "photos":
+        from data.photos import acquire_photos
+        acquire_photos()
+        return 0
     sources = ["mbb", "nba"] if a.source == "all" else [a.source]
     for s in sources:
         hoopr.acquire(s, years, force=a.force)

@@ -87,6 +87,19 @@
     "normalization_rationale": "Position-relative normalisation would erase exactly the cross-position resemblance the product exists to surface — a stretch big resembling a wing is a finding, not an error. Tested as an alternative; see the ML-8 report."
   },
 
+  "height_gate": {
+    "purpose": "Keep comparables PHYSICALLY PLAUSIBLE. Height restricts which NBA players are eligible candidates; it is NEVER a similarity dimension and never enters the distance.",
+    "order": "height plausibility filter -> six-dimension statistical similarity -> top 3",
+    "windows_inches": [2, 3, 4],
+    "rule": "Try windows in order; use the FIRST that yields at least 3 eligible candidates. If none does, the result is UNAVAILABLE.",
+    "selection_rationale": "Coverage audit over every scoreable 2026 and 2027 prospect: +/-2in yields >=3 candidates for all 75 (mean pool 217, median 249, min 3 of 542); +/-1in leaves the tallest prospect (7'5\") with a single candidate. Wider steps exist so an extreme height in a future class degrades gracefully.",
+    "not_selected_by": "No window was chosen by inspecting which NBA names it produced, and no draft outcome influenced the choice.",
+    "nba_height_source": "ESPN athlete endpoint via data.espn_athletes, joined on the SAME athlete_id as the reference pool — exact identity join, no name matching. Coverage 542/542, 0 name mismatches.",
+    "missing_height_policy": "An NBA player without a height is never an eligible candidate; a prospect without a height receives no comparables. A missing measurement NEVER silently bypasses the gate.",
+    "measured_effect_2026": {"mean_abs_height_diff_before": 2.29, "mean_abs_height_diff_after": 1.18, "median_before": 2.0, "median_after": 1.0, "max_before": 9.0, "max_after": 2.0},
+    "name_retention": "63.3% (2026) / 60.0% (2027) — reported descriptively; retention was never an optimisation target."
+  },
+
   "similarity": {
     "metric": "EUCLIDEAN",
     "alternatives_tested": ["COSINE", "MANHATTAN"],

@@ -5,6 +5,7 @@ import { ScoreBadge } from "../components/ScoreBadge";
 import { PercentileBar } from "../components/PercentileBar";
 import { ProfileCard } from "../components/ProfileCard";
 import { ComparableCard } from "../components/ComparableCard";
+import { ProspectPhoto } from "../components/ProspectPhoto";
 import { MetricTooltip } from "../components/MetricTooltip";
 import {
   formatDecimal,
@@ -13,6 +14,7 @@ import {
   formatHeight,
   formatScoreOutOf100,
 } from "../lib/format";
+import { TOOLTIPS } from "../lib/tooltips";
 import {
   DIMENSION_LABELS,
   DIMENSION_PEER_GROUP,
@@ -102,11 +104,14 @@ function BoardDetail({ prospect }: { prospect: Prospect }) {
       </Link>
 
       <header className={styles.header}>
-        <div>
-          <h1 className={styles.name}>{prospect.name}</h1>
-          <p className={styles.meta}>
-            {prospect.school} · {prospect.position}
-          </p>
+        <div className={styles.identity}>
+          <ProspectPhoto name={prospect.name} photo={prospect.photo} />
+          <div>
+            <h1 className={styles.name}>{prospect.name}</h1>
+            <p className={styles.meta}>
+              {prospect.school} · {prospect.position}
+            </p>
+          </div>
         </div>
         {board && (
           <div className={styles.headerStats}>
@@ -118,8 +123,9 @@ function BoardDetail({ prospect }: { prospect: Prospect }) {
               <span className={styles.headerStatLabel}>
                 Overall Score
                 <MetricTooltip
-                  text="Relative ranking score within this Draft class. 0-100, not a probability or predicted pick."
-                  learnMoreHref="/methodology#overall-score"
+                  text={TOOLTIPS.overallScore.text}
+                  learnMoreHref={TOOLTIPS.overallScore.href}
+                  label="About Overall Score"
                 />
               </span>
               <ScoreBadge value={board.overallScore} size="lg" />
@@ -128,8 +134,9 @@ function BoardDetail({ prospect }: { prospect: Prospect }) {
               <span className={styles.headerStatLabel}>
                 Draft Probability
                 <MetricTooltip
-                  text="How draftable this NCAA statistical profile looks compared with historical early entrants — not a probability of NBA success."
-                  learnMoreHref="/methodology#draft-probability"
+                  text={TOOLTIPS.draftProbability.text}
+                  learnMoreHref={TOOLTIPS.draftProbability.href}
+                  label="About Draft Probability"
                 />
               </span>
               <span className={styles.headerStatValue}>
@@ -183,13 +190,19 @@ function WatchlistDetail({ prospect }: { prospect: WatchlistProspect }) {
       </Link>
 
       <header className={styles.header}>
-        <div>
-          <h1 className={styles.name}>{prospect.name}</h1>
-          <p className={styles.meta}>
-            {prospect.school ?? "—"}
-            {prospect.classYear ? ` · ${prospect.classYear}` : ""}
-          </p>
-          <span className={styles.projectedBadge}>Projected — not an official Draft entrant</span>
+        <div className={styles.identity}>
+          <ProspectPhoto name={prospect.name} photo={prospect.photo} />
+          <div>
+            <h1 className={styles.name}>{prospect.name}</h1>
+            <p className={styles.meta}>
+              {prospect.school ?? "—"}
+              {prospect.classYear ? ` · ${prospect.classYear}` : ""}
+            </p>
+            {/* CRITICAL: never let a projection read as an official entry. */}
+            <span className={styles.projectedBadge}>
+              Projected — not an official Draft entrant
+            </span>
+          </div>
         </div>
       </header>
 
@@ -259,11 +272,11 @@ function BasketballProfileSection({
       <h2 className={styles.sectionTitle}>
         Basketball Profile
         <MetricTooltip
-          text="These scores show where a prospect ranks relative to NCAA peers. A score of 81 means the prospect ranks higher than about 81% of the reference players for that trait."
-          learnMoreHref="/methodology#team-need"
+          text={TOOLTIPS.basketballProfile.text}
+          learnMoreHref={TOOLTIPS.basketballProfile.href}
+          label="About Basketball Profile scores"
         />
       </h2>
-      <p className={styles.sectionSub}>Score vs NCAA peers, 0-100</p>
       <div className={styles.dimensionGrid}>
         {DIMENSION_ORDER.map((key) => (
           <PercentileBar
@@ -325,21 +338,14 @@ function BasketballProfileSection({
 function TeamNeedSection({ profiles }: { profiles: Prospect["profiles"] }) {
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>Team Need Fit</h2>
-      <p className={styles.sectionSub}>
-        Team Need Fit compares this player's statistical profile with each
-        basketball archetype. A higher score means the player's measured
-        NCAA traits align more strongly with that role — independent of
-        Overall Score, which asks a different question (who should be
-        drafted highest overall, not who fits a specific role).
-      </p>
-      <p className={styles.sectionSub}>
-        Each score is 0-100 and directly peer-relative: 84 means this
-        player's profile for that archetype ranks higher than about 84% of
-        NCAA peers — it does not get re-ranked against only this prospect
-        pool. See the Methodology page for exactly how each archetype is
-        calculated.
-      </p>
+      <h2 className={styles.sectionTitle}>
+        Team Need Fit
+        <MetricTooltip
+          text={TOOLTIPS.teamNeedFit.text}
+          learnMoreHref={TOOLTIPS.teamNeedFit.href}
+          label="About Team Need Fit"
+        />
+      </h2>
       <div className={styles.profileGrid}>
         {(Object.keys(profiles) as (keyof typeof profiles)[]).map((key) => (
           <ProfileCard
@@ -360,14 +366,11 @@ function ComparablesSection({ comparables }: { comparables: Prospect["comparable
       <h2 className={styles.sectionTitle}>
         NBA Statistical Comparables
         <MetricTooltip
-          text="These are descriptive statistical neighbors, not a prediction of who this prospect becomes."
-          learnMoreHref="/methodology#comparables"
+          text={TOOLTIPS.comparables.text}
+          learnMoreHref={TOOLTIPS.comparables.href}
+          label="About NBA Statistical Comparables"
         />
       </h2>
-      <p className={styles.sectionSub}>
-        Closest NBA statistical profiles in DraftLens's normalized comparison
-        space. Descriptive resemblance, not a projection.
-      </p>
       <div className={styles.comparableGrid}>
         {comparables.map((c) => (
           <ComparableCard key={c.nbaPlayerName} comparable={c} />

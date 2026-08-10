@@ -48,8 +48,7 @@ export function StatsPage() {
       <div className={styles.intro}>
         <h1 className={styles.title}>Prospect Stats</h1>
         <p className={styles.sub}>
-          Compare and rank prospects using their pre-draft NCAA production —
-          direct statistics, no model inference.
+          Rank prospects by pre-draft NCAA production.
         </p>
       </div>
 
@@ -96,12 +95,10 @@ export function StatsPage() {
       </div>
 
       <div className={styles.controls}>
+        {/* CRITICAL: without this the ranking direction is genuinely
+           ambiguous — a "leader" in turnovers would otherwise read as good. */}
         {metric.lowerIsBetter && (
-          <p className={styles.lowerBetterNote}>
-            Lower is better for turnovers — this list is sorted{" "}
-            {effectiveDirection === "asc" ? "fewest first" : "most first"} by
-            default.
-          </p>
+          <p className={styles.lowerBetterNote}>Lower is better.</p>
         )}
         <div className={styles.directionToggle} role="group" aria-label="Sort direction">
           <button
@@ -123,12 +120,12 @@ export function StatsPage() {
         </div>
       </div>
 
+      {/* CRITICAL: a shooting leaderboard without a sample-size flag is
+         actively misleading — 2-for-3 would top the list. */}
       {metric.attemptsKey && (
         <p className={styles.sampleNote}>
-          Prospects below {RELIABILITY_MIN_ATTEMPTS} attempts are flagged{" "}
-          <span className={styles.lowSampleTag}>Low sample</span> — the same
-          reliability minimum DraftLens's Team Need methodology uses for
-          shooting rates, so a handful of makes can't dominate the list.
+          Under {RELIABILITY_MIN_ATTEMPTS} attempts is flagged{" "}
+          <span className={styles.lowSampleTag}>Low sample</span>.
         </p>
       )}
 

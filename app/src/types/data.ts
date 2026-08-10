@@ -82,9 +82,23 @@ export interface DimensionDelta {
   nbaPercentile: number | null;
 }
 
+/** A verified, freely-licensed portrait. Present only when identity AND
+ * licence were both confirmed at export time — attribution and licence are
+ * never optional for a shipped photo. */
+export interface ProspectPhotoMeta {
+  thumbnailUrl: string;
+  sourceUrl: string | null;
+  attribution: string;
+  license: string;
+  licenseUrl: string | null;
+}
+
 export interface Comparable {
   rank: number;
   nbaPlayerName: string;
+  /** NBA player's height in inches — the plausibility gate's input, shown so
+   * the comparison is checkable. */
+  nbaHeightInches: number | null;
   /** 0-100. Compresses toward 97-100 by design — see docs/VALIDATION.md. */
   similarityScore: number | null;
   referenceSeasons: string[];
@@ -98,6 +112,8 @@ export interface Prospect {
   school: string;
   position: string;
   populationStatus: PopulationStatus;
+  /** Null when no verified, freely-licensed photo could be resolved. */
+  photo: ProspectPhotoMeta | null;
   /** The frozen 26-prospect holdout board. Null for WITHDRAWN prospects, and
    * for any FINAL_ENTRY prospect the declared-pool computation could not
    * reach (should not happen in practice). */
@@ -174,6 +190,7 @@ export interface WatchlistProspect {
   name: string;
   school: string | null;
   classYear: string | null;
+  photo: ProspectPhotoMeta | null;
   /** False for incoming freshmen with no NCAA record yet — every stats/
    * dimensions/profiles/comparables field below is null in that case, never
    * fabricated. */
