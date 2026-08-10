@@ -70,15 +70,13 @@ The General Board combines two complementary models.
 
 They are combined into:
 
-$$
-\text{Board Signal}
-=
-P(\text{drafted})
-\times
-\frac{S + 1 - \mathrm{clip}(\hat{p}, 1, S)}{S}
-$$
+**Board Signal = P(drafted) × (S + 1 − clip(p̂, 1, S)) / S**
 
-where $S$ is the draft size and $\hat{p}$ is the Draft Order model output.
+where:
+
+- **S** is the draft size;
+- **p̂** is the Draft Order model output;
+- **clip(p̂, 1, S)** constrains that output to the valid draft range.
 
 The final **Overall Score** is the prospect's percentile on that signal within the analysed class, mapped from 0 to 100.
 
