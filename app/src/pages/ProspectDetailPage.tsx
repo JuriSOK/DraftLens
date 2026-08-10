@@ -67,7 +67,7 @@ export function ProspectDetailPage() {
       return (
         <div className={`container ${styles.notFound}`}>
           <p>Prospect not found.</p>
-          <Link to="/watchlist">Back to the Watchlist</Link>
+          <Link to="/2027">Back to the Watchlist</Link>
         </div>
       );
     }
@@ -83,7 +83,7 @@ export function ProspectDetailPage() {
     return (
       <div className={`container ${styles.notFound}`}>
         <p>Prospect not found.</p>
-        <Link to="/">Back to the board</Link>
+        <Link to="/board">Back to the board</Link>
       </div>
     );
   }
@@ -97,7 +97,7 @@ function BoardDetail({ prospect }: { prospect: Prospect }) {
 
   return (
     <div className="container">
-      <Link to="/" className={styles.back}>
+      <Link to="/board" className={styles.back}>
         ← Board
       </Link>
 
@@ -117,12 +117,21 @@ function BoardDetail({ prospect }: { prospect: Prospect }) {
             <div className={styles.headerStat}>
               <span className={styles.headerStatLabel}>
                 Overall Score
-                <MetricTooltip text="Relative ranking score within this Draft class. 0-100, not a probability or predicted pick." />
+                <MetricTooltip
+                  text="Relative ranking score within this Draft class. 0-100, not a probability or predicted pick."
+                  learnMoreHref="/methodology#overall-score"
+                />
               </span>
               <ScoreBadge value={board.overallScore} size="lg" />
             </div>
             <div className={styles.headerStat}>
-              <span className={styles.headerStatLabel}>Draft Probability</span>
+              <span className={styles.headerStatLabel}>
+                Draft Probability
+                <MetricTooltip
+                  text="How draftable this NCAA statistical profile looks compared with historical early entrants — not a probability of NBA success."
+                  learnMoreHref="/methodology#draft-probability"
+                />
+              </span>
               <span className={styles.headerStatValue}>
                 {formatPercent(board.draftProbability)}
               </span>
@@ -169,7 +178,7 @@ function BoardDetail({ prospect }: { prospect: Prospect }) {
 function WatchlistDetail({ prospect }: { prospect: WatchlistProspect }) {
   return (
     <div className="container">
-      <Link to="/watchlist" className={styles.back}>
+      <Link to="/2027" className={styles.back}>
         ← 2027 Watchlist
       </Link>
 
@@ -249,7 +258,10 @@ function BasketballProfileSection({
     <section className={styles.section}>
       <h2 className={styles.sectionTitle}>
         Basketball Profile
-        <MetricTooltip text="These scores show where a prospect ranks relative to NCAA peers. A score of 81 means the prospect ranks higher than about 81% of the reference players for that trait." />
+        <MetricTooltip
+          text="These scores show where a prospect ranks relative to NCAA peers. A score of 81 means the prospect ranks higher than about 81% of the reference players for that trait."
+          learnMoreHref="/methodology#team-need"
+        />
       </h2>
       <p className={styles.sectionSub}>Score vs NCAA peers, 0-100</p>
       <div className={styles.dimensionGrid}>
@@ -345,7 +357,13 @@ function TeamNeedSection({ profiles }: { profiles: Prospect["profiles"] }) {
 function ComparablesSection({ comparables }: { comparables: Prospect["comparables"] }) {
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>NBA Statistical Comparables</h2>
+      <h2 className={styles.sectionTitle}>
+        NBA Statistical Comparables
+        <MetricTooltip
+          text="These are descriptive statistical neighbors, not a prediction of who this prospect becomes."
+          learnMoreHref="/methodology#comparables"
+        />
+      </h2>
       <p className={styles.sectionSub}>
         Closest NBA statistical profiles in DraftLens's normalized comparison
         space. Descriptive resemblance, not a projection.

@@ -1,33 +1,32 @@
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import styles from "./Layout.module.css";
 
 const NAV_LINKS = [
-  { to: "/", label: "Board", end: true },
+  { to: "/board", label: "Board" },
   { to: "/stats", label: "Stats" },
   { to: "/team-need", label: "Team Need" },
-  { to: "/about", label: "Methodology" },
+  { to: "/methodology", label: "Methodology" },
 ];
 
 export function Layout() {
   const location = useLocation();
-  const onWatchlist = location.pathname.startsWith("/watchlist");
+  const on2027 = location.pathname.startsWith("/2027");
 
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
         <div className={`container ${styles.headerInner}`}>
-          <NavLink to="/" className={styles.brand}>
+          <Link to="/" className={styles.brand}>
             <span className={styles.brandMark} aria-hidden="true" />
             DraftLens
-          </NavLink>
+          </Link>
           <nav className={styles.nav} aria-label="Primary">
             {NAV_LINKS.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
-                end={link.end}
                 className={({ isActive }) =>
-                  isActive && !onWatchlist
+                  isActive && !on2027
                     ? `${styles.navLink} ${styles.navLinkActive}`
                     : styles.navLink
                 }
@@ -38,14 +37,14 @@ export function Layout() {
           </nav>
           <div className={styles.yearToggle} role="group" aria-label="Draft class year">
             <NavLink
-              to="/"
-              className={onWatchlist ? styles.yearButton : `${styles.yearButton} ${styles.yearButtonActive}`}
+              to="/board"
+              className={on2027 ? styles.yearButton : `${styles.yearButton} ${styles.yearButtonActive}`}
             >
               2026
             </NavLink>
             <NavLink
-              to="/watchlist"
-              className={onWatchlist ? `${styles.yearButton} ${styles.yearButtonActive}` : styles.yearButton}
+              to="/2027"
+              className={on2027 ? `${styles.yearButton} ${styles.yearButtonActive}` : styles.yearButton}
             >
               2027 Watchlist
             </NavLink>
