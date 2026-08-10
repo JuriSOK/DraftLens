@@ -6,7 +6,7 @@
     "rebounding",
     "size"
   ],
-  "generatedAt": "2026-08-10T10:46:06Z",
+  "generatedAt": "2026-08-10T12:39:32Z",
   "methodologySummary": {
     "comparables": "Normalized NCAA ↔ NBA statistical similarity across six role dimensions. Descriptive resemblance only, never a projection.",
     "generalBoard": "Draft Probability × Draft Order quality, combined into a 0-100 class-relative Overall Score.",
@@ -222,6 +222,8 @@
           "stats": {
             "assistsPer40": 3.2,
             "blocksPer40": 1.7,
+            "fgAttempts": 283,
+            "ftAttempts": 112,
             "ftPct": 0.75,
             "gamesPlayed": 35,
             "heightInches": 80.0,
@@ -229,6 +231,7 @@
             "pointsPer40": 20.9,
             "reboundsPer40": 11.5,
             "stealsPer40": 3.4,
+            "threePointAttempts": 92,
             "threePointPct": 0.413,
             "tsPct": 0.62,
             "turnoversPer40": 1.3
@@ -375,6 +378,8 @@
           "stats": {
             "assistsPer40": 3.4,
             "blocksPer40": 1.7,
+            "fgAttempts": 294,
+            "ftAttempts": 181,
             "ftPct": 0.713,
             "gamesPlayed": 24,
             "heightInches": 81.0,
@@ -382,6 +387,7 @@
             "pointsPer40": 25.2,
             "reboundsPer40": 12.0,
             "stealsPer40": 1.9,
+            "threePointAttempts": 27,
             "threePointPct": 0.259,
             "tsPct": 0.637,
             "turnoversPer40": 2.5
@@ -529,6 +535,8 @@
           "stats": {
             "assistsPer40": 4.3,
             "blocksPer40": 0.4,
+            "fgAttempts": 604,
+            "ftAttempts": 296,
             "ftPct": 0.774,
             "gamesPlayed": 35,
             "heightInches": 81.0,
@@ -536,6 +544,7 @@
             "pointsPer40": 29.3,
             "reboundsPer40": 7.8,
             "stealsPer40": 1.2,
+            "threePointAttempts": 148,
             "threePointPct": 0.331,
             "tsPct": 0.609,
             "turnoversPer40": 3.5
@@ -689,6 +698,8 @@
           "stats": {
             "assistsPer40": 4.9,
             "blocksPer40": 0.7,
+            "fgAttempts": 522,
+            "ftAttempts": 280,
             "ftPct": 0.789,
             "gamesPlayed": 38,
             "heightInches": 80.0,
@@ -696,6 +707,7 @@
             "pointsPer40": 26.8,
             "reboundsPer40": 12.2,
             "stealsPer40": 1.7,
+            "threePointAttempts": 138,
             "threePointPct": 0.391,
             "tsPct": 0.663,
             "turnoversPer40": 3.0
@@ -843,6 +855,8 @@
           "stats": {
             "assistsPer40": 4.1,
             "blocksPer40": 4.4,
+            "fgAttempts": 301,
+            "ftAttempts": 140,
             "ftPct": 0.564,
             "gamesPlayed": 40,
             "heightInches": 87.0,
@@ -850,6 +864,7 @@
             "pointsPer40": 20.7,
             "reboundsPer40": 11.6,
             "stealsPer40": 0.6,
+            "threePointAttempts": 10,
             "threePointPct": 0.3,
             "tsPct": 0.667,
             "turnoversPer40": 3.4
@@ -997,6 +1012,8 @@
           "stats": {
             "assistsPer40": 3.1,
             "blocksPer40": 1.6,
+            "fgAttempts": 437,
+            "ftAttempts": 166,
             "ftPct": 0.801,
             "gamesPlayed": 34,
             "heightInches": 77.0,
@@ -1004,6 +1021,7 @@
             "pointsPer40": 22.4,
             "reboundsPer40": 6.9,
             "stealsPer40": 1.0,
+            "threePointAttempts": 206,
             "threePointPct": 0.374,
             "tsPct": 0.629,
             "turnoversPer40": 2.8
@@ -1163,6 +1181,8 @@
           "stats": {
             "assistsPer40": 2.2,
             "blocksPer40": 0.9,
+            "fgAttempts": 356,
+            "ftAttempts": 132,
             "ftPct": 0.826,
             "gamesPlayed": 24,
             "heightInches": 77.0,
@@ -1170,6 +1190,7 @@
             "pointsPer40": 27.8,
             "reboundsPer40": 5.8,
             "stealsPer40": 2.0,
+            "threePointAttempts": 165,
             "threePointPct": 0.382,
             "tsPct": 0.584,
             "turnoversPer40": 2.2
@@ -1317,6 +1338,8 @@
           "stats": {
             "assistsPer40": 7.7,
             "blocksPer40": 0.3,
+            "fgAttempts": 432,
+            "ftAttempts": 118,
             "ftPct": 0.805,
             "gamesPlayed": 33,
             "heightInches": 73.0,
@@ -1324,6 +1347,7 @@
             "pointsPer40": 19.3,
             "reboundsPer40": 3.7,
             "stealsPer40": 1.5,
+            "threePointAttempts": 260,
             "threePointPct": 0.415,
             "tsPct": 0.631,
             "turnoversPer40": 3.4
@@ -1471,6 +1495,8 @@
           "stats": {
             "assistsPer40": 4.4,
             "blocksPer40": 0.4,
+            "fgAttempts": 395,
+            "ftAttempts": 200,
             "ftPct": 0.815,
             "gamesPlayed": 36,
             "heightInches": 79.0,
@@ -1478,6 +1504,7 @@
             "pointsPer40": 21.1,
             "reboundsPer40": 9.2,
             "stealsPer40": 2.0,
+            "threePointAttempts": 93,
             "threePointPct": 0.344,
             "tsPct": 0.645,
             "turnoversPer40": 3.2
@@ -1625,6 +1652,8 @@
           "stats": {
             "assistsPer40": 6.5,
             "blocksPer40": 0.2,
+            "fgAttempts": 273,
+            "ftAttempts": 122,
             "ftPct": 0.844,
             "gamesPlayed": 21,
             "heightInches": 77.0,
@@ -1632,6 +1661,7 @@
             "pointsPer40": 24.9,
             "reboundsPer40": 4.6,
             "stealsPer40": 1.7,
+            "threePointAttempts": 160,
             "threePointPct": 0.344,
             "tsPct": 0.585,
             "turnoversPer40": 4.2
@@ -1778,6 +1808,8 @@
           "stats": {
             "assistsPer40": 2.6,
             "blocksPer40": 1.5,
+            "fgAttempts": 342,
+            "ftAttempts": 117,
             "ftPct": 0.615,
             "gamesPlayed": 31,
             "heightInches": 84.0,
@@ -1785,6 +1817,7 @@
             "pointsPer40": 21.7,
             "reboundsPer40": 11.1,
             "stealsPer40": 0.7,
+            "threePointAttempts": 94,
             "threePointPct": 0.426,
             "tsPct": 0.671,
             "turnoversPer40": 2.1
@@ -1932,6 +1965,8 @@
           "stats": {
             "assistsPer40": 6.5,
             "blocksPer40": 0.2,
+            "fgAttempts": 485,
+            "ftAttempts": 198,
             "ftPct": 0.798,
             "gamesPlayed": 33,
             "heightInches": 75.0,
@@ -1939,6 +1974,7 @@
             "pointsPer40": 28.4,
             "reboundsPer40": 4.6,
             "stealsPer40": 1.5,
+            "threePointAttempts": 203,
             "threePointPct": 0.399,
             "tsPct": 0.634,
             "turnoversPer40": 3.3
@@ -2085,6 +2121,8 @@
           "stats": {
             "assistsPer40": 1.8,
             "blocksPer40": 1.4,
+            "fgAttempts": 362,
+            "ftAttempts": 158,
             "ftPct": 0.759,
             "gamesPlayed": 30,
             "heightInches": 82.0,
@@ -2092,6 +2130,7 @@
             "pointsPer40": 21.5,
             "reboundsPer40": 13.6,
             "stealsPer40": 1.2,
+            "threePointAttempts": 53,
             "threePointPct": 0.34,
             "tsPct": 0.644,
             "turnoversPer40": 2.3
@@ -2239,6 +2278,8 @@
           "stats": {
             "assistsPer40": 3.3,
             "blocksPer40": 0.3,
+            "fgAttempts": 428,
+            "ftAttempts": 169,
             "ftPct": 0.805,
             "gamesPlayed": 39,
             "heightInches": 76.0,
@@ -2246,6 +2287,7 @@
             "pointsPer40": 21.6,
             "reboundsPer40": 6.6,
             "stealsPer40": 2.0,
+            "threePointAttempts": 179,
             "threePointPct": 0.391,
             "tsPct": 0.623,
             "turnoversPer40": 2.0
@@ -2393,6 +2435,8 @@
           "stats": {
             "assistsPer40": 7.3,
             "blocksPer40": 0.3,
+            "fgAttempts": 595,
+            "ftAttempts": 220,
             "ftPct": 0.809,
             "gamesPlayed": 36,
             "heightInches": 74.0,
@@ -2400,6 +2444,7 @@
             "pointsPer40": 26.6,
             "reboundsPer40": 3.5,
             "stealsPer40": 0.9,
+            "threePointAttempts": 207,
             "threePointPct": 0.44,
             "tsPct": 0.611,
             "turnoversPer40": 2.5
@@ -2545,6 +2590,8 @@
           "stats": {
             "assistsPer40": 4.1,
             "blocksPer40": 0.4,
+            "fgAttempts": 503,
+            "ftAttempts": 226,
             "ftPct": 0.832,
             "gamesPlayed": 31,
             "heightInches": 74.0,
@@ -2552,6 +2599,7 @@
             "pointsPer40": 26.4,
             "reboundsPer40": 4.2,
             "stealsPer40": 1.8,
+            "threePointAttempts": 178,
             "threePointPct": 0.354,
             "tsPct": 0.597,
             "turnoversPer40": 2.1
@@ -2697,6 +2745,8 @@
           "stats": {
             "assistsPer40": 1.8,
             "blocksPer40": 0.9,
+            "fgAttempts": 430,
+            "ftAttempts": 114,
             "ftPct": 0.86,
             "gamesPlayed": 38,
             "heightInches": 78.0,
@@ -2704,6 +2754,7 @@
             "pointsPer40": 21.2,
             "reboundsPer40": 4.5,
             "stealsPer40": 1.0,
+            "threePointAttempts": 280,
             "threePointPct": 0.361,
             "tsPct": 0.595,
             "turnoversPer40": 1.6
@@ -2851,6 +2902,8 @@
           "stats": {
             "assistsPer40": 3.3,
             "blocksPer40": 0.2,
+            "fgAttempts": 467,
+            "ftAttempts": 108,
             "ftPct": 0.843,
             "gamesPlayed": 37,
             "heightInches": 75.0,
@@ -2858,6 +2911,7 @@
             "pointsPer40": 20.5,
             "reboundsPer40": 5.0,
             "stealsPer40": 2.0,
+            "threePointAttempts": 197,
             "threePointPct": 0.416,
             "tsPct": 0.563,
             "turnoversPer40": 1.3
@@ -3005,6 +3059,8 @@
           "stats": {
             "assistsPer40": 5.0,
             "blocksPer40": 0.4,
+            "fgAttempts": 454,
+            "ftAttempts": 216,
             "ftPct": 0.796,
             "gamesPlayed": 37,
             "heightInches": 77.0,
@@ -3012,6 +3068,7 @@
             "pointsPer40": 21.1,
             "reboundsPer40": 6.0,
             "stealsPer40": 1.1,
+            "threePointAttempts": 219,
             "threePointPct": 0.397,
             "tsPct": 0.604,
             "turnoversPer40": 2.1
@@ -3156,6 +3213,8 @@
           "stats": {
             "assistsPer40": 1.2,
             "blocksPer40": 0.8,
+            "fgAttempts": 295,
+            "ftAttempts": 58,
             "ftPct": 0.621,
             "gamesPlayed": 37,
             "heightInches": 83.0,
@@ -3163,6 +3222,7 @@
             "pointsPer40": 15.3,
             "reboundsPer40": 12.7,
             "stealsPer40": 1.2,
+            "threePointAttempts": 90,
             "threePointPct": 0.333,
             "tsPct": 0.549,
             "turnoversPer40": 1.4
@@ -3310,6 +3370,8 @@
           "stats": {
             "assistsPer40": 3.2,
             "blocksPer40": 0.8,
+            "fgAttempts": 429,
+            "ftAttempts": 248,
             "ftPct": 0.79,
             "gamesPlayed": 35,
             "heightInches": 82.0,
@@ -3317,6 +3379,7 @@
             "pointsPer40": 22.5,
             "reboundsPer40": 8.6,
             "stealsPer40": 1.3,
+            "threePointAttempts": 138,
             "threePointPct": 0.333,
             "tsPct": 0.543,
             "turnoversPer40": 3.0
@@ -3463,6 +3526,8 @@
           "stats": {
             "assistsPer40": 1.9,
             "blocksPer40": 1.8,
+            "fgAttempts": 313,
+            "ftAttempts": 156,
             "ftPct": 0.782,
             "gamesPlayed": 40,
             "heightInches": 81.0,
@@ -3470,6 +3535,7 @@
             "pointsPer40": 20.9,
             "reboundsPer40": 11.7,
             "stealsPer40": 1.1,
+            "threePointAttempts": 35,
             "threePointPct": 0.343,
             "tsPct": 0.687,
             "turnoversPer40": 2.1
@@ -3617,6 +3683,8 @@
           "stats": {
             "assistsPer40": 6.6,
             "blocksPer40": 0.4,
+            "fgAttempts": 466,
+            "ftAttempts": 129,
             "ftPct": 0.845,
             "gamesPlayed": 37,
             "heightInches": 75.0,
@@ -3624,6 +3692,7 @@
             "pointsPer40": 20.3,
             "reboundsPer40": 5.1,
             "stealsPer40": 1.9,
+            "threePointAttempts": 106,
             "threePointPct": 0.387,
             "tsPct": 0.568,
             "turnoversPer40": 2.3
@@ -3771,6 +3840,8 @@
           "stats": {
             "assistsPer40": 3.7,
             "blocksPer40": 1.0,
+            "fgAttempts": 379,
+            "ftAttempts": 162,
             "ftPct": 0.623,
             "gamesPlayed": 36,
             "heightInches": 80.0,
@@ -3778,6 +3849,7 @@
             "pointsPer40": 20.3,
             "reboundsPer40": 8.1,
             "stealsPer40": 0.9,
+            "threePointAttempts": 20,
             "threePointPct": 0.35,
             "tsPct": 0.564,
             "turnoversPer40": 2.3
@@ -3921,6 +3993,8 @@
           "stats": {
             "assistsPer40": 0.9,
             "blocksPer40": 0.3,
+            "fgAttempts": 117,
+            "ftAttempts": 11,
             "ftPct": 0.545,
             "gamesPlayed": 21,
             "heightInches": 79.0,
@@ -3928,6 +4002,7 @@
             "pointsPer40": 10.4,
             "reboundsPer40": 7.1,
             "stealsPer40": 0.6,
+            "threePointAttempts": 46,
             "threePointPct": 0.261,
             "tsPct": 0.492,
             "turnoversPer40": 0.8
@@ -4072,6 +4147,8 @@
           "stats": {
             "assistsPer40": 1.2,
             "blocksPer40": 1.8,
+            "fgAttempts": 14,
+            "ftAttempts": 13,
             "ftPct": 0.308,
             "gamesPlayed": 4,
             "heightInches": 82.0,
@@ -4079,6 +4156,7 @@
             "pointsPer40": 12.1,
             "reboundsPer40": 12.1,
             "stealsPer40": 1.2,
+            "threePointAttempts": 0,
             "threePointPct": null,
             "tsPct": 0.507,
             "turnoversPer40": 3.6
@@ -4219,6 +4297,8 @@
           "stats": {
             "assistsPer40": 6.1,
             "blocksPer40": 0.4,
+            "fgAttempts": 470,
+            "ftAttempts": 218,
             "ftPct": 0.853,
             "gamesPlayed": 36,
             "heightInches": 72.0,
@@ -4226,6 +4306,7 @@
             "pointsPer40": 23.3,
             "reboundsPer40": 4.3,
             "stealsPer40": 2.9,
+            "threePointAttempts": 163,
             "threePointPct": 0.368,
             "tsPct": 0.62,
             "turnoversPer40": 2.3
@@ -4368,6 +4449,8 @@
           "stats": {
             "assistsPer40": 1.5,
             "blocksPer40": 0.9,
+            "fgAttempts": 285,
+            "ftAttempts": 99,
             "ftPct": 0.758,
             "gamesPlayed": 34,
             "heightInches": 78.0,
@@ -4375,6 +4458,7 @@
             "pointsPer40": 16.7,
             "reboundsPer40": 7.8,
             "stealsPer40": 1.6,
+            "threePointAttempts": 168,
             "threePointPct": 0.429,
             "tsPct": 0.656,
             "turnoversPer40": 1.6
@@ -4516,6 +4600,8 @@
           "stats": {
             "assistsPer40": 1.9,
             "blocksPer40": 3.3,
+            "fgAttempts": 308,
+            "ftAttempts": 107,
             "ftPct": 0.654,
             "gamesPlayed": 35,
             "heightInches": 82.0,
@@ -4523,6 +4609,7 @@
             "pointsPer40": 16.8,
             "reboundsPer40": 11.4,
             "stealsPer40": 0.9,
+            "threePointAttempts": 2,
             "threePointPct": 0.0,
             "tsPct": 0.653,
             "turnoversPer40": 2.0
@@ -4669,6 +4756,8 @@
           "stats": {
             "assistsPer40": 1.4,
             "blocksPer40": 0.3,
+            "fgAttempts": 411,
+            "ftAttempts": 82,
             "ftPct": 0.878,
             "gamesPlayed": 37,
             "heightInches": 80.0,
@@ -4676,6 +4765,7 @@
             "pointsPer40": 22.2,
             "reboundsPer40": 4.1,
             "stealsPer40": 1.1,
+            "threePointAttempts": 279,
             "threePointPct": 0.487,
             "tsPct": 0.698,
             "turnoversPer40": 1.1
@@ -4818,6 +4908,8 @@
           "stats": {
             "assistsPer40": 2.2,
             "blocksPer40": 0.2,
+            "fgAttempts": 527,
+            "ftAttempts": 249,
             "ftPct": 0.783,
             "gamesPlayed": 35,
             "heightInches": 79.0,
@@ -4825,6 +4917,7 @@
             "pointsPer40": 24.4,
             "reboundsPer40": 7.4,
             "stealsPer40": 1.4,
+            "threePointAttempts": 262,
             "threePointPct": 0.332,
             "tsPct": 0.589,
             "turnoversPer40": 1.9
@@ -4966,6 +5059,8 @@
           "stats": {
             "assistsPer40": 1.7,
             "blocksPer40": 0.6,
+            "fgAttempts": 250,
+            "ftAttempts": 54,
             "ftPct": 0.796,
             "gamesPlayed": 34,
             "heightInches": 78.0,
@@ -4973,6 +5068,7 @@
             "pointsPer40": 16.3,
             "reboundsPer40": 6.4,
             "stealsPer40": 2.3,
+            "threePointAttempts": 138,
             "threePointPct": 0.355,
             "tsPct": 0.548,
             "turnoversPer40": 1.7
@@ -5120,6 +5216,8 @@
           "stats": {
             "assistsPer40": 1.9,
             "blocksPer40": 0.8,
+            "fgAttempts": 486,
+            "ftAttempts": 134,
             "ftPct": 0.746,
             "gamesPlayed": 34,
             "heightInches": 77.0,
@@ -5127,6 +5225,7 @@
             "pointsPer40": 21.8,
             "reboundsPer40": 7.2,
             "stealsPer40": 2.4,
+            "threePointAttempts": 181,
             "threePointPct": 0.293,
             "tsPct": 0.555,
             "turnoversPer40": 2.3
@@ -5266,6 +5365,8 @@
           "stats": {
             "assistsPer40": 1.6,
             "blocksPer40": 2.3,
+            "fgAttempts": 245,
+            "ftAttempts": 98,
             "ftPct": 0.653,
             "gamesPlayed": 34,
             "heightInches": 86.0,
@@ -5273,6 +5374,7 @@
             "pointsPer40": 16.5,
             "reboundsPer40": 12.9,
             "stealsPer40": 0.4,
+            "threePointAttempts": 38,
             "threePointPct": 0.342,
             "tsPct": 0.623,
             "turnoversPer40": 2.4
@@ -5414,6 +5516,8 @@
           "stats": {
             "assistsPer40": 1.8,
             "blocksPer40": 0.7,
+            "fgAttempts": 407,
+            "ftAttempts": 198,
             "ftPct": 0.657,
             "gamesPlayed": 32,
             "heightInches": 78.0,
@@ -5421,6 +5525,7 @@
             "pointsPer40": 25.0,
             "reboundsPer40": 8.0,
             "stealsPer40": 2.0,
+            "threePointAttempts": 159,
             "threePointPct": 0.377,
             "tsPct": 0.591,
             "turnoversPer40": 3.1
@@ -5567,6 +5672,8 @@
           "stats": {
             "assistsPer40": 2.8,
             "blocksPer40": 0.5,
+            "fgAttempts": 271,
+            "ftAttempts": 98,
             "ftPct": 0.724,
             "gamesPlayed": 32,
             "heightInches": 81.0,
@@ -5574,6 +5681,7 @@
             "pointsPer40": 16.2,
             "reboundsPer40": 11.4,
             "stealsPer40": 0.7,
+            "threePointAttempts": 101,
             "threePointPct": 0.317,
             "tsPct": 0.635,
             "turnoversPer40": 2.4
@@ -5715,6 +5823,8 @@
           "stats": {
             "assistsPer40": 11.6,
             "blocksPer40": 0.0,
+            "fgAttempts": 364,
+            "ftAttempts": 208,
             "ftPct": 0.885,
             "gamesPlayed": 35,
             "heightInches": 74.0,
@@ -5722,6 +5832,7 @@
             "pointsPer40": 18.8,
             "reboundsPer40": 3.0,
             "stealsPer40": 1.6,
+            "threePointAttempts": 109,
             "threePointPct": 0.321,
             "tsPct": 0.585,
             "turnoversPer40": 3.0
@@ -5868,6 +5979,8 @@
           "stats": {
             "assistsPer40": 4.4,
             "blocksPer40": 1.0,
+            "fgAttempts": 271,
+            "ftAttempts": 103,
             "ftPct": 0.738,
             "gamesPlayed": 32,
             "heightInches": 80.0,
@@ -5875,6 +5988,7 @@
             "pointsPer40": 16.1,
             "reboundsPer40": 9.8,
             "stealsPer40": 1.5,
+            "threePointAttempts": 138,
             "threePointPct": 0.341,
             "tsPct": 0.577,
             "turnoversPer40": 1.9
@@ -6016,6 +6130,8 @@
           "stats": {
             "assistsPer40": 2.9,
             "blocksPer40": 1.2,
+            "fgAttempts": 302,
+            "ftAttempts": 74,
             "ftPct": 0.784,
             "gamesPlayed": 37,
             "heightInches": 78.0,
@@ -6023,6 +6139,7 @@
             "pointsPer40": 16.2,
             "reboundsPer40": 6.2,
             "stealsPer40": 1.6,
+            "threePointAttempts": 58,
             "threePointPct": 0.259,
             "tsPct": 0.617,
             "turnoversPer40": 1.8
@@ -6163,6 +6280,8 @@
           "stats": {
             "assistsPer40": 1.5,
             "blocksPer40": 3.5,
+            "fgAttempts": 52,
+            "ftAttempts": 17,
             "ftPct": 0.353,
             "gamesPlayed": 30,
             "heightInches": 89.0,
@@ -6170,6 +6289,7 @@
             "pointsPer40": 9.8,
             "reboundsPer40": 7.8,
             "stealsPer40": 0.4,
+            "threePointAttempts": 0,
             "threePointPct": null,
             "tsPct": 0.74,
             "turnoversPer40": 2.3
@@ -6308,6 +6428,8 @@
           "stats": {
             "assistsPer40": 2.5,
             "blocksPer40": 2.3,
+            "fgAttempts": 243,
+            "ftAttempts": 81,
             "ftPct": 0.605,
             "gamesPlayed": 32,
             "heightInches": 82.0,
@@ -6315,6 +6437,7 @@
             "pointsPer40": 13.1,
             "reboundsPer40": 9.0,
             "stealsPer40": 1.2,
+            "threePointAttempts": 66,
             "threePointPct": 0.318,
             "tsPct": 0.571,
             "turnoversPer40": 2.2
@@ -6457,6 +6580,8 @@
           "stats": {
             "assistsPer40": 5.3,
             "blocksPer40": 0.0,
+            "fgAttempts": 429,
+            "ftAttempts": 158,
             "ftPct": 0.848,
             "gamesPlayed": 29,
             "heightInches": 72.0,
@@ -6464,6 +6589,7 @@
             "pointsPer40": 23.1,
             "reboundsPer40": 3.7,
             "stealsPer40": 1.3,
+            "threePointAttempts": 94,
             "threePointPct": 0.372,
             "tsPct": 0.591,
             "turnoversPer40": 2.4
@@ -6606,6 +6732,8 @@
           "stats": {
             "assistsPer40": 3.9,
             "blocksPer40": 0.2,
+            "fgAttempts": 416,
+            "ftAttempts": 240,
             "ftPct": 0.804,
             "gamesPlayed": 33,
             "heightInches": 76.0,
@@ -6613,6 +6741,7 @@
             "pointsPer40": 21.2,
             "reboundsPer40": 5.4,
             "stealsPer40": 1.7,
+            "threePointAttempts": 175,
             "threePointPct": 0.36,
             "tsPct": 0.606,
             "turnoversPer40": 2.6
@@ -6755,6 +6884,8 @@
           "stats": {
             "assistsPer40": 2.8,
             "blocksPer40": 0.1,
+            "fgAttempts": 461,
+            "ftAttempts": 184,
             "ftPct": 0.859,
             "gamesPlayed": 34,
             "heightInches": 76.0,
@@ -6762,6 +6893,7 @@
             "pointsPer40": 22.6,
             "reboundsPer40": 6.0,
             "stealsPer40": 1.3,
+            "threePointAttempts": 247,
             "threePointPct": 0.389,
             "tsPct": 0.6,
             "turnoversPer40": 2.0
@@ -6903,6 +7035,8 @@
           "stats": {
             "assistsPer40": 3.1,
             "blocksPer40": 2.6,
+            "fgAttempts": 165,
+            "ftAttempts": 126,
             "ftPct": 0.698,
             "gamesPlayed": 36,
             "heightInches": 84.0,
@@ -6910,6 +7044,7 @@
             "pointsPer40": 13.7,
             "reboundsPer40": 11.2,
             "stealsPer40": 0.9,
+            "threePointAttempts": 3,
             "threePointPct": 0.0,
             "tsPct": 0.635,
             "turnoversPer40": 2.3
@@ -7052,6 +7187,8 @@
           "stats": {
             "assistsPer40": 2.3,
             "blocksPer40": 0.2,
+            "fgAttempts": 333,
+            "ftAttempts": 155,
             "ftPct": 0.8,
             "gamesPlayed": 32,
             "heightInches": 77.0,
@@ -7059,6 +7196,7 @@
             "pointsPer40": 17.3,
             "reboundsPer40": 4.1,
             "stealsPer40": 1.4,
+            "threePointAttempts": 139,
             "threePointPct": 0.338,
             "tsPct": 0.612,
             "turnoversPer40": 1.6
@@ -7201,6 +7339,8 @@
           "stats": {
             "assistsPer40": 2.6,
             "blocksPer40": 0.7,
+            "fgAttempts": 417,
+            "ftAttempts": 200,
             "ftPct": 0.84,
             "gamesPlayed": 33,
             "heightInches": 80.0,
@@ -7208,6 +7348,7 @@
             "pointsPer40": 22.8,
             "reboundsPer40": 9.4,
             "stealsPer40": 0.8,
+            "threePointAttempts": 108,
             "threePointPct": 0.333,
             "tsPct": 0.6,
             "turnoversPer40": 2.3
@@ -7350,6 +7491,8 @@
           "stats": {
             "assistsPer40": 2.8,
             "blocksPer40": 0.7,
+            "fgAttempts": 255,
+            "ftAttempts": 129,
             "ftPct": 0.86,
             "gamesPlayed": 29,
             "heightInches": 83.0,
@@ -7357,6 +7500,7 @@
             "pointsPer40": 17.5,
             "reboundsPer40": 7.9,
             "stealsPer40": 1.3,
+            "threePointAttempts": 118,
             "threePointPct": 0.331,
             "tsPct": 0.571,
             "turnoversPer40": 2.5
@@ -7499,6 +7643,8 @@
           "stats": {
             "assistsPer40": 4.9,
             "blocksPer40": 0.4,
+            "fgAttempts": 543,
+            "ftAttempts": 171,
             "ftPct": 0.83,
             "gamesPlayed": 35,
             "heightInches": 75.0,
@@ -7506,6 +7652,7 @@
             "pointsPer40": 21.2,
             "reboundsPer40": 3.9,
             "stealsPer40": 1.1,
+            "threePointAttempts": 205,
             "threePointPct": 0.4,
             "tsPct": 0.568,
             "turnoversPer40": 2.7
@@ -7651,6 +7798,8 @@
           "stats": {
             "assistsPer40": 1.6,
             "blocksPer40": 0.3,
+            "fgAttempts": 106,
+            "ftAttempts": 31,
             "ftPct": 0.806,
             "gamesPlayed": 33,
             "heightInches": 79.0,
@@ -7658,6 +7807,7 @@
             "pointsPer40": 9.6,
             "reboundsPer40": 4.0,
             "stealsPer40": 0.7,
+            "threePointAttempts": 61,
             "threePointPct": 0.361,
             "tsPct": 0.547,
             "turnoversPer40": 0.9
@@ -7801,6 +7951,8 @@
           "stats": {
             "assistsPer40": 1.5,
             "blocksPer40": 0.7,
+            "fgAttempts": 129,
+            "ftAttempts": 31,
             "ftPct": 0.613,
             "gamesPlayed": 32,
             "heightInches": 78.0,
@@ -7808,6 +7960,7 @@
             "pointsPer40": 10.3,
             "reboundsPer40": 5.9,
             "stealsPer40": 1.7,
+            "threePointAttempts": 85,
             "threePointPct": 0.271,
             "tsPct": 0.4,
             "turnoversPer40": 0.9
@@ -7950,6 +8103,8 @@
           "stats": {
             "assistsPer40": 3.0,
             "blocksPer40": 0.1,
+            "fgAttempts": 383,
+            "ftAttempts": 160,
             "ftPct": 0.85,
             "gamesPlayed": 31,
             "heightInches": 76.0,
@@ -7957,6 +8112,7 @@
             "pointsPer40": 20.1,
             "reboundsPer40": 2.6,
             "stealsPer40": 0.9,
+            "threePointAttempts": 195,
             "threePointPct": 0.349,
             "tsPct": 0.584,
             "turnoversPer40": 2.0
@@ -8095,6 +8251,8 @@
           "stats": {
             "assistsPer40": 1.5,
             "blocksPer40": 0.7,
+            "fgAttempts": 336,
+            "ftAttempts": 128,
             "ftPct": 0.805,
             "gamesPlayed": 34,
             "heightInches": 79.0,
@@ -8102,6 +8260,7 @@
             "pointsPer40": 20.5,
             "reboundsPer40": 6.9,
             "stealsPer40": 0.6,
+            "threePointAttempts": 82,
             "threePointPct": 0.244,
             "tsPct": 0.585,
             "turnoversPer40": 2.0
@@ -8241,6 +8400,8 @@
           "stats": {
             "assistsPer40": 2.9,
             "blocksPer40": 0.8,
+            "fgAttempts": 418,
+            "ftAttempts": 79,
             "ftPct": 0.671,
             "gamesPlayed": 33,
             "heightInches": 77.0,
@@ -8248,6 +8409,7 @@
             "pointsPer40": 16.8,
             "reboundsPer40": 6.0,
             "stealsPer40": 1.3,
+            "threePointAttempts": 184,
             "threePointPct": 0.359,
             "tsPct": 0.516,
             "turnoversPer40": 2.6
@@ -8388,6 +8550,8 @@
           "stats": {
             "assistsPer40": 7.0,
             "blocksPer40": 0.1,
+            "fgAttempts": 344,
+            "ftAttempts": 103,
             "ftPct": 0.583,
             "gamesPlayed": 33,
             "heightInches": 74.0,
@@ -8395,6 +8559,7 @@
             "pointsPer40": 15.9,
             "reboundsPer40": 4.0,
             "stealsPer40": 2.5,
+            "threePointAttempts": 100,
             "threePointPct": 0.27,
             "tsPct": 0.515,
             "turnoversPer40": 2.8
@@ -8534,6 +8699,8 @@
           "stats": {
             "assistsPer40": 1.1,
             "blocksPer40": 1.7,
+            "fgAttempts": 257,
+            "ftAttempts": 118,
             "ftPct": 0.695,
             "gamesPlayed": 35,
             "heightInches": 82.0,
@@ -8541,6 +8708,7 @@
             "pointsPer40": 17.9,
             "reboundsPer40": 18.4,
             "stealsPer40": 1.3,
+            "threePointAttempts": 2,
             "threePointPct": 0.0,
             "tsPct": 0.618,
             "turnoversPer40": 2.4
@@ -8682,6 +8850,8 @@
           "stats": {
             "assistsPer40": 8.6,
             "blocksPer40": 0.3,
+            "fgAttempts": 331,
+            "ftAttempts": 117,
             "ftPct": 0.709,
             "gamesPlayed": 40,
             "heightInches": 73.0,
@@ -8689,6 +8859,7 @@
             "pointsPer40": 15.4,
             "reboundsPer40": 4.0,
             "stealsPer40": 1.2,
+            "threePointAttempts": 173,
             "threePointPct": 0.376,
             "tsPct": 0.549,
             "turnoversPer40": 3.5
@@ -8827,6 +8998,8 @@
           "stats": {
             "assistsPer40": 1.7,
             "blocksPer40": 0.3,
+            "fgAttempts": 238,
+            "ftAttempts": 40,
             "ftPct": 0.75,
             "gamesPlayed": 32,
             "heightInches": 78.0,
@@ -8834,6 +9007,7 @@
             "pointsPer40": 11.5,
             "reboundsPer40": 3.6,
             "stealsPer40": 1.5,
+            "threePointAttempts": 165,
             "threePointPct": 0.321,
             "tsPct": 0.53,
             "turnoversPer40": 1.0
@@ -8976,6 +9150,8 @@
           "stats": {
             "assistsPer40": 3.5,
             "blocksPer40": 0.4,
+            "fgAttempts": 300,
+            "ftAttempts": 134,
             "ftPct": 0.769,
             "gamesPlayed": 33,
             "heightInches": 78.0,
@@ -8983,6 +9159,7 @@
             "pointsPer40": 17.2,
             "reboundsPer40": 8.8,
             "stealsPer40": 1.0,
+            "threePointAttempts": 78,
             "threePointPct": 0.321,
             "tsPct": 0.54,
             "turnoversPer40": 3.6
@@ -9123,6 +9300,8 @@
           "stats": {
             "assistsPer40": 3.0,
             "blocksPer40": 0.7,
+            "fgAttempts": 182,
+            "ftAttempts": 77,
             "ftPct": 0.792,
             "gamesPlayed": 14,
             "heightInches": 78.0,
@@ -9130,6 +9309,7 @@
             "pointsPer40": 20.5,
             "reboundsPer40": 4.1,
             "stealsPer40": 1.3,
+            "threePointAttempts": 61,
             "threePointPct": 0.213,
             "tsPct": 0.459,
             "turnoversPer40": 3.3
@@ -9140,8 +9320,2330 @@
       "status": "available"
     },
     "2027": {
-      "reason": "Official 2027 NBA early-entry declarations have not been announced yet. DraftLens never generates a prospect list or prediction from mock drafts, recruiting rankings or media speculation.",
-      "status": "unavailable"
+      "consensusRule": "NCAA-affiliated player named on >= 2 of 3 approved public boards",
+      "incomingCount": 9,
+      "label": "2027 Projected Watchlist",
+      "prospectCount": 24,
+      "prospects": [
+        {
+          "classYear": "sophomore",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 75.2,
+                  "prospectPercentile": 70.9
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 71.3,
+                  "prospectPercentile": 64.4
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 45.2,
+                  "prospectPercentile": 38.2
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Dalano Banton",
+              "rank": 1,
+              "referenceSeasons": [
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 97.1,
+                  "prospectPercentile": 96.2
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 30.8,
+                  "prospectPercentile": 29.8
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 60.0,
+                  "prospectPercentile": 64.4
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "De'Aaron Fox",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 63.7,
+                  "prospectPercentile": 64.4
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 26.7,
+                  "prospectPercentile": 29.8
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 76.7,
+                  "prospectPercentile": 70.9
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Victor Oladipo",
+              "rank": 3,
+              "referenceSeasons": [
+                "2021",
+                "2023"
+              ],
+              "similarityScore": 100
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-alijah_arenas",
+          "name": "Alijah Arenas",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "USC",
+          "stats": {
+            "assistsPer40": 3.0,
+            "blocksPer40": 0.7,
+            "fgAttempts": 182,
+            "ftAttempts": 77,
+            "ftPct": 0.792,
+            "gamesPlayed": 14,
+            "heightInches": 78.0,
+            "minutesPerGame": 27.6,
+            "pointsPer40": 20.5,
+            "reboundsPer40": 4.1,
+            "stealsPer40": 1.3,
+            "threePointAttempts": 61,
+            "threePointPct": 0.213,
+            "tsPct": 0.459,
+            "turnoversPer40": 3.3
+          }
+        },
+        {
+          "classYear": "sophomore",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 81.1,
+                  "prospectPercentile": 80.6
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 95.5,
+                  "prospectPercentile": 88.5
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 78.4,
+                  "prospectPercentile": 68.6
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Josh Giddey",
+              "rank": 1,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 69.3,
+                  "prospectPercentile": 68.6
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 83.8,
+                  "prospectPercentile": 80.6
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 50.2,
+                  "prospectPercentile": 62.1
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Zach Collins",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 98
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 80.0,
+                  "prospectPercentile": 88.5
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 77.9,
+                  "prospectPercentile": 68.6
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 61.7,
+                  "prospectPercentile": 72.2
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Cole Anthony",
+              "rank": 3,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 98
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-amari_allen",
+          "name": "Amari Allen",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "Alabama",
+          "stats": {
+            "assistsPer40": 4.4,
+            "blocksPer40": 1.0,
+            "fgAttempts": 271,
+            "ftAttempts": 103,
+            "ftPct": 0.738,
+            "gamesPlayed": 32,
+            "heightInches": 80.0,
+            "minutesPerGame": 28.3,
+            "pointsPer40": 16.1,
+            "reboundsPer40": 9.8,
+            "stealsPer40": 1.5,
+            "threePointAttempts": 138,
+            "threePointPct": 0.341,
+            "tsPct": 0.577,
+            "turnoversPer40": 1.9
+          }
+        },
+        {
+          "classYear": "freshman",
+          "comparables": [],
+          "coverage": null,
+          "dimensions": null,
+          "hasStats": false,
+          "id": "2027-anthony_thompson",
+          "name": "Anthony Thompson",
+          "profiles": null,
+          "school": "Ohio State",
+          "stats": null
+        },
+        {
+          "classYear": "junior",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 52.2,
+                  "prospectPercentile": 53.8
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 76.5,
+                  "prospectPercentile": 78.5
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 63.8,
+                  "prospectPercentile": 67.8
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Jeremy Lamb",
+              "rank": 1,
+              "referenceSeasons": [
+                "2021",
+                "2022"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 70.0,
+                  "prospectPercentile": 69.1
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 70.1,
+                  "prospectPercentile": 67.8
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 56.3,
+                  "prospectPercentile": 51.1
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Jalen Suggs",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 56.7,
+                  "prospectPercentile": 53.8
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 77.9,
+                  "prospectPercentile": 67.8
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 80.0,
+                  "prospectPercentile": 69.1
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Cole Anthony",
+              "rank": 3,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-billy_richmond",
+          "name": "Billy Richmond III",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "Arkansas",
+          "stats": {
+            "assistsPer40": 2.9,
+            "blocksPer40": 1.2,
+            "fgAttempts": 302,
+            "ftAttempts": 74,
+            "ftPct": 0.784,
+            "gamesPlayed": 37,
+            "heightInches": 78.0,
+            "minutesPerGame": 27.6,
+            "pointsPer40": 16.2,
+            "reboundsPer40": 6.2,
+            "stealsPer40": 1.6,
+            "threePointAttempts": 58,
+            "threePointPct": 0.259,
+            "tsPct": 0.617,
+            "turnoversPer40": 1.8
+          }
+        },
+        {
+          "classYear": "sophomore",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 47.7,
+                  "prospectPercentile": 47.4
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 41.3,
+                  "prospectPercentile": 39.1
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 65.9,
+                  "prospectPercentile": 70.1
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Terence Davis",
+              "rank": 1,
+              "referenceSeasons": [
+                "2021",
+                "2023"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 92.0,
+                  "prospectPercentile": 91.5
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 41.5,
+                  "prospectPercentile": 39.1
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 76.2,
+                  "prospectPercentile": 84.0
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Buddy Hield",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 91.4,
+                  "prospectPercentile": 91.5
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 73.6,
+                  "prospectPercentile": 71.8
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 42.6,
+                  "prospectPercentile": 39.1
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Donte DiVincenzo",
+              "rank": 3,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-braylon_mullins",
+          "name": "Braylon Mullins",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "Connecticut",
+          "stats": {
+            "assistsPer40": 2.0,
+            "blocksPer40": 0.9,
+            "fgAttempts": 347,
+            "ftAttempts": 36,
+            "ftPct": 0.889,
+            "gamesPlayed": 33,
+            "heightInches": 78.0,
+            "minutesPerGame": 28.2,
+            "pointsPer40": 17.0,
+            "reboundsPer40": 5.0,
+            "stealsPer40": 1.4,
+            "threePointAttempts": 215,
+            "threePointPct": 0.335,
+            "tsPct": 0.546,
+            "turnoversPer40": 1.7
+          }
+        },
+        {
+          "classYear": "freshman",
+          "comparables": [],
+          "coverage": null,
+          "dimensions": null,
+          "hasStats": false,
+          "id": "2027-bruce_branch",
+          "name": "Bruce Branch III",
+          "profiles": null,
+          "school": "BYU",
+          "stats": null
+        },
+        {
+          "classYear": "freshman",
+          "comparables": [],
+          "coverage": null,
+          "dimensions": null,
+          "hasStats": false,
+          "id": "2027-caleb_holt",
+          "name": "Caleb Holt",
+          "profiles": null,
+          "school": "Arizona",
+          "stats": null
+        },
+        {
+          "classYear": "freshman",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 79.2,
+                  "prospectPercentile": 80.2
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 61.8,
+                  "prospectPercentile": 56.9
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 39.3,
+                  "prospectPercentile": 31.3
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Moritz Wagner",
+              "rank": 1,
+              "referenceSeasons": [
+                "2022",
+                "2023",
+                "2024"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 34.4,
+                  "prospectPercentile": 34.4
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 24.9,
+                  "prospectPercentile": 31.3
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 61.4,
+                  "prospectPercentile": 69.6
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Saddiq Bey",
+              "rank": 2,
+              "referenceSeasons": [
+                "2022",
+                "2023",
+                "2024"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 81.5,
+                  "prospectPercentile": 80.2
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 51.8,
+                  "prospectPercentile": 56.9
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 39.9,
+                  "prospectPercentile": 34.4
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Christian Wood",
+              "rank": 3,
+              "referenceSeasons": [
+                "2022",
+                "2023",
+                "2024"
+              ],
+              "similarityScore": 100
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-cameron_williams",
+          "name": "Cameron Williams",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "Duke",
+          "stats": {
+            "assistsPer40": 1.6,
+            "blocksPer40": 0.4,
+            "fgAttempts": 246,
+            "ftAttempts": 89,
+            "ftPct": 0.798,
+            "gamesPlayed": 31,
+            "heightInches": 80.0,
+            "minutesPerGame": 23.9,
+            "pointsPer40": 17.8,
+            "reboundsPer40": 7.8,
+            "stealsPer40": 0.7,
+            "threePointAttempts": 41,
+            "threePointPct": 0.268,
+            "tsPct": 0.579,
+            "turnoversPer40": 1.9
+          }
+        },
+        {
+          "classYear": "sophomore",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 87.9,
+                  "prospectPercentile": 89.7
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 54.8,
+                  "prospectPercentile": 57.7
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 84.6,
+                  "prospectPercentile": 81.3
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Nikola Vucevic",
+              "rank": 1,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 76.9,
+                  "prospectPercentile": 81.3
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 85.0,
+                  "prospectPercentile": 89.7
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 64.9,
+                  "prospectPercentile": 57.7
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Kevin Love",
+              "rank": 2,
+              "referenceSeasons": [
+                "2022",
+                "2023",
+                "2024"
+              ],
+              "similarityScore": 99
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 30.9,
+                  "prospectPercentile": 33.0
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 65.9,
+                  "prospectPercentile": 74.6
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 78.6,
+                  "prospectPercentile": 89.7
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Dario Saric",
+              "rank": 3,
+              "referenceSeasons": [
+                "2021",
+                "2023",
+                "2024"
+              ],
+              "similarityScore": 99
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-david_mirkovic",
+          "name": "David Mirkovic",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "Illinois",
+          "stats": {
+            "assistsPer40": 3.5,
+            "blocksPer40": 0.5,
+            "fgAttempts": 364,
+            "ftAttempts": 111,
+            "ftPct": 0.757,
+            "gamesPlayed": 37,
+            "heightInches": 81.0,
+            "minutesPerGame": 29.5,
+            "pointsPer40": 18.1,
+            "reboundsPer40": 10.9,
+            "stealsPer40": 0.6,
+            "threePointAttempts": 152,
+            "threePointPct": 0.375,
+            "tsPct": 0.597,
+            "turnoversPer40": 2.6
+          }
+        },
+        {
+          "classYear": null,
+          "comparables": [],
+          "coverage": null,
+          "dimensions": null,
+          "hasStats": false,
+          "id": "2027-dylan_mingo",
+          "name": "Dylan Mingo",
+          "profiles": null,
+          "school": "Baylor",
+          "stats": null
+        },
+        {
+          "classYear": "sophomore",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 47.5,
+                  "prospectPercentile": 52.1
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 66.7,
+                  "prospectPercentile": 74.5
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 59.2,
+                  "prospectPercentile": 68.2
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Bruce Brown",
+              "rank": 1,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 56.7,
+                  "prospectPercentile": 52.1
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 80.0,
+                  "prospectPercentile": 74.5
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 61.7,
+                  "prospectPercentile": 68.2
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Cole Anthony",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 57.7,
+                  "prospectPercentile": 58.1
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 49.2,
+                  "prospectPercentile": 52.1
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 62.9,
+                  "prospectPercentile": 57.5
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Scotty Pippen Jr.",
+              "rank": 3,
+              "referenceSeasons": [
+                "2025"
+              ],
+              "similarityScore": 99
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-ivan_kharchenkov",
+          "name": "Ivan Kharchenkov",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "Arizona",
+          "stats": {
+            "assistsPer40": 3.2,
+            "blocksPer40": 0.4,
+            "fgAttempts": 305,
+            "ftAttempts": 101,
+            "ftPct": 0.723,
+            "gamesPlayed": 39,
+            "heightInches": 79.0,
+            "minutesPerGame": 28.4,
+            "pointsPer40": 14.7,
+            "reboundsPer40": 6.1,
+            "stealsPer40": 1.9,
+            "threePointAttempts": 104,
+            "threePointPct": 0.317,
+            "tsPct": 0.581,
+            "turnoversPer40": 2.1
+          }
+        },
+        {
+          "classYear": "freshman",
+          "comparables": [],
+          "coverage": null,
+          "dimensions": null,
+          "hasStats": false,
+          "id": "2027-jason_crowe",
+          "name": "Jason Crowe Jr.",
+          "profiles": null,
+          "school": "Missouri",
+          "stats": null
+        },
+        {
+          "classYear": "freshman",
+          "comparables": [],
+          "coverage": null,
+          "dimensions": null,
+          "hasStats": false,
+          "id": "2027-jordan_smith",
+          "name": "Jordan Smith Jr.",
+          "profiles": null,
+          "school": "Arkansas",
+          "stats": null
+        },
+        {
+          "classYear": "freshman",
+          "comparables": [],
+          "coverage": null,
+          "dimensions": null,
+          "hasStats": false,
+          "id": "2027-luigi_suigo",
+          "name": "Luigi Suigo",
+          "profiles": null,
+          "school": "Villanova",
+          "stats": null
+        },
+        {
+          "classYear": "sophomore",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 6.8,
+                  "prospectPercentile": 8.5
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 89.7,
+                  "prospectPercentile": 92.5
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 59.5,
+                  "prospectPercentile": 63.7
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Trayce Jackson-Davis",
+              "rank": 1,
+              "referenceSeasons": [
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 39.9,
+                  "prospectPercentile": 37.1
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 5.3,
+                  "prospectPercentile": 8.5
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 96.5,
+                  "prospectPercentile": 92.5
+                }
+              ],
+              "differences": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 47.9,
+                  "prospectPercentile": 73.3
+                }
+              ],
+              "nbaPlayerName": "Jalen Duren",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 92.6,
+                  "prospectPercentile": 92.5
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 14.4,
+                  "prospectPercentile": 8.5
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 35.2,
+                  "prospectPercentile": 46.2
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Jakob Poeltl",
+              "rank": 3,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-malachi_moreno",
+          "name": "Malachi Moreno",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            }
+          },
+          "school": "Kentucky",
+          "stats": {
+            "assistsPer40": 3.1,
+            "blocksPer40": 2.6,
+            "fgAttempts": 165,
+            "ftAttempts": 126,
+            "ftPct": 0.698,
+            "gamesPlayed": 36,
+            "heightInches": 84.0,
+            "minutesPerGame": 22.6,
+            "pointsPer40": 13.7,
+            "reboundsPer40": 11.2,
+            "stealsPer40": 0.9,
+            "threePointAttempts": 3,
+            "threePointPct": 0.0,
+            "tsPct": 0.635,
+            "turnoversPer40": 2.3
+          }
+        },
+        {
+          "classYear": "junior",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 85.9,
+                  "prospectPercentile": 85.5
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 45.5,
+                  "prospectPercentile": 43.0
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 60.9,
+                  "prospectPercentile": 67.0
+                }
+              ],
+              "differences": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 31.2,
+                  "prospectPercentile": 2.8
+                }
+              ],
+              "nbaPlayerName": "LaMarcus Aldridge",
+              "rank": 1,
+              "referenceSeasons": [
+                "2022"
+              ],
+              "similarityScore": 99
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 79.9,
+                  "prospectPercentile": 85.5
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 98.2,
+                  "prospectPercentile": 91.1
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 52.0,
+                  "prospectPercentile": 43.0
+                }
+              ],
+              "differences": [
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 40.4,
+                  "prospectPercentile": 67.0
+                }
+              ],
+              "nbaPlayerName": "JaVale McGee",
+              "rank": 2,
+              "referenceSeasons": [
+                "2022"
+              ],
+              "similarityScore": 99
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 14.1,
+                  "prospectPercentile": 13.2
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 69.0,
+                  "prospectPercentile": 67.0
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 81.8,
+                  "prospectPercentile": 85.5
+                }
+              ],
+              "differences": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 29.7,
+                  "prospectPercentile": 2.8
+                }
+              ],
+              "nbaPlayerName": "Myles Turner",
+              "rank": 3,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-matas_vokietaitis",
+          "name": "Matas Vokietaitis",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            }
+          },
+          "school": "Texas",
+          "stats": {
+            "assistsPer40": 1.0,
+            "blocksPer40": 1.4,
+            "fgAttempts": 299,
+            "ftAttempts": 284,
+            "ftPct": 0.669,
+            "gamesPlayed": 36,
+            "heightInches": 84.0,
+            "minutesPerGame": 26.0,
+            "pointsPer40": 23.9,
+            "reboundsPer40": 10.9,
+            "stealsPer40": 0.3,
+            "threePointAttempts": 0,
+            "threePointPct": null,
+            "tsPct": 0.66,
+            "turnoversPer40": 3.2
+          }
+        },
+        {
+          "classYear": "sophomore",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 78.6,
+                  "prospectPercentile": 77.0
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 87.1,
+                  "prospectPercentile": 78.9
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 47.7,
+                  "prospectPercentile": 38.3
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Terence Davis",
+              "rank": 1,
+              "referenceSeasons": [
+                "2021",
+                "2023"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 37.9,
+                  "prospectPercentile": 38.3
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 62.5,
+                  "prospectPercentile": 67.5
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 84.2,
+                  "prospectPercentile": 77.0
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Naz Reid",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 78.2,
+                  "prospectPercentile": 77.9
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 68.4,
+                  "prospectPercentile": 67.5
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 28.0,
+                  "prospectPercentile": 38.3
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "OG Anunoby",
+              "rank": 3,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-matt_able",
+          "name": "Matt Able",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "North Carolina",
+          "stats": {
+            "assistsPer40": 1.7,
+            "blocksPer40": 0.6,
+            "fgAttempts": 250,
+            "ftAttempts": 54,
+            "ftPct": 0.796,
+            "gamesPlayed": 34,
+            "heightInches": 78.0,
+            "minutesPerGame": 21.7,
+            "pointsPer40": 16.3,
+            "reboundsPer40": 6.4,
+            "stealsPer40": 2.3,
+            "threePointAttempts": 138,
+            "threePointPct": 0.355,
+            "tsPct": 0.548,
+            "turnoversPer40": 1.7
+          }
+        },
+        {
+          "classYear": null,
+          "comparables": [],
+          "coverage": null,
+          "dimensions": null,
+          "hasStats": false,
+          "id": "2027-miikka_muurinen",
+          "name": "Miikka Muurinen",
+          "profiles": null,
+          "school": "Arkansas",
+          "stats": null
+        },
+        {
+          "classYear": "senior",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 14.6,
+                  "prospectPercentile": 11.3
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 65.7,
+                  "prospectPercentile": 72.2
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 88.8,
+                  "prospectPercentile": 97.1
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Onyeka Okongwu",
+              "rank": 1,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 64.5,
+                  "prospectPercentile": 72.2
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 2.2,
+                  "prospectPercentile": 11.3
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 88.0,
+                  "prospectPercentile": 97.1
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Daniel Gafford",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 70.6,
+                  "prospectPercentile": 72.2
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 95.3,
+                  "prospectPercentile": 97.1
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 6.6,
+                  "prospectPercentile": 11.3
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Mark Williams",
+              "rank": 3,
+              "referenceSeasons": [
+                "2023",
+                "2025"
+              ],
+              "similarityScore": 100
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-motiejus_krivas",
+          "name": "Motiejus Krivas",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            }
+          },
+          "school": "Arizona",
+          "stats": {
+            "assistsPer40": 1.7,
+            "blocksPer40": 3.0,
+            "fgAttempts": 239,
+            "ftAttempts": 168,
+            "ftPct": 0.78,
+            "gamesPlayed": 39,
+            "heightInches": 86.0,
+            "minutesPerGame": 25.2,
+            "pointsPer40": 16.5,
+            "reboundsPer40": 12.9,
+            "stealsPer40": 1.1,
+            "threePointAttempts": 13,
+            "threePointPct": 0.308,
+            "tsPct": 0.65,
+            "turnoversPer40": 2.2
+          }
+        },
+        {
+          "classYear": "junior",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 50.2,
+                  "prospectPercentile": 51.9
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 69.3,
+                  "prospectPercentile": 67.6
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 83.8,
+                  "prospectPercentile": 89.9
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Zach Collins",
+              "rank": 1,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 16.9,
+                  "prospectPercentile": 15.8
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 85.8,
+                  "prospectPercentile": 89.9
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 73.8,
+                  "prospectPercentile": 67.6
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Evan Mobley",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 69.0,
+                  "prospectPercentile": 67.2
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 12.5,
+                  "prospectPercentile": 15.8
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 84.7,
+                  "prospectPercentile": 89.9
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Bam Adebayo",
+              "rank": 3,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-patrick_ngongba",
+          "name": "Patrick Ngongba II",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            }
+          },
+          "school": "Duke",
+          "stats": {
+            "assistsPer40": 3.6,
+            "blocksPer40": 1.9,
+            "fgAttempts": 188,
+            "ftAttempts": 131,
+            "ftPct": 0.664,
+            "gamesPlayed": 32,
+            "heightInches": 83.0,
+            "minutesPerGame": 21.9,
+            "pointsPer40": 18.4,
+            "reboundsPer40": 10.6,
+            "stealsPer40": 1.1,
+            "threePointAttempts": 31,
+            "threePointPct": 0.258,
+            "tsPct": 0.657,
+            "turnoversPer40": 2.4
+          }
+        },
+        {
+          "classYear": "senior",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 36.3,
+                  "prospectPercentile": 40.7
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 61.7,
+                  "prospectPercentile": 68.8
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 56.7,
+                  "prospectPercentile": 66.0
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Cole Anthony",
+              "rank": 1,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 66.1,
+                  "prospectPercentile": 62.4
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 94.6,
+                  "prospectPercentile": 88.8
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 75.8,
+                  "prospectPercentile": 68.8
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Kawhi Leonard",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 67.8,
+                  "prospectPercentile": 63.0
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 59.6,
+                  "prospectPercentile": 68.8
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 78.6,
+                  "prospectPercentile": 88.8
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Chet Holmgren",
+              "rank": 3,
+              "referenceSeasons": [
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 99
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-thomas_haugh",
+          "name": "Thomas Haugh",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "Florida",
+          "stats": {
+            "assistsPer40": 2.6,
+            "blocksPer40": 1.2,
+            "fgAttempts": 400,
+            "ftAttempts": 199,
+            "ftPct": 0.774,
+            "gamesPlayed": 34,
+            "heightInches": 81.0,
+            "minutesPerGame": 33.3,
+            "pointsPer40": 20.5,
+            "reboundsPer40": 7.4,
+            "stealsPer40": 1.3,
+            "threePointAttempts": 178,
+            "threePointPct": 0.326,
+            "tsPct": 0.595,
+            "turnoversPer40": 1.8
+          }
+        },
+        {
+          "classYear": "sophomore",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 63.2,
+                  "prospectPercentile": 58.2
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 37.9,
+                  "prospectPercentile": 45.0
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 72.3,
+                  "prospectPercentile": 62.7
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Naz Reid",
+              "rank": 1,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 42.9,
+                  "prospectPercentile": 45.0
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 44.5,
+                  "prospectPercentile": 52.8
+                },
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 51.8,
+                  "prospectPercentile": 62.7
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Andrew Wiggins",
+              "rank": 2,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 98
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 48.1,
+                  "prospectPercentile": 45.0
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 56.3,
+                  "prospectPercentile": 52.8
+                },
+                {
+                  "label": "box-score defensive activity",
+                  "nbaPercentile": 76.5,
+                  "prospectPercentile": 82.2
+                }
+              ],
+              "differences": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 63.8,
+                  "prospectPercentile": 96.8
+                }
+              ],
+              "nbaPlayerName": "Jeremy Lamb",
+              "rank": 3,
+              "referenceSeasons": [
+                "2021",
+                "2022"
+              ],
+              "similarityScore": 97
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-tounde_yessoufou",
+          "name": "Tounde Yessoufou",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "St. John's",
+          "stats": {
+            "assistsPer40": 1.9,
+            "blocksPer40": 0.8,
+            "fgAttempts": 486,
+            "ftAttempts": 134,
+            "ftPct": 0.746,
+            "gamesPlayed": 34,
+            "heightInches": 77.0,
+            "minutesPerGame": 32.7,
+            "pointsPer40": 21.8,
+            "reboundsPer40": 7.2,
+            "stealsPer40": 2.4,
+            "threePointAttempts": 181,
+            "threePointPct": 0.293,
+            "tsPct": 0.555,
+            "turnoversPer40": 2.3
+          }
+        },
+        {
+          "classYear": "junior",
+          "comparables": [
+            {
+              "closestDimensions": [
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 98.8,
+                  "prospectPercentile": 95.2
+                },
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 43.8,
+                  "prospectPercentile": 35.6
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 71.2,
+                  "prospectPercentile": 80.2
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Donovan Mitchell",
+              "rank": 1,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "perimeter vs interior shot diet",
+                  "nbaPercentile": 37.3,
+                  "prospectPercentile": 35.6
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 88.7,
+                  "prospectPercentile": 95.2
+                },
+                {
+                  "label": "passing / creation role",
+                  "nbaPercentile": 87.5,
+                  "prospectPercentile": 97.2
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Derrick Rose",
+              "rank": 2,
+              "referenceSeasons": [
+                "2021"
+              ],
+              "similarityScore": 100
+            },
+            {
+              "closestDimensions": [
+                {
+                  "label": "rebounding role",
+                  "nbaPercentile": 25.2,
+                  "prospectPercentile": 25.4
+                },
+                {
+                  "label": "shooting efficiency",
+                  "nbaPercentile": 77.1,
+                  "prospectPercentile": 80.2
+                },
+                {
+                  "label": "scoring role",
+                  "nbaPercentile": 91.8,
+                  "prospectPercentile": 95.2
+                }
+              ],
+              "differences": [],
+              "nbaPlayerName": "Jamal Murray",
+              "rank": 3,
+              "referenceSeasons": [
+                "2023",
+                "2024",
+                "2025"
+              ],
+              "similarityScore": 100
+            }
+          ],
+          "coverage": 0.0,
+          "dimensions": {
+            "defensiveProduction": null,
+            "playmaking": null,
+            "rebounding": null,
+            "rimPressure": null,
+            "shooting": null,
+            "size": null
+          },
+          "hasStats": true,
+          "id": "2027-tyler_tanner",
+          "name": "Tyler Tanner",
+          "profiles": {
+            "playmaker": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "rimProtector": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "shooter": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "slasher": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            },
+            "stretchBig": {
+              "eligibility": "OUT_OF_POSITION",
+              "fitScore": null
+            },
+            "threeAndD": {
+              "eligibility": "ELIGIBLE",
+              "fitScore": null
+            }
+          },
+          "school": "Vanderbilt",
+          "stats": {
+            "assistsPer40": 6.1,
+            "blocksPer40": 0.4,
+            "fgAttempts": 470,
+            "ftAttempts": 218,
+            "ftPct": 0.853,
+            "gamesPlayed": 36,
+            "heightInches": 72.0,
+            "minutesPerGame": 33.5,
+            "pointsPer40": 23.3,
+            "reboundsPer40": 4.3,
+            "stealsPer40": 2.9,
+            "threePointAttempts": 163,
+            "threePointPct": 0.368,
+            "tsPct": 0.62,
+            "turnoversPer40": 2.3
+          }
+        },
+        {
+          "classYear": "freshman",
+          "comparables": [],
+          "coverage": null,
+          "dimensions": null,
+          "hasStats": false,
+          "id": "2027-tyran_stokes",
+          "name": "Tyran Stokes",
+          "profiles": null,
+          "school": "Kansas",
+          "stats": null
+        }
+      ],
+      "returningCount": 15,
+      "sources": [
+        {
+          "name": "CBS Sports",
+          "playersListed": 30,
+          "publicationDate": "2026-06-29",
+          "url": "https://www.cbssports.com/nba/news/2027-nba-mock-draft-tyran-stokes-jordan-smith/"
+        },
+        {
+          "name": "Sports Illustrated",
+          "playersListed": 30,
+          "publicationDate": "2026-06-25",
+          "url": "https://www.si.com/nba/nba-draft/way-too-early-2027-nba-draft-big-board-top-30-prospects"
+        },
+        {
+          "name": "Yahoo Sports",
+          "playersListed": 30,
+          "publicationDate": "2026-06-25",
+          "url": "https://sports.yahoo.com/articles/2027-nba-mock-draft-prospects-183003318.html"
+        }
+      ],
+      "status": "watchlist"
     }
   }
 }

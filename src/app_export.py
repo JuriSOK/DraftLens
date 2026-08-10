@@ -67,6 +67,14 @@ def _r1(x):
     return round(float(x), 1)
 
 
+def _clean_str(x):
+    """A string field, or None — never the literal NaN token, which is not
+    valid JSON and breaks JSON.parse in the browser."""
+    if x is None or (isinstance(x, float) and pd.isna(x)):
+        return None
+    return str(x)
+
+
 def _r3(x):
     if x is None or pd.isna(x):
         return None
@@ -108,8 +116,11 @@ def _stats(feats_row):
         "blocksPer40": _r1(feats_row.get("blocks_per_40")),
         "turnoversPer40": _r1(feats_row.get("turnovers_per_40")),
         "threePointPct": _r3(feats_row.three_point_pct),
+        "threePointAttempts": _rint(feats_row.get("three_points_attempted")),
         "ftPct": _r3(feats_row.ft_pct),
+        "ftAttempts": _rint(feats_row.get("free_throws_attempted")),
         "tsPct": _r3(feats_row.ts_pct),
+        "fgAttempts": _rint(feats_row.get("field_goals_attempted")),
         "minutesPerGame": _r1(feats_row.minutes_per_game),
         "gamesPlayed": _rint(feats_row.games_played),
     }
@@ -223,6 +234,62 @@ def _load_all_declared():
     return out, insufficient, audit
 
 
+def build_year_2027():
+    """The 2027 Projected Watchlist — NOT an official declaration list.
+    Returns status "unavailable" if no source data has been acquired, or
+    "watchlist" with returning/incoming prospects otherwise. Never includes a
+    board, Draft Probability, or Overall Score for any 2027 prospect."""
+    import watchlist2027
+
+    if not watchlist2027.SOURCES_PATH.exists():
+        return dict(status="unavailable",
+                   reason="No official 2027 NBA early-entry declarations "
+                         "exist yet, and no projected watchlist source data "
+                         "has been acquired.")
+
+    provenance = (json.loads(watchlist2027.PROVENANCE_PATH.read_text())
+                 if watchlist2027.PROVENANCE_PATH.exists() else None)
+    if provenance is None:
+        return dict(status="unavailable",
+                   reason="2027 watchlist source data present but not yet "
+                         "built — run scripts/build.py watchlist-2027")
+
+    incoming = (json.loads(watchlist2027.INCOMING_PATH.read_text())
+               if watchlist2027.INCOMING_PATH.exists() else [])
+    prospects = []
+    for r in incoming:
+        prospects.append(dict(
+            id=r["canonical_prospect_id"], name=r["player_name"],
+            school=r["college"], classYear=_clean_str(r.get("class_year")),
+            hasStats=False, stats=None, dimensions=None, profiles=None,
+            coverage=None, comparables=[]))
+
+    if watchlist2027.RETURNING_PREDICTIONS_PATH.exists():
+        predictions = pd.read_parquet(watchlist2027.RETURNING_PREDICTIONS_PATH)
+        comparables = (json.loads(watchlist2027.RETURNING_COMPARABLES_PATH.read_text())
+                      if watchlist2027.RETURNING_COMPARABLES_PATH.exists() else {})
+        for _, row in predictions.iterrows():
+            pid = row.canonical_prospect_id
+            prospects.append(dict(
+                id=pid, name=row.player_name, school=row.college,
+                classYear=_clean_str(row.get("class_year")), hasStats=True,
+                stats=_stats(row), dimensions=_dimensions(row),
+                profiles=_profiles(row), coverage=_r3(row.team_need_data_coverage),
+                comparables=_comparables(pid, comparables)))
+
+    prospects.sort(key=lambda p: p["name"])
+    return dict(
+        status="watchlist",
+        label=provenance["label"],
+        consensusRule=provenance["consensus_rule"],
+        sources=provenance["sources"],
+        prospectCount=provenance["watchlist_size"],
+        returningCount=provenance["returning"],
+        incomingCount=provenance["incoming"],
+        prospects=prospects,
+    )
+
+
 def _official_source(year=YEAR):
     from data.wikipedia import DECLARED_SNAPSHOTS
     snap = DECLARED_SNAPSHOTS.get(year)
@@ -331,13 +398,7 @@ def build_payload():
         "generatedAt": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "years": {
             "2026": year_2026,
-            "2027": {
-                "status": "unavailable",
-                "reason": "Official 2027 NBA early-entry declarations have "
-                         "not been announced yet. DraftLens never generates "
-                         "a prospect list or prediction from mock drafts, "
-                         "recruiting rankings or media speculation.",
-            },
+            "2027": build_year_2027(),
         },
         "teamNeedProfiles": list(PROFILE_KEYS.values()),
         "customDimensions": CUSTOM_DIMENSIONS,

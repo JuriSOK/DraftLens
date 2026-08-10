@@ -85,5 +85,7 @@ data/**
 !data/README.md
 !data/source_manifest.csv
 !data/raw/
+!data/raw/draft_watchlist/
+!data/raw/draft_watchlist/draft_watchlist_sources_2027.csv
 !data/interim/
 !data/processed/

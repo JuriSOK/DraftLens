@@ -107,11 +107,42 @@ class TestExportContract(unittest.TestCase):
                 self.assertLess(p["stats"]["heightInches"], 96)
         self.assertTrue(found_height, "no prospect had a height value at all")
 
-    def test_2027_is_unavailable_and_carries_no_prospect_data(self):
+    def test_2027_status_is_unavailable_or_watchlist_never_available(self):
+        """"available" is reserved for a real, officially-declared board
+        (2026's status). 2027 must never claim that status."""
         y2027 = self.payload["years"]["2027"]
-        self.assertEqual(y2027["status"], "unavailable")
-        self.assertNotIn("prospects", y2027)
-        self.assertIn("reason", y2027)
+        self.assertIn(y2027["status"], ("unavailable", "watchlist"))
+
+    def test_stats_expose_shooting_attempt_counts_for_sample_flagging(self):
+        for p in self.y2026["prospects"]:
+            self.assertIn("threePointAttempts", p["stats"])
+            self.assertIn("ftAttempts", p["stats"])
+            self.assertIn("fgAttempts", p["stats"])
+
+    def test_stats_attempt_counts_are_never_negative(self):
+        for p in self.y2026["prospects"]:
+            for key in ("threePointAttempts", "ftAttempts", "fgAttempts"):
+                v = p["stats"][key]
+                if v is not None:
+                    self.assertGreaterEqual(v, 0, (p["id"], key))
+
+    def test_stats_values_trace_to_approved_pre_draft_features(self):
+        """Cross-check the exported stats against the frozen feature layer
+        directly — no Stats-page number is invented in the export layer."""
+        import pandas as pd
+        feats = pd.read_parquet(
+            app_export.ROOT / "data" / "interim" / "features" / "features_2026.parquet"
+        ).set_index("canonical_prospect_id")
+        checked = 0
+        for p in self.y2026["prospects"]:
+            if p["id"] not in feats.index:
+                continue
+            row = feats.loc[p["id"]]
+            if p["stats"]["pointsPer40"] is not None:
+                self.assertAlmostEqual(p["stats"]["pointsPer40"],
+                                       round(float(row.points_per_40), 1), places=1)
+                checked += 1
+        self.assertGreater(checked, 0)
 
 
 @needs_declared
@@ -192,12 +223,36 @@ class TestNoTargetLeakage(unittest.TestCase):
         app_export.assert_no_leakage(payload)  # must not raise
 
     @needs_replay
+    def test_stats_block_has_no_outcome_fields(self):
+        payload = app_export.build_payload()
+        for p in payload["years"]["2026"]["prospects"]:
+            text = json.dumps(p["stats"]).lower()
+            for bad in ("drafted", "pick", "draft_team", "actual"):
+                self.assertNotIn(bad, text, (p["id"], bad))
+
+    @needs_replay
     def test_written_json_file_has_no_prohibited_substring(self):
         path, _, _ = app_export.write_payload()
         text = path.read_text().lower()
         for bad in ("actual_pick", "actualpick", "draft_team", "draftteam",
                    "actual_round", "\"drafted\":", "\"pick\":"):
             self.assertNotIn(bad, text, bad)
+
+    @needs_replay
+    def test_written_json_file_is_valid_strict_json(self):
+        """Python's json.dumps happily emits the bare tokens NaN/Infinity/
+        -Infinity for float('nan')/inf, which are NOT valid per the JSON
+        spec and fail JSON.parse in the browser (a real bug hit once with an
+        unconverted pandas NaN class_year). Guard against a repeat by
+        re-parsing the written bytes with strict constant handling."""
+        import json as _json
+        path, _, _ = app_export.write_payload()
+        text = path.read_text()
+
+        def _reject(_):
+            raise AssertionError("payload contains a non-finite JSON token "
+                                 "(NaN/Infinity/-Infinity)")
+        _json.loads(text, parse_constant=_reject)  # must not raise
 
 
 if __name__ == "__main__":

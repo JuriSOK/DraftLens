@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useDraftLensData } from "../data/DataProvider";
 import { LoadingState, ErrorState } from "../components/DataStates";
 import styles from "./AboutPage.module.css";
@@ -14,65 +15,408 @@ export function AboutPage() {
 
   return (
     <div className="container">
+      {/* 1. What DraftLens does */}
       <div className={styles.intro}>
         <h1 className={styles.title}>Methodology</h1>
+        <p className={styles.introKicker}>1. What DraftLens does</p>
         <p className={styles.sub}>
-          DraftLens ranks NCAA early entrants from their pre-draft statistical
-          record only — no scouting opinion, no mock draft, no post-draft
-          information.
+          DraftLens ranks NCAA prospects using only their pre-draft
+          statistical record — no scouting opinion, no mock draft, no
+          post-draft information. This page explains exactly how, in plain
+          language first, with the frozen formulas underneath.
+        </p>
+        <p className={styles.sub}>
+          Three separate questions, three separate tools:{" "}
+          <strong>General Board</strong> asks who should be drafted highest
+          overall. <strong>Team Need</strong> asks who best matches the
+          specific traits a team wants. <strong>NBA Comparables</strong> asks
+          which current NBA players a prospect's statistical style resembles.
+          None of the three answers the others' question.
         </p>
       </div>
 
-      <div className={styles.summaryGrid}>
-        <SummaryCard title="General Board" body={data.methodologySummary.generalBoard} />
-        <SummaryCard title="Team Need" body={data.methodologySummary.teamNeed} />
-        <SummaryCard
-          title="NBA Comparables"
-          body={data.methodologySummary.comparables}
-        />
-        <SummaryCard title="Validation" body={data.methodologySummary.validation} />
-      </div>
-
-      {available && (
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>Two 2026 populations</h2>
-          <p className={styles.sectionSub}>
-            The Board page offers two different 2026 groups. They are not the
-            same thing.
-          </p>
-          <ul className={styles.factList}>
-            <li>
-              <strong>Final entrants</strong> ({available.finalEntrantsCount}{" "}
-              players) — the players who remained eligible after the
-              withdrawal deadline. This is the exact population DraftLens's
-              one-time 2026 holdout evaluation scored, and its ranking has not
-              changed since that evaluation.
-            </li>
-            <li>
-              <strong>All declared</strong> (
-              {available.scoreableDeclaredCount} scoreable of{" "}
-              {available.declaredCount} total) — every NCAA player who
-              initially filed for early entry, including{" "}
-              {available.declaredCount - available.finalEntrantsCount} who
-              later withdrew, sourced from the{" "}
-              {available.officialSource ? (
-                <a href={available.officialSource.url} target="_blank" rel="noreferrer">
-                  {available.officialSource.name}
-                </a>
-              ) : (
-                "official NBA early-entry announcement"
-              )}
-              . This ranking was generated separately, after the holdout
-              evaluation, using the same frozen methodology — it is an
-              additional product exploration, not a re-run or extension of
-              the holdout evaluation itself.
-            </li>
-          </ul>
-        </section>
-      )}
-
+      {/* 2. The data */}
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>About the validation</h2>
+        <h2 className={styles.sectionTitle}>2. The data</h2>
+        <p className={styles.body}>
+          Every number on this site comes from a prospect's NCAA box scores
+          and shot logs — points, rebounds, assists, shooting splits, shot
+          location — from public sources (hoopR/ESPN college basketball).
+          Nothing is scouted, no video is watched, and no external analyst
+          ranking (ESPN, mock drafts, recruiting sites) is ever used as an
+          input. Physical measurements are limited to height and weight from
+          the same public box-score provider; there is no Combine data, so
+          DraftLens does not score athleticism at all.
+        </p>
+        <p className={styles.body}>
+          The 2026 board covers the {available?.scoreableDeclaredCount ?? 60}{" "}
+          NCAA players who initially filed for early entry into the 2026
+          Draft. That is not the same thing as "every player eligible for
+          the 2026 Draft" — automatically-eligible players (mainly seniors
+          who don't need to declare) aren't publicly listed before the draft,
+          so a leakage-safe pre-draft population can't be built for them; and
+          the official list also included international-only players
+          DraftLens has no comparable NCAA data for. Both are open
+          limitations, not hidden ones.
+        </p>
+      </section>
+
+      {/* 3. General Draft Board */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>3. General Draft Board</h2>
+        <p className={styles.body}>
+          The General Board answers one question: among this year's
+          prospects, who does the objective pre-draft record support most,
+          and how highly? It combines two independent signals:
+        </p>
+        <FormulaBox
+          parts={["Draft Probability", "×", "Draft Order quality"]}
+          result="General Board signal"
+        />
+        <p className={styles.body}>
+          That combined signal is then converted into the 0-100{" "}
+          <strong>Overall Score</strong> shown on the board (see section 6).
+          The two ingredients are explained next.
+        </p>
+      </section>
+
+      {/* 4. Draft Probability */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>4. Draft Probability</h2>
+        <p className={styles.qa}>
+          <strong>What is this?</strong> A statistical model's estimate of
+          how likely a prospect is to be drafted at all, based only on their
+          NCAA production.
+        </p>
+        <p className={styles.qa}>
+          <strong>What information does it use?</strong> Per-40-minute
+          production, shooting splits, shot profile, height and weight — the
+          same statistics shown on each Prospect page — fitted on 887 NCAA
+          early entrants from 2014-2025 whose outcome (drafted or not) is
+          already known.
+        </p>
+        <p className={styles.qa}>
+          <strong>What does 72% mean?</strong> A 72% Draft Probability means
+          the frozen statistical model assigns a 0.72 probability of being
+          drafted, calibrated against its validated 2014-2025 population.
+        </p>
+        <p className={styles.qa}>
+          <strong>What does it NOT mean?</strong> It is not a 72% probability
+          of NBA success, and not a projection of career outcome — it
+          describes draftability from box-score production only.
+        </p>
+        <p className={styles.techNote}>
+          Frozen configuration: logistic regression, season-relative
+          normalization, class-balanced, validated macro ROC-AUC{" "}
+          {historical.draftProbabilityMacroAuc.toFixed(4)} across seven
+          forward-in-time folds (2019-2025).
+        </p>
+      </section>
+
+      {/* 5. Draft Order */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>5. Draft Order</h2>
+        <p className={styles.body}>
+          Two prospects can both look clearly draftable, yet their
+          statistical profiles still imply different expected Draft
+          positioning — one profile looks like a typical lottery pick, the
+          other like a typical second-round pick. Draft Order is a second
+          model, trained only on prospects who were actually drafted, that
+          captures this ordering signal.
+        </p>
+        <p className={styles.body}>
+          DraftLens deliberately never shows a literal predicted pick number.
+          Historically, that number is only accurate to within about 13
+          picks on a 60-pick draft — close to useless as a specific number,
+          even though the underlying ordering is genuinely informative. So
+          only the <em>ranking</em> Draft Order produces feeds into the
+          General Board; the raw number stays internal.
+        </p>
+        <p className={styles.techNote}>
+          Frozen configuration: Ridge regression on the raw pick scale,
+          validated macro Spearman correlation{" "}
+          {historical.draftOrderMacroSpearman.toFixed(4)} among drafted
+          prospects across the same seven folds.
+        </p>
+      </section>
+
+      {/* 6. Overall Score */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>6. Overall Score</h2>
+        <p className={styles.body}>
+          Overall Score is a class-relative 0-100 presentation of General
+          Board strength: every prospect's combined signal is ranked against
+          everyone else in the current pool, then converted to a percentile.
+        </p>
+        <p className={styles.example}>
+          <strong>92 / 100</strong> means this player's General Board signal
+          ranks near the top of this prospect pool — it is{" "}
+          <strong>not</strong> a 92% Draft Probability, and not a 92% chance
+          of NBA success.
+        </p>
+        <p className={styles.body}>
+          Because it's class-relative, the same underlying signal can produce
+          a different Overall Score in a different-sized or different-quality
+          pool — that's expected, not a bug: the number always answers "how
+          does this profile compare to this specific group," not "what is
+          this player's fixed, universal quality."
+        </p>
+      </section>
+
+      {/* 7. Team Need */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>7. Team Need</h2>
+        <div className={styles.contrastGrid}>
+          <div className={styles.contrastCard}>
+            <h3 className={styles.contrastTitle}>General Board asks:</h3>
+            <p>"Who should be drafted highest overall?"</p>
+          </div>
+          <div className={styles.contrastCard}>
+            <h3 className={styles.contrastTitle}>Team Need asks:</h3>
+            <p>"Who best matches the basketball traits my team wants?"</p>
+          </div>
+        </div>
+        <p className={styles.body}>
+          Team Need has no historical outcome to optimize against — there is
+          no "correct" archetype fit to fit a model to. Instead, every
+          prospect's statistics are converted into six factual dimensions on
+          a 0-100 scale, each one a percentile against the full NCAA player
+          population of that season (minimum 200 minutes and 10 games
+          played, so the comparison group excludes barely-used walk-ons):
+        </p>
+        <ul className={styles.factList}>
+          <li>
+            <strong>Shooting</strong> — 3P%, 3PA rate, FT%, eFG%, compared to
+            the whole NCAA population regardless of position (shooting means
+            the same thing everywhere on the floor).
+          </li>
+          <li>
+            <strong>Playmaking</strong> — assist rate and turnover rate
+            (turnovers count against the score), compared to the whole NCAA
+            population.
+          </li>
+          <li>
+            <strong>Defensive Production</strong> — steal rate and block
+            rate, compared only to players at the same coarse position
+            (guard / forward / center), since blocks and steals are heavily
+            position-dependent. Box-score only — there is no matchup or
+            deterrence data, so this is never presented as full defensive
+            quality.
+          </li>
+          <li>
+            <strong>Rebounding</strong> — offensive and defensive rebound
+            rate, also compared within position.
+          </li>
+          <li>
+            <strong>Size</strong> — height and weight, compared to the whole
+            NCAA population (position-relative size would make every center
+            look average, which defeats the point).
+          </li>
+          <li>
+            <strong>Rim Pressure</strong> — share of shots at the rim, free
+            throw rate, finishing percentage and unassisted-basket share,
+            compared to the whole NCAA population. This is a shot-diet and
+            finishing measure, not athleticism.
+          </li>
+        </ul>
+        <p className={styles.body}>
+          <strong>Athleticism is not one of these dimensions.</strong> There
+          is no Combine data — no vertical leap, no lane agility, no
+          wingspan — anywhere in DraftLens's sources, so athleticism is never
+          scored, estimated, or approximated from a proxy statistic.
+        </p>
+      </section>
+
+      {/* 8. The six archetypes */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>8. The six archetypes</h2>
+        <p className={styles.body}>
+          Each predefined archetype combines two or more of the dimensions
+          above. The combination method matters: an{" "}
+          <strong>arithmetic mean</strong> lets one strong trait compensate
+          for a weaker one — right when the traits are substitutable evidence
+          for the same thing. A <strong>geometric mean</strong> does not
+          compensate — a prospect needs real strength in every ingredient, so
+          one elite trait can't fully hide a very weak complementary one.
+          DraftLens uses geometric mean specifically where an archetype's
+          basketball definition requires both halves together.
+        </p>
+
+        <ArchetypeBlock
+          name="Shooter"
+          meaning="Efficient AND high-volume perimeter shooting — the archetype fails if a prospect only has one half."
+          metrics={["3P%", "3-point attempt rate", "FT%", "Effective FG%"]}
+          formula={
+            <FormulaBox
+              parts={["Efficiency (3P%, FT%, eFG%)", "×", "Volume (3PA rate)"]}
+              result="Shooter score"
+            />
+          }
+          method="GEOMETRIC_MEAN"
+          why="A geometric mean requires both: 3P% alone crowns a low-volume specialist, and volume alone crowns an inefficient high-shot-count player."
+          highMeaning="A high score means real, high-volume, efficient perimeter shooting — not just a good percentage on a handful of attempts."
+        />
+
+        <ArchetypeBlock
+          name="Slasher / Rim Attacker"
+          meaning="Getting to the rim, drawing contact, finishing, and creating without help."
+          metrics={["Rim attempt share", "Free throw rate", "Rim finishing %", "Unassisted basket share"]}
+          formula={<FormulaBox parts={["Rim Pressure dimension"]} result="Slasher score" />}
+          method="Direct dimension score (already an equal-weight arithmetic mean of its four metrics)"
+          why="Rim Pressure already combines shot diet, contact drawing, finishing and self-creation with equal weight — no additional combination is needed."
+          highMeaning="A high score means a real rim-oriented scoring style: frequent rim attempts, drawn contact, made finishes, and shots created without an assist."
+        />
+
+        <ArchetypeBlock
+          name="Playmaker"
+          meaning="Creating offense for teammates while taking care of the ball."
+          metrics={["Assist rate", "Turnover rate (lower is better)"]}
+          formula={<FormulaBox parts={["Playmaking dimension"]} result="Playmaker score" />}
+          method="Direct dimension score (arithmetic mean, turnover rate inverted)"
+          why="Creation volume and ball security, equally weighted — volume is already built into assist rate, so a low-usage player can't manufacture an elite score from a tiny sample of clean assists."
+          highMeaning="A high score means real, high-volume creation without giving the ball away at a high rate."
+        />
+
+        <ArchetypeBlock
+          name="3&D Wing"
+          meaning="Perimeter shooting combined with box-score defensive production — a guard or forward, specifically."
+          metrics={["Shooting dimension", "Defensive Production dimension"]}
+          formula={
+            <FormulaBox
+              parts={["Shooting", "×", "Defensive Production"]}
+              result="3&D score"
+            />
+          }
+          method="GEOMETRIC_MEAN"
+          why="Inherently conjunctive: a prospect elite at only one side of the ball is not a 3&D wing. An arithmetic mean would let elite shooting fully cover for weak defensive activity, or vice versa."
+          highMeaning="A high score means real strength on both ends, not one elite half compensating for a weak one."
+          eligibility="Guards and forwards only. (A '3&D wing' is a role name, not a claim about a prospect's true NBA position — DraftLens can only distinguish guard/forward/center.)"
+        />
+
+        <ArchetypeBlock
+          name="Rim Protector"
+          meaning="Shot-blocking, defensive rebounding and size together — an interior anchor, not just a shot-blocker."
+          metrics={["Block rate (league-wide, not position-relative)", "Rebounding dimension", "Size dimension"]}
+          formula={
+            <FormulaBox
+              parts={["Shot-blocking", "×", "Rebounding", "×", "Size"]}
+              result="Rim Protector score"
+            />
+          }
+          method="GEOMETRIC_MEAN"
+          why="Conjunctive across blocking, defensive glass, and size. Shot-blocking is compared to the WHOLE NCAA population here (not just other bigs) — otherwise a 6-foot guard with a good-for-a-guard block rate would misleadingly read as elite rim protection."
+          highMeaning="A high score means real interior size, real rebounding, and a real shot-blocking rate — not just one of the three."
+          eligibility="Forwards and centers only."
+        />
+
+        <ArchetypeBlock
+          name="Stretch Big"
+          meaning="Frontcourt size combined with genuine perimeter shooting ability."
+          metrics={["Shooting dimension", "Size dimension"]}
+          formula={<FormulaBox parts={["Shooting", "×", "Size"]} result="Stretch Big score" />}
+          method="GEOMETRIC_MEAN"
+          why="Must genuinely combine big-man size AND perimeter shooting — a geometric mean stops a small, purely perimeter guard from winning on shooting alone."
+          highMeaning="A high score means a big man who can really shoot, not just a tall player or just a good shooter."
+          eligibility="Forwards and centers only."
+        />
+
+        <p className={styles.techNote}>
+          A dimension or pillar with missing data is dropped and the score
+          renormalizes over what remains — a missing component is never
+          treated as zero. If more than half a conjunctive archetype's
+          evidence is missing, the Fit Score is left unavailable rather than
+          built from a guess.
+        </p>
+      </section>
+
+      {/* 9. Custom Team Need */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>9. Custom Team Need</h2>
+        <p className={styles.body}>Building your own need, step by step:</p>
+        <ol className={styles.stepList}>
+          <li>Pick the traits your team values from five approved dimensions: Shooting, Playmaking, Defensive Production, Rebounding, Size.</li>
+          <li>Give each trait a weight (0 or higher) using the sliders.</li>
+          <li>DraftLens automatically normalizes the weights — you don't need them to add up to 100.</li>
+          <li>Each prospect receives a weighted Fit Score from their own dimension scores.</li>
+          <li>Missing dimensions for a specific prospect are dropped from THEIR calculation only, using the same coverage rule as the predefined profiles.</li>
+        </ol>
+        <p className={styles.body}>
+          Rim Pressure and Athleticism are not offered as custom sliders —
+          Rim Pressure isn't yet an approved custom-mode dimension, and
+          Athleticism doesn't exist as a scored dimension at all.
+        </p>
+
+        <h3 className={styles.subTitle}>Worked example</h3>
+        <p className={styles.body}>A team weights its need as:</p>
+        <table className={styles.exampleTable}>
+          <tbody>
+            <tr><td>Shooting</td><td className={styles.exampleValue}>50</td></tr>
+            <tr><td>Playmaking</td><td className={styles.exampleValue}>30</td></tr>
+            <tr><td>Defense</td><td className={styles.exampleValue}>20</td></tr>
+            <tr><td>Rebounding</td><td className={styles.exampleValue}>0</td></tr>
+            <tr><td>Size</td><td className={styles.exampleValue}>0</td></tr>
+          </tbody>
+        </table>
+        <p className={styles.formulaLine}>
+          DraftLens computes:{" "}
+          <code>
+            (50 × Shooting + 30 × Playmaking + 20 × Defense) / 100
+          </code>
+        </p>
+        <p className={styles.body}>
+          Because weights are relative, <code>50 / 30 / 20</code> and{" "}
+          <code>5 / 3 / 2</code> produce identical rankings — only the ratio
+          between weights matters, not their absolute size.
+        </p>
+
+        <h3 className={styles.subTitle}>How to choose weights</h3>
+        <p className={styles.body}>
+          This is UX guidance, not a frozen formula — there is no analytically
+          "correct" weighting, because weights are your team's preference.
+        </p>
+        <ul className={styles.factList}>
+          <li>Essential trait → high weight (a starting point: 50).</li>
+          <li>Matters, but secondary → medium weight (a starting point: 30).</li>
+          <li>Supporting factor → lower weight (a starting point: 20).</li>
+          <li>Doesn't matter for this need → 0.</li>
+        </ul>
+
+        <h3 className={styles.subTitle}>What the result means</h3>
+        <p className={styles.body}>
+          Like the predefined profiles, a custom Fit Score is directly
+          peer-relative on 0-100 — it is a weighted average of dimension
+          scores that are already NCAA peer percentiles, so the result keeps
+          that same absolute meaning. It is not re-ranked against only the
+          prospects you're currently viewing, and it is never a probability
+          of anything.
+        </p>
+      </section>
+
+      {/* 10. NBA Statistical Comparables */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>10. NBA Statistical Comparables</h2>
+        <p className={styles.body}>
+          For each prospect, DraftLens finds the three current NBA players
+          whose statistical role and style most closely resemble theirs,
+          using a normalized six-dimension space shared between NCAA and NBA
+          box scores. The NBA reference pool is recent, meaningfully-used
+          players (2021-2025 seasons, minimum minutes and games).
+        </p>
+        <p className={styles.body}>
+          This is <strong>purely descriptive resemblance</strong>, generated
+          without the system ever seeing what a historical prospect became —
+          never a projection of a prospect's NBA outcome or ceiling. The
+          similarity score is deliberately de-emphasized in the product
+          because it compresses toward the 97-100 range by construction, so a
+          "97" and a "100" are closer in practice than the raw numbers
+          suggest — the ranked order (#1/#2/#3 closest) is the meaningful
+          part, not the score.
+        </p>
+      </section>
+
+      {/* 11. Validation */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>11. Validation</h2>
         <ul className={styles.factList}>
           <li>Methodology was frozen before the final 2026 replay.</li>
           <li>
@@ -80,6 +424,12 @@ export function AboutPage() {
             before any 2026 prospect-level outcome was opened.
           </li>
           <li>No analytical change was made after the holdout was unsealed.</li>
+          <li>
+            All validation uses forward-in-time folds — training on earlier
+            draft classes and evaluating on a later, unseen one. Random
+            splitting is never used, because it would leak future information
+            into training.
+          </li>
         </ul>
         <p className={styles.disclosure}>
           One aggregate, non-matching 2026 diagnostic figure was briefly and
@@ -87,37 +437,19 @@ export function AboutPage() {
           input during preparation, used nowhere, and is recorded in full in
           the project's validation report.
         </p>
-      </section>
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Aggregate results</h2>
         <div className={styles.metricsGrid}>
           <div className={styles.metricGroup}>
             <h3 className={styles.metricGroupTitle}>Historical (2019–2025)</h3>
-            <Metric
-              label="Draft Probability macro ROC-AUC"
-              value={historical.draftProbabilityMacroAuc}
-            />
-            <Metric
-              label="Draft Order macro Spearman"
-              value={historical.draftOrderMacroSpearman}
-            />
-            <Metric
-              label="General Board binary AUC"
-              value={historical.generalBoardBinaryAuc}
-            />
-            <Metric
-              label="General Board graded NDCG"
-              value={historical.generalBoardGradedNdcg}
-            />
+            <Metric label="Draft Probability macro ROC-AUC" value={historical.draftProbabilityMacroAuc} />
+            <Metric label="Draft Order macro Spearman" value={historical.draftOrderMacroSpearman} />
+            <Metric label="General Board binary AUC" value={historical.generalBoardBinaryAuc} />
+            <Metric label="General Board graded NDCG" value={historical.generalBoardGradedNdcg} />
           </div>
           {holdout2026 && (
             <div className={styles.metricGroup}>
               <h3 className={styles.metricGroupTitle}>2026 holdout replay</h3>
-              <Metric
-                label="General Board graded NDCG"
-                value={holdout2026.generalBoardGradedNdcg}
-              />
+              <Metric label="General Board graded NDCG" value={holdout2026.generalBoardGradedNdcg} />
               {holdout2026.supportLabel && (
                 <p className={styles.warning}>
                   Draft Probability's 2026 classification metrics have very
@@ -131,16 +463,100 @@ export function AboutPage() {
         </div>
       </section>
 
-      <p className={styles.note}>{note}</p>
+      {/* 12. Limitations */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>12. Limitations</h2>
+        <ul className={styles.factList}>
+          <li>
+            <strong>Draft Order's exact predicted pick is not shown</strong> —
+            historical error is about 13 picks on a 60-pick draft. Only the
+            ordering is used.
+          </li>
+          <li>
+            <strong>Team Need and NBA Comparables have no ground truth</strong>{" "}
+            to validate against — they're checked for consistency,
+            stability, and transparency instead of predictive accuracy.
+          </li>
+          <li>
+            <strong>The 2026 board covers declared NCAA early entrants
+            only</strong> — not every player technically eligible for the
+            draft, and not international-only prospects, for the reasons
+            explained in "The data" above.
+          </li>
+          <li>
+            <strong>No workouts, medicals, interviews, or team fit
+            information</strong> exist in this data and never will —
+            pre-draft NCAA box scores explain a real but limited share of
+            Draft outcomes.
+          </li>
+          <li>
+            <strong>The 2027 Watchlist is a media-sourced projection</strong>,
+            not an official declaration — see the Watchlist page for exactly
+            what is and isn't computed for it.
+          </li>
+        </ul>
+        <p className={styles.note}>{note}</p>
+      </section>
     </div>
   );
 }
 
-function SummaryCard({ title, body }: { title: string; body: string }) {
+function FormulaBox({ parts, result }: { parts: string[]; result: string }) {
   return (
-    <div className={styles.summaryCard}>
-      <h3 className={styles.summaryTitle}>{title}</h3>
-      <p className={styles.summaryBody}>{body}</p>
+    <div className={styles.formulaBox}>
+      <div className={styles.formulaParts}>
+        {parts.map((p, i) => (
+          <span key={i} className={i % 2 === 1 ? styles.formulaOperator : styles.formulaTerm}>
+            {p}
+          </span>
+        ))}
+      </div>
+      <div className={styles.formulaArrow}>↓</div>
+      <div className={styles.formulaResult}>{result}</div>
+    </div>
+  );
+}
+
+function ArchetypeBlock({
+  name,
+  meaning,
+  metrics,
+  formula,
+  method,
+  why,
+  highMeaning,
+  eligibility,
+}: {
+  name: string;
+  meaning: string;
+  metrics: string[];
+  formula: ReactNode;
+  method: string;
+  why: string;
+  highMeaning: string;
+  eligibility?: string;
+}) {
+  return (
+    <div className={styles.archetypeBlock}>
+      <h3 className={styles.archetypeName}>{name}</h3>
+      <p className={styles.archetypeMeaning}>{meaning}</p>
+      {formula}
+      <dl className={styles.archetypeDetails}>
+        <dt>Metrics used</dt>
+        <dd>{metrics.join(", ")}</dd>
+        <dt>Combination method</dt>
+        <dd>{method}</dd>
+        <dt>Why</dt>
+        <dd>{why}</dd>
+        <dt>A high Fit Score means</dt>
+        <dd>{highMeaning}</dd>
+        {eligibility && (
+          <>
+            <dt>Eligibility</dt>
+            <dd>{eligibility}</dd>
+          </>
+        )}
+      </dl>
     </div>
   );
 }

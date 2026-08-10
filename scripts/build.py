@@ -13,12 +13,16 @@ never built here.
   python scripts/build.py team_need
   python scripts/build.py comparables
 
-Three more stages exist, deliberately excluded from `all` — the one-time 2026
-holdout replay (see src/replay.py) and the public application data export
-(see src/app_export.py), which depends on the replay already having run:
+More stages exist, deliberately excluded from `all` — the one-time 2026
+holdout replay (see src/replay.py), the additional all-declared product board
+(src/declared.py), the 2027 projected watchlist (src/watchlist2027.py), and
+the public application data export (src/app_export.py), which depends on the
+others already having run:
 
   python scripts/build.py replay-2026        # PART A: target-free predictions
   python scripts/build.py replay-2026-eval   # PART B: unseal + evaluate
+  python scripts/build.py declared-2026      # all-declared product board
+  python scripts/build.py watchlist-2027     # 2027 projected watchlist
   python scripts/build.py app-data           # write app/public/data/draftlens_2026.json
 """
 
@@ -171,6 +175,19 @@ def _declared_2026(a):
     return 0
 
 
+def _watchlist_2027(a):
+    import watchlist2027
+    result = watchlist2027.build_watchlist()
+    if result is None:
+        print("  no 2027 watchlist source data acquired — see "
+              "data/raw/draft_watchlist/draft_watchlist_sources_2027.csv")
+        return 1
+    p = result["provenance"]
+    print(f"  watchlist size {p['watchlist_size']} (returning {p['returning']}, "
+          f"incoming {p['incoming']})")
+    return 0
+
+
 def _app_data(a):
     import app_export
     path, digest, n = app_export.write_payload()
@@ -184,6 +201,7 @@ REPLAY_STAGES = {
     "replay-2026": _replay_2026,
     "replay-2026-eval": _replay_2026_eval,
     "declared-2026": _declared_2026,
+    "watchlist-2027": _watchlist_2027,
     "app-data": _app_data,
 }
 

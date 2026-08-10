@@ -11,7 +11,6 @@ import type { CustomDimensionKey, Prospect, ProfileKey, YearAvailable } from "..
 import styles from "./TeamNeedPage.module.css";
 
 type Mode = "predefined" | "custom";
-type Population = "finalEntrants" | "allDeclared";
 
 const EMPTY_WEIGHTS: Weights = {
   shooting: 0,
@@ -21,14 +20,13 @@ const EMPTY_WEIGHTS: Weights = {
   size: 0,
 };
 
-function boardOf(p: Prospect, population: Population) {
-  return population === "finalEntrants" ? p.finalEntrantsBoard : p.declaredBoard;
+function boardOf(p: Prospect) {
+  return p.declaredBoard;
 }
 
 export function TeamNeedPage() {
   const { data, error, loading } = useDraftLensData();
   const [mode, setMode] = useState<Mode>("predefined");
-  const [population, setPopulation] = useState<Population>("finalEntrants");
   const [profile, setProfile] = useState<ProfileKey>("shooter");
   const [weights, setWeights] = useState<Weights>({ ...EMPTY_WEIGHTS, shooting: 70 });
 
@@ -37,8 +35,8 @@ export function TeamNeedPage() {
 
   const eligibleProspects = useMemo(() => {
     if (!available) return [];
-    return available.prospects.filter((p) => boardOf(p, population) !== null);
-  }, [available, population]);
+    return available.prospects.filter((p) => boardOf(p) !== null);
+  }, [available]);
 
   const predefinedResults = useMemo(() => {
     return [...eligibleProspects]
@@ -92,33 +90,6 @@ export function TeamNeedPage() {
         </button>
       </div>
 
-      <div
-        className={styles.populationToggle}
-        role="tablist"
-        aria-label="Population"
-      >
-        <button
-          type="button"
-          role="tab"
-          aria-selected={population === "finalEntrants"}
-          className={styles.popButton}
-          data-active={population === "finalEntrants"}
-          onClick={() => setPopulation("finalEntrants")}
-        >
-          Final entrants
-        </button>
-        <button
-          type="button"
-          role="tab"
-          aria-selected={population === "allDeclared"}
-          className={styles.popButton}
-          data-active={population === "allDeclared"}
-          onClick={() => setPopulation("allDeclared")}
-        >
-          All declared
-        </button>
-      </div>
-
       {mode === "predefined" ? (
         <>
           <div className={styles.chipRow} role="group" aria-label="Choose a profile">
@@ -141,8 +112,8 @@ export function TeamNeedPage() {
               id: p.id,
               name: p.name,
               position: p.position,
-              overallScore: boardOf(p, population)!.overallScore,
-              boardRank: boardOf(p, population)!.rank,
+              overallScore: boardOf(p)!.overallScore,
+              boardRank: boardOf(p)!.rank,
               fitScore: p.profiles[profile].fitScore,
             }))}
             fitColumnLabel="Fit Score"
@@ -172,8 +143,8 @@ export function TeamNeedPage() {
                 id: prospect.id,
                 name: prospect.name,
                 position: prospect.position,
-                overallScore: boardOf(prospect, population)!.overallScore,
-                boardRank: boardOf(prospect, population)!.rank,
+                overallScore: boardOf(prospect)!.overallScore,
+                boardRank: boardOf(prospect)!.rank,
                 fitScore: fit.fitScore,
               }))}
               fitColumnLabel="Custom Fit Score"

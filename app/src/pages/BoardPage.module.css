@@ -36,38 +36,6 @@
   flex-wrap: wrap;
 }
 
-.populationToggle {
-  display: inline-flex;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
-
-.popButton {
-  padding: 7px 14px;
-  font-size: 13.5px;
-  font-weight: 600;
-  background: var(--color-surface);
-  color: var(--color-text-secondary);
-  border: none;
-  cursor: pointer;
-}
-
-.popButton:not(:last-child) {
-  border-right: 1px solid var(--color-border);
-}
-
-.popButton[data-active="true"] {
-  background: var(--color-accent-soft);
-  color: var(--color-accent-strong);
-}
-
-.populationHelp {
-  font-size: 12.5px;
-  color: var(--color-text-tertiary);
-  margin-bottom: 16px;
-}
-
 .tableWrap {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -131,36 +99,6 @@
 
 .school {
   color: var(--color-text-secondary);
-}
-
-.withdrawnBadge {
-  display: inline-block;
-  margin-top: 2px;
-  margin-left: 6px;
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  background: var(--color-surface-alt);
-  border-radius: 999px;
-  padding: 1px 8px;
-}
-
-.insufficientBadge {
-  display: inline-block;
-  margin-top: 2px;
-  margin-left: 6px;
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--color-text-tertiary);
-  background: var(--color-surface-alt);
-  border-radius: 999px;
-  padding: 1px 8px;
-}
-
-.insufficientRow td {
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--color-border);
-  color: var(--color-text-tertiary);
 }
 
 .colRank {

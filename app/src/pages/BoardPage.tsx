@@ -11,8 +11,6 @@ import { PROFILE_LABELS } from "../types/data";
 import type { Prospect, YearAvailable } from "../types/data";
 import styles from "./BoardPage.module.css";
 
-type Population = "finalEntrants" | "allDeclared";
-
 interface TopProfile {
   key: keyof Prospect["profiles"];
   score: number;
@@ -31,18 +29,16 @@ function topProfile(prospect: Prospect): TopProfile | null {
   return candidates.reduce((a, b) => (b.score > a.score ? b : a));
 }
 
-const POPULATION_HELP: Record<Population, string> = {
-  finalEntrants: "Players who remained eligible after the withdrawal deadline.",
-  allDeclared:
-    "All NCAA players who initially filed for early entry, including players who later withdrew.",
-};
-
+/** The single primary 2026 dataset: every scoreable prospect in the 2026 NCAA
+ * Prospect Pool, ranked by their board. Declaration/withdrawal status is kept
+ * in the data (see types/data.ts `populationStatus`) for reproducibility and
+ * audit, but does not drive the normal board experience — DraftLens ranks
+ * basketball evaluation here, not administrative Draft process. */
 export function BoardPage() {
   const { data, error, loading } = useDraftLensData();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [position, setPosition] = useState<PositionValue>("ALL");
-  const [population, setPopulation] = useState<Population>("finalEntrants");
 
   const year2026 = data?.years["2026"];
   const available = year2026?.status === "available" ? (year2026 as YearAvailable) : null;
@@ -50,30 +46,14 @@ export function BoardPage() {
   const prospects = useMemo(() => {
     if (!available) return [];
     return available.prospects
-      .filter((p) =>
-        population === "finalEntrants" ? p.finalEntrantsBoard !== null : p.declaredBoard !== null,
-      )
+      .filter((p) => p.declaredBoard !== null)
       .filter((p) => position === "ALL" || p.position === position)
       .filter((p) => p.name.toLowerCase().includes(query.trim().toLowerCase()))
-      .sort((a, b) => {
-        const ra = (population === "finalEntrants" ? a.finalEntrantsBoard : a.declaredBoard)!.rank;
-        const rb = (population === "finalEntrants" ? b.finalEntrantsBoard : b.declaredBoard)!.rank;
-        return ra - rb;
-      });
-  }, [available, query, position, population]);
-
-  const insufficientData = useMemo(() => {
-    if (!available || population !== "allDeclared") return [];
-    if (position !== "ALL") return [];
-    return available.insufficientDataProspects.filter((p) =>
-      p.name.toLowerCase().includes(query.trim().toLowerCase()),
-    );
-  }, [available, population, position, query]);
+      .sort((a, b) => a.declaredBoard!.rank - b.declaredBoard!.rank);
+  }, [available, query, position]);
 
   if (loading) return <LoadingState />;
   if (error || !data || !available) return <ErrorState message={error ?? "Unknown error"} />;
-
-  const boardOf = (p: Prospect) => (population === "finalEntrants" ? p.finalEntrantsBoard! : p.declaredBoard!);
 
   return (
     <div className="container">
@@ -85,47 +65,18 @@ export function BoardPage() {
       </div>
 
       <div className={styles.boardHead}>
-        <h2 className={styles.boardTitle}>
-          {population === "finalEntrants" ? "2026 General Draft Board" : "2026 All-Declared Board"}
-        </h2>
+        <h2 className={styles.boardTitle}>2026 General Draft Board</h2>
         <p className={styles.boardSub}>
-          {population === "finalEntrants"
-            ? `${available.finalEntrantsCount} declared NCAA early entrants, ranked by Overall Score — Draft Probability × Draft Order quality.`
-            : `${available.scoreableDeclaredCount} NCAA players who initially declared for the 2026 Draft, ranked by Overall Score within this larger pool — an additional exploration, not the evaluated holdout board.`}
+          {available.scoreableDeclaredCount} players in the 2026 NCAA Prospect
+          Pool, ranked by Overall Score — Draft Probability × Draft Order
+          quality.
         </p>
       </div>
 
       <div className={styles.controls}>
-        <div
-          className={styles.populationToggle}
-          role="tablist"
-          aria-label="Population"
-        >
-          <button
-            type="button"
-            role="tab"
-            aria-selected={population === "finalEntrants"}
-            className={styles.popButton}
-            data-active={population === "finalEntrants"}
-            onClick={() => setPopulation("finalEntrants")}
-          >
-            Final entrants
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={population === "allDeclared"}
-            className={styles.popButton}
-            data-active={population === "allDeclared"}
-            onClick={() => setPopulation("allDeclared")}
-          >
-            All declared
-          </button>
-        </div>
         <SearchInput value={query} onChange={setQuery} />
         <PositionFilter value={position} onChange={setPosition} />
       </div>
-      <p className={styles.populationHelp}>{POPULATION_HELP[population]}</p>
 
       <div className={styles.tableWrap}>
         <table className={styles.table}>
@@ -151,7 +102,7 @@ export function BoardPage() {
           </thead>
           <tbody>
             {prospects.map((p) => {
-              const board = boardOf(p);
+              const board = p.declaredBoard!;
               const best = topProfile(p);
               return (
                 <tr
@@ -175,9 +126,6 @@ export function BoardPage() {
                         {PROFILE_LABELS[best.key]}
                       </span>
                     )}
-                    {p.populationStatus === "WITHDRAWN" && (
-                      <span className={styles.withdrawnBadge}>Withdrawn</span>
-                    )}
                   </td>
                   <td className={styles.colHideSm}>
                     <span className={styles.school}>{p.school}</span>
@@ -192,25 +140,7 @@ export function BoardPage() {
                 </tr>
               );
             })}
-            {insufficientData.map((p) => (
-              <tr key={p.id} className={styles.insufficientRow}>
-                <td className={styles.colRank}>—</td>
-                <td>
-                  <span className={styles.name}>{p.name}</span>
-                  <span className={styles.insufficientBadge}>Insufficient data</span>
-                  {p.populationStatus === "WITHDRAWN" && (
-                    <span className={styles.withdrawnBadge}>Withdrawn</span>
-                  )}
-                </td>
-                <td className={styles.colHideSm}>
-                  <span className={styles.school}>{p.school ?? "—"}</span>
-                </td>
-                <td className={styles.colPos}>{p.position ?? "—"}</td>
-                <td className={styles.colScore}>—</td>
-                <td className={styles.colProb}>—</td>
-              </tr>
-            ))}
-            {prospects.length === 0 && insufficientData.length === 0 && (
+            {prospects.length === 0 && (
               <tr>
                 <td colSpan={6} className={styles.empty}>
                   No prospects match this search.

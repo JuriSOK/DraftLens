@@ -46,8 +46,16 @@ export interface ProspectStats {
   blocksPer40: number | null;
   turnoversPer40: number | null;
   threePointPct: number | null;
+  /** Raw 3PA — for flagging thin shooting samples. */
+  threePointAttempts: number | null;
   ftPct: number | null;
+  /** Raw FTA — for flagging thin shooting samples. */
+  ftAttempts: number | null;
   tsPct: number | null;
+  /** Raw FGA — for flagging thin shooting samples (TS% has no frozen
+   * reliability minimum, so this is shown alongside rather than used to
+   * silently exclude anyone; see lib/statThresholds.ts). */
+  fgAttempts: number | null;
   minutesPerGame: number | null;
   gamesPlayed: number | null;
 }
@@ -151,7 +159,44 @@ export interface YearUnavailable {
   reason: string;
 }
 
-export type YearData = YearAvailable | YearUnavailable;
+export interface WatchlistSource {
+  name: string;
+  url: string;
+  publicationDate: string;
+  playersListed: number;
+}
+
+/** A 2027 projected watchlist entry. Never carries a board, Draft
+ * Probability, or Overall Score — see docs/VALIDATION.md and the
+ * Methodology page for why. */
+export interface WatchlistProspect {
+  id: string;
+  name: string;
+  school: string | null;
+  classYear: string | null;
+  /** False for incoming freshmen with no NCAA record yet — every stats/
+   * dimensions/profiles/comparables field below is null in that case, never
+   * fabricated. */
+  hasStats: boolean;
+  stats: ProspectStats | null;
+  dimensions: Dimensions | null;
+  profiles: Profiles | null;
+  coverage: number | null;
+  comparables: Comparable[];
+}
+
+export interface YearWatchlist {
+  status: "watchlist";
+  label: string;
+  consensusRule: string;
+  sources: WatchlistSource[];
+  prospectCount: number;
+  returningCount: number;
+  incomingCount: number;
+  prospects: WatchlistProspect[];
+}
+
+export type YearData = YearAvailable | YearUnavailable | YearWatchlist;
 
 export interface HistoricalValidation {
   developmentPopulation: [number, number, number];
@@ -198,6 +243,22 @@ export const PROFILE_LABELS: Record<ProfileKey, string> = {
   threeAndD: "3&D Wing",
   rimProtector: "Rim Protector",
   stretchBig: "Stretch Big",
+};
+
+/** One-line archetype meaning, derived directly from config/team_need.json's
+ * profile definitions and rationale — not marketing copy. See the
+ * Methodology page for the full formula behind each. */
+export const PROFILE_DESCRIPTIONS: Record<ProfileKey, string> = {
+  shooter:
+    "Efficient AND high-volume perimeter shooting — needs both together, not one covering for the other.",
+  slasher:
+    "Shot diet and finishing at the rim: attempts near the basket, drawing contact, converting, and creating without an assist.",
+  playmaker: "Creating shots for teammates while taking care of the ball.",
+  threeAndD:
+    "Perimeter shooting combined with box-score defensive production (steals and blocks) — needs real strength in both.",
+  rimProtector:
+    "Shot-blocking, defensive rebounding and size together — an interior presence, not just a shot-blocker.",
+  stretchBig: "Frontcourt size combined with real perimeter shooting ability.",
 };
 
 export const DIMENSION_LABELS: Record<keyof Dimensions, string> = {

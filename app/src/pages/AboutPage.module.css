@@ -13,6 +13,15 @@
   color: var(--color-text-secondary);
 }
 
+.introKicker {
+  margin-top: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-tertiary);
+}
+
 .summaryGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -56,6 +65,204 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  max-width: 720px;
+}
+
+.body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  max-width: 720px;
+  margin-top: 10px;
+}
+
+.body:first-of-type {
+  margin-top: 0;
+}
+
+.qa {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  max-width: 720px;
+  margin-top: 10px;
+}
+
+.qa strong {
+  color: var(--color-text);
+}
+
+.example {
+  font-size: 14.5px;
+  line-height: 1.6;
+  max-width: 720px;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-accent-soft);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.techNote {
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+  max-width: 720px;
+  margin-top: 12px;
+}
+
+.subTitle {
+  font-size: 14.5px;
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.contrastGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.contrastCard {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  background: var(--color-surface);
+  font-size: 14px;
+}
+
+.contrastTitle {
+  font-size: 12.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-tertiary);
+  margin-bottom: 4px;
+}
+
+.stepList {
+  margin: 10px 0;
+  padding-left: 20px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 720px;
+}
+
+.exampleTable {
+  margin-top: 10px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  width: 260px;
+}
+
+.exampleTable td {
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.exampleValue {
+  text-align: right;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.formulaLine {
+  font-size: 13.5px;
+  margin-top: 12px;
+  color: var(--color-text-secondary);
+}
+
+.formulaLine code,
+.body code {
+  font-size: 12.5px;
+  background: var(--color-surface-alt);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.formulaBox {
+  margin: 14px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.formulaParts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.formulaTerm {
+  font-size: 13.5px;
+  font-weight: 650;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+}
+
+.formulaOperator {
+  font-size: 15px;
+  color: var(--color-text-tertiary);
+  font-weight: 700;
+}
+
+.formulaArrow {
+  color: var(--color-text-tertiary);
+  font-size: 14px;
+  padding-left: 4px;
+}
+
+.formulaResult {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-accent-strong);
+  background: var(--color-accent-soft);
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+}
+
+.archetypeBlock {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  background: var(--color-surface);
+  margin-bottom: 16px;
+}
+
+.archetypeName {
+  font-size: 16px;
+}
+
+.archetypeMeaning {
+  margin-top: 4px;
+  font-size: 13.5px;
+  color: var(--color-text-secondary);
+}
+
+.archetypeDetails {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.archetypeDetails dt {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-tertiary);
+  margin-top: 10px;
+}
+
+.archetypeDetails dd {
+  margin: 3px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
 }
 
 .disclosure {
@@ -116,7 +323,8 @@
 
 @media (max-width: 640px) {
   .summaryGrid,
-  .metricsGrid {
+  .metricsGrid,
+  .contrastGrid {
     grid-template-columns: 1fr;
   }
 }

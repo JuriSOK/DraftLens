@@ -13,8 +13,13 @@ import {
   formatHeight,
   formatScoreOutOf100,
 } from "../lib/format";
-import { DIMENSION_LABELS, DIMENSION_PEER_GROUP, PROFILE_LABELS } from "../types/data";
-import type { Dimensions, Prospect, YearAvailable } from "../types/data";
+import {
+  DIMENSION_LABELS,
+  DIMENSION_PEER_GROUP,
+  PROFILE_DESCRIPTIONS,
+  PROFILE_LABELS,
+} from "../types/data";
+import type { Dimensions, Prospect, WatchlistProspect } from "../types/data";
 import styles from "./ProspectDetailPage.module.css";
 
 const DIMENSION_ORDER: (keyof Dimensions)[] = [
@@ -26,11 +31,11 @@ const DIMENSION_ORDER: (keyof Dimensions)[] = [
   "rimPressure",
 ];
 
-function strengthsAndWeaknesses(p: Prospect) {
+function strengthsAndWeaknesses(dimensions: Dimensions) {
   const entries = DIMENSION_ORDER.map((key) => ({
     key,
     label: DIMENSION_LABELS[key],
-    value: p.dimensions[key],
+    value: dimensions[key],
   })).filter((e): e is { key: keyof Dimensions; label: string; value: number } =>
     e.value !== null,
   );
@@ -52,6 +57,23 @@ export function ProspectDetailPage() {
   if (loading) return <LoadingState />;
   if (error || !data) return <ErrorState message={error ?? "Unknown error"} />;
 
+  if (id?.startsWith("2027-")) {
+    const year2027 = data.years["2027"];
+    const wp =
+      year2027.status === "watchlist"
+        ? year2027.prospects.find((p) => p.id === id)
+        : undefined;
+    if (!wp) {
+      return (
+        <div className={`container ${styles.notFound}`}>
+          <p>Prospect not found.</p>
+          <Link to="/watchlist">Back to the Watchlist</Link>
+        </div>
+      );
+    }
+    return <WatchlistDetail prospect={wp} />;
+  }
+
   const year2026 = data.years["2026"];
   const prospect =
     year2026.status === "available"
@@ -66,9 +88,12 @@ export function ProspectDetailPage() {
     );
   }
 
-  const { strengths, weaknesses } = strengthsAndWeaknesses(prospect);
-  const board = prospect.finalEntrantsBoard ?? prospect.declaredBoard;
-  const declaredCount = (year2026 as YearAvailable).scoreableDeclaredCount;
+  return <BoardDetail prospect={prospect} />;
+}
+
+function BoardDetail({ prospect }: { prospect: Prospect }) {
+  const { strengths, weaknesses } = strengthsAndWeaknesses(prospect.dimensions);
+  const board = prospect.declaredBoard;
 
   return (
     <div className="container">
@@ -82,18 +107,11 @@ export function ProspectDetailPage() {
           <p className={styles.meta}>
             {prospect.school} · {prospect.position}
           </p>
-          <p className={styles.statusLine}>
-            {prospect.populationStatus === "FINAL_ENTRY"
-              ? "Final early entrant — remained eligible through the withdrawal deadline."
-              : "Declared for the 2026 Draft, then withdrew before the final entry deadline."}
-          </p>
         </div>
         {board && (
           <div className={styles.headerStats}>
             <div className={styles.headerStat}>
-              <span className={styles.headerStatLabel}>
-                {prospect.finalEntrantsBoard ? "Board Rank" : "Declared Board Rank"}
-              </span>
+              <span className={styles.headerStatLabel}>Board Rank</span>
               <span className={styles.headerStatValue}>#{board.rank}</span>
             </div>
             <div className={styles.headerStat}>
@@ -113,13 +131,6 @@ export function ProspectDetailPage() {
         )}
       </header>
 
-      {prospect.finalEntrantsBoard && prospect.declaredBoard && (
-        <p className={styles.declaredNote}>
-          Also ranked #{prospect.declaredBoard.rank} of {declaredCount} in the
-          2026 All-Declared Board (see the Board page).
-        </p>
-      )}
-
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Profile</h2>
         <div className={styles.statsGrid}>
@@ -138,106 +149,213 @@ export function ProspectDetailPage() {
         </div>
       </section>
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          Basketball Profile
-          <MetricTooltip text="These scores show where a prospect ranks relative to NCAA peers. A score of 81 means the prospect ranks higher than about 81% of the reference players for that trait." />
-        </h2>
-        <p className={styles.sectionSub}>Score vs NCAA peers, 0-100</p>
-        <div className={styles.dimensionGrid}>
-          {DIMENSION_ORDER.map((key) => (
-            <PercentileBar
-              key={key}
-              label={DIMENSION_LABELS[key]}
-              value={prospect.dimensions[key]}
-              peerGroup={DIMENSION_PEER_GROUP[key]}
-              hint={
-                key === "defensiveProduction"
-                  ? "Based on steals and blocks; not a complete measure of defensive quality."
-                  : undefined
-              }
-            />
-          ))}
-        </div>
+      <BasketballProfileSection
+        dimensions={prospect.dimensions}
+        strengths={strengths}
+        weaknesses={weaknesses}
+      />
 
-        {(strengths.length > 0 || weaknesses.length > 0) && (
-          <div className={styles.swGrid}>
-            {strengths.length > 0 && (
-              <div>
-                <h3 className={styles.swTitle}>Strengths</h3>
-                <ul className={styles.swList}>
-                  {strengths.map((s) => (
-                    <li key={s.key}>
-                      {s.label}
-                      <br />
-                      {formatScoreOutOf100(s.value)} vs {DIMENSION_PEER_GROUP[s.key] ===
-                      "POSITION"
-                        ? "similar NCAA players"
-                        : "NCAA peers"}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {weaknesses.length > 0 && (
-              <div>
-                <h3 className={styles.swTitle}>Areas below peers</h3>
-                <ul className={styles.swList}>
-                  {weaknesses.map((w) => (
-                    <li key={w.key}>
-                      {w.label}
-                      <br />
-                      {formatScoreOutOf100(w.value)} vs {DIMENSION_PEER_GROUP[w.key] ===
-                      "POSITION"
-                        ? "similar NCAA players"
-                        : "NCAA peers"}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        )}
-      </section>
+      <TeamNeedSection profiles={prospect.profiles} />
 
-      <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>Team Need Fit</h2>
-        <p className={styles.sectionSub}>
-          How strongly this prospect's statistical profile matches each
-          predefined basketball need. Independent of Overall Score.
-        </p>
-        <div className={styles.profileGrid}>
-          {(Object.keys(prospect.profiles) as (keyof typeof prospect.profiles)[]).map(
-            (key) => (
-              <ProfileCard
-                key={key}
-                label={PROFILE_LABELS[key]}
-                fit={prospect.profiles[key]}
-              />
-            ),
-          )}
-        </div>
-      </section>
-
-      {prospect.comparables.length > 0 && (
-        <section className={styles.section}>
-          <h2 className={styles.sectionTitle}>NBA Statistical Comparables</h2>
-          <p className={styles.sectionSub}>
-            Closest NBA statistical profiles in DraftLens's normalized
-            comparison space. Descriptive resemblance, not a projection.
-          </p>
-          <div className={styles.comparableGrid}>
-            {prospect.comparables.map((c) => (
-              <ComparableCard key={c.nbaPlayerName} comparable={c} />
-            ))}
-          </div>
-        </section>
-      )}
+      {prospect.comparables.length > 0 && <ComparablesSection comparables={prospect.comparables} />}
 
       <p className={styles.coverage}>
         Data coverage: {formatPercent(prospect.coverage)}
       </p>
     </div>
+  );
+}
+
+function WatchlistDetail({ prospect }: { prospect: WatchlistProspect }) {
+  return (
+    <div className="container">
+      <Link to="/watchlist" className={styles.back}>
+        ← 2027 Watchlist
+      </Link>
+
+      <header className={styles.header}>
+        <div>
+          <h1 className={styles.name}>{prospect.name}</h1>
+          <p className={styles.meta}>
+            {prospect.school ?? "—"}
+            {prospect.classYear ? ` · ${prospect.classYear}` : ""}
+          </p>
+          <span className={styles.projectedBadge}>Projected — not an official Draft entrant</span>
+        </div>
+      </header>
+
+      {!prospect.hasStats || !prospect.stats ? (
+        <div className={styles.noStats}>
+          NCAA stats available after the 2026-27 season begins.
+        </div>
+      ) : (
+        <>
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Profile</h2>
+            <div className={styles.statsGrid}>
+              <Stat label="Height" value={formatHeight(prospect.stats.heightInches)} />
+              <Stat label="MIN/G" value={formatDecimal(prospect.stats.minutesPerGame)} />
+              <Stat label="GP" value={formatInt(prospect.stats.gamesPlayed)} />
+              <Stat label="PTS/40 min" value={formatDecimal(prospect.stats.pointsPer40)} />
+              <Stat label="REB/40 min" value={formatDecimal(prospect.stats.reboundsPer40)} />
+              <Stat label="AST/40 min" value={formatDecimal(prospect.stats.assistsPer40)} />
+              <Stat label="STL/40 min" value={formatDecimal(prospect.stats.stealsPer40)} />
+              <Stat label="BLK/40 min" value={formatDecimal(prospect.stats.blocksPer40)} />
+              <Stat label="TOV/40 min" value={formatDecimal(prospect.stats.turnoversPer40)} />
+              <Stat label="3P%" value={formatPercent(prospect.stats.threePointPct)} />
+              <Stat label="FT%" value={formatPercent(prospect.stats.ftPct)} />
+              <Stat label="TS%" value={formatPercent(prospect.stats.tsPct)} />
+            </div>
+            <p className={styles.noteSmall}>
+              Stats are from the 2025-26 NCAA season (their most recent
+              completed season). No Draft Probability, Draft Order or Overall
+              Score is computed for 2027 watchlist players.
+            </p>
+          </section>
+
+          {prospect.dimensions && (
+            <BasketballProfileSection
+              dimensions={prospect.dimensions}
+              strengths={strengthsAndWeaknesses(prospect.dimensions).strengths}
+              weaknesses={strengthsAndWeaknesses(prospect.dimensions).weaknesses}
+            />
+          )}
+
+          {prospect.profiles && <TeamNeedSection profiles={prospect.profiles} />}
+
+          {prospect.comparables.length > 0 && (
+            <ComparablesSection comparables={prospect.comparables} />
+          )}
+
+          <p className={styles.coverage}>
+            Data coverage: {formatPercent(prospect.coverage)}
+          </p>
+        </>
+      )}
+    </div>
+  );
+}
+
+function BasketballProfileSection({
+  dimensions,
+  strengths,
+  weaknesses,
+}: {
+  dimensions: Dimensions;
+  strengths: ReturnType<typeof strengthsAndWeaknesses>["strengths"];
+  weaknesses: ReturnType<typeof strengthsAndWeaknesses>["weaknesses"];
+}) {
+  return (
+    <section className={styles.section}>
+      <h2 className={styles.sectionTitle}>
+        Basketball Profile
+        <MetricTooltip text="These scores show where a prospect ranks relative to NCAA peers. A score of 81 means the prospect ranks higher than about 81% of the reference players for that trait." />
+      </h2>
+      <p className={styles.sectionSub}>Score vs NCAA peers, 0-100</p>
+      <div className={styles.dimensionGrid}>
+        {DIMENSION_ORDER.map((key) => (
+          <PercentileBar
+            key={key}
+            label={DIMENSION_LABELS[key]}
+            value={dimensions[key]}
+            peerGroup={DIMENSION_PEER_GROUP[key]}
+            hint={
+              key === "defensiveProduction"
+                ? "Based on steals and blocks; not a complete measure of defensive quality."
+                : undefined
+            }
+          />
+        ))}
+      </div>
+
+      {(strengths.length > 0 || weaknesses.length > 0) && (
+        <div className={styles.swGrid}>
+          {strengths.length > 0 && (
+            <div>
+              <h3 className={styles.swTitle}>Strengths</h3>
+              <ul className={styles.swList}>
+                {strengths.map((s) => (
+                  <li key={s.key}>
+                    {s.label}
+                    <br />
+                    {formatScoreOutOf100(s.value)} vs{" "}
+                    {DIMENSION_PEER_GROUP[s.key] === "POSITION"
+                      ? "similar NCAA players"
+                      : "NCAA peers"}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {weaknesses.length > 0 && (
+            <div>
+              <h3 className={styles.swTitle}>Areas below peers</h3>
+              <ul className={styles.swList}>
+                {weaknesses.map((w) => (
+                  <li key={w.key}>
+                    {w.label}
+                    <br />
+                    {formatScoreOutOf100(w.value)} vs{" "}
+                    {DIMENSION_PEER_GROUP[w.key] === "POSITION"
+                      ? "similar NCAA players"
+                      : "NCAA peers"}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function TeamNeedSection({ profiles }: { profiles: Prospect["profiles"] }) {
+  return (
+    <section className={styles.section}>
+      <h2 className={styles.sectionTitle}>Team Need Fit</h2>
+      <p className={styles.sectionSub}>
+        Team Need Fit compares this player's statistical profile with each
+        basketball archetype. A higher score means the player's measured
+        NCAA traits align more strongly with that role — independent of
+        Overall Score, which asks a different question (who should be
+        drafted highest overall, not who fits a specific role).
+      </p>
+      <p className={styles.sectionSub}>
+        Each score is 0-100 and directly peer-relative: 84 means this
+        player's profile for that archetype ranks higher than about 84% of
+        NCAA peers — it does not get re-ranked against only this prospect
+        pool. See the Methodology page for exactly how each archetype is
+        calculated.
+      </p>
+      <div className={styles.profileGrid}>
+        {(Object.keys(profiles) as (keyof typeof profiles)[]).map((key) => (
+          <ProfileCard
+            key={key}
+            label={PROFILE_LABELS[key]}
+            description={PROFILE_DESCRIPTIONS[key]}
+            fit={profiles[key]}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ComparablesSection({ comparables }: { comparables: Prospect["comparables"] }) {
+  return (
+    <section className={styles.section}>
+      <h2 className={styles.sectionTitle}>NBA Statistical Comparables</h2>
+      <p className={styles.sectionSub}>
+        Closest NBA statistical profiles in DraftLens's normalized comparison
+        space. Descriptive resemblance, not a projection.
+      </p>
+      <div className={styles.comparableGrid}>
+        {comparables.map((c) => (
+          <ComparableCard key={c.nbaPlayerName} comparable={c} />
+        ))}
+      </div>
+    </section>
   );
 }
 
