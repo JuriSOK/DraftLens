@@ -262,8 +262,18 @@ class TestDraftSizes(unittest.TestCase):
             sizes = d.draft_year.map(SIZES)
             self.assertTrue((d.pick <= sizes).all())
 
-    def test_holdout_year_absent_from_draft_sizes(self):
-        self.assertNotIn(HOLDOUT_YEAR, SIZES)
+    def test_holdout_year_draft_size_is_structural_not_outcome_derived(self):
+        """2026 IS present as of the designated holdout replay (FINAL-1) — a
+        structural fact about the draft (total picks league-wide), not
+        derived from which of DraftLens's 26 NCAA early entrants were
+        drafted. The provenance note must say so explicitly."""
+        import json
+        from paths import CONFIG
+        cfg = json.loads((CONFIG / "board.json").read_text())
+        self.assertIn(HOLDOUT_YEAR, SIZES)
+        joined = " ".join(cfg["draft_size_provenance"])
+        self.assertIn("2026", joined)
+        self.assertIn("NOT derived from how many", joined)
 
     def test_sizes_are_plausible_draft_lengths(self):
         for y, s in SIZES.items():

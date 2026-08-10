@@ -12,6 +12,12 @@ never built here.
   python scripts/build.py features --reference
   python scripts/build.py team_need
   python scripts/build.py comparables
+
+Two more stages exist, deliberately excluded from `all` — the one-time 2026
+holdout replay (see src/replay.py):
+
+  python scripts/build.py replay-2026        # PART A: target-free predictions
+  python scripts/build.py replay-2026-eval   # PART B: unseal + evaluate
 """
 
 import argparse
@@ -140,10 +146,33 @@ STAGES = {
     "comparables": lambda a: build_comparables(a.ncaa_years, a.representation),
 }
 
+# NOT included in "all" — these are explicit, one-time actions that must never
+# fire by accident from a normal `python scripts/build.py` run. replay-2026
+# generates the 2026 product output without touching any 2026 outcome;
+# replay-2026-eval unseals the outcome and evaluates, and refuses to run
+# unless replay-2026 already froze and hashed its predictions.
+def _replay_2026(a):
+    import replay
+    replay.generate()
+    return 0
+
+
+def _replay_2026_eval(a):
+    import replay
+    replay.evaluate()
+    return 0
+
+
+REPLAY_STAGES = {
+    "replay-2026": _replay_2026,
+    "replay-2026-eval": _replay_2026_eval,
+}
+
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("stage", nargs="?", default="all", choices=["all", *STAGES])
+    ap.add_argument("stage", nargs="?", default="all",
+                    choices=["all", *STAGES, *REPLAY_STAGES])
     ap.add_argument("--years", default=None,
                     help="dataset: restrict the build, e.g. 2014-2025")
     ap.add_argument("--reference", action="store_true",
@@ -153,6 +182,9 @@ def main():
     ap.add_argument("--representation", default="RECENT_MULTI_SEASON",
                     choices=["LATEST_SEASON", "RECENT_MULTI_SEASON", "CAREER"])
     a = ap.parse_args()
+
+    if a.stage in REPLAY_STAGES:
+        return REPLAY_STAGES[a.stage](a)
 
     wanted = list(STAGES) if a.stage == "all" else [a.stage]
     for name in wanted:

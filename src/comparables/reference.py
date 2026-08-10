@@ -182,11 +182,18 @@ def build_ncaa_reference(years, metrics=None, min_minutes=NCAA_MIN_MINUTES,
 
     Built by the same `_season_frame` the Team Need reference uses, so a
     prospect's value and its peer group are produced by identical code.
+
+    2026 is deliberately permitted in `years` as of the designated 2026
+    holdout replay: this function reads only box-score data (`_season_frame`
+    never opens a targets file), so including season 2026 here is "who else
+    played college basketball that season" — the same category of fact as
+    any other season, not a draft outcome. The guard against 2026 is where it
+    actually matters: `data.build.load_development` and the NBA reference
+    window (`REFERENCE_SEASONS`, unchanged) still structurally exclude it.
     """
     from comparables.space import COMMON_METRICS
     from team_need.reference import _season_frame
     metrics = metrics if metrics is not None else COMMON_METRICS
-    assert HOLDOUT_YEAR not in set(years), "HOLDOUT GUARD: 2026 in the reference"
 
     frames = []
     for y in years:

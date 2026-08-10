@@ -292,16 +292,30 @@ training years only, refit fresh inside every fold.
 
 ## 7. The 2026 holdout
 
-2026 is a sealed holdout. No 2026 target has ever been loaded, no 2026
-prediction has ever been generated for the General Board, Team Need, or NBA
-Comparables, and no 2026 pick has been inspected. The firewall is structural,
+**The methodology described above was frozen — tagged `analytics-freeze-pre-2026`
+on commit `bed3c43` — before any 2026 outcome was opened.** 2026 has since
+been used exactly once, as the final holdout evaluation (`src/replay.py`,
+`docs/VALIDATION.md` §"2026 final holdout replay"): the frozen models were
+fit on 2014–2025, applied to the 26 2026 NCAA early entrants, and the complete
+product output was generated, written and SHA-256-hashed before any 2026
+draft outcome was loaded. Only after that freeze were the actual outcomes
+opened, joined against the frozen predictions in a separate evaluation file,
+and the prediction file's hash re-verified unchanged. **No model,
+hyperparameter, feature, formula, or score was changed after 2026 outcomes
+were seen.**
+
+The firewall that made this possible during development remains structural,
 not a convention: `data.build.load_development`, `load_draft_order`, and
-`validation.assert_no_holdout` raise if 2026 reaches them; `scripts/build.py`,
-`scripts/demo.py` and `src/board/scoring.py` refuse the year outright; and
-`tests/integration/test_frozen_anchors.py::TestHoldoutFirewall` and every
-domain's `validate()` assert its absence from every population, reference and
-generated artifact. Opening it is the designated next phase — the final
-product replay — and happens only on explicit instruction.
+`validation.assert_no_holdout` still raise if 2026 reaches an ordinary
+training or evaluation path; `scripts/demo.py` still refuses the year
+outright. The rule is no longer "2026 cannot be scored" — it is **"2026
+scoring is possible only through the explicit, one-time, auditable replay in
+`src/replay.py`; actual 2026 outcomes are evaluation-only and were opened
+exactly once."** `scripts/build.py replay-2026` (predict, freeze, hash) and
+`scripts/build.py replay-2026-eval` (unseal, evaluate) are deliberately
+excluded from the ordinary `scripts/build.py` (`all`) run, so a normal build
+can never re-trigger either step. The methodology is now closed to further
+tuning; the next phase is application integration.
 
 See `docs/VALIDATION.md` for the evidence behind every methodology choice
 above.

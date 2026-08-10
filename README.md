@@ -67,11 +67,22 @@ resemble theirs — purely descriptive resemblance, never a projection.
 | **General Draft Board** (Draft Probability + Draft Order + Overall Score) | ✅ frozen |
 | **Team Need** | ✅ frozen |
 | **NBA Statistical Comparables** | ✅ frozen |
+| **2026 final holdout replay** | ✅ complete |
 | Web application | 🚧 not started |
 
 **There is no application yet** — this repository is the analytical core. All
-three product systems are frozen and reproducible on historical classes; the
-2026 holdout is sealed until the designated replay phase.
+three product systems are frozen, reproducible on historical classes, and
+have now completed their one-time 2026 holdout evaluation.
+
+### 2026 holdout, in brief
+
+Methodology frozen (tag `analytics-freeze-pre-2026`, commit `bed3c43`) before
+any 2026 outcome was opened. Predictions for all 26 2026 NCAA early entrants
+were generated, written, and SHA-256-hashed first; the actual results were
+loaded only afterward, and the prediction file's hash was re-verified
+unchanged both immediately after and at the end of evaluation. Full method,
+numbers, and honest limitations (a 96.2%-drafted class provides little
+discrimination signal) are in `docs/VALIDATION.md`.
 
 ### Where it currently stands, honestly
 
