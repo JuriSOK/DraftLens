@@ -1,171 +1,281 @@
+/* The landing page is the ONE dark surface in DraftLens. Product pages stay
+   light and data-first; this page is the entry impression, so it carries a
+   deep charcoal + basketball-orange identity of its own. All tokens are
+   local to this module — the product palette is untouched. */
 .page {
+  --dl-ink: #14100e;
+  --dl-ink-soft: #1e1815;
+  --dl-line: rgba(255, 255, 255, 0.1);
+  --dl-orange: #ff8c4a;
+  --dl-orange-deep: #c4531d;
+  --dl-text: #f6f1ec;
+  --dl-text-dim: #b3a79f;
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.header {
-  padding: 20px 24px;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 17px;
-  font-weight: 750;
-  letter-spacing: -0.01em;
-}
-
-.brandMark {
-  width: 10px;
-  height: 10px;
-  border-radius: 3px;
-  background: var(--color-accent);
+  background:
+    radial-gradient(1100px 620px at 78% 12%, rgba(196, 83, 29, 0.28), transparent 62%),
+    radial-gradient(760px 520px at 8% 88%, rgba(255, 140, 74, 0.1), transparent 60%),
+    var(--dl-ink);
+  color: var(--dl-text);
 }
 
 .hero {
   flex: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 24px 20px 48px;
-  max-width: 760px;
+  padding: 56px 24px 40px;
+}
+
+.heroInner {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: 48px;
+  align-items: center;
+}
+
+.content {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dl-orange);
+  border: 1px solid rgba(255, 140, 74, 0.28);
+  background: rgba(255, 140, 74, 0.07);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--dl-orange);
+  box-shadow: 0 0 8px rgba(255, 140, 74, 0.9);
 }
 
 .title {
-  font-size: 44px;
-  letter-spacing: -0.02em;
+  margin-top: 22px;
+  font-size: clamp(38px, 5.4vw, 68px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 750;
+  color: var(--dl-text);
+}
+
+.titleAccent {
+  color: var(--dl-orange);
 }
 
 .tagline {
-  margin-top: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.sub {
-  margin-top: 10px;
-  font-size: 15px;
-  color: var(--color-text-secondary);
-  max-width: 520px;
+  margin-top: 18px;
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--dl-text-dim);
+  max-width: 460px;
 }
 
 .ctaRow {
   display: flex;
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 30px;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .primaryCta {
-  background: var(--color-accent);
-  border: 1px solid var(--color-accent);
+  background: linear-gradient(135deg, #ff8c4a, #c4531d);
+  border: none;
   color: #fff;
-  font-size: 14.5px;
-  font-weight: 650;
-  padding: 12px 24px;
-  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 14px 30px;
+  border-radius: 10px;
+  box-shadow: 0 8px 26px rgba(196, 83, 29, 0.38);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .primaryCta:hover {
-  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(196, 83, 29, 0.5);
 }
 
 .secondaryCta {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  font-size: 14.5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--dl-line);
+  color: var(--dl-text);
+  font-size: 15px;
   font-weight: 650;
-  padding: 12px 24px;
-  border-radius: var(--radius-md);
+  padding: 14px 26px;
+  border-radius: 10px;
+  transition: background 0.12s ease, border-color 0.12s ease;
 }
 
 .secondaryCta:hover {
-  background: var(--color-surface-alt);
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 140, 74, 0.4);
+}
+
+.statStrip {
+  display: flex;
+  align-items: flex-end;
+  gap: 22px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--dl-line);
+  flex-wrap: wrap;
+}
+
+.statChip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.statValue {
+  font-size: 24px;
+  font-weight: 750;
+  color: var(--dl-text);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dl-text-dim);
+}
+
+.statSpark {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.visualWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
 }
 
 .capabilities {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 48px;
+  gap: 14px;
   width: 100%;
 }
 
 .capabilityCard {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background: var(--color-surface);
-  padding: 18px 16px;
-  text-align: left;
+  border: 1px solid var(--dl-line);
+  border-radius: 12px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.045),
+    rgba(255, 255, 255, 0.015)
+  );
+  padding: 20px 18px;
+  transition: border-color 0.14s ease, transform 0.14s ease;
+}
+
+.capabilityCard:hover {
+  border-color: rgba(255, 140, 74, 0.36);
+  transform: translateY(-2px);
 }
 
 .capabilityTitle {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--color-accent-strong);
+  letter-spacing: 0.08em;
+  color: var(--dl-orange);
 }
 
 .capabilityBody {
-  margin-top: 6px;
+  margin-top: 8px;
   font-size: 13.5px;
-  color: var(--color-text-secondary);
-  line-height: 1.45;
-}
-
-.statsLink {
-  display: inline-block;
-  margin-top: 20px;
-  font-size: 13px;
-  color: var(--color-text-tertiary);
-  text-decoration: none;
-}
-
-.statsLink:hover {
-  color: var(--color-accent-strong);
+  line-height: 1.5;
+  color: var(--dl-text-dim);
 }
 
 .footer {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  padding: 16px 24px;
+  gap: 12px;
+  padding: 18px 24px 24px;
+  border-top: 1px solid var(--dl-line);
   font-size: 12.5px;
-  color: var(--color-text-tertiary);
+  color: var(--dl-text-dim);
 }
 
 .footerLink {
   text-decoration: none;
-  color: var(--color-text-tertiary);
+  color: var(--dl-text-dim);
 }
 
 .footerLink:hover {
-  color: var(--color-accent-strong);
+  color: var(--dl-orange);
 }
 
-@media (max-width: 640px) {
-  .title {
-    font-size: 32px;
+@media (max-width: 900px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+    gap: 28px;
   }
-  .tagline {
-    font-size: 15.5px;
+  .visualWrap {
+    order: -1;
+  }
+  .visualWrap svg {
+    max-width: 340px;
   }
   .capabilities {
     grid-template-columns: 1fr;
   }
+}
+
+@media (max-width: 560px) {
+  .hero {
+    padding: 32px 20px 28px;
+  }
+  .tagline {
+    font-size: 15px;
+  }
   .ctaRow {
     flex-direction: column;
-    width: 100%;
   }
   .primaryCta,
   .secondaryCta {
     width: 100%;
+  }
+  .statStrip {
+    gap: 18px;
+  }
+  .statValue {
+    font-size: 20px;
+  }
+  .visualWrap svg {
+    max-width: 260px;
+  }
+  .footer {
+    flex-direction: column;
+    gap: 6px;
   }
 }

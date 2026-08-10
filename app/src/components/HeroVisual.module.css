@@ -1,0 +1,32 @@
+.visual {
+  width: 100%;
+  height: auto;
+  max-width: 560px;
+  display: block;
+}
+
+.ball {
+  transform-origin: 260px 240px;
+}
+
+.spark {
+  width: 96px;
+  height: 28px;
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ball {
+    animation: dl-drift 14s ease-in-out infinite;
+  }
+}
+
+@keyframes dl-drift {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(3deg);
+  }
+}

@@ -16,7 +16,11 @@ export function Layout() {
     <div className={styles.shell}>
       <header className={styles.header}>
         <div className={`container ${styles.headerInner}`}>
-          <Link to="/" className={styles.brand}>
+          {/* Inside the product, the Board is home — the landing page at "/"
+             is only the entry screen, so the brand never navigates back to
+             it. Layout wraps every in-app route, so this is the single
+             definition of that behaviour. */}
+          <Link to="/board" className={styles.brand}>
             <span className={styles.brandMark} aria-hidden="true" />
             DraftLens
           </Link>
