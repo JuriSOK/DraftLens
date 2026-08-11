@@ -17,6 +17,10 @@
   Built for the <strong>AQX Sports Analytics Data Bowl 3.0</strong>.
 </p>
 
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
+</p>
+
 ---
 
 ## Short project description
@@ -390,6 +394,15 @@ It does not include interviews, medical evaluations, private scouting reports or
 Draft Probability is validated specifically on declared NCAA early entrants, so Dataset Lab only exposes the full Board when the uploaded population is methodologically compatible.
 
 DraftLens should therefore be used as **one structured analytical input in a broader scouting process**.
+
+---
+
+## License
+
+DraftLens's own code is released under the **[MIT License](LICENSE)**. The
+underlying NCAA/NBA data keeps its own source licences (CC BY / CC BY-SA /
+CC0) — see [Data sources](#data-sources) — which the MIT grant does not
+extend to.
 
 ---
 
